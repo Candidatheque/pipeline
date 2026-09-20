@@ -12,8 +12,12 @@
 #               de saisie en erreur de validation.
 #
 # Volontairement minimal. Chaque champ ajouté ici devra être maintenu à la main
-# sur les onze élections, de 1965 à 2022 ; tout ce qui peut être collecté le
+# sur les douze élections, de 1965 à 2027 ; tout ce qui peut être collecté le
 # sera ailleurs.
+#
+# PR-2027 n'a pas encore eu lieu : l'entrée existe pour que les candidatures
+# puissent s'y rattacher, mais aucune source ne publiera de résultats avant le
+# scrutin.
 
 elections:
   - id: "PR-1965"
@@ -38,3 +42,5 @@ elections:
     annee: 2017
   - id: "PR-2022"
     annee: 2022
+  - id: "PR-2027"
+    annee: 2027

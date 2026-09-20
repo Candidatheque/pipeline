@@ -48,7 +48,7 @@ def test_l_index_est_conforme_a_son_schema(destination):
 
 def test_l_index_liste_toutes_les_elections(destination):
     index = _charge(destination / INDEX_FILE)
-    assert len(index["elections"]) == 11
+    assert len(index["elections"]) == 12
     assert index["elections"][0] == {"id": "PR-1965", "annee": 1965}
     assert [e["annee"] for e in index["elections"]] == sorted(
         e["annee"] for e in index["elections"]

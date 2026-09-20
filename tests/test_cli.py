@@ -7,14 +7,14 @@ from candidatheque.pipeline.cli import main
 
 def test_valider_reussit_sur_le_seed_du_depot(capsys):
     assert main(["valider"]) == 0
-    assert "11 élections" in capsys.readouterr().out
+    assert "12 élections" in capsys.readouterr().out
 
 
 def test_lister_affiche_chaque_election(capsys):
     assert main(["lister"]) == 0
     lignes = capsys.readouterr().out.splitlines()
-    assert len(lignes) == 11
-    assert lignes[-1].split() == ["PR-2022", "2022"]
+    assert len(lignes) == 12
+    assert lignes[-1].split() == ["PR-2027", "2027"]
 
 
 def test_publier_ecrit_dans_la_destination_demandee(tmp_path, capsys):
