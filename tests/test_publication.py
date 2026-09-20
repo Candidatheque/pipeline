@@ -29,8 +29,22 @@ def elections_du_seed():
     return load_elections()
 
 
+@pytest.fixture(scope="module")
+def destination(tmp_path_factory):
+    """Un dépôt publié une fois, partagé par les tests qui ne le modifient pas.
+
+    Publier écrit une quinzaine de mégaoctets, dont les 60 723 parrainages ; le
+    refaire à chaque test faisait passer ce module de dix à quatre-vingts
+    secondes.
+    """
+    racine = tmp_path_factory.mktemp("depot")
+    publier(racine)
+    return racine
+
+
 @pytest.fixture
-def destination(tmp_path):
+def depot_modifiable(tmp_path):
+    """Un dépôt à soi, pour les tests qui y touchent avant de republier."""
     publier(tmp_path)
     return tmp_path
 
@@ -97,36 +111,36 @@ def test_le_schema_reference_depuis_les_donnees_existe(destination):
     assert (index.parent / _charge(index)["$schema"]).resolve().is_file()
 
 
-def test_une_seconde_publication_ne_reecrit_rien(destination):
-    assert {e.statut for e in publier(destination)} == {Statut.INCHANGE}
+def test_une_seconde_publication_ne_reecrit_rien(depot_modifiable):
+    assert {e.statut for e in publier(depot_modifiable)} == {Statut.INCHANGE}
 
 
-def test_un_repertoire_obsolete_est_supprime(destination):
-    obsolete = destination / ELECTIONS_DIR / "PR-1900"
+def test_un_repertoire_obsolete_est_supprime(depot_modifiable):
+    obsolete = depot_modifiable / ELECTIONS_DIR / "PR-1900"
     obsolete.mkdir()
     (obsolete / ELECTION_FILE).write_text("{}", encoding="utf-8")
 
-    ecritures = publier(destination)
+    ecritures = publier(depot_modifiable)
 
     assert not obsolete.exists()
     assert [e.chemin for e in ecritures if e.statut is Statut.SUPPRIME] == [obsolete]
 
 
-def test_une_modification_est_detectee(destination):
-    cible = destination / ELECTIONS_DIR / "PR-2012" / ELECTION_FILE
+def test_une_modification_est_detectee(depot_modifiable):
+    cible = depot_modifiable / ELECTIONS_DIR / "PR-2012" / ELECTION_FILE
     cible.write_text("{}", encoding="utf-8")
 
-    modifies = [e.chemin for e in publier(destination) if e.statut is Statut.MODIFIE]
+    modifies = [e.chemin for e in publier(depot_modifiable) if e.statut is Statut.MODIFIE]
 
     assert modifies == [cible]
 
 
-def test_un_document_orphelin_est_supprime(destination):
+def test_un_document_orphelin_est_supprime(depot_modifiable):
     """Un sujet qui cesse d'être produit ne doit pas rester dans `data`."""
-    orphelin = destination / ELECTIONS_DIR / "PR-2012" / "parrainages.json"
+    orphelin = depot_modifiable / ELECTIONS_DIR / "PR-2012" / "parrainages.json"
     orphelin.write_text('{"election": "PR-2012"}', encoding="utf-8")
 
-    ecritures = publier(destination)
+    ecritures = publier(depot_modifiable)
 
     assert not orphelin.exists()
     assert [e.chemin for e in ecritures if e.statut is Statut.SUPPRIME] == [orphelin]
@@ -216,3 +230,130 @@ def test_les_partis_sont_publies_avec_leur_nom(destination):
     ]
     assert all(p["id"].startswith("PA-") for p in melenchon["partis"])
     assert all(p["sources"] for p in melenchon["partis"])
+
+
+class TestParrainages:
+    """Les parrainages publiés, candidat par candidat."""
+
+    @pytest.fixture(scope="class")
+    @classmethod
+    def sources_du_seed(cls):
+        from candidatheque.pipeline.seeds.parrainages import load_parrainages
+
+        return {source.election: source for source in load_parrainages()}
+
+    def _documents(self, destination, election):
+        racine = destination / ELECTIONS_DIR / election / "candidats"
+        return sorted(racine.glob("*/parrainages.json"))
+
+    def test_un_document_par_candidat(self, destination, sources_du_seed):
+        """Un consommateur qui suit un candidat ne télécharge pas les autres."""
+        for election, source in sources_du_seed.items():
+            attendus = {candidat.personne for candidat in source.candidats if candidat.personne}
+            publies = {chemin.parent.name for chemin in self._documents(destination, election)}
+            assert publies <= attendus, election
+            assert publies, election
+
+    def test_les_documents_sont_conformes_a_leur_schema(self, destination):
+        valideur = _valideur("parrainages.schema.json")
+        racine = destination / ELECTIONS_DIR
+        documents_publies = sorted(racine.glob("*/candidats/*/parrainages.json"))
+        assert len(documents_publies) > 100
+        for chemin in documents_publies:
+            valideur.validate(_charge(chemin))
+
+    def test_le_document_des_non_candidats_est_conforme(self, destination):
+        valideur = _valideur("parrainages-sans-candidature.schema.json")
+        racine = destination / ELECTIONS_DIR
+        documents_publies = sorted(racine.glob("*/parrainages-sans-candidature.json"))
+        assert len(documents_publies) == 2, "2017 et 2022 seules en produisent"
+        for chemin in documents_publies:
+            valideur.validate(_charge(chemin))
+
+    def test_le_schema_reference_depuis_les_donnees_existe(self, destination):
+        for motif in ("*/candidats/*/parrainages.json", "*/parrainages-sans-candidature.json"):
+            for chemin in (destination / ELECTIONS_DIR).glob(motif):
+                cible = (chemin.parent / _charge(chemin)["$schema"]).resolve()
+                assert cible.is_file(), chemin
+
+    def test_chaque_liste_tiree_au_sort_compte_ses_cinq_cents_noms(
+        self, destination, sources_du_seed
+    ):
+        """L'exhaustivité tient jusque dans les fichiers publiés.
+
+        La vérifier à la lecture ne suffit pas : c'est ce qui sort du dépôt qui
+        engage le projet.
+        """
+        for election, source in sources_du_seed.items():
+            if source.etendue.value != "tirage-au-sort":
+                continue
+            for chemin in self._documents(destination, election):
+                publie = _charge(chemin)
+                assert len(publie["parrainages"]) == 500, chemin
+
+    def test_l_etendue_est_publiee(self, destination):
+        """Sans elle, compter les lignes de 2007 donne un total faux."""
+        for chemin in (destination / ELECTIONS_DIR).glob("*/candidats/*/parrainages.json"):
+            assert _charge(chemin)["etendue"] in {"integrale", "tirage-au-sort"}
+
+    def test_chaque_date_renvoie_a_une_publication_declaree(self, destination):
+        for chemin in (destination / ELECTIONS_DIR).glob("*/candidats/*/parrainages.json"):
+            publie = _charge(chemin)
+            dates = {publication["date"] for publication in publie["publications"]}
+            portees = {
+                parrainage["publie_le"]
+                for parrainage in publie["parrainages"]
+                if "publie_le" in parrainage
+            }
+            assert portees <= dates, chemin
+
+    def test_aucun_parrainage_n_est_perdu(self, destination, sources_du_seed):
+        """Ce qui est lu est publié, dans un document ou dans l'autre."""
+        from candidatheque.pipeline.lecture.parrainages import lire
+
+        racine = destination / ELECTIONS_DIR
+        for election, source in sources_du_seed.items():
+            publies = sum(
+                len(_charge(chemin)["parrainages"])
+                for chemin in self._documents(destination, election)
+            )
+            hors = racine / election / "parrainages-sans-candidature.json"
+            if hors.is_file():
+                publies += sum(
+                    len(beneficiaire["parrainages"])
+                    for beneficiaire in _charge(hors)["beneficiaires"]
+                )
+            assert publies == len(lire(source)), election
+
+    def test_un_non_candidat_connu_du_registre_porte_son_identifiant(self, destination):
+        """François HOLLANDE a reçu des présentations sans être candidat."""
+        publie = _charge(
+            destination / ELECTIONS_DIR / "PR-2022" / "parrainages-sans-candidature.json"
+        )
+        hollande = next(
+            b for b in publie["beneficiaires"] if b["nom_source"] == "HOLLANDE François"
+        )
+        assert hollande["personne"] == "PE-0065"
+        assert hollande["nom_complet"] == "François HOLLANDE"
+
+    def test_un_non_candidat_absent_du_registre_n_a_pas_d_identifiant(self, destination):
+        """Thomas PESQUET n'a jamais été candidat : il n'est pas au registre."""
+        publie = _charge(
+            destination / ELECTIONS_DIR / "PR-2022" / "parrainages-sans-candidature.json"
+        )
+        pesquet = next(b for b in publie["beneficiaires"] if b["nom_source"] == "PESQUET Thomas")
+        assert "personne" not in pesquet
+
+    def test_une_election_sans_parrainages_ne_publie_pas_de_repertoire(self, destination):
+        """Avant la loi organique de 1976, les listes n'étaient pas publiées."""
+        for election in ("PR-1965", "PR-1969", "PR-1974"):
+            assert not (destination / ELECTIONS_DIR / election / "candidats").exists()
+
+    def test_le_repertoire_d_un_candidat_disparu_est_retire(self, tmp_path):
+        """Le dépôt de destination ne garde rien des états précédents."""
+        publier(tmp_path)
+        intrus = tmp_path / ELECTIONS_DIR / "PR-2002" / "candidats" / "PE-9999"
+        intrus.mkdir(parents=True)
+        (intrus / "parrainages.json").write_text("{}", encoding="utf-8")
+        publier(tmp_path)
+        assert not intrus.exists()

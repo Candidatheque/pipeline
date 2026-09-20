@@ -256,6 +256,10 @@ demande de la lecture, pas un motif.
 elections.json                        index : une entrée { id, annee } par élection
 elections/PR-2012/election.json       métadonnées : identifiant, année, QID, tours
 elections/PR-2012/candidatures.json   qui s'est présenté, à quels tours, sous quelle étiquette
+elections/PR-2012/candidats/PE-0058/parrainages.json
+                                      les élus qui ont présenté ce candidat
+elections/PR-2022/parrainages-sans-candidature.json
+                                      les présentations reçues par qui n'était pas candidat
 schemas/*.schema.json                 copie des schémas de ce dépôt
 ```
 
@@ -289,6 +293,61 @@ produits.
 La publication est idempotente. Un fichier au contenu inchangé n'est pas réécrit,
 et les répertoires sans entrée correspondante dans le seed sont supprimés. Un
 commit dans `data` signifie donc toujours que les données ont bougé.
+
+## Parrainages
+
+Un document par candidat, sous `candidats/<identifiant>/`, plutôt qu'un fichier
+unique par élection : celui de 2002 réunirait seize listes, et qui suit un seul
+candidat n'a pas à télécharger les quinze autres. 60 723 présentations pour les
+huit élections couvertes.
+
+Deux mentions comptent autant que les présentations elles-mêmes.
+
+`etendue` dit si la source publie tout ou un échantillon. Jusqu'en 2012, la loi
+n'imposait de publier que **500 noms par candidat, tirés au sort**. Compter les
+lignes de 2007 sans le savoir ferait conclure que Nicolas Sarkozy n'a reçu que
+500 parrainages. Depuis 2017 la publication est intégrale et le compte a un
+sens : François Fillon en a reçu 3 635 en 2017.
+
+`publications` donne, pour chaque date, la décision du Conseil constitutionnel
+qui l'a rendue publique, et chaque présentation porte sa date. C'est le seul
+endroit où une source n'est pas recopiée à côté de la donnée qu'elle établit :
+depuis 2017 le Conseil publie par vagues pendant la campagne, et répéter la
+décision sur chacune des 3 635 présentations de Fillon pèserait plus que les
+données. La référence reste résoluble dans le même fichier.
+
+Recevoir un parrainage ne fait pas de vous un candidat. Thomas PESQUET et
+Édouard PHILIPPE en ont reçu en 2022, François HOLLANDE en 2017 et en 2022,
+sans jamais se présenter. Les écarter publierait un total faux ; leur donner un
+répertoire de candidat affirmerait une candidature qui n'a pas eu lieu. Ils
+sont donc réunis dans `parrainages-sans-candidature.json`, sous l'élection, où
+chacun porte son nom tel que la source l'écrit, et son identifiant de personne
+s'il figure au registre par ailleurs.
+
+### D'où viennent les données
+
+`seeds/parrainages.yaml` déclare, pour chaque élection, le fichier de `raw/`,
+son format, son `origine` — le document dont il est tiré — et la correspondance
+entre le nom qu'écrit la source et l'identifiant de personne. Cette
+correspondance est déclarée, jamais devinée : l'impression du Journal officiel
+abîme les titres jusqu'aux capitales — `M. Michel DE3RE.`, `Madame ArU 3
+LAGUILLER` —, et un rapprochement par ressemblance finirait par confondre deux
+homonymes. Un contrôle de cohérence exige que le seed nomme exactement les
+candidats que porte le fichier, dans les deux sens.
+
+La pipeline ne télécharge ni n'océrise rien : les fichiers sources sont commités
+dans `raw/`, et `outils/` porte les convertisseurs qui en tirent le texte, pour
+que le résultat soit rejouable. `raw/parrainages/SOURCES.md` donne la commande
+exacte pour chacun.
+
+L'exhaustivité est vérifiée, pas supposée. Les 500 noms par candidat sont un
+oracle : les cinquante-six listes tirées au sort en comptent exactement 500,
+et un test le vérifie à la lecture comme dans les fichiers publiés.
+
+1965, 1969 et 1974 n'auront jamais de parrainages. L'obligation de publier le
+nom des présentateurs vient de la loi organique du 18 juin 1976, que la note de
+bas de page du Journal officiel de 1981 cite comme la règle qui l'impose. Ce
+n'est pas un trou dans la collecte, c'est l'état du droit.
 
 ## Publication automatique
 
@@ -379,6 +438,15 @@ signalées en commentaire dans `seeds/personnes.yaml`.
 
 Rien ne collecte : les candidatures ont été extraites en une fois et sont
 maintenues à la main. Une élection à venir demandera un collecteur.
+
+Le vocabulaire des mandats n'est pas normalisé : la source écrit `maire` avant
+2017, `Maire` ensuite, et 2017 donne `Conseiller/ère départemental-e` là où 2022
+donne `Conseillère départementale`. Normaliser demanderait de décider ce qui est
+la même chose, ce qui n'est pas anodin ; publier tel quel laisse ce choix au
+consommateur.
+
+Le département est publié tel que la source l'écrit : un numéro jusqu'en 2007,
+un nom ensuite. Même raisonnement.
 
 Il n'y a pas de schéma de résultats. Sa forme doit sortir des décisions du
 Conseil constitutionnel, qui ne sont pas encore analysées.

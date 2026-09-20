@@ -7,6 +7,9 @@ on:
       - "seeds/**"
       - "schemas/**"
       - "src/**"
+      # Les parrainages publiés sont lus dans `raw/` à chaque passage : un
+      # fichier source qui change change les données publiées.
+      - "raw/**"
       - "uv.lock"
       - ".github/workflows/publier.yml"
   pull_request:
