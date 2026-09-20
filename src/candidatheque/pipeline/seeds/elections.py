@@ -7,7 +7,9 @@ stricte.
 
 from __future__ import annotations
 
+import datetime as dt
 import re
+from itertools import pairwise
 from pathlib import Path
 
 import yaml
@@ -20,6 +22,27 @@ from candidatheque.pipeline.paths import ELECTIONS_SEED
 ELECTION_ID = re.compile(r"^PR-(?P<annee>\d{4})$")
 
 WIKIDATA_ID = re.compile(r"^Q[1-9]\d*$")
+
+
+class Tour(BaseModel):
+    """Un tour de scrutin.
+
+    `wikidata` reste souvent absent : Wikidata ne modélise les tours que pour
+    une partie des élections.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    numero: int = Field(ge=1)
+    date: dt.date
+    wikidata: str | None = None
+
+    @field_validator("wikidata")
+    @classmethod
+    def _wikidata_bien_forme(cls, value: str | None) -> str | None:
+        if value is not None and not WIKIDATA_ID.match(value):
+            raise ValueError(f"identifiant Wikidata invalide : {value!r}")
+        return value
 
 
 class Election(BaseModel):
@@ -36,6 +59,9 @@ class Election(BaseModel):
     #: Une élection nouvelle qui n'aurait pas encore d'élément Wikidata ferait
     #: échouer la validation, et ce serait une décision à prendre explicitement.
     wikidata: str
+    #: Au moins un. Deux à chaque scrutin depuis 1965, mais une majorité absolue
+    #: au premier tour en ferait un seul : le nombre n'est pas contraint.
+    tours: tuple[Tour, ...] = Field(min_length=1)
 
     @field_validator("id")
     @classmethod
@@ -61,6 +87,31 @@ class Election(BaseModel):
             )
         return self
 
+    @model_validator(mode="after")
+    def _tours_coherents(self) -> Election:
+        numeros = [tour.numero for tour in self.tours]
+        if numeros != list(range(1, len(numeros) + 1)):
+            raise ValueError(
+                f"{self.id}: les tours doivent être numérotés de 1 à {len(numeros)} "
+                f"et listés dans l'ordre, trouvé {numeros}"
+            )
+
+        dates = [tour.date for tour in self.tours]
+        if any(suivante <= precedente for precedente, suivante in pairwise(dates)):
+            raise ValueError(f"{self.id}: les dates des tours doivent être strictement croissantes")
+
+        if dates[0].year != self.annee:
+            raise ValueError(
+                f"{self.id}: le premier tour est daté de {dates[0].year}, "
+                f"ce qui contredit l'année déclarée"
+            )
+
+        return self
+
+    def tour(self, numero: int) -> Tour | None:
+        """Le tour demandé, ou None s'il n'a pas eu lieu."""
+        return next((t for t in self.tours if t.numero == numero), None)
+
 
 class _SeedElections(BaseModel):
     model_config = ConfigDict(extra="forbid")
@@ -81,11 +132,14 @@ class _SeedElections(BaseModel):
         if annees != sorted(annees):
             raise ValueError("les élections doivent être listées par année croissante")
 
+        # Élections et tours confondus : un copier-coller d'un scrutin à l'autre
+        # se repère là, et nulle part ailleurs.
         qids = [election.wikidata for election in self.elections]
+        qids += [t.wikidata for e in self.elections for t in e.tours if t.wikidata is not None]
         partages = sorted({q for q in qids if qids.count(q) > 1})
         if partages:
             raise ValueError(
-                "identifiants Wikidata partagés entre élections : " + ", ".join(partages)
+                "identifiants Wikidata employés deux fois : " + ", ".join(partages)
             )
 
         return self

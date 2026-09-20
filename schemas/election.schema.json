@@ -6,7 +6,8 @@
   "required": [
     "id",
     "annee",
-    "wikidata"
+    "wikidata",
+    "tours"
   ],
   "additionalProperties": false,
   "properties": {
@@ -35,6 +36,42 @@
       "examples": [
         "Q487666"
       ]
+    },
+    "tours": {
+      "type": "array",
+      "description": "Les tours du scrutin, numérotés à partir de 1 et dans l'ordre. Il y en a eu deux à chaque élection depuis 1965, mais rien ne l'impose : une majorité absolue au premier tour en ferait un seul. Ne pas supposer qu'il y en a deux.",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/tour"
+      }
+    }
+  },
+  "$defs": {
+    "tour": {
+      "type": "object",
+      "description": "Un tour de scrutin.",
+      "required": [
+        "numero",
+        "date"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "numero": {
+          "type": "integer",
+          "description": "Rang du tour dans l'élection, à partir de 1.",
+          "minimum": 1
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date du scrutin en métropole. Pour une élection à venir, c'est la date prévue : le consommateur la compare à aujourd'hui pour savoir à quoi s'en tenir."
+        },
+        "wikidata": {
+          "type": "string",
+          "description": "Identifiant de l'élément Wikidata du tour. Absent quand Wikidata ne modélise pas les tours de cette élection, ce qui est le cas de la plupart des scrutins d'avant 2007.",
+          "pattern": "^Q[1-9][0-9]*$"
+        }
+      }
     }
   }
 }
