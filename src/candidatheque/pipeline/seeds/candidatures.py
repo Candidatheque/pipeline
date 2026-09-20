@@ -84,6 +84,23 @@ class Participation(BaseModel):
     sources: tuple[str, ...] = Field(min_length=1)
 
 
+class Affiliation(BaseModel):
+    """Le rattachement d'une candidature à un parti.
+
+    Une candidature peut en avoir plusieurs : une coalition présente un
+    candidat unique, et l'étiquette est alors partagée.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    parti: str
+    #: Absent quand il vaut celui du registre. Saisi quand le parti portait un
+    #: autre nom à ce scrutin — le Front national est devenu Rassemblement
+    #: national en 2018.
+    nom_complet: str | None = Field(default=None, min_length=1)
+    sources: tuple[str, ...] = Field(min_length=1)
+
+
 class Candidature(BaseModel):
     """Une personne se présentant à une élection."""
 
@@ -98,6 +115,9 @@ class Candidature(BaseModel):
     #: Les tours auxquels la candidature a pris part. Vide tant qu'aucun tour
     #: n'a eu lieu : quelqu'un qui se déclare puis renonce n'en a aucun.
     tours: tuple[Participation, ...] = ()
+    #: Les partis sous l'étiquette desquels la candidature se présente. Vide
+    #: pour une candidature sans étiquette, qui est un cas courant.
+    partis: tuple[Affiliation, ...] = ()
 
     @property
     def etat(self) -> Etat:
@@ -119,6 +139,14 @@ class Candidature(BaseModel):
             if precedent == suivant:
                 raise ValueError(f"{self.personne}: état « {suivant} » répété d'affilée")
 
+        return self
+
+    @model_validator(mode="after")
+    def _un_parti_cite_une_fois(self) -> Candidature:
+        ids = [affiliation.parti for affiliation in self.partis]
+        doublons = sorted({i for i in ids if ids.count(i) > 1})
+        if doublons:
+            raise ValueError(f"{self.personne}: parti cité deux fois : " + ", ".join(doublons))
         return self
 
     @model_validator(mode="after")

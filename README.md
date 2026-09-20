@@ -217,12 +217,36 @@ référence à résoudre.
 
 `consultee_le` est saisie, jamais calculée au moment de publier.
 
+## Partis
+
+Une candidature porte les partis sous l'étiquette desquels elle se présente.
+**Plusieurs sont possibles** : une coalition présente un candidat unique, et
+l'étiquette est partagée — Mélenchon en 2022 sous La France insoumise et le
+Parti de gauche, Mitterrand en 1965 sous la FGDS et la Convention des
+institutions républicaines.
+
+Chaque parti porte son nom entier et, quand il en a un, son sigle : on dit
+« le PCF », rarement « le Parti communiste français ». 25 des 43 partis ont un
+sigle ; les autres n'en ont pas, et le champ est alors absent plutôt que vide.
+
+`seeds/partis.yaml` attribue les identifiants, sur le même modèle que le
+registre des personnes. Une candidature pointe vers un identifiant de parti,
+jamais vers un nom — un parti change de nom, le Front national est devenu
+Rassemblement national en 2018.
+
+Les affiliations viennent de la propriété `P102` de Wikidata, « membre d'un
+parti politique », et **seules les appartenances datées sont reprises**. Une
+appartenance sans date ne dit pas à quelle élection elle s'applique : la retenir
+aurait fait de Charles de Gaulle un membre de l'UDR en 1965, trois ans avant sa
+fondation. Ce choix ramène la couverture de 162 à 75 candidatures sur 314, mais
+les 75 sont justes.
+
 ## Données publiées
 
 ```
 elections.json                        index : une entrée { id, annee } par élection
 elections/PR-2012/election.json       métadonnées : identifiant, année, QID, tours
-elections/PR-2012/candidatures.json   qui s'est présenté, et à quels tours
+elections/PR-2012/candidatures.json   qui s'est présenté, à quels tours, sous quelle étiquette
 schemas/*.schema.json                 copie des schémas de ce dépôt
 ```
 

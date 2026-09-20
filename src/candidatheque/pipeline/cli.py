@@ -14,6 +14,7 @@ from candidatheque.pipeline.seeds import (
     load_autorites,
     load_candidatures,
     load_elections,
+    load_partis,
     load_personnes,
     load_sources,
 )
@@ -33,6 +34,7 @@ def _cmd_valider(_: argparse.Namespace) -> int:
         personnes = load_personnes()
         sources = load_sources()
         autorites = load_autorites()
+        partis = load_partis()
         candidatures = load_candidatures()
     except ValidationError as erreur:
         print("Seed invalide :", file=sys.stderr)
@@ -49,6 +51,7 @@ def _cmd_valider(_: argparse.Namespace) -> int:
     candidats = sum(len(entree.candidats) for entree in candidatures)
     print(
         f"{len(elections)} élections, {len(personnes)} personnes, {candidats} candidatures, "
+        f"{len(partis)} partis, "
         f"{len(sources)} sources, {len(autorites)} autorités. Seeds valides et cohérents."
     )
     return 0

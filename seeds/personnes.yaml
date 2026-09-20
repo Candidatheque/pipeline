@@ -10,9 +10,9 @@
 #                 personne n'aura jamais de raison de le corriger. Une fois
 #                 publié, un identifiant n'est jamais réattribué à quelqu'un
 #                 d'autre, même si la ligne disparaît : un consommateur peut
-#                 l'avoir gardé. Avant la première publication, la
-#                 numérotation peut encore être reprise, et elle l'a été une
-#                 fois, après le retrait de deux entrées erronées.
+#                 l'avoir gardé. Ces identifiants ont été publiés le
+#                 2026-09-20 : la numérotation ne se reprend plus, et une ligne
+#                 retirée laisse un trou qu'il ne faut pas combler.
 #   - `nom_complet` : de qui il s'agit, pour la relecture humaine seulement.
 #                 Même forme que dans une candidature, mais pas le même statut :
 #                 le nom publié est celui porté lors du scrutin, qui appartient

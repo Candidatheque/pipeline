@@ -206,3 +206,167 @@ sources:
     url: "https://www.leparisien.fr/politique/lalonde-je-suis-candidat-a-l-elysee-en-2002-23-06-2001-2002253027.php"
     commentaire: "Lalonde : « Je suis candidat à l'Elysée en 2002 », Le Parisien, 23 juin 2001"
     consultee_le: 2026-09-20
+
+  # Éléments Wikidata : chacun porte la propriété P102 de la personne dont il
+  # traite, avec les dates qui permettent de rattacher une appartenance à un
+  # scrutin. C'est là que vit la déclaration, donc c'est cela qu'on cite.
+  - id: "wikidata:Q2038"
+    url: "https://www.wikidata.org/wiki/Q2038"
+    commentaire: "François MITTERRAND sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q12938"
+    url: "https://www.wikidata.org/wiki/Q12938"
+    commentaire: "Alain KRIVINE sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q12950"
+    url: "https://www.wikidata.org/wiki/Q12950"
+    commentaire: "Alain POHER sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q2185"
+    url: "https://www.wikidata.org/wiki/Q2185"
+    commentaire: "Georges POMPIDOU sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q7177"
+    url: "https://www.wikidata.org/wiki/Q7177"
+    commentaire: "Jean-Marie LE PEN sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q2105"
+    url: "https://www.wikidata.org/wiki/Q2105"
+    commentaire: "Jacques CHIRAC sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q704846"
+    url: "https://www.wikidata.org/wiki/Q704846"
+    commentaire: "Philippe de VILLIERS sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q12959"
+    url: "https://www.wikidata.org/wiki/Q12959"
+    commentaire: "Édouard BALLADUR sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q937091"
+    url: "https://www.wikidata.org/wiki/Q937091"
+    commentaire: "Robert HUE sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q993611"
+    url: "https://www.wikidata.org/wiki/Q993611"
+    commentaire: "Bruno MÉGRET sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q291341"
+    url: "https://www.wikidata.org/wiki/Q291341"
+    commentaire: "Corinne LEPAGE sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q12963"
+    url: "https://www.wikidata.org/wiki/Q12963"
+    commentaire: "François BAYROU sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q965109"
+    url: "https://www.wikidata.org/wiki/Q965109"
+    commentaire: "Noël MAMÈRE sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q1379706"
+    url: "https://www.wikidata.org/wiki/Q1379706"
+    commentaire: "Gérard SCHIVARDI sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q329"
+    url: "https://www.wikidata.org/wiki/Q329"
+    commentaire: "Nicolas SARKOZY sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q12927"
+    url: "https://www.wikidata.org/wiki/Q12927"
+    commentaire: "Marine LE PEN sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q5829"
+    url: "https://www.wikidata.org/wiki/Q5829"
+    commentaire: "Jean-Luc MÉLENCHON sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q439490"
+    url: "https://www.wikidata.org/wiki/Q439490"
+    commentaire: "Nathalie ARTHAUD sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q157"
+    url: "https://www.wikidata.org/wiki/Q157"
+    commentaire: "François HOLLANDE sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q3052772"
+    url: "https://www.wikidata.org/wiki/Q3052772"
+    commentaire: "Emmanuel MACRON sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q818118"
+    url: "https://www.wikidata.org/wiki/Q818118"
+    commentaire: "Benoît HAMON sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q3173022"
+    url: "https://www.wikidata.org/wiki/Q3173022"
+    commentaire: "Jean LASSALLE sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q12972"
+    url: "https://www.wikidata.org/wiki/Q12972"
+    commentaire: "François ASSELINEAU sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q101410"
+    url: "https://www.wikidata.org/wiki/Q101410"
+    commentaire: "François FILLON sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q30388733"
+    url: "https://www.wikidata.org/wiki/Q30388733"
+    commentaire: "Fabien ROUSSEL sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q455023"
+    url: "https://www.wikidata.org/wiki/Q455023"
+    commentaire: "Valérie PÉCRESSE sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q3167392"
+    url: "https://www.wikidata.org/wiki/Q3167392"
+    commentaire: "Jean-Marc GOVERNATORI sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q3385791"
+    url: "https://www.wikidata.org/wiki/Q3385791"
+    commentaire: "Pierre LARROUTUROU sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q927873"
+    url: "https://www.wikidata.org/wiki/Q927873"
+    commentaire: "Carl LANG sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q3369641"
+    url: "https://www.wikidata.org/wiki/Q3369641"
+    commentaire: "Patrick LOZÈS sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q2566436"
+    url: "https://www.wikidata.org/wiki/Q2566436"
+    commentaire: "Renaud CAMUS sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q18765344"
+    url: "https://www.wikidata.org/wiki/Q18765344"
+    commentaire: "Rafik SMATI sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q106405647"
+    url: "https://www.wikidata.org/wiki/Q106405647"
+    commentaire: "Anasse KAZIB sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q63646237"
+    url: "https://www.wikidata.org/wiki/Q63646237"
+    commentaire: "Hélène THOUY sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q29451966"
+    url: "https://www.wikidata.org/wiki/Q29451966"
+    commentaire: "Georges KUZMANOVIC sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q54958867"
+    url: "https://www.wikidata.org/wiki/Q54958867"
+    commentaire: "Antoine MARTINEZ sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q29225872"
+    url: "https://www.wikidata.org/wiki/Q29225872"
+    commentaire: "Yvan BENEDETTI sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q59535447"
+    url: "https://www.wikidata.org/wiki/Q59535447"
+    commentaire: "Jacline MOURAUD sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q3074223"
+    url: "https://www.wikidata.org/wiki/Q3074223"
+    commentaire: "Florian PHILIPPOT sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+  - id: "wikidata:Q3165988"
+    url: "https://www.wikidata.org/wiki/Q3165988"
+    commentaire: "Jean-Frédéric POISSON sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20

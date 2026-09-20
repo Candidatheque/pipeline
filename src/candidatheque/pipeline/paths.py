@@ -21,6 +21,7 @@ ELECTIONS_SEED = SEEDS_DIR / "elections.yaml"
 PERSONNES_SEED = SEEDS_DIR / "personnes.yaml"
 SOURCES_SEED = SEEDS_DIR / "sources.yaml"
 AUTORITES_SEED = SEEDS_DIR / "autorites.yaml"
+PARTIS_SEED = SEEDS_DIR / "partis.yaml"
 CANDIDATURES_SEED = SEEDS_DIR / "candidatures.yaml"
 
 # Dépôt distinct, cloné à côté de celui-ci. `publier --destination` vise ailleurs.
