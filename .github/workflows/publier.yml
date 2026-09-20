@@ -101,16 +101,24 @@ jobs:
           set -euo pipefail
 
           if [ -z "$(git status --porcelain)" ]; then
-            echo "Cette PR ne change rien aux données publiées." >> "$GITHUB_STEP_SUMMARY"
+            echo "Cette PR ne change rien aux données publiées." | tee -a "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
+
+          # `--intent-to-add` fait apparaître les fichiers neufs dans `git diff`,
+          # qui les ignore autrement.
+          git add --all --intent-to-add
+
+          # Le résumé de run n'est lisible que dans l'interface web. Passer aussi
+          # par la sortie d'erreur remet le récapitulatif dans le journal, donc à
+          # portée de `gh run view --log`.
+          recapitulatif=$(git diff --stat | tee /dev/stderr)
 
           {
             echo "### Écart sur le dépôt \`data\`"
             echo
             echo '```'
-            git add --all --intent-to-add
-            git diff --stat
+            echo "$recapitulatif"
             echo '```'
             echo
             echo '<details><summary>Diff complet</summary>'

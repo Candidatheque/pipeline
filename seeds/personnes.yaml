@@ -1,0 +1,22 @@
+# Registre des personnes.
+#
+# Sa seule raison d'être est d'attribuer les identifiants et de garantir leur
+# unicité. Il n'est pas publié : le consommateur n'en a pas besoin pour
+# regrouper les candidatures d'une même personne, l'identifiant y suffit.
+#
+# Conventions :
+#   - `id`      : "PE-<4 chiffres>", attribué dans l'ordre. Volontairement
+#                 opaque : comme il ne dit rien, personne n'aura jamais de
+#                 raison de le corriger. Un identifiant attribué n'est jamais
+#                 réattribué à quelqu'un d'autre, même si la ligne disparaît.
+#   - `libelle` : de qui il s'agit, pour la relecture humaine seulement. Ce
+#                 n'est pas le nom qui sera publié : le nom porté lors d'un
+#                 scrutin appartient à la candidature, et il change d'une
+#                 élection à l'autre.
+#   - `wikidata`: identifiant Wikidata de la personne, quand il existe. Lui est
+#                 stable, contrairement au nom.
+#
+# Le registre est vide : rien ne collecte encore de candidatures. Il se
+# remplira au rythme de la collecte, une ligne à la fois, en revue.
+
+personnes: []

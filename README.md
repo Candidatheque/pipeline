@@ -13,7 +13,7 @@
 
 | Répertoire | Régime |
 |---|---|
-| `seeds/` | Saisi à la main. La pipeline itère dessus pour savoir quoi publier. |
+| `seeds/` | Saisi à la main. `elections.yaml` dit quoi publier, `personnes.yaml` attribue les identifiants de personne. |
 | `schemas/` | Les JSON Schema qui décrivent les données publiées. Écrits à la main, recopiés tels quels dans `data`. |
 | `src/` | Le code de la pipeline. |
 
@@ -41,6 +41,22 @@ Une élection porte un identifiant de la forme `PR-2012`. `PR` désigne une
 municipales) sans renommage ultérieur. L'identifiant sert tel quel de nom au
 répertoire publié, `elections/PR-2012/`.
 
+## Identifiants de personne
+
+Une personne porte un identifiant de la forme `PE-0001`, attribué dans l'ordre
+par `seeds/personnes.yaml` et jamais réattribué. Il est opaque exprès : comme il
+ne dit rien, personne n'a jamais de raison de le corriger.
+
+Il suit la personne d'une élection à l'autre, ce qui permet de rapprocher ses
+candidatures successives. Le nom, lui, reste dans la candidature : c'est le nom
+porté lors de ce scrutin. Une même personne peut donc apparaître sous deux noms
+à deux élections, et les deux sont exacts à leur date — un nom d'usage change,
+un mariage change un nom. L'identifiant relie, il n'uniformise pas.
+
+Le registre n'est pas publié. Regrouper les candidatures d'une même personne ne
+demande que l'identifiant, et le registre n'existe que pour garantir qu'il est
+unique.
+
 ## Données publiées
 
 ```
@@ -50,8 +66,25 @@ schemas/*.schema.json              copie des schémas de ce dépôt
 ```
 
 L'index porte de quoi énumérer les élections et atteindre leur répertoire, rien
-de plus. Ce qui s'ajoutera ensuite, tours, candidats, résultats, ira dans le
-document de l'élection.
+de plus. Le reste vit dans le répertoire de l'élection, à raison d'un document
+par sujet.
+
+Le découpage suit la volatilité, pas le thème. Les résultats d'un scrutin
+proclamé ne changeront plus jamais ; les candidatures à une élection à venir
+changent toutes les semaines et sont fausses une partie du temps. Réunies dans
+un même fichier, la donnée provisoire ferait bouger la donnée définitive à
+chaque passage, et personne ne pourrait plus les mettre en cache séparément.
+Deux élections n'ont donc pas les mêmes documents, selon leur stade.
+
+Un corollaire qui contraint tout ce qui viendra : **aucun document ne porte de
+date de génération**. Les dates publiées viennent des sources, jamais de
+l'horloge au moment de publier. Sinon chaque passage produirait un diff et
+l'idempotence ne voudrait plus rien dire. C'est la raison d'être du champ
+`consultee_le`, lu dans l'archive `raw/`.
+
+De même, rien ne publie d'état dérivé de la date du jour, du genre « élection à
+venir » : il deviendrait faux sans qu'aucune source ait bougé. La date du
+scrutin est un fait, le consommateur la compare à aujourd'hui.
 
 Les schémas sont recopiés à côté des données pour qu'un commit de `data` se
 valide tout seul : un consommateur qui épingle un commit obtient le contrat qui
@@ -109,6 +142,20 @@ le jour où `data` sera servi sur une URL stable.
 
 Seules les présidentielles sont couvertes, de 1965 à 2027, et seuls l'identifiant
 et l'année sont publiés.
+
+`schemas/candidatures.schema.json` n'a pas encore de producteur : il fixe le
+contrat que la collecte devra respecter, et les tests en tiennent lieu de
+spécification. Il bougera sans doute à la rencontre des vraies sources.
+
+`seeds/personnes.yaml` est vide : rien ne collecte encore de candidatures. Il se
+remplira une ligne à la fois, en revue.
+
+Rien ne vérifie encore qu'un identifiant de personne cité dans une candidature
+existe bien au registre. Ce contrôle viendra avec le premier producteur, faute
+de quoi il n'aurait rien à contrôler.
+
+Il n'y a pas de schéma de résultats. Sa forme doit sortir des décisions du
+Conseil constitutionnel, qui ne sont pas encore analysées.
 
 Rien ne relance la publication quand une source externe change : le workflow ne
 se déclenche que sur un commit de ce dépôt. Quand la collecte arrivera, il lui

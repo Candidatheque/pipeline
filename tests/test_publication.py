@@ -18,7 +18,14 @@ from candidatheque.pipeline.publication.elections import (
     ELECTION_FILE,
     ELECTIONS_DIR,
     INDEX_FILE,
+    documents,
 )
+from candidatheque.pipeline.seeds import load_elections
+
+
+@pytest.fixture(scope="module")
+def elections_du_seed():
+    return load_elections()
 
 
 @pytest.fixture
@@ -98,3 +105,101 @@ def test_une_modification_est_detectee(destination):
     modifies = [e.chemin for e in publier(destination) if e.statut is Statut.MODIFIE]
 
     assert modifies == [cible]
+
+
+def test_un_document_orphelin_est_supprime(destination):
+    """Un sujet qui cesse d'être produit ne doit pas rester dans `data`."""
+    orphelin = destination / ELECTIONS_DIR / "PR-2012" / "candidatures.json"
+    orphelin.write_text('{"election": "PR-2012"}', encoding="utf-8")
+
+    ecritures = publier(destination)
+
+    assert not orphelin.exists()
+    assert [e.chemin for e in ecritures if e.statut is Statut.SUPPRIME] == [orphelin]
+
+
+def test_les_documents_connus_sont_publies(elections_du_seed):
+    """Le point d'extension rend au moins les métadonnées, sous un nom de fichier."""
+    noms = [nom for nom, _ in documents(elections_du_seed[0])]
+    assert noms == [ELECTION_FILE]
+
+
+class TestSchemaCandidatures:
+    """Le schéma des candidatures n'a pas encore de producteur.
+
+    Ces tests tiennent lieu de spécification : ils fixent ce que la collecte à
+    venir devra produire, et surtout ce qu'elle n'aura pas le droit de produire.
+    """
+
+    @staticmethod
+    def _candidature(**remplacements):
+        base = {
+            "personne": "PE-0001",
+            "nom": "Dupont",
+            "prenom": "Camille",
+            "etat": "declaree",
+            "sources": [{"url": "https://exemple.fr/a", "consultee_le": "2026-09-20"}],
+        }
+        return base | remplacements
+
+    @staticmethod
+    def _document(*candidatures):
+        return {"election": "PR-2027", "candidatures": list(candidatures)}
+
+    @pytest.fixture(scope="class")
+    @classmethod
+    def valideur(cls):
+        return _valideur("candidatures.schema.json")
+
+    def test_un_document_bien_forme_est_accepte(self, valideur):
+        valideur.validate(self._document(self._candidature(wikidata="Q42")))
+
+    @pytest.mark.parametrize("etat", ["declaree", "validee", "retiree", "ecartee"])
+    def test_les_quatre_etats_sont_acceptes(self, valideur, etat):
+        valideur.validate(self._document(self._candidature(etat=etat)))
+
+    def test_un_etat_hors_enumeration_est_rejete(self, valideur):
+        assert not valideur.is_valid(self._document(self._candidature(etat="peut-etre")))
+
+    def test_une_candidature_sans_source_est_rejetee(self, valideur):
+        """Une candidature sans provenance ne vaut rien : elle est invérifiable."""
+        assert not valideur.is_valid(self._document(self._candidature(sources=[])))
+
+    def test_une_date_de_generation_est_rejetee(self, valideur):
+        """Une date de génération ferait bouger le fichier à chaque passage."""
+        assert not valideur.is_valid(
+            self._document(self._candidature(publie_le="2026-09-20"))
+        )
+
+    def test_un_identifiant_d_election_mal_forme_est_rejete(self, valideur):
+        document = self._document(self._candidature()) | {"election": "2027"}
+        assert not valideur.is_valid(document)
+
+    def test_une_candidature_sans_identifiant_de_personne_est_rejetee(self, valideur):
+        """Sans lui, rien ne relie les candidatures successives d'une personne."""
+        sans_personne = self._candidature()
+        del sans_personne["personne"]
+        assert not valideur.is_valid(self._document(sans_personne))
+
+    @pytest.mark.parametrize("identifiant", ["PE-1", "0001", "PR-0001", "pe-0001"])
+    def test_un_identifiant_de_personne_mal_forme_est_rejete(self, valideur, identifiant):
+        assert not valideur.is_valid(self._document(self._candidature(personne=identifiant)))
+
+    def test_une_personne_peut_changer_de_nom_entre_deux_elections(self, valideur):
+        """Le nom publié est celui porté lors du scrutin, pas un nom de référence.
+
+        Deux candidatures de la même personne sous deux noms différents ne sont
+        pas une incohérence : c'est le cas qu'on veut pouvoir représenter.
+        """
+        valideur.validate(
+            {
+                "election": "PR-2012",
+                "candidatures": [self._candidature(personne="PE-0001", nom="Dupont")],
+            }
+        )
+        valideur.validate(
+            {
+                "election": "PR-2017",
+                "candidatures": [self._candidature(personne="PE-0001", nom="Durand")],
+            }
+        )
