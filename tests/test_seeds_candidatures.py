@@ -217,7 +217,9 @@ def test_l_ordre_est_verifie_sur_les_seules_dates_connues():
 
 
 @pytest.mark.parametrize(
-    "election, attendu", [("PR-1969", 4), ("PR-1974", 27), ("PR-1981", 3), ("PR-2022", 52)]
+    "election, attendu",
+    [("PR-1969", 4), ("PR-1974", 27), ("PR-1981", 3), ("PR-1995", 5), ("PR-2002", 1),
+     ("PR-2022", 52)],
 )
 def test_effectifs_non_valides_par_election(par_election, election, attendu):
     """Les élections antérieures à 2007 n'ont pas d'article Wikipédia dédié.
@@ -230,10 +232,29 @@ def test_effectifs_non_valides_par_election(par_election, election, attendu):
     assert len(non_valides) == attendu
 
 
-@pytest.mark.parametrize("election", ["PR-1965", "PR-1988", "PR-1995", "PR-2002"])
+@pytest.mark.parametrize("election", ["PR-1965", "PR-1988"])
 def test_elections_sans_candidature_non_validee(par_election, election):
-    """Rien n'a été importé faute de source exploitable, plutôt qu'à peu près."""
+    """Rien n'a été importé faute de source exploitable, plutôt qu'à peu près.
+
+    1965 ne parle que de personnalités « pressenties », 1988 n'a pas de section.
+    """
     assert all(c.etat == "validee" for c in par_election[election].candidats)
+
+
+def test_une_personne_validee_puis_ecartee_ailleurs(par_election):
+    """Brice LALONDE : validé en 1981, écarté en 1995 et 2002, faute de parrainages.
+
+    C'est le registre qui relie ces trois candidatures : rien dans les données
+    d'une élection ne renvoie à une autre.
+    """
+    etats = {
+        election: next(
+            c.etat for c in entree.candidats if c.personne == "PE-0027"
+        )
+        for election, entree in par_election.items()
+        if any(c.personne == "PE-0027" for c in entree.candidats)
+    }
+    assert etats == {"PR-1981": "validee", "PR-1995": "ecartee", "PR-2002": "ecartee"}
 
 
 def test_les_ecartees_anciennes_sont_sourcees_par_le_conseil(par_election):

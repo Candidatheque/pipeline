@@ -9,8 +9,8 @@ def test_valider_reussit_sur_le_seed_du_depot(capsys):
     assert main(["valider"]) == 0
     sortie = capsys.readouterr().out
     assert "12 élections" in sortie
-    assert "238 personnes" in sortie
-    assert "310 candidatures" in sortie
+    assert "241 personnes" in sortie
+    assert "316 candidatures" in sortie
     assert "cohérents" in sortie
 
 

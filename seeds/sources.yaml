@@ -175,3 +175,27 @@ sources:
     url: "https://fr.wikipedia.org/wiki/%C3%89lection_pr%C3%A9sidentielle_fran%C3%A7aise_de_1974"
     commentaire: "Élection présidentielle française de 1974, section « Candidatures n'ayant pas abouti »"
     consultee_le: 2026-09-20
+
+  # Articles de personnes : chacun établit nommément la candidature de celui
+  # dont il traite, là où la section de l'article d'élection mêlait candidatures
+  # et refus. Une source par personne, donc, et non une pour la liste.
+  - id: "wikipedia-fr:jean-francois-hory"
+    url: "https://fr.wikipedia.org/wiki/Jean-Fran%C3%A7ois_Hory"
+    commentaire: "Jean-François Hory, sur sa candidature à l'élection présidentielle"
+    consultee_le: 2026-09-20
+  - id: "wikipedia-fr:brice-lalonde"
+    url: "https://fr.wikipedia.org/wiki/Brice_Lalonde"
+    commentaire: "Brice Lalonde, sur sa candidature à l'élection présidentielle"
+    consultee_le: 2026-09-20
+  - id: "wikipedia-fr:marlene-mourreau"
+    url: "https://fr.wikipedia.org/wiki/Marl%C3%A8ne_Mourreau"
+    commentaire: "Marlène Mourreau, sur sa candidature à l'élection présidentielle"
+    consultee_le: 2026-09-20
+  - id: "wikipedia-fr:max-simeoni"
+    url: "https://fr.wikipedia.org/wiki/Max_Simeoni"
+    commentaire: "Max Simeoni, sur sa candidature à l'élection présidentielle"
+    consultee_le: 2026-09-20
+  - id: "wikipedia-fr:antoine-waechter"
+    url: "https://fr.wikipedia.org/wiki/Antoine_Waechter"
+    commentaire: "Antoine Waechter, sur sa candidature à l'élection présidentielle"
+    consultee_le: 2026-09-20

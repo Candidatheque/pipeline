@@ -321,16 +321,23 @@ candidatures écartées de 1969, 1974 et 1981 ont donc été reprises ailleurs :
 | 1969 | décisions du Conseil rejetant une réclamation contre la liste | 4 |
 | 1974 | tableau de l'article principal, plus deux décisions | 27 |
 | 1981 | décisions du Conseil rejetant une réclamation | 3 |
+| 1995 | article de chaque personne, après tri | 5 |
+| 2002 | article de Brice Lalonde | 1 |
 
 Une réclamation rejetée nomme quelqu'un qui voulait se présenter et n'a pas été
 retenu : source bien plus forte qu'une mention encyclopédique. Jean-Marie LE PEN
 y figure pour 1981, faute de signatures.
 
-Rien n'a été repris pour 1965, 1988, 1995 et 2002. La section de 1995 mêle les
-candidatures retirées et les **refus de se présenter** — Giscard d'Estaing y est
-listé avec une référence intitulée « Je ne me présente pas » —, celle de 1965
-traite de personnalités « pressenties », et 1988 comme 2002 n'ont rien. Mieux
-vaut ne rien publier que publier à peu près.
+La section de 1995 demandait un tri : elle mêle les candidatures retirées et les
+**refus de se présenter**, et sept de ses douze entrées n'établissent aucune
+candidature. Giscard d'Estaing y est listé avec une référence intitulée « Je ne
+me présente pas », Delors « renonce à se présenter », Fabius « se range derrière
+Henri Emmanuelli ». Les cinq retenues sont sourcées par l'article de la personne
+concernée, qui nomme sa candidature, et non par la liste qui les confondait.
+
+Rien n'a été repris pour 1965 ni 1988. La section de 1965 traite de
+personnalités « pressenties », 1988 n'a pas de section. Mieux vaut ne rien
+publier que publier à peu près.
 
 Trois noms ont été corrigés par rapport à la source, qui les orthographie mal :
 `LALONIDE` pour LALONDE en 1981, `Ariette` pour Arlette LAGUILLER en 1988, et les

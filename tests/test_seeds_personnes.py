@@ -22,7 +22,7 @@ def _ecrire(tmp_path, corps):
 
 def test_le_registre_du_depot_est_valide():
     personnes = load_personnes()
-    assert len(personnes) == 238
+    assert len(personnes) == 241
     assert personnes[0].id == "PE-0001"
     numeros = [personne.numero for personne in personnes]
     assert numeros == sorted(set(numeros)), "numérotation unique et croissante"

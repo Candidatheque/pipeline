@@ -646,3 +646,17 @@ personnes:
     nom_complet: "FOUQUET"
   - id: "PE-0238"
     nom_complet: "SCHERNE"
+
+  # Candidatures de 1995 et 2002 retenues après lecture entrée par entrée de
+  # la section « Candidatures retirées ou n'ayant pas abouti », qui mêle des
+  # candidatures et des refus de se présenter. Sept des douze entrées ont été
+  # écartées faute d'établir une candidature déclarée.
+  - id: "PE-0239"
+    nom_complet: "Jean-François HORY"
+    wikidata: "Q3165663"
+  - id: "PE-0240"
+    nom_complet: "Marlène MOURREAU"
+    wikidata: "Q3294484"
+  - id: "PE-0241"
+    nom_complet: "Max SIMEONI"
+    wikidata: "Q385264"

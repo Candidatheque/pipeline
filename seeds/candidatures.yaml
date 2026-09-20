@@ -742,6 +742,12 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
+      - personne: "PE-0027"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:brice-lalonde"
+        tours: []
       - personne: "PE-0030"
         etats:
           - etat: "validee"
@@ -755,6 +761,12 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:95-80-PDR"
+      - personne: "PE-0034"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:antoine-waechter"
+        tours: []
       - personne: "PE-0036"
         etats:
           - etat: "validee"
@@ -818,6 +830,24 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
+      - personne: "PE-0239"
+        etats:
+          - etat: "retiree"
+            sources:
+              - "wikipedia-fr:jean-francois-hory"
+        tours: []
+      - personne: "PE-0240"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:marlene-mourreau"
+        tours: []
+      - personne: "PE-0241"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:max-simeoni"
+        tours: []
 
   - election: "PR-2002"
     candidats:
@@ -844,6 +874,12 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:2002-110-PDR"
+      - personne: "PE-0027"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:brice-lalonde"
+        tours: []
       - personne: "PE-0030"
         etats:
           - etat: "validee"
