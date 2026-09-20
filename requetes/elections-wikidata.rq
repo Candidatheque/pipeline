@@ -1,0 +1,22 @@
+# Identifiant Wikidata des élections présidentielles françaises au suffrage
+# universel direct.
+#
+# La pipeline ne l'exécute pas et n'interroge pas Wikidata : le QID est saisi à
+# la main dans le seed, comme le reste. Cette requête sert à le retrouver, à
+# rejouer sur https://query.wikidata.org quand une élection s'ajoute.
+#
+# Deux pièges que le filtre et le regroupement écartent :
+#   - la classe Q890055 couvre aussi les scrutins d'avant 1962, élus au
+#     suffrage indirect (1848, 1947, 1953, 1958), hors périmètre ici ;
+#   - P585 porte une date par tour, donc une élection à deux tours ressort
+#     deux fois sans regroupement.
+
+SELECT ?annee ?election ?electionLabel WHERE {
+  ?election wdt:P31 wd:Q890055 ;
+            wdt:P585 ?date .
+  BIND(YEAR(?date) AS ?annee)
+  FILTER(?annee >= 1965)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en". }
+}
+GROUP BY ?annee ?election ?electionLabel
+ORDER BY ?annee

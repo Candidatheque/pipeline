@@ -3,7 +3,11 @@
   "title": "Métadonnées d'une élection de la Candidathèque",
   "description": "Document publié dans le répertoire d'une élection. Les informations détaillées (tours, candidats, résultats) s'y ajouteront à mesure que la pipeline les collecte ; elles ne remontent pas dans l'index.",
   "type": "object",
-  "required": ["id", "annee"],
+  "required": [
+    "id",
+    "annee",
+    "wikidata"
+  ],
   "additionalProperties": false,
   "properties": {
     "$schema": {
@@ -14,13 +18,23 @@
       "type": "string",
       "description": "Identifiant stable de l'élection. Identique à l'entrée correspondante de l'index.",
       "pattern": "^PR-[0-9]{4}$",
-      "examples": ["PR-2012"]
+      "examples": [
+        "PR-2012"
+      ]
     },
     "annee": {
       "type": "integer",
       "description": "Année du scrutin. Concorde toujours avec l'année portée par l'identifiant.",
       "minimum": 1965,
       "maximum": 2100
+    },
+    "wikidata": {
+      "type": "string",
+      "description": "Identifiant de l'élément Wikidata correspondant à cette élection. Permet de rejoindre les données de Wikidata sans dépendre du nom du scrutin.",
+      "pattern": "^Q[1-9][0-9]*$",
+      "examples": [
+        "Q487666"
+      ]
     }
   }
 }
