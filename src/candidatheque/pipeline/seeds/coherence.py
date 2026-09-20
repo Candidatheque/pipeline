@@ -18,7 +18,8 @@ from candidatheque.pipeline.seeds.sources import load_sources
 def verifier() -> list[str]:
     """Rend la liste des incohérences trouvées, vide si tout se tient."""
     elections = {election.id: election for election in load_elections()}
-    personnes = {personne.id for personne in load_personnes()}
+    registre = {personne.id: personne for personne in load_personnes()}
+    personnes = set(registre)
     sources = {source.id for source in load_sources()}
     candidatures = load_candidatures()
 
@@ -38,6 +39,18 @@ def verifier() -> list[str]:
             if candidat.personne not in personnes:
                 problemes.append(f"{ou} : personne absente du registre")
             personnes_citees.add(candidat.personne)
+
+            # Le nom ne se saisit que s'il diffère de celui du registre. Le
+            # saisir à l'identique noie l'exception — une personne qui a
+            # réellement changé de nom — dans des répétitions.
+            personne = registre.get(candidat.personne)
+            if personne is not None and (candidat.nom, candidat.prenom) == (
+                personne.nom,
+                personne.prenom,
+            ):
+                problemes.append(
+                    f"{ou} : nom saisi alors qu'il est identique au registre, à retirer"
+                )
 
             for participation in candidat.tours:
                 if participation.numero not in tours_connus:

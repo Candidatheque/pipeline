@@ -183,3 +183,12 @@ def test_chaque_tour_cite_correspond_a_un_tour_de_l_election(destination):
         connus = {t["numero"] for t in _charge(chemin.parent / ELECTION_FILE)["tours"]}
         for candidature in _charge(chemin)["candidatures"]:
             assert {t["numero"] for t in candidature["tours"]} <= connus
+
+
+def test_le_nom_publie_est_resolu_depuis_le_registre(destination):
+    """Le seed ne répète pas le nom ; le document publié le porte toujours."""
+    doc = _charge(destination / ELECTIONS_DIR / "PR-1965" / "candidatures.json")
+    par_personne = {c["personne"]: c for c in doc["candidatures"]}
+    assert par_personne["PE-0002"]["nom"] == "DE GAULLE"
+    assert par_personne["PE-0002"]["prenom"] == "Charles"
+    assert all(c["nom"] and c["prenom"] for c in doc["candidatures"])

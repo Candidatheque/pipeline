@@ -96,9 +96,17 @@ second tour, on s'y qualifie. Le Conseil constitutionnel arrête une liste, une
 seule, pour le scrutin. La participation à un tour, elle, se rattache au tour et
 porte la ou les sources qui l'établissent.
 
-Le nom d'une candidature n'est pas recopié depuis le registre des personnes :
-c'est le nom porté lors de ce scrutin, qui peut différer d'une élection à
-l'autre.
+Le nom publié est celui porté lors de ce scrutin, et il peut différer d'une
+élection à l'autre — un nom d'usage change, un mariage change un nom.
+
+Dans le seed, il n'est pas répété : il se déduit du registre des personnes, et
+ne se saisit que s'il diffère. L'exception devient ainsi visible au lieu de se
+perdre parmi cent quatorze répétitions, et `candidatheque valider` signale un
+nom saisi à l'identique. Aucune des candidatures actuelles n'en saisit : dans
+les données de 1965 à 2022, personne n'a changé de nom entre deux scrutins.
+
+C'est le même principe que pour les sources : le seed ne répète rien, la
+publication développe tout.
 
 Les 114 candidatures publiées viennent des vingt-deux décisions du Conseil
 constitutionnel arrêtant les listes officielles, de 1965 à 2022 — celle du

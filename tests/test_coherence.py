@@ -69,3 +69,21 @@ def test_personne_orpheline_signalee(seeds_bricoles):
     problemes = coherence.verifier()
     assert any("citée par aucune candidature" in p for p in problemes)
     assert any("citée par aucune donnée" in p for p in problemes)
+
+
+def test_nom_saisi_a_l_identique_signale(seeds_bricoles):
+    """Saisir un nom identique au registre noie la vraie exception."""
+    from candidatheque.pipeline.seeds.personnes import Personne
+
+    seeds_bricoles("load_candidatures", _candidature(candidat={"nom": "BARBU", "prenom": "Marcel"}))
+    seeds_bricoles("load_personnes", (Personne(id="PE-0001", nom="BARBU", prenom="Marcel"),))
+    assert any("identique au registre" in p for p in coherence.verifier())
+
+
+def test_nom_saisi_parce_qu_il_differe_non_signale(seeds_bricoles):
+    """Le cas que le champ existe pour servir : un nom changé entre deux scrutins."""
+    from candidatheque.pipeline.seeds.personnes import Personne
+
+    seeds_bricoles("load_candidatures", _candidature(candidat={"nom": "DURAND", "prenom": "Marcel"}))
+    seeds_bricoles("load_personnes", (Personne(id="PE-0001", nom="BARBU", prenom="Marcel"),))
+    assert not any("identique au registre" in p for p in coherence.verifier())

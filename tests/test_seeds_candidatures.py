@@ -14,8 +14,6 @@ from candidatheque.pipeline.seeds.candidatures import Candidature, CandidaturesE
 
 UNE = {
     "personne": "PE-0001",
-    "nom": "BARBU",
-    "prenom": "Marcel",
     "etat": "validee",
     "tours": [{"numero": 1, "sources": ["conseil-constitutionnel:65-3-PDR"]}],
 }
@@ -95,3 +93,25 @@ def test_etat_hors_enumeration_rejete():
 def test_deux_candidatures_pour_la_meme_personne_rejetees():
     with pytest.raises(ValidationError, match="même personne"):
         CandidaturesElection.model_validate({"election": "PR-1965", "candidats": [UNE, UNE]})
+
+
+def test_le_seed_ne_repete_pas_les_noms(par_election):
+    """Le nom se déduit du registre ; le saisir est réservé à l'exception."""
+    saisis = [
+        (entree.election, candidat.personne)
+        for entree in par_election.values()
+        for candidat in entree.candidats
+        if candidat.nom is not None or candidat.prenom is not None
+    ]
+    assert saisis == [], f"noms saisis sans nécessité : {saisis}"
+
+
+def test_le_nom_est_absent_par_defaut():
+    candidature = Candidature.model_validate(UNE)
+    assert (candidature.nom, candidature.prenom) == (None, None)
+
+
+def test_un_nom_peut_etre_saisi_quand_il_differe():
+    """Le champ existe pour la personne qui a porté un autre nom à ce scrutin."""
+    candidature = Candidature.model_validate(UNE | {"nom": "DURAND", "prenom": "Marcel"})
+    assert (candidature.nom, candidature.prenom) == ("DURAND", "Marcel")

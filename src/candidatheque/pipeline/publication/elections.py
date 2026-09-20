@@ -37,9 +37,11 @@ from candidatheque.pipeline.paths import DATA_REPO, SCHEMAS_DIR
 from candidatheque.pipeline.seeds import (
     Candidature,
     Election,
+    Personne,
     Source,
     load_candidatures,
     load_elections,
+    load_personnes,
     load_sources,
 )
 
@@ -121,16 +123,21 @@ def candidatures(
     election: Election,
     candidats: Iterable[Candidature],
     sources: Mapping[str, Source],
+    personnes: Mapping[str, Personne],
 ) -> dict:
-    """Le contenu du document des candidatures d'une élection."""
+    """Le contenu du document des candidatures d'une élection.
+
+    Le nom absent du seed est résolu depuis le registre : le seed ne le répète
+    pas, le document publié le porte toujours.
+    """
     return {
         "$schema": f"../../{SCHEMAS_SUBDIR}/candidatures.schema.json",
         "election": election.id,
         "candidatures": [
             {
                 "personne": candidat.personne,
-                "nom": candidat.nom,
-                "prenom": candidat.prenom,
+                "nom": candidat.nom or personnes[candidat.personne].nom,
+                "prenom": candidat.prenom or personnes[candidat.personne].prenom,
                 "etat": str(candidat.etat),
                 "tours": [
                     {
@@ -152,6 +159,7 @@ def documents(
     election: Election,
     candidats: Iterable[Candidature] = (),
     sources: Mapping[str, Source] | None = None,
+    personnes: Mapping[str, Personne] | None = None,
 ) -> Iterator[tuple[str, dict]]:
     """Les documents à publier dans le répertoire d'une élection.
 
@@ -161,7 +169,9 @@ def documents(
     """
     yield ELECTION_FILE, metadonnees(election)
     if candidats:
-        yield CANDIDATURES_FILE, candidatures(election, candidats, sources or {})
+        yield CANDIDATURES_FILE, candidatures(
+            election, candidats, sources or {}, personnes or {}
+        )
 
 
 def _supprimer_orphelins(repertoire: Path, attendus: set[str]) -> list[Ecriture]:
@@ -213,6 +223,7 @@ def publier(destination: Path | None = None) -> list[Ecriture]:
     destination = destination or DATA_REPO
     elections = load_elections()
     sources = {source.id: source for source in load_sources()}
+    personnes = {personne.id: personne for personne in load_personnes()}
     par_election = {entree.election: entree.candidats for entree in load_candidatures()}
     ecritures: list[Ecriture] = []
 
@@ -226,7 +237,9 @@ def publier(destination: Path | None = None) -> list[Ecriture]:
     for election in elections:
         repertoire = racine_elections / election.id
         attendus = set()
-        for nom, contenu in documents(election, par_election.get(election.id, ()), sources):
+        for nom, contenu in documents(
+            election, par_election.get(election.id, ()), sources, personnes
+        ):
             attendus.add(nom)
             ecritures.append(_ecrire_json(repertoire / nom, contenu))
         ecritures.extend(_supprimer_orphelins(repertoire, attendus))

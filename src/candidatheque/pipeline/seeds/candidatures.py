@@ -8,9 +8,13 @@ La participation à un tour, elle, se rattache au tour, et porte la ou les
 sources qui l'établissent — pour les élections passées, la décision qui arrête
 la liste du premier tour puis celle des candidats habilités au second.
 
-Le nom n'est pas dénormalisé depuis le registre des personnes : c'est le nom
-porté lors de ce scrutin. Une même personne peut se présenter sous deux noms à
-deux élections, et chacun est exact à sa date.
+Le nom n'est pas répété dans le seed : il se déduit du registre des personnes.
+On ne le saisit que s'il diffère, c'est-à-dire si la personne a porté un autre
+nom lors de ce scrutin. L'exception devient ainsi visible, au lieu de se perdre
+parmi les répétitions.
+
+Le nom publié, lui, est toujours celui porté lors du scrutin : la publication le
+résout depuis le registre quand il n'est pas saisi.
 """
 
 from __future__ import annotations
@@ -58,8 +62,10 @@ class Candidature(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     personne: str
-    nom: str = Field(min_length=1)
-    prenom: str = Field(min_length=1)
+    #: Absents quand ils valent ceux du registre, ce qui est le cas courant.
+    #: Saisis seulement quand la personne a porté un autre nom à ce scrutin.
+    nom: str | None = Field(default=None, min_length=1)
+    prenom: str | None = Field(default=None, min_length=1)
     etat: Etat
     tours: tuple[Participation, ...] = Field(min_length=1)
 

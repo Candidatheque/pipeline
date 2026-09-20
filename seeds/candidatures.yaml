@@ -3,6 +3,11 @@
 # Chaque candidature dit qui s'est présenté, et à quels tours. L'association
 # entre une personne et un tour porte la ou les sources qui l'établissent.
 #
+# Le nom n'est pas répété : il se déduit du registre des personnes. On ne le
+# saisit que s'il diffère, c'est-à-dire si la personne a porté un autre nom lors
+# de ce scrutin — un nom d'usage, un mariage. L'exception devient ainsi visible
+# dans le seed, au lieu de se perdre parmi cent quatorze répétitions.
+#
 # Ces candidatures sont toutes à l'état « validee » : elles viennent des
 # décisions du Conseil constitutionnel arrêtant les listes officielles. Les
 # états « declaree », « retiree » et « ecartee » serviront pour une élection à
@@ -15,16 +20,12 @@ candidatures:
   - election: "PR-1965"
     candidats:
       - personne: "PE-0001"
-        nom: "BARBU"
-        prenom: "Marcel"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:65-3-PDR"
       - personne: "PE-0002"
-        nom: "DE GAULLE"
-        prenom: "Charles"
         etat: "validee"
         tours:
           - numero: 1
@@ -34,24 +35,18 @@ candidatures:
             sources:
               - "conseil-constitutionnel:65-7-PDR"
       - personne: "PE-0003"
-        nom: "LECANUET"
-        prenom: "Jean"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:65-3-PDR"
       - personne: "PE-0004"
-        nom: "MARCILHACY"
-        prenom: "Pierre"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:65-3-PDR"
       - personne: "PE-0005"
-        nom: "MITTERRAND"
-        prenom: "François"
         etat: "validee"
         tours:
           - numero: 1
@@ -61,8 +56,6 @@ candidatures:
             sources:
               - "conseil-constitutionnel:65-7-PDR"
       - personne: "PE-0006"
-        nom: "TIXIER-VIGNANCOUR"
-        prenom: "Jean-Louis"
         etat: "validee"
         tours:
           - numero: 1
@@ -72,40 +65,30 @@ candidatures:
   - election: "PR-1969"
     candidats:
       - personne: "PE-0007"
-        nom: "DEFFERRE"
-        prenom: "Gaston"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:69-13-PDR"
       - personne: "PE-0008"
-        nom: "DUCATEL"
-        prenom: "Louis"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:69-13-PDR"
       - personne: "PE-0009"
-        nom: "DUCLOS"
-        prenom: "Jacques"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:69-13-PDR"
       - personne: "PE-0010"
-        nom: "KRIVINE"
-        prenom: "Alain"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:69-13-PDR"
       - personne: "PE-0011"
-        nom: "POHER"
-        prenom: "Alain"
         etat: "validee"
         tours:
           - numero: 1
@@ -115,8 +98,6 @@ candidatures:
             sources:
               - "conseil-constitutionnel:69-21-PDR"
       - personne: "PE-0012"
-        nom: "POMPIDOU"
-        prenom: "Georges"
         etat: "validee"
         tours:
           - numero: 1
@@ -126,8 +107,6 @@ candidatures:
             sources:
               - "conseil-constitutionnel:69-21-PDR"
       - personne: "PE-0013"
-        nom: "ROCARD"
-        prenom: "Michel"
         etat: "validee"
         tours:
           - numero: 1
@@ -137,8 +116,6 @@ candidatures:
   - election: "PR-1974"
     candidats:
       - personne: "PE-0005"
-        nom: "MITTERRAND"
-        prenom: "François"
         etat: "validee"
         tours:
           - numero: 1
@@ -148,32 +125,24 @@ candidatures:
             sources:
               - "conseil-constitutionnel:74-31-PDR"
       - personne: "PE-0010"
-        nom: "KRIVINE"
-        prenom: "Alain"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0014"
-        nom: "CHABAN-DELMAS"
-        prenom: "Jacques"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0015"
-        nom: "DUMONT"
-        prenom: "René"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0016"
-        nom: "GISCARD D'ESTAING"
-        prenom: "Valéry"
         etat: "validee"
         tours:
           - numero: 1
@@ -183,56 +152,42 @@ candidatures:
             sources:
               - "conseil-constitutionnel:74-31-PDR"
       - personne: "PE-0017"
-        nom: "HÉRAUD"
-        prenom: "Guy"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0018"
-        nom: "LAGUILLER"
-        prenom: "Arlette"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0019"
-        nom: "LE PEN"
-        prenom: "Jean-Marie"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0020"
-        nom: "MULLER"
-        prenom: "Émile"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0021"
-        nom: "RENOUVIN"
-        prenom: "Bertrand"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0022"
-        nom: "ROYER"
-        prenom: "Jean"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0023"
-        nom: "SEBAG"
-        prenom: "Jean-Claude"
         etat: "validee"
         tours:
           - numero: 1
@@ -242,8 +197,6 @@ candidatures:
   - election: "PR-1981"
     candidats:
       - personne: "PE-0005"
-        nom: "MITTERRAND"
-        prenom: "François"
         etat: "validee"
         tours:
           - numero: 1
@@ -253,8 +206,6 @@ candidatures:
             sources:
               - "conseil-constitutionnel:81-46-PDR"
       - personne: "PE-0016"
-        nom: "GISCARD D'ESTAING"
-        prenom: "Valéry"
         etat: "validee"
         tours:
           - numero: 1
@@ -264,64 +215,48 @@ candidatures:
             sources:
               - "conseil-constitutionnel:81-46-PDR"
       - personne: "PE-0018"
-        nom: "LAGUILLER"
-        prenom: "Arlette"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
       - personne: "PE-0024"
-        nom: "GARAUD"
-        prenom: "Marie-France"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
       - personne: "PE-0025"
-        nom: "CRÉPEAU"
-        prenom: "Michel"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
       - personne: "PE-0026"
-        nom: "BOUCHARDEAU"
-        prenom: "Huguette"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
       - personne: "PE-0027"
-        nom: "LALONDE"
-        prenom: "Brice"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
       - personne: "PE-0028"
-        nom: "MARCHAIS"
-        prenom: "Georges"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
       - personne: "PE-0029"
-        nom: "DEBRÉ"
-        prenom: "Michel"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
       - personne: "PE-0030"
-        nom: "CHIRAC"
-        prenom: "Jacques"
         etat: "validee"
         tours:
           - numero: 1
@@ -331,8 +266,6 @@ candidatures:
   - election: "PR-1988"
     candidats:
       - personne: "PE-0005"
-        nom: "MITTERRAND"
-        prenom: "François"
         etat: "validee"
         tours:
           - numero: 1
@@ -342,24 +275,18 @@ candidatures:
             sources:
               - "conseil-constitutionnel:88-57-PDR"
       - personne: "PE-0018"
-        nom: "LAGUILLER"
-        prenom: "Arlette"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:88-54-PDR"
       - personne: "PE-0019"
-        nom: "LE PEN"
-        prenom: "Jean-Marie"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:88-54-PDR"
       - personne: "PE-0030"
-        nom: "CHIRAC"
-        prenom: "Jacques"
         etat: "validee"
         tours:
           - numero: 1
@@ -369,40 +296,30 @@ candidatures:
             sources:
               - "conseil-constitutionnel:88-57-PDR"
       - personne: "PE-0031"
-        nom: "BARRE"
-        prenom: "Raymond"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:88-54-PDR"
       - personne: "PE-0032"
-        nom: "JUQUIN"
-        prenom: "Pierre"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:88-54-PDR"
       - personne: "PE-0033"
-        nom: "BOUSSEL"
-        prenom: "Pierre"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:88-54-PDR"
       - personne: "PE-0034"
-        nom: "WAECHTER"
-        prenom: "Antoine"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:88-54-PDR"
       - personne: "PE-0035"
-        nom: "LAJOINIE"
-        prenom: "André"
         etat: "validee"
         tours:
           - numero: 1
@@ -412,24 +329,18 @@ candidatures:
   - election: "PR-1995"
     candidats:
       - personne: "PE-0018"
-        nom: "LAGUILLER"
-        prenom: "Arlette"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
       - personne: "PE-0019"
-        nom: "LE PEN"
-        prenom: "Jean-Marie"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
       - personne: "PE-0030"
-        nom: "CHIRAC"
-        prenom: "Jacques"
         etat: "validee"
         tours:
           - numero: 1
@@ -439,24 +350,18 @@ candidatures:
             sources:
               - "conseil-constitutionnel:95-80-PDR"
       - personne: "PE-0036"
-        nom: "de VILLIERS"
-        prenom: "Philippe"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
       - personne: "PE-0037"
-        nom: "CHEMINADE"
-        prenom: "Jacques"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
       - personne: "PE-0038"
-        nom: "JOSPIN"
-        prenom: "Lionel"
         etat: "validee"
         tours:
           - numero: 1
@@ -466,24 +371,18 @@ candidatures:
             sources:
               - "conseil-constitutionnel:95-80-PDR"
       - personne: "PE-0039"
-        nom: "VOYNET"
-        prenom: "Dominique"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
       - personne: "PE-0040"
-        nom: "BALLADUR"
-        prenom: "Édouard"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
       - personne: "PE-0041"
-        nom: "HUE"
-        prenom: "Robert"
         etat: "validee"
         tours:
           - numero: 1
@@ -493,16 +392,12 @@ candidatures:
   - election: "PR-2002"
     candidats:
       - personne: "PE-0018"
-        nom: "LAGUILLER"
-        prenom: "Arlette"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0019"
-        nom: "LE PEN"
-        prenom: "Jean-Marie"
         etat: "validee"
         tours:
           - numero: 1
@@ -512,8 +407,6 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2002-110-PDR"
       - personne: "PE-0030"
-        nom: "CHIRAC"
-        prenom: "Jacques"
         etat: "validee"
         tours:
           - numero: 1
@@ -523,104 +416,78 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2002-110-PDR"
       - personne: "PE-0038"
-        nom: "JOSPIN"
-        prenom: "Lionel"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0041"
-        nom: "HUE"
-        prenom: "Robert"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0042"
-        nom: "MÉGRET"
-        prenom: "Bruno"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0043"
-        nom: "LEPAGE"
-        prenom: "Corinne"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0044"
-        nom: "GLUCKSTEIN"
-        prenom: "Daniel"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0045"
-        nom: "BAYROU"
-        prenom: "François"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0046"
-        nom: "TAUBIRA"
-        prenom: "Christiane"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0047"
-        nom: "SAINT-JOSSE"
-        prenom: "Jean"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0048"
-        nom: "MAMÈRE"
-        prenom: "Noël"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0049"
-        nom: "BOUTIN"
-        prenom: "Christine"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0050"
-        nom: "CHEVÈNEMENT"
-        prenom: "Jean-Pierre"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0051"
-        nom: "MADELIN"
-        prenom: "Alain"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0052"
-        nom: "BESANCENOT"
-        prenom: "Olivier"
         etat: "validee"
         tours:
           - numero: 1
@@ -630,80 +497,60 @@ candidatures:
   - election: "PR-2007"
     candidats:
       - personne: "PE-0018"
-        nom: "LAGUILLER"
-        prenom: "Arlette"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0019"
-        nom: "LE PEN"
-        prenom: "Jean-Marie"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0036"
-        nom: "de VILLIERS"
-        prenom: "Philippe"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0039"
-        nom: "VOYNET"
-        prenom: "Dominique"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0045"
-        nom: "BAYROU"
-        prenom: "François"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0052"
-        nom: "BESANCENOT"
-        prenom: "Olivier"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0053"
-        nom: "BUFFET"
-        prenom: "Marie-George"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0054"
-        nom: "SCHIVARDI"
-        prenom: "Gérard"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0055"
-        nom: "BOVÉ"
-        prenom: "José"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0056"
-        nom: "ROYAL"
-        prenom: "Ségolène"
         etat: "validee"
         tours:
           - numero: 1
@@ -713,16 +560,12 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2007-140-PDR"
       - personne: "PE-0057"
-        nom: "NIHOUS"
-        prenom: "Frédéric"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0058"
-        nom: "SARKOZY"
-        prenom: "Nicolas"
         etat: "validee"
         tours:
           - numero: 1
@@ -735,24 +578,18 @@ candidatures:
   - election: "PR-2012"
     candidats:
       - personne: "PE-0037"
-        nom: "CHEMINADE"
-        prenom: "Jacques"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0045"
-        nom: "BAYROU"
-        prenom: "François"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0058"
-        nom: "SARKOZY"
-        prenom: "Nicolas"
         etat: "validee"
         tours:
           - numero: 1
@@ -762,56 +599,42 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2012-153-PDR"
       - personne: "PE-0059"
-        nom: "JOLY"
-        prenom: "Eva"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0060"
-        nom: "LE PEN"
-        prenom: "Marine"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0061"
-        nom: "MÉLENCHON"
-        prenom: "Jean-Luc"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0062"
-        nom: "POUTOU"
-        prenom: "Philippe"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0063"
-        nom: "ARTHAUD"
-        prenom: "Nathalie"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0064"
-        nom: "DUPONT-AIGNAN"
-        prenom: "Nicolas"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0065"
-        nom: "HOLLANDE"
-        prenom: "François"
         etat: "validee"
         tours:
           - numero: 1
@@ -824,16 +647,12 @@ candidatures:
   - election: "PR-2017"
     candidats:
       - personne: "PE-0037"
-        nom: "CHEMINADE"
-        prenom: "Jacques"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0060"
-        nom: "LE PEN"
-        prenom: "Marine"
         etat: "validee"
         tours:
           - numero: 1
@@ -843,40 +662,30 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2017-170-PDR"
       - personne: "PE-0061"
-        nom: "MÉLENCHON"
-        prenom: "Jean-Luc"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0062"
-        nom: "POUTOU"
-        prenom: "Philippe"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0063"
-        nom: "ARTHAUD"
-        prenom: "Nathalie"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0064"
-        nom: "DUPONT-AIGNAN"
-        prenom: "Nicolas"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0066"
-        nom: "MACRON"
-        prenom: "Emmanuel"
         etat: "validee"
         tours:
           - numero: 1
@@ -886,32 +695,24 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2017-170-PDR"
       - personne: "PE-0067"
-        nom: "HAMON"
-        prenom: "Benoît"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0068"
-        nom: "LASSALLE"
-        prenom: "Jean"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0069"
-        nom: "ASSELINEAU"
-        prenom: "François"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0070"
-        nom: "FILLON"
-        prenom: "François"
         etat: "validee"
         tours:
           - numero: 1
@@ -921,8 +722,6 @@ candidatures:
   - election: "PR-2022"
     candidats:
       - personne: "PE-0060"
-        nom: "LE PEN"
-        prenom: "Marine"
         etat: "validee"
         tours:
           - numero: 1
@@ -932,40 +731,30 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2022-196-PDR"
       - personne: "PE-0061"
-        nom: "MÉLENCHON"
-        prenom: "Jean-Luc"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0062"
-        nom: "POUTOU"
-        prenom: "Philippe"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0063"
-        nom: "ARTHAUD"
-        prenom: "Nathalie"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0064"
-        nom: "DUPONT-AIGNAN"
-        prenom: "Nicolas"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0066"
-        nom: "MACRON"
-        prenom: "Emmanuel"
         etat: "validee"
         tours:
           - numero: 1
@@ -975,48 +764,36 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2022-196-PDR"
       - personne: "PE-0068"
-        nom: "LASSALLE"
-        prenom: "Jean"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0071"
-        nom: "ROUSSEL"
-        prenom: "Fabien"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0072"
-        nom: "ZEMMOUR"
-        prenom: "Éric"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0073"
-        nom: "HIDALGO"
-        prenom: "Anne"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0074"
-        nom: "JADOT"
-        prenom: "Yannick"
         etat: "validee"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0075"
-        nom: "PÉCRESSE"
-        prenom: "Valérie"
         etat: "validee"
         tours:
           - numero: 1
