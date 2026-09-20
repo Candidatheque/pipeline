@@ -40,6 +40,7 @@ def mots_par_page(pdf: Path, debut: int, fin: int):
                     "x": float(mot.get("xMin")),
                     "y": float(mot.get("yMin")),
                     "xmax": float(mot.get("xMax")),
+                    "ymax": float(mot.get("yMax")),
                     "t": (mot.text or ""),
                 }
             )
@@ -65,16 +66,29 @@ def gouttiere(largeur: float, mots: list[dict]) -> float:
 
 
 def _rangees(mots: list[dict]) -> list[list[dict]]:
-    """Les mots regroupés en rangées, de haut en bas."""
-    rangees, courante, rang = [], [], None
-    for m in sorted(mots, key=lambda m: (round(m["y"] / 4), m["x"])):
-        if rang is not None and round(m["y"] / 4) != rang:
-            rangees.append(courante)
-            courante = []
-        rang = round(m["y"] / 4)
-        courante.append(m)
+    """Les mots regroupés en rangées, de haut en bas.
+
+    Le regroupement se fait par écart à la rangée en cours, et non par tranches
+    de hauteur fixes : deux mots d'une même ligne ne sont pas posés exactement
+    à la même ordonnée, et une tranche fixe en renvoie régulièrement un dans
+    une rangée à lui seul. Ce mot-là sortait alors hors de sa présentation —
+    « Jacques VERDIER, » privé de son « maire ».
+    """
+    if not mots:
+        return []
+    hauteurs = sorted(m["ymax"] - m["y"] for m in mots)
+    tolerance = hauteurs[len(hauteurs) // 2] / 2
+    rangees: list[list[dict]] = []
+    courante: list[dict] = []
+    reference = None
+    for mot in sorted(mots, key=lambda m: (m["y"], m["x"])):
+        if reference is None or mot["y"] - reference > tolerance:
+            if courante:
+                rangees.append(sorted(courante, key=lambda m: m["x"]))
+            courante, reference = [], mot["y"]
+        courante.append(mot)
     if courante:
-        rangees.append(courante)
+        rangees.append(sorted(courante, key=lambda m: m["x"]))
     return rangees
 
 

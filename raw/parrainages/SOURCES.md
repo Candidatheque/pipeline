@@ -19,3 +19,6 @@ ci-dessous, et la rejouer sur le même PDF rend le même fichier.
 
 Les pages indiquées sont celles des listes elles-mêmes : le reste de l'édition
 porte d'autres textes, qui n'ont rien à y faire.
+
+Ces plages figurent aussi dans `seeds/parrainages.yaml`, qui fait foi : le seed
+porte tout ce qui décrit une source, y compris ses paramètres de conversion.

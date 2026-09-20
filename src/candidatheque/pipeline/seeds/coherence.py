@@ -9,6 +9,7 @@ contrôles, lancés par `candidatheque valider`.
 
 from __future__ import annotations
 
+from candidatheque.pipeline.lecture.parrainages import lire
 from candidatheque.pipeline.seeds.autorites import load_autorites
 from candidatheque.pipeline.seeds.candidatures import load_candidatures
 from candidatheque.pipeline.seeds.elections import load_elections
@@ -124,6 +125,24 @@ def verifier() -> list[str]:
                     f"source inconnue « {publication.source} »"
                 )
             sources_citees.add(publication.source)
+        for candidat in entree.candidats:
+            if candidat.personne is not None and candidat.personne not in personnes:
+                problemes.append(
+                    f"{entree.election} : « {candidat.titre} » renvoie à "
+                    f"{candidat.personne}, absent du registre des personnes"
+                )
+        # Le seed doit nommer exactement les candidats que porte le fichier.
+        # Un titre oublié, c'est une liste entière qui disparaît sans bruit ;
+        # un titre en trop, une déclaration qui ne correspond plus à la source.
+        if entree.chemin().is_file():
+            portes = {parrainage.candidat for parrainage in lire(entree)}
+            declares = {candidat.titre for candidat in entree.candidats}
+            for absent in sorted(portes - declares):
+                problemes.append(f"{entree.election} : « {absent} » porté par la source, non déclaré")
+            for surnumeraire in sorted(declares - portes):
+                problemes.append(
+                    f"{entree.election} : « {surnumeraire} » déclaré, absent de la source"
+                )
 
     for orpheline in sorted(partis - partis_cites):
         problemes.append(f"{orpheline} : parti du registre cité par aucune candidature")

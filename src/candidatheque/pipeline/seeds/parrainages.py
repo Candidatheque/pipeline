@@ -52,6 +52,26 @@ class Etendue(StrEnum):
     TIRAGE_AU_SORT = "tirage-au-sort"
 
 
+class CandidatSource(BaseModel):
+    """Un nom tel que la source l'écrit, et la personne qu'il désigne.
+
+    Le rapprochement est déclaré ici plutôt que deviné à la lecture. Les titres
+    du Journal officiel sortent parfois abîmés de l'impression — « M. Michel
+    DE3RE. », « Madame ArU 3 LAGUILLER » —, et une ressemblance approchée
+    finirait par rapprocher deux homonymes. Un nom écrit noir sur blanc dans le
+    seed se relit et se corrige ; un seuil de similarité, non.
+
+    `personne` est vide pour qui a reçu des présentations sans être au registre
+    : Thomas PESQUET et Édouard PHILIPPE en 2022 en ont reçu sans jamais être
+    candidats.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    titre: str = Field(min_length=1)
+    personne: str | None = None
+
+
 class Publication(BaseModel):
     """Une vague de publication, et la décision qui l'a rendue publique."""
 
@@ -73,6 +93,13 @@ class SourceParrainages(BaseModel):
     #: Ce que la source publie. Sans ce champ, un consommateur compterait les
     #: lignes et conclurait que Nicolas Sarkozy a eu 500 parrainages en 2007.
     etendue: Etendue
+    #: Les pages du document qui portent les listes, « 8-30 ». Le reste de
+    #: l'édition porte d'autres textes ; `outils/pdf_en_texte.py` s'en sert
+    #: pour rejouer l'extraction à l'identique.
+    pages: str | None = None
+    #: Les noms de candidats que porte la source, rapprochés du registre. Tous
+    #: doivent y être : c'est ce qui garantit qu'aucune liste n'est ignorée.
+    candidats: tuple[CandidatSource, ...] = ()
     #: Au moins une. À partir de 2017, le Conseil publie par vagues pendant la
     #: campagne, et chaque parrainage cite la décision qui le concerne.
     publications: tuple[Publication, ...] = Field(min_length=1)
@@ -90,6 +117,20 @@ class SourceParrainages(BaseModel):
     def chemin(self, racine: Path | None = None) -> Path:
         """Le fichier source, sous `raw/`."""
         return (racine or RAW_DIR) / self.fichier
+
+    @model_validator(mode="after")
+    def _titres_distincts(self) -> SourceParrainages:
+        titres = [candidat.titre for candidat in self.candidats]
+        doublons = sorted({t for t in titres if titres.count(t) > 1})
+        if doublons:
+            raise ValueError(
+                f"{self.election}: deux fois le même titre : " + ", ".join(doublons)
+            )
+        return self
+
+    def personne_de(self, titre: str) -> str | None:
+        """La personne que ce nom désigne, si elle est au registre."""
+        return next((c.personne for c in self.candidats if c.titre == titre), None)
 
     def source_du(self, jour: dt.date) -> str | None:
         """La décision qui a publié les parrainages de cette date."""
