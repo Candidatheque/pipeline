@@ -120,6 +120,15 @@ du Conseil constitutionnel, puis relus. Chaque participation cite la décision
 qui l'établit : la vérification se refait en ouvrant les vingt-deux URL de
 `seeds/sources.yaml`.
 
+Ils ont ensuite été recoupés avec Wikidata, dont la propriété `P726` associe des
+candidats à une élection. Les deux sources s'accordent exactement : mêmes 75
+personnes, mêmes 114 candidatures, aucun écart. Wikidata ne connaît donc aucun
+candidat que le Conseil constitutionnel n'aurait pas retenu.
+
+Chaque personne porte son QID Wikidata. C'est le QID qu'on stocke et jamais le
+nom : cinq de ces éléments n'ont pas de libellé français, dont ceux de Jacques
+Chirac et d'Emmanuel Macron.
+
 ## Sources
 
 Partout où une donnée est sourcée, elle l'est de la même façon, décrite par

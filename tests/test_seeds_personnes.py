@@ -103,3 +103,19 @@ def test_champ_inconnu_rejete():
         Personne.model_validate(
             {"id": "PE-0001", "nom": "DUPONT", "prenom": "Camille", "couleur": "bleu"}
         )
+
+
+def test_chaque_personne_porte_son_identifiant_wikidata():
+    """Recoupé le 2026-09-20 : la propriété P726 de Wikidata donne exactement
+    les candidats des décisions du Conseil constitutionnel, 114 sur 114."""
+    personnes = load_personnes()
+    assert all(personne.wikidata for personne in personnes)
+    qids = [personne.wikidata for personne in personnes]
+    assert len(set(qids)) == len(qids)
+
+
+def test_quelques_identifiants_wikidata_connus():
+    par_id = {personne.id: personne.wikidata for personne in load_personnes()}
+    assert par_id["PE-0002"] == "Q2042", "Charles de Gaulle"
+    assert par_id["PE-0030"] == "Q2105", "Jacques Chirac"
+    assert par_id["PE-0066"] == "Q3052772", "Emmanuel Macron"
