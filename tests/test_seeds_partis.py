@@ -11,7 +11,7 @@ from candidatheque.pipeline.seeds.partis import Parti
 
 def test_le_registre_du_depot_est_valide():
     partis = load_partis()
-    assert len(partis) == 43
+    assert len(partis) == 53
     numeros = [parti.numero for parti in partis]
     assert numeros == sorted(set(numeros))
     qids = [parti.wikidata for parti in partis if parti.wikidata]
@@ -26,12 +26,15 @@ def test_le_sigle_est_facultatif():
     assert Parti(id="PA-9999", nom_complet="Un mouvement").sigle is None
 
 
-def test_l_identifiant_wikidata_reste_facultatif():
-    """Les 43 en ont un parce qu'ils viennent tous de Wikidata.
+def test_l_identifiant_wikidata_est_facultatif():
+    """Les partis venus de Wikidata en ont un, ceux des tableaux non.
 
-    C'est un artefact de la source : les partis relevés dans les tableaux de
-    2007 — « France Équité », « Esperanto Liberté » — n'en auront pas.
+    « Santé en danger », « Osons la différence », « L'Avenir c'est la Terre » :
+    de petits mouvements créés pour l'élection, sans élément Wikidata.
     """
+    partis = load_partis()
+    sans = [p for p in partis if not p.wikidata]
+    assert len(sans) == 10
     assert Parti(id="PA-9999", nom_complet="France Équité").wikidata is None
 
 

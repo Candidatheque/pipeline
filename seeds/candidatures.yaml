@@ -2514,6 +2514,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0044"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0165"
         etats:
           - etat: "ecartee"
@@ -2530,6 +2534,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0046"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0167"
         etats:
           - etat: "ecartee"
@@ -2556,12 +2564,20 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0045"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0170"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0047"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0171"
         etats:
           - etat: "ecartee"
@@ -2574,6 +2590,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0051"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0173"
         etats:
           - etat: "ecartee"
@@ -2586,12 +2606,20 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0048"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0175"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0049"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0176"
         etats:
           - etat: "ecartee"
@@ -2604,6 +2632,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0050"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0178"
         etats:
           - etat: "ecartee"
@@ -2622,6 +2654,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0052"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0181"
         etats:
           - etat: "ecartee"
@@ -2646,6 +2682,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0053"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0185"
         etats:
           - etat: "ecartee"

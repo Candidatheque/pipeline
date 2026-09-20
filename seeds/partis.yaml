@@ -181,3 +181,27 @@ partis:
     nom_complet: "Les Patriotes"
     sigle: "LP"
     wikidata: "Q41330182"
+
+  # Relevés dans les tableaux de l'article Wikipédia des candidatures de 2022,
+  # où le parti figure dans la même cellule que le nom. Aucun n'a d'élément
+  # Wikidata : ce sont de petits mouvements, souvent créés pour l'élection.
+  - id: "PA-0044"
+    nom_complet: "Simple"
+  - id: "PA-0045"
+    nom_complet: "Santé en danger"
+  - id: "PA-0046"
+    nom_complet: "Espoir RIC 2022"
+  - id: "PA-0047"
+    nom_complet: "Fédération citoyenne"
+  - id: "PA-0048"
+    nom_complet: "Osons la différence"
+  - id: "PA-0049"
+    nom_complet: "L'Avenir c'est la Terre"
+  - id: "PA-0050"
+    nom_complet: "Conseil national de transition"
+  - id: "PA-0051"
+    nom_complet: "Le Peuple de France"
+  - id: "PA-0052"
+    nom_complet: "Parti des citoyens européens"
+  - id: "PA-0053"
+    nom_complet: "La France autrement"

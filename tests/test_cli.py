@@ -11,7 +11,7 @@ def test_valider_reussit_sur_le_seed_du_depot(capsys):
     assert "12 élections" in sortie
     assert "239 personnes" in sortie
     assert "314 candidatures" in sortie
-    assert "43 partis" in sortie
+    assert "53 partis" in sortie
     assert "cohérents" in sortie
 
 
