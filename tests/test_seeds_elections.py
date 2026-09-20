@@ -15,7 +15,7 @@ def elections():
 
 
 def test_le_seed_du_depot_est_valide(elections):
-    assert len(elections) == 11
+    assert len(elections) == 12
 
 
 def test_les_elections_sont_ordonnees_et_uniques(elections):
@@ -26,7 +26,7 @@ def test_les_elections_sont_ordonnees_et_uniques(elections):
 
 def test_les_bornes_du_seed(elections):
     assert elections[0].id == "PR-1965"
-    assert elections[-1].id == "PR-2022"
+    assert elections[-1].id == "PR-2027"
 
 
 @pytest.mark.parametrize(

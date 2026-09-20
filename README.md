@@ -107,7 +107,7 @@ gh api /repos/actions/checkout/git/ref/tags/v7.0.1 --jq .object.sha
 Les schémas se référencent par chemin relatif et n'ont pas de `$id`. À reprendre
 le jour où `data` sera servi sur une URL stable.
 
-Seules les présidentielles sont couvertes, de 1965 à 2022, et seuls l'identifiant
+Seules les présidentielles sont couvertes, de 1965 à 2027, et seuls l'identifiant
 et l'année sont publiés.
 
 Rien ne relance la publication quand une source externe change : le workflow ne
