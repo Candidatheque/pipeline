@@ -11,6 +11,7 @@ import json
 
 import pytest
 from jsonschema import Draft202012Validator
+from referencing import Registry, Resource
 
 from candidatheque.pipeline.paths import SCHEMAS_DIR
 from candidatheque.pipeline.publication import Statut, publier
@@ -38,10 +39,18 @@ def _charge(chemin):
     return json.loads(chemin.read_text(encoding="utf-8"))
 
 
+def _registre():
+    """Les schémas se référencent entre eux : il faut les résoudre ensemble."""
+    registre = Registry()
+    for chemin in SCHEMAS_DIR.glob("*.schema.json"):
+        registre = registre.with_resource(chemin.name, Resource.from_contents(_charge(chemin)))
+    return registre
+
+
 def _valideur(nom):
     schema = _charge(SCHEMAS_DIR / nom)
     Draft202012Validator.check_schema(schema)
-    return Draft202012Validator(schema)
+    return Draft202012Validator(schema, registry=_registre())
 
 
 def test_les_schemas_sont_recopies(destination):
@@ -114,7 +123,7 @@ def test_une_modification_est_detectee(destination):
 
 def test_un_document_orphelin_est_supprime(destination):
     """Un sujet qui cesse d'être produit ne doit pas rester dans `data`."""
-    orphelin = destination / ELECTIONS_DIR / "PR-2012" / "candidatures.json"
+    orphelin = destination / ELECTIONS_DIR / "PR-2012" / "parrainages.json"
     orphelin.write_text('{"election": "PR-2012"}', encoding="utf-8")
 
     ecritures = publier(destination)
@@ -127,87 +136,6 @@ def test_les_documents_connus_sont_publies(elections_du_seed):
     """Le point d'extension rend au moins les métadonnées, sous un nom de fichier."""
     noms = [nom for nom, _ in documents(elections_du_seed[0])]
     assert noms == [ELECTION_FILE]
-
-
-class TestSchemaCandidatures:
-    """Le schéma des candidatures n'a pas encore de producteur.
-
-    Ces tests tiennent lieu de spécification : ils fixent ce que la collecte à
-    venir devra produire, et surtout ce qu'elle n'aura pas le droit de produire.
-    """
-
-    @staticmethod
-    def _candidature(**remplacements):
-        base = {
-            "personne": "PE-0001",
-            "nom": "Dupont",
-            "prenom": "Camille",
-            "etat": "declaree",
-            "sources": [{"url": "https://exemple.fr/a", "consultee_le": "2026-09-20"}],
-        }
-        return base | remplacements
-
-    @staticmethod
-    def _document(*candidatures):
-        return {"election": "PR-2027", "candidatures": list(candidatures)}
-
-    @pytest.fixture(scope="class")
-    @classmethod
-    def valideur(cls):
-        return _valideur("candidatures.schema.json")
-
-    def test_un_document_bien_forme_est_accepte(self, valideur):
-        valideur.validate(self._document(self._candidature(wikidata="Q42")))
-
-    @pytest.mark.parametrize("etat", ["declaree", "validee", "retiree", "ecartee"])
-    def test_les_quatre_etats_sont_acceptes(self, valideur, etat):
-        valideur.validate(self._document(self._candidature(etat=etat)))
-
-    def test_un_etat_hors_enumeration_est_rejete(self, valideur):
-        assert not valideur.is_valid(self._document(self._candidature(etat="peut-etre")))
-
-    def test_une_candidature_sans_source_est_rejetee(self, valideur):
-        """Une candidature sans provenance ne vaut rien : elle est invérifiable."""
-        assert not valideur.is_valid(self._document(self._candidature(sources=[])))
-
-    def test_une_date_de_generation_est_rejetee(self, valideur):
-        """Une date de génération ferait bouger le fichier à chaque passage."""
-        assert not valideur.is_valid(
-            self._document(self._candidature(publie_le="2026-09-20"))
-        )
-
-    def test_un_identifiant_d_election_mal_forme_est_rejete(self, valideur):
-        document = self._document(self._candidature()) | {"election": "2027"}
-        assert not valideur.is_valid(document)
-
-    def test_une_candidature_sans_identifiant_de_personne_est_rejetee(self, valideur):
-        """Sans lui, rien ne relie les candidatures successives d'une personne."""
-        sans_personne = self._candidature()
-        del sans_personne["personne"]
-        assert not valideur.is_valid(self._document(sans_personne))
-
-    @pytest.mark.parametrize("identifiant", ["PE-1", "0001", "PR-0001", "pe-0001"])
-    def test_un_identifiant_de_personne_mal_forme_est_rejete(self, valideur, identifiant):
-        assert not valideur.is_valid(self._document(self._candidature(personne=identifiant)))
-
-    def test_une_personne_peut_changer_de_nom_entre_deux_elections(self, valideur):
-        """Le nom publié est celui porté lors du scrutin, pas un nom de référence.
-
-        Deux candidatures de la même personne sous deux noms différents ne sont
-        pas une incohérence : c'est le cas qu'on veut pouvoir représenter.
-        """
-        valideur.validate(
-            {
-                "election": "PR-2012",
-                "candidatures": [self._candidature(personne="PE-0001", nom="Dupont")],
-            }
-        )
-        valideur.validate(
-            {
-                "election": "PR-2017",
-                "candidatures": [self._candidature(personne="PE-0001", nom="Durand")],
-            }
-        )
 
 
 def test_un_tour_sans_qid_omet_le_champ(destination):
@@ -223,3 +151,35 @@ def test_l_index_ne_porte_pas_les_tours(destination):
     """L'index sert à énumérer ; le détail vit dans le document de l'élection."""
     for entree in _charge(destination / INDEX_FILE)["elections"]:
         assert set(entree) == {"id", "annee"}
+
+
+def test_les_candidatures_sont_publiees_et_conformes(destination):
+    valideur = _valideur("candidatures.schema.json")
+    publies = sorted((destination / ELECTIONS_DIR).glob("*/candidatures.json"))
+    assert len(publies) == 11
+    for chemin in publies:
+        valideur.validate(_charge(chemin))
+
+
+def test_une_election_sans_candidature_ne_publie_pas_de_document_vide(destination):
+    """Deux élections n'ont pas les mêmes documents, selon leur stade."""
+    repertoire = destination / ELECTIONS_DIR / "PR-2027"
+    assert (repertoire / ELECTION_FILE).is_file()
+    assert not (repertoire / "candidatures.json").exists()
+
+
+def test_les_sources_sont_recopiees_en_clair(destination):
+    """Le seed cite par identifiant ; le publié se lit sans résoudre de référence."""
+    doc = _charge(destination / ELECTIONS_DIR / "PR-2022" / "candidatures.json")
+    source = doc["candidatures"][0]["tours"][0]["sources"][0]
+    assert source["id"].startswith("conseil-constitutionnel:")
+    assert source["url"].startswith("https://")
+    assert source["commentaire"]
+    assert source["consultee_le"] == "2026-09-20"
+
+
+def test_chaque_tour_cite_correspond_a_un_tour_de_l_election(destination):
+    for chemin in sorted((destination / ELECTIONS_DIR).glob("*/candidatures.json")):
+        connus = {t["numero"] for t in _charge(chemin.parent / ELECTION_FILE)["tours"]}
+        for candidature in _charge(chemin)["candidatures"]:
+            assert {t["numero"] for t in candidature["tours"]} <= connus

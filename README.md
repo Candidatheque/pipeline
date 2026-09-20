@@ -13,7 +13,7 @@
 
 | Répertoire | Régime |
 |---|---|
-| `seeds/` | Saisi à la main. `elections.yaml` dit quoi publier, `personnes.yaml` attribue les identifiants de personne. |
+| `seeds/` | Saisi à la main. `elections.yaml` dit quoi publier, `candidatures.yaml` qui s'est présenté, `personnes.yaml` et `sources.yaml` attribuent les identifiants. |
 | `schemas/` | Les JSON Schema qui décrivent les données publiées. Écrits à la main, recopiés tels quels dans `data`. |
 | `src/` | Le code de la pipeline. |
 | `requetes/` | Requêtes SPARQL lancées à la main pour retrouver des identifiants externes. La pipeline ne les exécute pas. |
@@ -89,12 +89,63 @@ Le QID d'un tour est facultatif, et il est absent du JSON plutôt que publié à
 l'absence se lit mieux qu'une valeur nulle. Dix des vingt-quatre tours en ont
 un, les autres non.
 
+## Candidatures
+
+Une candidature est à l'élection, pas au tour : on ne se porte pas candidat au
+second tour, on s'y qualifie. Le Conseil constitutionnel arrête une liste, une
+seule, pour le scrutin. La participation à un tour, elle, se rattache au tour et
+porte la ou les sources qui l'établissent.
+
+Le nom d'une candidature n'est pas recopié depuis le registre des personnes :
+c'est le nom porté lors de ce scrutin, qui peut différer d'une élection à
+l'autre.
+
+Les 114 candidatures publiées viennent des vingt-deux décisions du Conseil
+constitutionnel arrêtant les listes officielles, de 1965 à 2022 — celle du
+premier tour, puis celle des candidats habilités au second. Elles sont donc
+toutes à l'état `validee`. Les états `declaree`, `retiree` et `ecartee`
+serviront pour une élection à venir, où des candidatures non officielles
+circulent avant la liste arrêtée.
+
+Ces seeds ont été constitués en une fois à partir du fonds CONSTIT, l'open data
+du Conseil constitutionnel, puis relus. Chaque participation cite la décision
+qui l'établit : la vérification se refait en ouvrant les vingt-deux URL de
+`seeds/sources.yaml`.
+
+## Sources
+
+Partout où une donnée est sourcée, elle l'est de la même façon, décrite par
+`schemas/source.schema.json` :
+
+```json
+{
+  "id": "conseil-constitutionnel:2022-187-PDR",
+  "url": "https://www.conseil-constitutionnel.fr/decision/2022/2022187PDR.htm",
+  "commentaire": "Liste des candidats à l'élection présidentielle",
+  "consultee_le": "2026-09-20"
+}
+```
+
+L'identifiant est de la forme `<autorité>:<identifiant chez elle>`. Pour le
+Conseil constitutionnel, le numéro de décision suivi de sa nature, qui est sa
+citation officielle : le numéro seul ne désigne pas une décision unique, 128
+numéros du fonds sont portés par plusieurs décisions de natures différentes.
+
+Dans les seeds, une source est décrite une fois dans `sources.yaml` et citée
+par son identifiant. À la publication, la pipeline la recopie en clair à côté
+de chaque donnée qui s'y rattache : le seed est optimisé pour la maintenance,
+les fichiers publiés pour la lecture, et un consommateur n'a jamais de
+référence à résoudre.
+
+`consultee_le` est saisie, jamais calculée au moment de publier.
+
 ## Données publiées
 
 ```
-elections.json                     index : une entrée { id, annee } par élection
-elections/PR-2012/election.json    métadonnées : identifiant, année, QID, tours
-schemas/*.schema.json              copie des schémas de ce dépôt
+elections.json                        index : une entrée { id, annee } par élection
+elections/PR-2012/election.json       métadonnées : identifiant, année, QID, tours
+elections/PR-2012/candidatures.json   qui s'est présenté, et à quels tours
+schemas/*.schema.json                 copie des schémas de ce dépôt
 ```
 
 L'index porte de quoi énumérer les élections et atteindre leur répertoire, rien
@@ -178,12 +229,13 @@ Seules les présidentielles sont couvertes, de 1965 à 2027.
 contrat que la collecte devra respecter, et les tests en tiennent lieu de
 spécification. Il bougera sans doute à la rencontre des vraies sources.
 
-`seeds/personnes.yaml` est vide : rien ne collecte encore de candidatures. Il se
-remplira une ligne à la fois, en revue.
+Trois noms ont été corrigés par rapport à la source, qui les orthographie mal :
+`LALONIDE` pour LALONDE en 1981, `Ariette` pour Arlette LAGUILLER en 1988, et les
+accents absents d'`Émile MULLER` et `Édouard BALLADUR`. Les corrections sont
+signalées en commentaire dans `seeds/personnes.yaml`.
 
-Rien ne vérifie encore qu'un identifiant de personne cité dans une candidature
-existe bien au registre. Ce contrôle viendra avec le premier producteur, faute
-de quoi il n'aurait rien à contrôler.
+Rien ne collecte : les candidatures ont été extraites en une fois et sont
+maintenues à la main. Une élection à venir demandera un collecteur.
 
 Il n'y a pas de schéma de résultats. Sa forme doit sortir des décisions du
 Conseil constitutionnel, qui ne sont pas encore analysées.

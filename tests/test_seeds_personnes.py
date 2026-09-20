@@ -1,7 +1,6 @@
 """Le registre n'existe que pour garantir l'unicité des identifiants.
 
-Ces tests portent donc sur cette garantie, pas sur le contenu : le registre est
-encore vide.
+Ces tests portent donc sur cette garantie plus que sur le contenu.
 """
 
 from __future__ import annotations
@@ -20,11 +19,15 @@ def _ecrire(tmp_path, corps):
 
 
 def test_le_registre_du_depot_est_valide():
-    assert load_personnes() == ()
+    personnes = load_personnes()
+    assert len(personnes) == 75
+    assert personnes[0].id == "PE-0001"
+    numeros = [personne.numero for personne in personnes]
+    assert numeros == sorted(set(numeros)), "numérotation unique et croissante"
 
 
 def test_un_registre_vide_est_accepte(tmp_path):
-    """Rien ne collecte encore de candidatures : le registre doit pouvoir être vide."""
+    """Un dépôt neuf, ou un type de scrutin dont rien n'est encore saisi."""
     assert load_personnes(_ecrire(tmp_path, "personnes: []\n")) == ()
 
 

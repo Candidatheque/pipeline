@@ -28,20 +28,26 @@ from __future__ import annotations
 
 import json
 import shutil
-from collections.abc import Iterable, Iterator
+from collections.abc import Iterable, Iterator, Mapping
 from dataclasses import dataclass
 from enum import StrEnum
 from pathlib import Path
 
 from candidatheque.pipeline.paths import DATA_REPO, SCHEMAS_DIR
-from candidatheque.pipeline.seeds import Election, load_elections
+from candidatheque.pipeline.seeds import (
+    Candidature,
+    Election,
+    Source,
+    load_candidatures,
+    load_elections,
+    load_sources,
+)
 
 #: Nom du répertoire qui porte une élection, sous la racine du dépôt.
 ELECTIONS_DIR = "elections"
 #: Nom du document de métadonnées, dans le répertoire d'une élection.
 ELECTION_FILE = "election.json"
-#: Nom du document des candidatures. Aucun producteur pour l'instant : le
-#: schéma existe, la collecte qui le remplira reste à écrire.
+#: Nom du document des candidatures, dans le répertoire d'une élection.
 CANDIDATURES_FILE = "candidatures.json"
 #: Nom de l'index, à la racine du dépôt.
 INDEX_FILE = "elections.json"
@@ -96,13 +102,66 @@ def metadonnees(election: Election) -> dict:
     }
 
 
-def documents(election: Election) -> Iterator[tuple[str, dict]]:
+def _source_publiee(source: Source) -> dict:
+    """Une source, telle qu'elle est recopiée à côté de la donnée qu'elle établit.
+
+    Le seed cite les sources par identifiant pour ne pas les répéter à la main ;
+    la publication les développe pour qu'un fichier se lise sans résoudre de
+    référence.
+    """
+    return {
+        "id": source.id,
+        "url": source.url,
+        "commentaire": source.commentaire,
+        "consultee_le": source.consultee_le.isoformat(),
+    }
+
+
+def candidatures(
+    election: Election,
+    candidats: Iterable[Candidature],
+    sources: Mapping[str, Source],
+) -> dict:
+    """Le contenu du document des candidatures d'une élection."""
+    return {
+        "$schema": f"../../{SCHEMAS_SUBDIR}/candidatures.schema.json",
+        "election": election.id,
+        "candidatures": [
+            {
+                "personne": candidat.personne,
+                "nom": candidat.nom,
+                "prenom": candidat.prenom,
+                "etat": str(candidat.etat),
+                "tours": [
+                    {
+                        "numero": participation.numero,
+                        "sources": [
+                            _source_publiee(sources[identifiant])
+                            for identifiant in participation.sources
+                        ],
+                    }
+                    for participation in candidat.tours
+                ],
+            }
+            for candidat in candidats
+        ],
+    }
+
+
+def documents(
+    election: Election,
+    candidats: Iterable[Candidature] = (),
+    sources: Mapping[str, Source] | None = None,
+) -> Iterator[tuple[str, dict]]:
     """Les documents à publier dans le répertoire d'une élection.
 
     Point d'extension : un sujet collecté de plus, c'est un `yield` de plus.
-    Seules les métadonnées existent aujourd'hui.
+    Une élection sans candidature connue ne publie pas de document vide — deux
+    élections n'ont pas les mêmes documents, selon leur stade.
     """
     yield ELECTION_FILE, metadonnees(election)
+    if candidats:
+        yield CANDIDATURES_FILE, candidatures(election, candidats, sources or {})
 
 
 def _supprimer_orphelins(repertoire: Path, attendus: set[str]) -> list[Ecriture]:
@@ -153,6 +212,8 @@ def publier(destination: Path | None = None) -> list[Ecriture]:
     """
     destination = destination or DATA_REPO
     elections = load_elections()
+    sources = {source.id: source for source in load_sources()}
+    par_election = {entree.election: entree.candidats for entree in load_candidatures()}
     ecritures: list[Ecriture] = []
 
     for schema in sorted(SCHEMAS_DIR.glob("*.schema.json")):
@@ -165,7 +226,7 @@ def publier(destination: Path | None = None) -> list[Ecriture]:
     for election in elections:
         repertoire = racine_elections / election.id
         attendus = set()
-        for nom, contenu in documents(election):
+        for nom, contenu in documents(election, par_election.get(election.id, ()), sources):
             attendus.add(nom)
             ecritures.append(_ecrire_json(repertoire / nom, contenu))
         ecritures.extend(_supprimer_orphelins(repertoire, attendus))
