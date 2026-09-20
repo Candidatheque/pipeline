@@ -14,6 +14,13 @@
 #               `requetes/elections-wikidata.rq`. Attention en la rejouant : la
 #               classe interrogée contient aussi les scrutins d'avant 1962, au
 #               suffrage indirect, qui sont hors périmètre.
+#   - `tours`   : les tours du scrutin, numérotés à partir de 1 et dans l'ordre.
+#               Il y en a eu deux à chaque fois depuis 1965, mais rien ne
+#               l'impose : une majorité absolue au premier tour en ferait un
+#               seul. Le modèle ne suppose donc pas leur nombre.
+#               Le `wikidata` d'un tour est facultatif : Wikidata ne modélise
+#               les tours que pour une partie des scrutins, et le champ est
+#               simplement absent ailleurs.
 #
 # Volontairement minimal. Chaque champ ajouté ici devra être maintenu à la main
 # sur les douze élections, de 1965 à 2027 ; tout ce qui peut être collecté le
@@ -27,36 +34,117 @@ elections:
   - id: "PR-1965"
     annee: 1965
     wikidata: "Q1450635"
+    tours:
+      - numero: 1
+        date: 1965-12-05
+        wikidata: "Q112074051"
+      - numero: 2
+        date: 1965-12-19
+        wikidata: "Q112074059"
+
   - id: "PR-1969"
     annee: 1969
     wikidata: "Q1450646"
+    tours:
+      - numero: 1
+        date: 1969-06-01
+      - numero: 2
+        date: 1969-06-15
+
   - id: "PR-1974"
     annee: 1974
     wikidata: "Q1450654"
+    tours:
+      - numero: 1
+        date: 1974-05-05
+      - numero: 2
+        date: 1974-05-19
+
   - id: "PR-1981"
     annee: 1981
     wikidata: "Q930869"
+    tours:
+      - numero: 1
+        date: 1981-04-26
+      - numero: 2
+        date: 1981-05-10
+
   - id: "PR-1988"
     annee: 1988
     wikidata: "Q1450661"
+    tours:
+      - numero: 1
+        date: 1988-04-24
+      - numero: 2
+        date: 1988-05-08
+
   - id: "PR-1995"
     annee: 1995
     wikidata: "Q1450660"
+    tours:
+      - numero: 1
+        date: 1995-04-23
+      - numero: 2
+        date: 1995-05-07
+
   - id: "PR-2002"
     annee: 2002
     wikidata: "Q1129306"
+    tours:
+      - numero: 1
+        date: 2002-04-21
+      - numero: 2
+        date: 2002-05-05
+
   - id: "PR-2007"
     annee: 2007
     wikidata: "Q245238"
+    tours:
+      - numero: 1
+        date: 2007-04-22
+        wikidata: "Q112072937"
+      - numero: 2
+        date: 2007-05-06
+        wikidata: "Q112072941"
+
   - id: "PR-2012"
     annee: 2012
     wikidata: "Q487666"
+    tours:
+      - numero: 1
+        date: 2012-04-22
+        wikidata: "Q24102723"
+      - numero: 2
+        date: 2012-05-06
+        wikidata: "Q24103590"
+
   - id: "PR-2017"
     annee: 2017
     wikidata: "Q7020999"
+    tours:
+      - numero: 1
+        date: 2017-04-23
+        wikidata: "Q29836873"
+      - numero: 2
+        date: 2017-05-07
+        wikidata: "Q29837047"
+
   - id: "PR-2022"
     annee: 2022
     wikidata: "Q30638578"
+    tours:
+      - numero: 1
+        date: 2022-04-10
+        wikidata: "Q111537764"
+      - numero: 2
+        date: 2022-04-24
+        wikidata: "Q111546063"
+
   - id: "PR-2027"
     annee: 2027
     wikidata: "Q111594692"
+    tours:
+      - numero: 1
+        date: 2027-04-18
+      - numero: 2
+        date: 2027-05-02
