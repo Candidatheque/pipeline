@@ -1084,7 +1084,7 @@ candidatures:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0042"
         etats:
-          - etat: "ecartee"
+          - etat: "retiree"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2007"
         tours: []
@@ -1106,19 +1106,19 @@ candidatures:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0046"
         etats:
-          - etat: "ecartee"
+          - etat: "retiree"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2007"
         tours: []
       - personne: "PE-0049"
         etats:
-          - etat: "ecartee"
+          - etat: "retiree"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2007"
         tours: []
       - personne: "PE-0050"
         etats:
-          - etat: "ecartee"
+          - etat: "retiree"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2007"
         tours: []
@@ -1344,25 +1344,13 @@ candidatures:
         tours: []
       - personne: "PE-0099"
         etats:
-          - etat: "ecartee"
+          - etat: "retiree"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2007"
         tours: []
       - personne: "PE-0100"
         etats:
-          - etat: "ecartee"
-            sources:
-              - "wikipedia-fr:candidatures-presidentielle-2007"
-        tours: []
-      - personne: "PE-0101"
-        etats:
-          - etat: "ecartee"
-            sources:
-              - "wikipedia-fr:candidatures-presidentielle-2007"
-        tours: []
-      - personne: "PE-0102"
-        etats:
-          - etat: "ecartee"
+          - etat: "retiree"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2007"
         tours: []

@@ -219,7 +219,7 @@ def test_l_ordre_est_verifie_sur_les_seules_dates_connues():
 @pytest.mark.parametrize(
     "election, attendu",
     [("PR-1969", 4), ("PR-1974", 27), ("PR-1981", 3), ("PR-1995", 5), ("PR-2002", 1),
-     ("PR-2022", 52)],
+     ("PR-2007", 33), ("PR-2022", 52)],
 )
 def test_effectifs_non_valides_par_election(par_election, election, attendu):
     """Les élections antérieures à 2007 n'ont pas d'article Wikipédia dédié.
@@ -281,3 +281,14 @@ def test_une_trajectoire_a_deux_etats_de_sources_differentes(par_election):
     assert str(candidat.etats[0].date) == "2001-06-23"
     assert candidat.etats[0].sources == ("le-parisien:lalonde-candidat-elysee-2002",)
     assert candidat.etat == "ecartee", "l'état courant reste le dernier"
+
+
+def test_les_desistes_de_2007_sont_retirees_et_non_ecartees(par_election):
+    """L'article de 2007 distingue trois groupes par de la prose, pas par des
+    sous-titres : ceux qui n'ont pas réuni les conditions, ceux qui « se sont
+    désistés », et ceux écartés par un scrutin interne de parti.
+    """
+    retirees = {
+        c.personne for c in par_election["PR-2007"].candidats if c.etat == "retiree"
+    }
+    assert retirees == {"PE-0042", "PE-0046", "PE-0049", "PE-0050", "PE-0099", "PE-0100"}

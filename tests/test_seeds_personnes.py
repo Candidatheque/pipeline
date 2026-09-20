@@ -22,7 +22,7 @@ def _ecrire(tmp_path, corps):
 
 def test_le_registre_du_depot_est_valide():
     personnes = load_personnes()
-    assert len(personnes) == 241
+    assert len(personnes) == 239
     assert personnes[0].id == "PE-0001"
     numeros = [personne.numero for personne in personnes]
     assert numeros == sorted(set(numeros)), "numérotation unique et croissante"
@@ -149,3 +149,21 @@ def test_quelques_identifiants_wikidata_connus():
     assert par_id["PE-0002"] == "Q2042", "Charles de Gaulle"
     assert par_id["PE-0030"] == "Q2105", "Jacques Chirac"
     assert par_id["PE-0066"] == "Q3052772", "Emmanuel Macron"
+
+
+#: Un registre de personnes ne doit pas contenir d'organisation. « Parti
+#: socialiste » et « Les Verts » s'y étaient glissés : l'article de 2007 liste
+#: les candidats à une investiture sous la forme « Parti : Untel et Untel », et
+#: une extraction avait pris le parti en tête de ligne pour le candidat.
+ORGANISATION = re.compile(
+    r"\b(parti|verts|mouvement|union|front|rassemblement|ligue|alliance|"
+    r"fédération|comité|collectif|association|centre)\b",
+    re.IGNORECASE,
+)
+
+
+def test_aucune_organisation_dans_le_registre():
+    for personne in load_personnes():
+        assert not ORGANISATION.search(personne.nom_complet), (
+            f"{personne.id} ressemble à une organisation : {personne.nom_complet!r}"
+        )
