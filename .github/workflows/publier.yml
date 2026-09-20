@@ -1,0 +1,123 @@
+name: Publier
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "seeds/**"
+      - "schemas/**"
+      - "src/**"
+      - "uv.lock"
+      - ".github/workflows/publier.yml"
+  pull_request:
+  workflow_dispatch:
+
+# Deux publications qui se chevauchent pousseraient sur `data` en même temps et
+# la seconde serait rejetée. Elles s'exécutent donc l'une après l'autre.
+concurrency:
+  group: publier
+  cancel-in-progress: false
+
+jobs:
+  publier:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer la pipeline
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Récupérer le dépôt de destination
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ${{ github.repository_owner }}/data
+          path: data
+          # Clé de déploiement en écriture sur `data`. `actions/checkout` la
+          # laisse en place, c'est elle qui autorise le push de la dernière étape.
+          ssh-key: ${{ secrets.DATA_DEPLOY_KEY }}
+
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+      - run: uv sync --extra dev
+
+      # Publier la sortie d'un code qui échoue aux tests coûterait un commit à
+      # annuler dans un dépôt que d'autres consomment.
+      - name: Tests
+        run: uv run pytest -q
+
+      - name: Publier
+        run: uv run candidatheque publier --destination data
+
+      - name: Pousser si les données ont bougé
+        working-directory: data
+        env:
+          SOURCE_SHA: ${{ github.sha }}
+          SOURCE_REPO: ${{ github.repository }}
+          SOURCE_URL: ${{ github.server_url }}/${{ github.repository }}/commit/${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Données inchangées, rien à pousser."
+            exit 0
+          fi
+
+          # Les commits de `data` sont écrits par une machine : sans le SHA du
+          # commit qui les a produits, on ne peut plus remonter à leur cause.
+          sujet=$(git -C "$GITHUB_WORKSPACE" log -1 --format=%s "$SOURCE_SHA")
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all
+          git commit \
+            --message "Publier ${SOURCE_REPO}@${SOURCE_SHA:0:7}" \
+            --message "$sujet" \
+            --message "$SOURCE_URL"
+          git push
+
+  apercu:
+    # Sur une pull request, montrer ce que la fusion changerait dans `data`,
+    # sans rien pousser. `data` est public : la lecture ne demande pas de clé.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer la pipeline
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Récupérer le dépôt de destination
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ${{ github.repository_owner }}/data
+          path: data
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+      - run: uv sync --extra dev
+
+      - name: Publier hors ligne
+        run: uv run candidatheque publier --destination data
+
+      - name: Résumer l'écart
+        working-directory: data
+        run: |
+          set -euo pipefail
+
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Cette PR ne change rien aux données publiées." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          {
+            echo "### Écart sur le dépôt \`data\`"
+            echo
+            echo '```'
+            git add --all --intent-to-add
+            git diff --stat
+            echo '```'
+            echo
+            echo '<details><summary>Diff complet</summary>'
+            echo
+            echo '```diff'
+            git diff
+            echo '```'
+            echo
+            echo '</details>'
+          } >> "$GITHUB_STEP_SUMMARY"
