@@ -105,21 +105,20 @@ jobs:
             exit 0
           fi
 
-          GITHUB_STEP_SUMMARY_TEXTE=$(mktemp)
-
           # `--intent-to-add` fait apparaître les fichiers neufs dans `git diff`,
           # qui les ignore autrement.
           git add --all --intent-to-add
 
-          # Le résumé n'est lisible que dans l'interface web. Le `tee` remet
-          # l'essentiel dans le journal, donc à portée de `gh run view --log`.
-          git diff --stat | tee -a "$GITHUB_STEP_SUMMARY_TEXTE"
+          # Le résumé de run n'est lisible que dans l'interface web. Passer aussi
+          # par la sortie d'erreur remet le récapitulatif dans le journal, donc à
+          # portée de `gh run view --log`.
+          recapitulatif=$(git diff --stat | tee /dev/stderr)
 
           {
             echo "### Écart sur le dépôt \`data\`"
             echo
             echo '```'
-            cat "$GITHUB_STEP_SUMMARY_TEXTE"
+            echo "$recapitulatif"
             echo '```'
             echo
             echo '<details><summary>Diff complet</summary>'
