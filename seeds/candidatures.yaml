@@ -176,21 +176,21 @@ candidatures:
             sources:
               - "conseil-constitutionnel:69-19-PDR"
         tours: []
-      - personne: "PE-0208"
+      - personne: "PE-0206"
         etats:
           - etat: "ecartee"
             date: 1969-05-17
             sources:
               - "conseil-constitutionnel:69-15-PDR"
         tours: []
-      - personne: "PE-0209"
+      - personne: "PE-0207"
         etats:
           - etat: "ecartee"
             date: 1969-05-17
             sources:
               - "conseil-constitutionnel:69-16-PDR"
         tours: []
-      - personne: "PE-0210"
+      - personne: "PE-0208"
         etats:
           - etat: "ecartee"
             date: 1969-05-17
@@ -326,7 +326,19 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
-      - personne: "PE-0208"
+      - personne: "PE-0206"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0209"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0210"
         etats:
           - etat: "ecartee"
             sources:
@@ -425,8 +437,9 @@ candidatures:
       - personne: "PE-0226"
         etats:
           - etat: "ecartee"
+            date: 1974-04-21
             sources:
-              - "wikipedia-fr:presidentielle-1974"
+              - "conseil-constitutionnel:74-27-PDR"
         tours: []
       - personne: "PE-0227"
         etats:
@@ -437,9 +450,8 @@ candidatures:
       - personne: "PE-0228"
         etats:
           - etat: "ecartee"
-            date: 1974-04-21
             sources:
-              - "conseil-constitutionnel:74-27-PDR"
+              - "wikipedia-fr:presidentielle-1974"
         tours: []
       - personne: "PE-0229"
         etats:
@@ -450,8 +462,9 @@ candidatures:
       - personne: "PE-0230"
         etats:
           - etat: "ecartee"
+            date: 1974-04-21
             sources:
-              - "wikipedia-fr:presidentielle-1974"
+              - "conseil-constitutionnel:74-26-PDR"
         tours: []
       - personne: "PE-0231"
         etats:
@@ -462,9 +475,8 @@ candidatures:
       - personne: "PE-0232"
         etats:
           - etat: "ecartee"
-            date: 1974-04-21
             sources:
-              - "conseil-constitutionnel:74-26-PDR"
+              - "wikipedia-fr:presidentielle-1974"
         tours: []
       - personne: "PE-0233"
         etats:
@@ -473,18 +485,6 @@ candidatures:
               - "wikipedia-fr:presidentielle-1974"
         tours: []
       - personne: "PE-0234"
-        etats:
-          - etat: "ecartee"
-            sources:
-              - "wikipedia-fr:presidentielle-1974"
-        tours: []
-      - personne: "PE-0235"
-        etats:
-          - etat: "ecartee"
-            sources:
-              - "wikipedia-fr:presidentielle-1974"
-        tours: []
-      - personne: "PE-0236"
         etats:
           - etat: "ecartee"
             sources:
@@ -606,14 +606,14 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
-      - personne: "PE-0237"
+      - personne: "PE-0235"
         etats:
           - etat: "ecartee"
             date: 1981-04-11
             sources:
               - "conseil-constitutionnel:81-42-PDR"
         tours: []
-      - personne: "PE-0238"
+      - personne: "PE-0236"
         etats:
           - etat: "ecartee"
             date: 1981-04-11
@@ -830,19 +830,19 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
-      - personne: "PE-0239"
+      - personne: "PE-0237"
         etats:
           - etat: "retiree"
             sources:
               - "wikipedia-fr:jean-francois-hory"
         tours: []
-      - personne: "PE-0240"
+      - personne: "PE-0238"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:marlene-mourreau"
         tours: []
-      - personne: "PE-0241"
+      - personne: "PE-0239"
         etats:
           - etat: "ecartee"
             sources:
@@ -1493,6 +1493,18 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2012"
         tours: []
+      - personne: "PE-0101"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0102"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
       - personne: "PE-0103"
         etats:
           - etat: "ecartee"
@@ -1620,18 +1632,6 @@ candidatures:
               - "wikipedia-fr:candidatures-presidentielle-2012"
         tours: []
       - personne: "PE-0124"
-        etats:
-          - etat: "ecartee"
-            sources:
-              - "wikipedia-fr:candidatures-presidentielle-2012"
-        tours: []
-      - personne: "PE-0125"
-        etats:
-          - etat: "ecartee"
-            sources:
-              - "wikipedia-fr:candidatures-presidentielle-2012"
-        tours: []
-      - personne: "PE-0126"
         etats:
           - etat: "ecartee"
             sources:
@@ -1786,19 +1786,31 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2017"
         tours: []
-      - personne: "PE-0106"
+      - personne: "PE-0104"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2017"
         tours: []
-      - personne: "PE-0114"
+      - personne: "PE-0112"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2017"
         tours: []
-      - personne: "PE-0118"
+      - personne: "PE-0116"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0125"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0126"
         etats:
           - etat: "ecartee"
             sources:
@@ -2020,18 +2032,6 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2017"
         tours: []
-      - personne: "PE-0163"
-        etats:
-          - etat: "ecartee"
-            sources:
-              - "wikipedia-fr:candidatures-presidentielle-2017"
-        tours: []
-      - personne: "PE-0164"
-        etats:
-          - etat: "ecartee"
-            sources:
-              - "wikipedia-fr:candidatures-presidentielle-2017"
-        tours: []
 
   - election: "PR-2022"
     candidats:
@@ -2191,19 +2191,31 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
-      - personne: "PE-0126"
+      - personne: "PE-0124"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
-      - personne: "PE-0142"
+      - personne: "PE-0140"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0160"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
       - personne: "PE-0162"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0163"
         etats:
           - etat: "ecartee"
             sources:
@@ -2421,27 +2433,28 @@ candidatures:
         tours: []
       - personne: "PE-0199"
         etats:
-          - etat: "ecartee"
+          - etat: "retiree"
+            date: 2022-02-17
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
       - personne: "PE-0200"
         etats:
-          - etat: "ecartee"
+          - etat: "retiree"
+            date: 2022-01-19
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
       - personne: "PE-0201"
         etats:
           - etat: "retiree"
-            date: 2022-02-17
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
       - personne: "PE-0202"
         etats:
           - etat: "retiree"
-            date: 2022-01-19
+            date: 2022-02-18
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
@@ -2454,23 +2467,10 @@ candidatures:
       - personne: "PE-0204"
         etats:
           - etat: "retiree"
-            date: 2022-02-18
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
       - personne: "PE-0205"
-        etats:
-          - etat: "retiree"
-            sources:
-              - "wikipedia-fr:candidatures-presidentielle-2022"
-        tours: []
-      - personne: "PE-0206"
-        etats:
-          - etat: "retiree"
-            sources:
-              - "wikipedia-fr:candidatures-presidentielle-2022"
-        tours: []
-      - personne: "PE-0207"
         etats:
           - etat: "retiree"
             sources:

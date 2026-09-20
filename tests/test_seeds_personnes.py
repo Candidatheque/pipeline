@@ -167,3 +167,13 @@ def test_aucune_organisation_dans_le_registre():
         assert not ORGANISATION.search(personne.nom_complet), (
             f"{personne.id} ressemble à une organisation : {personne.nom_complet!r}"
         )
+
+
+def test_la_numerotation_est_contigue():
+    """Tant que rien n'est publié, un trou se rattrape en renumérotant.
+
+    Après la première publication ce test devra sauter : un identifiant publié
+    ne se réattribue pas, et une ligne retirée laissera un trou définitif.
+    """
+    numeros = [personne.numero for personne in load_personnes()]
+    assert numeros == list(range(1, len(numeros) + 1))
