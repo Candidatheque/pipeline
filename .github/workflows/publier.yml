@@ -101,16 +101,25 @@ jobs:
           set -euo pipefail
 
           if [ -z "$(git status --porcelain)" ]; then
-            echo "Cette PR ne change rien aux données publiées." >> "$GITHUB_STEP_SUMMARY"
+            echo "Cette PR ne change rien aux données publiées." | tee -a "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
+
+          GITHUB_STEP_SUMMARY_TEXTE=$(mktemp)
+
+          # `--intent-to-add` fait apparaître les fichiers neufs dans `git diff`,
+          # qui les ignore autrement.
+          git add --all --intent-to-add
+
+          # Le résumé n'est lisible que dans l'interface web. Le `tee` remet
+          # l'essentiel dans le journal, donc à portée de `gh run view --log`.
+          git diff --stat | tee -a "$GITHUB_STEP_SUMMARY_TEXTE"
 
           {
             echo "### Écart sur le dépôt \`data\`"
             echo
             echo '```'
-            git add --all --intent-to-add
-            git diff --stat
+            cat "$GITHUB_STEP_SUMMARY_TEXTE"
             echo '```'
             echo
             echo '<details><summary>Diff complet</summary>'
