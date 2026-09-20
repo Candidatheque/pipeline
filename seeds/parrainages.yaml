@@ -1,0 +1,116 @@
+# D'où viennent les parrainages, et sous quelle forme.
+#
+# Le fichier source est commité dans `raw/`, jamais téléchargé : ces documents
+# sont historiques et figés, et un fichier suivi par git est un meilleur
+# archivage qu'une copie reconstruite à chaque passage.
+#
+# `format` dit à la pipeline comment le lire. Le code ne connaît que des
+# formats, jamais des années : ajouter une élection, c'est ajouter une entrée
+# ici, et n'écrire du code que si sa forme est inédite.
+#
+#   - `json-plat`       : un tableau, une entrée par parrainage. Forme de 2022.
+#   - `json-par-candidat`: un tableau de candidats, chacun portant ses
+#                         parrainages. Forme de 2017, aux champs accentués et
+#                         aux dates en jj/mm/aaaa.
+#   - `texte-jo`        : le texte du Journal officiel, en prose continue —
+#                         « M. François DELECOLLE, maire de RUMIGNY (SOMME) ; ».
+#                         Extrait du PDF une fois hors ligne par
+#                         `outils/pdf_en_texte.py`, et commité dans `raw/` : la
+#                         pipeline ne lit pas de PDF et n'océrise pas, la CI n'a
+#                         donc besoin ni de poppler ni de tesseract.
+#
+# `etendue` dit si la source publie tout ou un échantillon. Avant la réforme de
+# 2016, la loi n'imposait que 500 présentations par candidat, tirées au sort :
+# 2007 et 2012 en comptent exactement 500 pour chacun. Les compter sans le
+# savoir ferait croire que Nicolas Sarkozy n'a eu que 500 parrainages en 2007.
+#
+# `publications` associe chaque date de publication à la décision du Conseil
+# qui l'a rendue publique. Un parrainage cite ainsi la décision exacte qui le
+# concerne, et non une source générique pour toute l'élection.
+
+parrainages:
+  - election: "PR-1981"
+    fichier: "parrainages/1981.txt"
+    format: "texte-jo"
+    etendue: "tirage-au-sort"
+    publications:
+      - date: 1981-04-10
+        source: "conseil-constitutionnel:81-41-PDR"
+
+  - election: "PR-1988"
+    fichier: "parrainages/1988.txt"
+    format: "texte-jo"
+    etendue: "tirage-au-sort"
+    publications:
+      - date: 1988-04-12
+        source: "conseil-constitutionnel:88-55-PDR"
+
+  - election: "PR-1995"
+    fichier: "parrainages/1995.txt"
+    format: "texte-jo"
+    etendue: "tirage-au-sort"
+    publications:
+      - date: 1995-04-12
+        source: "conseil-constitutionnel:95-78-PDR"
+
+  - election: "PR-2007"
+    fichier: "parrainages/2007.txt"
+    format: "texte-jo"
+    etendue: "tirage-au-sort"
+    publications:
+      - date: 2007-03-24
+        source: "conseil-constitutionnel:2007-136-PDR"
+
+  - election: "PR-2012"
+    fichier: "parrainages/2012.txt"
+    format: "texte-jo"
+    etendue: "tirage-au-sort"
+    publications:
+      - date: 2012-03-31
+        source: "conseil-constitutionnel:2012-150-PDR"
+
+  - election: "PR-2017"
+    fichier: "parrainages/2017.json"
+    format: "json-par-candidat"
+    etendue: "integrale"
+    publications:
+      - date: 2017-03-01
+        source: "conseil-constitutionnel:2017-158-PDR"
+      - date: 2017-03-03
+        source: "conseil-constitutionnel:2017-159-PDR"
+      - date: 2017-03-07
+        source: "conseil-constitutionnel:2017-160-PDR"
+      - date: 2017-03-10
+        source: "conseil-constitutionnel:2017-161-PDR"
+      - date: 2017-03-14
+        source: "conseil-constitutionnel:2017-162-PDR"
+      - date: 2017-03-18
+        source: "conseil-constitutionnel:2017-164-PDR"
+
+  - election: "PR-2022"
+    fichier: "parrainages/2022.json"
+    format: "json-plat"
+    etendue: "integrale"
+    publications:
+      - date: 2022-02-01
+        source: "conseil-constitutionnel:2022-175-PDR"
+      - date: 2022-02-03
+        source: "conseil-constitutionnel:2022-176-PDR"
+      - date: 2022-02-08
+        source: "conseil-constitutionnel:2022-177-PDR"
+      - date: 2022-02-10
+        source: "conseil-constitutionnel:2022-178-PDR"
+      - date: 2022-02-15
+        source: "conseil-constitutionnel:2022-179-PDR"
+      - date: 2022-02-17
+        source: "conseil-constitutionnel:2022-180-PDR"
+      - date: 2022-02-22
+        source: "conseil-constitutionnel:2022-181-PDR"
+      - date: 2022-02-24
+        source: "conseil-constitutionnel:2022-182-PDR"
+      - date: 2022-03-01
+        source: "conseil-constitutionnel:2022-183-PDR"
+      - date: 2022-03-03
+        source: "conseil-constitutionnel:2022-185-PDR"
+      - date: 2022-03-07
+        source: "conseil-constitutionnel:2022-186-PDR"
