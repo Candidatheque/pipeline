@@ -1,0 +1,40 @@
+# Élections présidentielles françaises au suffrage universel direct.
+#
+# Ce fichier est saisi et maintenu à la main : c'est le point d'entrée de la
+# pipeline, qui itère sur cette liste pour savoir quoi publier.
+#
+# Conventions :
+#   - `id`    : "PR-<année>". Le préfixe `PR` réserve la place pour d'autres
+#               types de scrutins (législatives, municipales) sans renommage
+#               ultérieur. C'est aussi le nom du répertoire publié.
+#   - `annee` : année du scrutin. Redondante avec l'identifiant : la pipeline
+#               vérifie que les deux concordent, ce qui transforme une coquille
+#               de saisie en erreur de validation.
+#
+# Volontairement minimal. Chaque champ ajouté ici devra être maintenu à la main
+# sur les onze élections, de 1965 à 2022 ; tout ce qui peut être collecté le
+# sera ailleurs.
+
+elections:
+  - id: "PR-1965"
+    annee: 1965
+  - id: "PR-1969"
+    annee: 1969
+  - id: "PR-1974"
+    annee: 1974
+  - id: "PR-1981"
+    annee: 1981
+  - id: "PR-1988"
+    annee: 1988
+  - id: "PR-1995"
+    annee: 1995
+  - id: "PR-2002"
+    annee: 2002
+  - id: "PR-2007"
+    annee: 2007
+  - id: "PR-2012"
+    annee: 2012
+  - id: "PR-2017"
+    annee: 2017
+  - id: "PR-2022"
+    annee: 2022

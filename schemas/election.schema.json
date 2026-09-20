@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Métadonnées d'une élection de la Candidathèque",
+  "description": "Document publié dans le répertoire d'une élection. Les informations détaillées (tours, candidats, résultats) s'y ajouteront à mesure que la pipeline les collecte ; elles ne remontent pas dans l'index.",
+  "type": "object",
+  "required": ["id", "annee"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Chemin vers ce schéma, pour l'outillage d'édition."
+    },
+    "id": {
+      "type": "string",
+      "description": "Identifiant stable de l'élection. Identique à l'entrée correspondante de l'index.",
+      "pattern": "^PR-[0-9]{4}$",
+      "examples": ["PR-2012"]
+    },
+    "annee": {
+      "type": "integer",
+      "description": "Année du scrutin. Concorde toujours avec l'année portée par l'identifiant.",
+      "minimum": 1965,
+      "maximum": 2100
+    }
+  }
+}

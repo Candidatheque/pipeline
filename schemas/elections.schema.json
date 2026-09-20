@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Index des élections de la Candidathèque",
+  "description": "Liste des élections connues. L'index porte de quoi les énumérer et atteindre leur répertoire, rien de plus ; le détail d'une élection est dans son propre document de métadonnées.",
+  "type": "object",
+  "required": ["elections"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Chemin vers ce schéma, pour l'outillage d'édition."
+    },
+    "elections": {
+      "type": "array",
+      "description": "Élections triées par année croissante.",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/entree" }
+    }
+  },
+  "$defs": {
+    "entree": {
+      "type": "object",
+      "description": "Une élection dans l'index.",
+      "required": ["id", "annee"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/identifiant" },
+        "annee": { "$ref": "#/$defs/annee" }
+      }
+    },
+    "identifiant": {
+      "type": "string",
+      "description": "Identifiant stable de l'élection. « PR » désigne une élection présidentielle. Sert aussi de nom au répertoire qui porte les données de l'élection.",
+      "pattern": "^PR-[0-9]{4}$",
+      "examples": ["PR-2012"]
+    },
+    "annee": {
+      "type": "integer",
+      "description": "Année du scrutin. Concorde toujours avec l'année portée par l'identifiant.",
+      "minimum": 1965,
+      "maximum": 2100
+    }
+  }
+}
