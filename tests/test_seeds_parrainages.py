@@ -7,7 +7,7 @@ import datetime as dt
 import pytest
 from pydantic import ValidationError
 
-from candidatheque.pipeline.seeds import load_elections
+from candidatheque.pipeline.seeds import load_elections, load_sources
 from candidatheque.pipeline.seeds.parrainages import (
     Etendue,
     Format,
@@ -20,6 +20,7 @@ def _source(**champs) -> dict:
     return {
         "election": "PR-2022",
         "fichier": "parrainages/2022.json",
+        "origine": "data-gouv:parrainages-2022",
         "format": "json-plat",
         "etendue": "integrale",
         "publications": [{"date": "2022-02-01", "source": "a:b"}],
@@ -37,6 +38,18 @@ def test_le_fichier_source_est_dans_le_depot():
     """La pipeline ne télécharge rien : le fichier déclaré doit être là."""
     for source in load_parrainages():
         assert source.chemin().is_file(), source.fichier
+
+
+def test_chaque_fichier_declare_le_document_dont_il_est_tire():
+    """L'origine se distingue des décisions de publication.
+
+    La décision est l'acte qui rend les présentations publiques ; l'origine est
+    le document qui les porte, et dont la conversion se rejoue.
+    """
+    sources = {source.id for source in load_sources()}
+    for source in load_parrainages():
+        assert source.origine in sources, source.election
+        assert source.origine not in {p.source for p in source.publications}
 
 
 def test_l_etendue_distingue_le_tirage_au_sort_de_la_publication_integrale():
@@ -106,6 +119,7 @@ def test_deux_entrees_pour_la_meme_election_rejetees(tmp_path):
         * (
             '  - election: "PR-2022"\n'
             '    fichier: "parrainages/2022.json"\n'
+            '    origine: "data-gouv:parrainages-2022"\n'
             '    format: "json-plat"\n'
             '    etendue: "integrale"\n'
             "    publications:\n"

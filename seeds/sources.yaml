@@ -462,3 +462,35 @@ sources:
     url: "https://www.conseil-constitutionnel.fr/decision/2022/2022186PDR.htm"
     commentaire: "Liste du 7 mars 2022 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
     consultee_le: 2026-09-20
+
+  # Les documents d'où sont tirés les fichiers de parrainages. Ils se
+  # distinguent des décisions ci-dessus : la décision est l'acte qui rend les
+  # présentations publiques, ces sources sont les documents qui les portent.
+  - id: "legifrance:JORFTEXT000000850614"
+    url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000850614"
+    commentaire: "Liste du 15 avril 1981 des élus ayant présenté les candidats à l'élection du Président de la République, JORF n° 90"
+    consultee_le: 2026-09-20
+  - id: "legifrance:JORFTEXT000000299022"
+    url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000299022"
+    commentaire: "Liste du 12 avril 1988 des citoyens ayant présenté les candidats à l'élection du Président de la République, JORF n° 86"
+    consultee_le: 2026-09-20
+  - id: "legifrance:JORFTEXT000000847420"
+    url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000847420"
+    commentaire: "Liste du 12 avril 1995 des citoyens ayant présenté les candidats à l'élection du Président de la République, JORF n° 87"
+    consultee_le: 2026-09-20
+  - id: "legifrance:JORFTEXT000000464348"
+    url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000464348"
+    commentaire: "Listes des citoyens ayant présenté les candidats à l'élection du Président de la République, JORF n° 71 du 24 mars 2007"
+    consultee_le: 2026-09-20
+  - id: "legifrance:JORFTEXT000025595654"
+    url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000025595654"
+    commentaire: "Listes des citoyens ayant présenté les candidats à l'élection du Président de la République, JORF n° 78 du 31 mars 2012"
+    consultee_le: 2026-09-20
+  - id: "data-gouv:parrainages-2017"
+    url: "https://static.data.gouv.fr/resources/parrainages/20170320-103248/parrainagestotal.json"
+    commentaire: "Parrainages des candidats à l'élection présidentielle de 2017, publication du 20 mars 2017 par le Conseil constitutionnel"
+    consultee_le: 2026-09-20
+  - id: "data-gouv:parrainages-2022"
+    url: "https://static.data.gouv.fr/resources/parrainages-des-candidats-a-lelection-presidentielle-francaise-de-2022/20220307-183354/parrainagestotal.json"
+    commentaire: "Parrainages des candidats à l'élection présidentielle de 2022, publication du 7 mars 2022 par le Conseil constitutionnel"
+    consultee_le: 2026-09-20

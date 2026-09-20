@@ -3,22 +3,36 @@
 Les fichiers de ce dossier sont les sources des parrainages, telles qu'elles
 ont été publiées. La pipeline les lit ; elle ne télécharge rien.
 
-Les JSON de 2017 et 2022 viennent tels quels de l'open data du Conseil
-constitutionnel. Les textes antérieurs sont extraits des éditions du Journal
-officiel mises en ligne par Légifrance : ces PDF pèsent de 16 à 51 Mo et ne
-sont pas dans le dépôt, mais la commande qui en tire le texte est donnée
-ci-dessous, et la rejouer sur le même PDF rend le même fichier.
+`seeds/parrainages.yaml` fait foi : chaque entrée y déclare son `origine`, qui
+renvoie au registre des sources, et ses paramètres de conversion. Ce fichier-ci
+ne donne que la marche à suivre pour reconstituer le texte.
 
-| Fichier    | Édition du Journal officiel | Pages | Commande                                                                     |
-| ---------- | --------------------------- | ----- | ---------------------------------------------------------------------------- |
-| `1981.txt` | JORF n° 90 du 15 avril 1981 | 2-25  | `python outils/pdf_en_texte.py JORF_19810415_90.pdf --pages 2-25 --sortie raw/parrainages/1981.txt` |
-| `1988.txt` | JORF n° 86 du 12 avril 1988 | 7-27  | `python outils/pdf_en_texte.py JORF_19880412_86.pdf --pages 7-27 --sortie raw/parrainages/1988.txt` |
-| `1995.txt` | JORF n° 87 du 12 avril 1995 | 8-30  | `python outils/pdf_en_texte.py JORF_19950412_87.pdf --pages 8-30 --sortie raw/parrainages/1995.txt` |
-| `2007.txt` | JORF n° 68 du 21 mars 2007  | tout  | `python outils/pdf_en_texte.py 2007.pdf --sortie raw/parrainages/2007.txt`    |
-| `2012.txt` | JORF n° 73 du 25 mars 2012  | tout  | `python outils/pdf_en_texte.py 2012.pdf --sortie raw/parrainages/2012.txt`    |
+## Les JSON de 2017 et 2022
 
-Les pages indiquées sont celles des listes elles-mêmes : le reste de l'édition
-porte d'autres textes, qui n'ont rien à y faire.
+Ils viennent tels quels de l'open data du Conseil constitutionnel, déposé sur
+data.gouv.fr, et sont repris sans retouche. Leur empreinte est celle de la
+ressource publiée :
 
-Ces plages figurent aussi dans `seeds/parrainages.yaml`, qui fait foi : le seed
-porte tout ce qui décrit une source, y compris ses paramètres de conversion.
+| Fichier     | SHA1                                       |
+| ----------- | ------------------------------------------ |
+| `2017.json` | `ff9fd796b590c57a0edcd2c4ef1c6faa776714cf` |
+| `2022.json` | `b6d4f770c5adc1dd2b69a23271cb6dd878af2d1c` |
+
+## Les textes antérieurs
+
+Ils sont extraits des éditions du Journal officiel. Les PDF de 1981, 1988 et
+1995 mis en ligne par Légifrance pèsent de 16 à 51 Mo et ne sont pas dans le
+dépôt ; ceux de 2007 et 2012, publiés par le Conseil constitutionnel, y sont.
+Rejouer la commande sur le même PDF rend le même texte.
+
+| Fichier    | Édition du Journal officiel | Commande                                                                                           |
+| ---------- | --------------------------- | -------------------------------------------------------------------------------------------------- |
+| `1981.txt` | n° 90 du 15 avril 1981      | `python outils/pdf_en_texte.py JORF_19810415_90.pdf --pages 2-25 --sortie raw/parrainages/1981.txt` |
+| `1988.txt` | n° 86 du 12 avril 1988      | `python outils/pdf_en_texte.py JORF_19880412_86.pdf --pages 7-27 --sortie raw/parrainages/1988.txt` |
+| `1995.txt` | n° 87 du 12 avril 1995      | `python outils/pdf_en_texte.py JORF_19950412_87.pdf --pages 8-30 --sortie raw/parrainages/1995.txt` |
+| `2007.txt` | n° 71 du 24 mars 2007       | `python outils/pdf_en_texte.py raw/parrainages/2007.pdf`                                            |
+| `2012.txt` | n° 78 du 31 mars 2012       | `python outils/pdf_en_texte.py raw/parrainages/2012.pdf`                                            |
+
+Les pages indiquées dans la commande sont celles des listes elles-mêmes : le
+reste de l'édition porte d'autres textes, qui n'ont rien à y faire. Elles
+figurent aussi dans le seed, sous `pages`.

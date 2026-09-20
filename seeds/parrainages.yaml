@@ -31,6 +31,7 @@
 parrainages:
   - election: "PR-1981"
     fichier: "parrainages/1981.txt"
+    origine: "legifrance:JORFTEXT000000850614"
     format: "texte-jo"
     etendue: "tirage-au-sort"
     pages: "2-25"
@@ -61,6 +62,7 @@ parrainages:
 
   - election: "PR-1988"
     fichier: "parrainages/1988.txt"
+    origine: "legifrance:JORFTEXT000000299022"
     format: "texte-jo"
     etendue: "tirage-au-sort"
     pages: "7-27"
@@ -89,6 +91,7 @@ parrainages:
 
   - election: "PR-1995"
     fichier: "parrainages/1995.txt"
+    origine: "legifrance:JORFTEXT000000847420"
     format: "texte-jo"
     etendue: "tirage-au-sort"
     pages: "8-30"
@@ -117,6 +120,7 @@ parrainages:
 
   - election: "PR-2007"
     fichier: "parrainages/2007.txt"
+    origine: "legifrance:JORFTEXT000000464348"
     format: "texte-jo"
     etendue: "tirage-au-sort"
     candidats:
@@ -150,6 +154,7 @@ parrainages:
 
   - election: "PR-2012"
     fichier: "parrainages/2012.txt"
+    origine: "legifrance:JORFTEXT000025595654"
     format: "texte-jo"
     etendue: "tirage-au-sort"
     candidats:
@@ -179,6 +184,7 @@ parrainages:
 
   - election: "PR-2017"
     fichier: "parrainages/2017.json"
+    origine: "data-gouv:parrainages-2017"
     format: "json-par-candidat"
     etendue: "integrale"
     candidats:
@@ -320,6 +326,7 @@ parrainages:
 
   - election: "PR-2022"
     fichier: "parrainages/2022.json"
+    origine: "data-gouv:parrainages-2022"
     format: "json-plat"
     etendue: "integrale"
     candidats:

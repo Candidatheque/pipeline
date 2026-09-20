@@ -118,6 +118,9 @@ def verifier() -> list[str]:
             problemes.append(f"{entree.election} : élection inconnue du seed des élections")
         if not entree.chemin().is_file():
             problemes.append(f"{entree.election} : fichier absent, {entree.fichier}")
+        if entree.origine not in sources:
+            problemes.append(f"{entree.election} : origine inconnue « {entree.origine} »")
+        sources_citees.add(entree.origine)
         for publication in entree.publications:
             if publication.source not in sources:
                 problemes.append(

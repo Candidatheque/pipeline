@@ -89,6 +89,11 @@ class SourceParrainages(BaseModel):
     election: str
     #: Chemin sous `raw/`.
     fichier: str
+    #: Le document d'où le fichier est tiré, dans le registre des sources. Il
+    #: se distingue des décisions listées sous `publications` : celles-ci sont
+    #: les actes qui rendent les présentations publiques, celui-là est le
+    #: document qui les porte et dont la conversion se rejoue.
+    origine: str
     format: Format
     #: Ce que la source publie. Sans ce champ, un consommateur compterait les
     #: lignes et conclurait que Nicolas Sarkozy a eu 500 parrainages en 2007.
