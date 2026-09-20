@@ -1,0 +1,2478 @@
+# Candidatures aux élections présidentielles.
+#
+# Chaque candidature dit qui s'est présenté, et à quels tours. L'association
+# entre une personne et un tour porte la ou les sources qui l'établissent.
+#
+# Le nom n'est pas répété : il se déduit du registre des personnes. On ne le
+# saisit que s'il diffère, c'est-à-dire si la personne a porté un autre nom lors
+# de ce scrutin — un nom d'usage, un mariage. L'exception devient ainsi visible
+# dans le seed, au lieu de se perdre parmi cent quatorze répétitions.
+#
+# `etats` est une trajectoire, pas un instantané : une suite datée et sourcée,
+# dans l'ordre. L'état courant est le dernier élément, il n'est pas stocké à
+# part. Une candidature déclarée puis abandonnée garde ainsi trace de sa
+# déclaration, et une candidature validée garde qui l'avait annoncée.
+#
+# Ces candidatures n'ont qu'un seul état, « validee » : elles viennent des
+# décisions du Conseil constitutionnel arrêtant les listes officielles, et rien
+# n'a été collecté sur les déclarations qui les ont précédées. Les états
+# « declaree », « retiree » et « ecartee » serviront pour une élection à venir.
+#
+# Constitué en une fois à partir des vingt-deux décisions de 1965 à 2022, puis
+# maintenu à la main.
+
+candidatures:
+  - election: "PR-1965"
+    candidats:
+      - personne: "PE-0001"
+        etats:
+          - etat: "validee"
+            date: 1965-11-18
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
+      - personne: "PE-0002"
+        etats:
+          - etat: "validee"
+            date: 1965-11-18
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:65-7-PDR"
+      - personne: "PE-0003"
+        etats:
+          - etat: "validee"
+            date: 1965-11-18
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
+      - personne: "PE-0004"
+        etats:
+          - etat: "validee"
+            date: 1965-11-18
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
+      - personne: "PE-0005"
+        etats:
+          - etat: "validee"
+            date: 1965-11-18
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:65-7-PDR"
+      - personne: "PE-0006"
+        etats:
+          - etat: "validee"
+            date: 1965-11-18
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
+
+  - election: "PR-1969"
+    candidats:
+      - personne: "PE-0007"
+        etats:
+          - etat: "validee"
+            date: 1969-05-15
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
+      - personne: "PE-0008"
+        etats:
+          - etat: "validee"
+            date: 1969-05-15
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
+      - personne: "PE-0009"
+        etats:
+          - etat: "validee"
+            date: 1969-05-15
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
+      - personne: "PE-0010"
+        etats:
+          - etat: "validee"
+            date: 1969-05-15
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
+      - personne: "PE-0011"
+        etats:
+          - etat: "validee"
+            date: 1969-05-15
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:69-21-PDR"
+      - personne: "PE-0012"
+        etats:
+          - etat: "validee"
+            date: 1969-05-15
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:69-21-PDR"
+      - personne: "PE-0013"
+        etats:
+          - etat: "validee"
+            date: 1969-05-15
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
+      - personne: "PE-0017"
+        etats:
+          - etat: "ecartee"
+            date: 1969-05-21
+            sources:
+              - "conseil-constitutionnel:69-19-PDR"
+        tours: []
+      - personne: "PE-0206"
+        etats:
+          - etat: "ecartee"
+            date: 1969-05-17
+            sources:
+              - "conseil-constitutionnel:69-15-PDR"
+        tours: []
+      - personne: "PE-0207"
+        etats:
+          - etat: "ecartee"
+            date: 1969-05-17
+            sources:
+              - "conseil-constitutionnel:69-16-PDR"
+        tours: []
+      - personne: "PE-0208"
+        etats:
+          - etat: "ecartee"
+            date: 1969-05-17
+            sources:
+              - "conseil-constitutionnel:69-17-PDR"
+        tours: []
+
+  - election: "PR-1974"
+    candidats:
+      - personne: "PE-0005"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:74-31-PDR"
+      - personne: "PE-0010"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+      - personne: "PE-0014"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+      - personne: "PE-0015"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+      - personne: "PE-0016"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:74-31-PDR"
+      - personne: "PE-0017"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+      - personne: "PE-0018"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+      - personne: "PE-0019"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+      - personne: "PE-0020"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+      - personne: "PE-0021"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+      - personne: "PE-0022"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+      - personne: "PE-0023"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
+      - personne: "PE-0206"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0209"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0210"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0211"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0212"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0213"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0214"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0215"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0216"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0217"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0218"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0219"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0220"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0221"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0222"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0223"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0224"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0225"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0226"
+        etats:
+          - etat: "ecartee"
+            date: 1974-04-21
+            sources:
+              - "conseil-constitutionnel:74-27-PDR"
+        tours: []
+      - personne: "PE-0227"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0228"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0229"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0230"
+        etats:
+          - etat: "ecartee"
+            date: 1974-04-21
+            sources:
+              - "conseil-constitutionnel:74-26-PDR"
+        tours: []
+      - personne: "PE-0231"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0232"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0233"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0234"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+
+  - election: "PR-1981"
+    candidats:
+      - personne: "PE-0005"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:81-46-PDR"
+      - personne: "PE-0016"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:81-46-PDR"
+      - personne: "PE-0018"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+      - personne: "PE-0019"
+        etats:
+          - etat: "ecartee"
+            date: 1981-04-11
+            sources:
+              - "conseil-constitutionnel:81-43-PDR"
+        tours: []
+      - personne: "PE-0024"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+      - personne: "PE-0025"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+      - personne: "PE-0026"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+      - personne: "PE-0027"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+      - personne: "PE-0028"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+      - personne: "PE-0029"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+      - personne: "PE-0030"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
+      - personne: "PE-0235"
+        etats:
+          - etat: "ecartee"
+            date: 1981-04-11
+            sources:
+              - "conseil-constitutionnel:81-42-PDR"
+        tours: []
+      - personne: "PE-0236"
+        etats:
+          - etat: "ecartee"
+            date: 1981-04-11
+            sources:
+              - "conseil-constitutionnel:81-44-PDR"
+        tours: []
+
+  - election: "PR-1988"
+    candidats:
+      - personne: "PE-0005"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:88-57-PDR"
+      - personne: "PE-0018"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+      - personne: "PE-0019"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+      - personne: "PE-0030"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:88-57-PDR"
+      - personne: "PE-0031"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+      - personne: "PE-0032"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+      - personne: "PE-0033"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+      - personne: "PE-0034"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+      - personne: "PE-0035"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
+
+  - election: "PR-1995"
+    candidats:
+      - personne: "PE-0018"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+      - personne: "PE-0019"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+      - personne: "PE-0027"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:brice-lalonde"
+        tours: []
+      - personne: "PE-0030"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:95-80-PDR"
+      - personne: "PE-0034"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:antoine-waechter"
+        tours: []
+      - personne: "PE-0036"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+      - personne: "PE-0037"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+      - personne: "PE-0038"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:95-80-PDR"
+      - personne: "PE-0039"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+      - personne: "PE-0040"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+      - personne: "PE-0041"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
+      - personne: "PE-0237"
+        etats:
+          - etat: "retiree"
+            sources:
+              - "wikipedia-fr:jean-francois-hory"
+        tours: []
+      - personne: "PE-0238"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:marlene-mourreau"
+        tours: []
+      - personne: "PE-0239"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:max-simeoni"
+        tours: []
+
+  - election: "PR-2002"
+    candidats:
+      - personne: "PE-0018"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+      - personne: "PE-0019"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:2002-110-PDR"
+      - personne: "PE-0027"
+        etats:
+          - etat: "declaree"
+            date: 2001-06-23
+            sources:
+              - "le-parisien:lalonde-candidat-elysee-2002"
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:brice-lalonde"
+        tours: []
+      - personne: "PE-0030"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:2002-110-PDR"
+      - personne: "PE-0038"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+      - personne: "PE-0041"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+      - personne: "PE-0042"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+      - personne: "PE-0043"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+      - personne: "PE-0044"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+      - personne: "PE-0045"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+      - personne: "PE-0046"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+      - personne: "PE-0047"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+      - personne: "PE-0048"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+      - personne: "PE-0049"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+      - personne: "PE-0050"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+      - personne: "PE-0051"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+      - personne: "PE-0052"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
+
+  - election: "PR-2007"
+    candidats:
+      - personne: "PE-0018"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+      - personne: "PE-0019"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+      - personne: "PE-0034"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0036"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+      - personne: "PE-0037"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0039"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+      - personne: "PE-0042"
+        etats:
+          - etat: "retiree"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0043"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0045"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+      - personne: "PE-0046"
+        etats:
+          - etat: "retiree"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0049"
+        etats:
+          - etat: "retiree"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0050"
+        etats:
+          - etat: "retiree"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0052"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+      - personne: "PE-0053"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+      - personne: "PE-0054"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+      - personne: "PE-0055"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+      - personne: "PE-0056"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:2007-140-PDR"
+      - personne: "PE-0057"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+      - personne: "PE-0058"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:2007-140-PDR"
+      - personne: "PE-0064"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0076"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0077"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0078"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0079"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0080"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0081"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0082"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0083"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0084"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0085"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0086"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0087"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0088"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0089"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0090"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0091"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0092"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0093"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0094"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0095"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0096"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0097"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0098"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0099"
+        etats:
+          - etat: "retiree"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+      - personne: "PE-0100"
+        etats:
+          - etat: "retiree"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2007"
+        tours: []
+
+  - election: "PR-2012"
+    candidats:
+      - personne: "PE-0037"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+      - personne: "PE-0043"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0045"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+      - personne: "PE-0058"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:2012-153-PDR"
+      - personne: "PE-0059"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+      - personne: "PE-0060"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+      - personne: "PE-0061"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+      - personne: "PE-0062"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+      - personne: "PE-0063"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+      - personne: "PE-0064"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+      - personne: "PE-0065"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:2012-153-PDR"
+      - personne: "PE-0069"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0090"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0092"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0093"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0101"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0102"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0103"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0104"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0105"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0106"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0107"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0108"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0109"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0110"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0111"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0112"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0113"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0114"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0115"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0116"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0117"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0118"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0119"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0120"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0121"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0122"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0123"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+      - personne: "PE-0124"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2012"
+        tours: []
+
+  - election: "PR-2017"
+    candidats:
+      - personne: "PE-0034"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0037"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+      - personne: "PE-0060"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:2017-170-PDR"
+      - personne: "PE-0061"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+      - personne: "PE-0062"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+      - personne: "PE-0063"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+      - personne: "PE-0064"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+      - personne: "PE-0066"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:2017-170-PDR"
+      - personne: "PE-0067"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+      - personne: "PE-0068"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+      - personne: "PE-0069"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+      - personne: "PE-0070"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
+      - personne: "PE-0083"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0091"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0093"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0094"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0104"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0112"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0116"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0125"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0126"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0127"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0128"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0129"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0130"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0131"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0132"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0133"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0134"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0135"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0136"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0137"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0138"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0139"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0140"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0141"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0142"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0143"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0144"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0145"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0146"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0147"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0148"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0149"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0150"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0151"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0152"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0153"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0154"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0155"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0156"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0157"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0158"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0159"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0160"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0161"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+      - personne: "PE-0162"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2017"
+        tours: []
+
+  - election: "PR-2022"
+    candidats:
+      - personne: "PE-0034"
+        etats:
+          - etat: "retiree"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0046"
+        etats:
+          - etat: "retiree"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0060"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:2022-196-PDR"
+      - personne: "PE-0061"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+      - personne: "PE-0062"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+      - personne: "PE-0063"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+      - personne: "PE-0064"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+      - personne: "PE-0066"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+          - numero: 2
+            sources:
+              - "conseil-constitutionnel:2022-196-PDR"
+      - personne: "PE-0068"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+      - personne: "PE-0069"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0071"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+      - personne: "PE-0072"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+      - personne: "PE-0073"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+      - personne: "PE-0074"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+      - personne: "PE-0075"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+        tours:
+          - numero: 1
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
+      - personne: "PE-0090"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0093"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0124"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0140"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0160"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0162"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0163"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0164"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0165"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0166"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0167"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0168"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0169"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0170"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0171"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0172"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0173"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0174"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0175"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0176"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0177"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0178"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0179"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0180"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0181"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0182"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0183"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0184"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0185"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0186"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0187"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0188"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0189"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0190"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0191"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0192"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0193"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0194"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0195"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0196"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0197"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0198"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0199"
+        etats:
+          - etat: "retiree"
+            date: 2022-02-17
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0200"
+        etats:
+          - etat: "retiree"
+            date: 2022-01-19
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0201"
+        etats:
+          - etat: "retiree"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0202"
+        etats:
+          - etat: "retiree"
+            date: 2022-02-18
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0203"
+        etats:
+          - etat: "retiree"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0204"
+        etats:
+          - etat: "retiree"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []
+      - personne: "PE-0205"
+        etats:
+          - etat: "retiree"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
+        tours: []

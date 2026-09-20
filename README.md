@@ -13,7 +13,7 @@
 
 | Répertoire | Régime |
 |---|---|
-| `seeds/` | Saisi à la main. `elections.yaml` dit quoi publier, `personnes.yaml` attribue les identifiants de personne. |
+| `seeds/` | Saisi à la main. `elections.yaml` dit quoi publier, `candidatures.yaml` qui s'est présenté, `personnes.yaml` et `sources.yaml` attribuent les identifiants. |
 | `schemas/` | Les JSON Schema qui décrivent les données publiées. Écrits à la main, recopiés tels quels dans `data`. |
 | `src/` | Le code de la pipeline. |
 | `requetes/` | Requêtes SPARQL lancées à la main pour retrouver des identifiants externes. La pipeline ne les exécute pas. |
@@ -89,12 +89,141 @@ Le QID d'un tour est facultatif, et il est absent du JSON plutôt que publié à
 l'absence se lit mieux qu'une valeur nulle. Dix des vingt-quatre tours en ont
 un, les autres non.
 
+## Candidatures
+
+Une candidature est à l'élection, pas au tour : on ne se porte pas candidat au
+second tour, on s'y qualifie. Le Conseil constitutionnel arrête une liste, une
+seule, pour le scrutin. La participation à un tour, elle, se rattache au tour et
+porte la ou les sources qui l'établissent.
+
+Le nom publié est celui porté lors de ce scrutin, et il peut différer d'une
+élection à l'autre — un nom d'usage change, un mariage change un nom.
+
+Il tient dans **un seul champ**, `nom_complet`, non découpé en nom et prénom.
+Le découpage est une inférence et non une donnée : « Jean Claude Matry » a deux
+prénoms, « Fessard de Foucault » porte une particule au milieu, « Super
+Châtaigne » est un pseudonyme. Sur les huit noms de plus de deux mots relevés,
+un découpage automatique s'est trompé trois fois. Le patronyme est écrit en
+capitales, convention des décisions du Conseil constitutionnel, ce qui garde
+l'information sans prétendre à une structure. Qui veut la structure la tire de
+Wikidata, via l'identifiant de la personne.
+
+Dans le seed, il n'est pas répété : il se déduit du registre des personnes, et
+ne se saisit que s'il diffère. L'exception devient ainsi visible au lieu de se
+perdre parmi cent quatorze répétitions, et `candidatheque valider` signale un
+nom saisi à l'identique. Aucune des candidatures actuelles n'en saisit : dans
+les données de 1965 à 2022, personne n'a changé de nom entre deux scrutins.
+
+C'est le même principe que pour les sources : le seed ne répète rien, la
+publication développe tout.
+
+L'état d'une candidature est une **trajectoire**, pas un instantané : une suite
+d'états datés et sourcés, dans l'ordre. L'état courant est le dernier élément et
+n'est pas publié à part — le stocker en double le laisserait diverger.
+
+C'est ce qui permet de représenter une candidature déclarée puis abandonnée, qui
+n'a pris part à aucun tour, et de garder qui avait annoncé une candidature
+finalement validée. Le champ `tours` peut donc être vide.
+
+```json
+"etats": [
+  { "etat": "declaree", "date": "2026-05-01", "sources": [...] },
+  { "etat": "retiree",  "date": "2026-11-03", "sources": [...] }
+],
+"tours": []
+```
+
+Les candidatures validées viennent des vingt-deux décisions du Conseil
+constitutionnel arrêtant les listes officielles, de 1965 à 2022 — celle du
+premier tour, puis celle des candidats habilités au second.
+
+S'y ajoutent 162 candidatures **déclarées mais non retenues**, relevées dans les
+articles Wikipédia « Candidatures à l'élection présidentielle française de … »
+pour 2007, 2012, 2017 et 2022 : 153 écartées faute de parrainages suffisants et
+9 retirées avant la clôture. Le critère d'inclusion est la déclaration, pas le
+parrainage — en 2027 les candidats seront listés avant tout décompte, et le
+passé doit être cohérent avec ça.
+
+Pour 2022, ces candidatures sont recoupées avec le fichier de parrainages du
+Conseil constitutionnel : les 27 candidats que Wikipédia place dans une tranche
+de parrainages y figurent tous, chacun dans la tranche annoncée, et aucun des 16
+« sans parrainage » n'y apparaît.
+
+Un piège à connaître : recevoir un parrainage ne fait pas de vous un candidat.
+Le fichier officiel de 2022 compte 64 bénéficiaires, parmi lesquels Thomas
+Pesquet et Édouard Philippe, qui n'étaient pas candidats. Wikipédia les isole
+dans une section à part, qui n'est pas reprise ici. Les sections « candidats
+pressentis » ne le sont pas non plus : une spéculation de presse n'est pas une
+déclaration.
+
+Ces seeds ont été constitués en une fois à partir du fonds CONSTIT, l'open data
+du Conseil constitutionnel, puis relus. Chaque participation cite la décision
+qui l'établit : la vérification se refait en ouvrant les vingt-deux URL de
+`seeds/sources.yaml`.
+
+Ils ont ensuite été recoupés avec Wikidata, dont la propriété `P726` associe des
+candidats à une élection. Les deux sources s'accordent exactement : mêmes 75
+personnes, mêmes 114 candidatures, aucun écart. Wikidata ne connaît donc aucun
+candidat que le Conseil constitutionnel n'aurait pas retenu.
+
+Chaque personne porte son QID Wikidata. C'est le QID qu'on stocke et jamais le
+nom : cinq de ces éléments n'ont pas de libellé français, dont ceux de Jacques
+Chirac et d'Emmanuel Macron.
+
+## Sources
+
+Partout où une donnée est sourcée, elle l'est de la même façon, décrite par
+`schemas/source.schema.json` :
+
+```json
+{
+  "id": "conseil-constitutionnel:2022-187-PDR",
+  "url": "https://www.conseil-constitutionnel.fr/decision/2022/2022187PDR.htm",
+  "commentaire": "Liste des candidats à l'élection présidentielle",
+  "consultee_le": "2026-09-20"
+}
+```
+
+### Autorités
+
+`seeds/autorites.yaml` liste les organismes dont on accepte de citer les
+publications. Une source dont l'autorité n'y figure pas, ou dont l'URL n'est pas
+servie par un domaine de cette autorité, fait échouer la validation. Ajouter une
+autorité est une décision prise en revue, pas un effet de bord de la saisie.
+
+Le champ `nature` ne classe pas les sources, il décrit leur **relation au fait**.
+Une déclaration de candidature publiée par le parti du candidat vaut mieux qu'un
+article qui la rapporte : le parti est l'auteur de l'acte. Le même site ne
+vaudrait rien pour établir le score de ce candidat. La fiabilité se juge sur le
+couple source-fait, jamais sur la source seule.
+
+| nature | relation au fait |
+|---|---|
+| `officielle` | l'institution qui produit le fait par son acte même |
+| `partie-prenante` | l'organisation ou la personne que le fait concerne |
+| `presse` | un média à responsabilité éditoriale, extérieur au fait |
+| `encyclopedique` | une synthèse collaborative, qui cite ses propres sources |
+
+L'identifiant est de la forme `<autorité>:<identifiant chez elle>`. Pour le
+Conseil constitutionnel, le numéro de décision suivi de sa nature, qui est sa
+citation officielle : le numéro seul ne désigne pas une décision unique, 128
+numéros du fonds sont portés par plusieurs décisions de natures différentes.
+
+Dans les seeds, une source est décrite une fois dans `sources.yaml` et citée
+par son identifiant. À la publication, la pipeline la recopie en clair à côté
+de chaque donnée qui s'y rattache : le seed est optimisé pour la maintenance,
+les fichiers publiés pour la lecture, et un consommateur n'a jamais de
+référence à résoudre.
+
+`consultee_le` est saisie, jamais calculée au moment de publier.
+
 ## Données publiées
 
 ```
-elections.json                     index : une entrée { id, annee } par élection
-elections/PR-2012/election.json    métadonnées : identifiant, année, QID, tours
-schemas/*.schema.json              copie des schémas de ce dépôt
+elections.json                        index : une entrée { id, annee } par élection
+elections/PR-2012/election.json       métadonnées : identifiant, année, QID, tours
+elections/PR-2012/candidatures.json   qui s'est présenté, et à quels tours
+schemas/*.schema.json                 copie des schémas de ce dépôt
 ```
 
 L'index porte de quoi énumérer les élections et atteindre leur répertoire, rien
@@ -178,12 +307,45 @@ Seules les présidentielles sont couvertes, de 1965 à 2027.
 contrat que la collecte devra respecter, et les tests en tiennent lieu de
 spécification. Il bougera sans doute à la rencontre des vraies sources.
 
-`seeds/personnes.yaml` est vide : rien ne collecte encore de candidatures. Il se
-remplira une ligne à la fois, en revue.
+Les candidatures non validées ne sont sourcées que par Wikipédia, faute de mieux
+trouvé. C'est une source `encyclopedique`, plus faible qu'une décision : elle
+rapporte les déclarations en citant la presse, et ce sont ces références de
+presse qu'il faudrait citer à sa place.
 
-Rien ne vérifie encore qu'un identifiant de personne cité dans une candidature
-existe bien au registre. Ce contrôle viendra avec le premier producteur, faute
-de quoi il n'aurait rien à contrôler.
+Avant 2007, aucune élection n'a d'article Wikipédia dédié aux candidatures, et
+ce que les articles principaux en disent est de qualité très inégale. Les
+candidatures écartées de 1969, 1974 et 1981 ont donc été reprises ailleurs :
+
+| élection | source | écartées |
+|---|---|---|
+| 1969 | décisions du Conseil rejetant une réclamation contre la liste | 4 |
+| 1974 | tableau de l'article principal, plus deux décisions | 27 |
+| 1981 | décisions du Conseil rejetant une réclamation | 3 |
+| 1995 | article de chaque personne, après tri | 5 |
+| 2002 | article de Brice Lalonde | 1 |
+
+Une réclamation rejetée nomme quelqu'un qui voulait se présenter et n'a pas été
+retenu : source bien plus forte qu'une mention encyclopédique. Jean-Marie LE PEN
+y figure pour 1981, faute de signatures.
+
+La section de 1995 demandait un tri : elle mêle les candidatures retirées et les
+**refus de se présenter**, et sept de ses douze entrées n'établissent aucune
+candidature. Giscard d'Estaing y est listé avec une référence intitulée « Je ne
+me présente pas », Delors « renonce à se présenter », Fabius « se range derrière
+Henri Emmanuelli ». Les cinq retenues sont sourcées par l'article de la personne
+concernée, qui nomme sa candidature, et non par la liste qui les confondait.
+
+Rien n'a été repris pour 1965 ni 1988. La section de 1965 traite de
+personnalités « pressenties », 1988 n'a pas de section. Mieux vaut ne rien
+publier que publier à peu près.
+
+Trois noms ont été corrigés par rapport à la source, qui les orthographie mal :
+`LALONIDE` pour LALONDE en 1981, `Ariette` pour Arlette LAGUILLER en 1988, et les
+accents absents d'`Émile MULLER` et `Édouard BALLADUR`. Les corrections sont
+signalées en commentaire dans `seeds/personnes.yaml`.
+
+Rien ne collecte : les candidatures ont été extraites en une fois et sont
+maintenues à la main. Une élection à venir demandera un collecteur.
 
 Il n'y a pas de schéma de résultats. Sa forme doit sortir des décisions du
 Conseil constitutionnel, qui ne sont pas encore analysées.

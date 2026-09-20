@@ -1,0 +1,208 @@
+# Registre des sources citées par les données publiées.
+#
+# Une source y est décrite une fois, et les données la citent par son
+# identifiant. À la publication, la pipeline recopie la description complète à
+# côté de chaque donnée qui s'y rattache : le seed est optimisé pour la
+# maintenance, les fichiers publiés pour la lecture, et un consommateur n'a
+# jamais à résoudre une référence.
+#
+# Conventions :
+#   - `id`          : "<autorité>:<identifiant chez elle>". Pour le Conseil
+#                     constitutionnel, le numéro de décision suivi de sa nature,
+#                     qui est sa citation officielle. Le numéro seul ne suffit
+#                     pas : 128 numéros sont portés par plusieurs décisions de
+#                     natures différentes.
+#   - `url`         : où lire le document.
+#   - `commentaire` : de quoi il s'agit, en clair. Ici l'intitulé de la décision.
+#   - `consultee_le`: date à laquelle la source a été consultée. Saisie, jamais
+#                     calculée à la publication : une date d'horloge ferait
+#                     bouger les fichiers à chaque passage.
+
+sources:
+  - id: "conseil-constitutionnel:65-3-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1965/653pdr.htm"
+    commentaire: "Décision du 18 novembre 1965 arrêtant la liste des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:65-7-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1965/657pdr.htm"
+    commentaire: "Décision du 9 décembre 1965 fixant la liste des candidats habilités à se présenter au second tour de scrutin de l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:69-13-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1969/6913pdr.htm"
+    commentaire: "Décision du 15 mai 1969 arrêtant la liste des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:69-21-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1969/6921pdr.htm"
+    commentaire: "Décision du 5 juin 1969 arrêtant la liste des candidats habilités à se présenter au second tour de scrutin"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:74-24-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1974/7424pdr.htm"
+    commentaire: "Décision du 18 avril 1974 arrêtant la liste des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:74-31-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1974/7431pdr.htm"
+    commentaire: "Décision du 9 mai 1974 arrêtant la liste des candidats habilités à se présenter au second tour de scrutin"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:81-40-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1981/8140pdr.htm"
+    commentaire: "Décision arrêtant la liste des candidats à l'élection présidentielle"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:81-46-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1981/8146pdr.htm"
+    commentaire: "Décision du 29 avril 1981 arrêtant la liste des candidats habilités à se présenter au second tour de scrutin"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:88-54-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1988/8854pdr.htm"
+    commentaire: "Liste des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:88-57-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1988/8857pdr.htm"
+    commentaire: "Liste des candidats habilités à se présenter au second tour de l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:95-70-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1995/9570pdr.htm"
+    commentaire: "Liste des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:95-80-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1995/9580pdr.htm"
+    commentaire: "Décision du 27 avril 1995 fixant la liste des candidats habilités à se présenter au second tour de l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2002-102-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2002/2002102PDR.htm"
+    commentaire: "Décision du 4 avril 2002 arrêtant la liste des candidats à l'élection présidentielle"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2002-110-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2002/2002110pdr.htm"
+    commentaire: "Décision du 25 avril 2002 relative à la liste des candidats habilités à se présenter au second tour de l'élection présidentielle"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2007-133-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2007/2007133PDR.htm"
+    commentaire: "Décision du 19 mars 2007 arrêtant la liste des candidats à l'élection présidentielle"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2007-140-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2007/2007140PDR.htm"
+    commentaire: "Décision du 26 avril 2007 relative à la liste des candidats habilités à se présenter au second tour de l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2012-145-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2012/2012145pdr.htm"
+    commentaire: "Décision du 19 mars 2012 arrêtant la liste des candidats à l'élection présidentielle"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2012-153-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2012/2012153pdr.htm"
+    commentaire: "Décision du 26 avril 2012 relative à la liste des candidats habilités à se présenter au second tour de l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2017-165-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2017/2017165PDR.htm"
+    commentaire: "Liste des candidats à l'élection présidentielle"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2017-170-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2017/2017170PDR.htm"
+    commentaire: "Liste des candidats habilités à se présenter au second tour de l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2022-187-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2022/2022187PDR.htm"
+    commentaire: "Liste des candidats à l'élection présidentielle"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2022-196-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2022/2022196PDR.htm"
+    commentaire: "Liste des candidats habilités à se présenter au second tour de l'élection du Président de la République"
+    consultee_le: 2026-09-20
+
+  # Articles encyclopédiques : seule source trouvée pour les candidatures
+  # déclarées et non retenues. Plus faible qu'une décision, d'où la nature
+  # « encyclopedique » de l'autorité. À remplacer par les références de
+  # presse que ces articles citent eux-mêmes.
+  - id: "wikipedia-fr:candidatures-presidentielle-2007"
+    url: "https://fr.wikipedia.org/wiki/Candidatures_%C3%A0_l%27%C3%A9lection_pr%C3%A9sidentielle_fran%C3%A7aise_de_2007"
+    commentaire: "Candidatures à l'élection présidentielle française de 2007"
+    consultee_le: 2026-09-20
+  - id: "wikipedia-fr:candidatures-presidentielle-2012"
+    url: "https://fr.wikipedia.org/wiki/Candidatures_%C3%A0_l%27%C3%A9lection_pr%C3%A9sidentielle_fran%C3%A7aise_de_2012"
+    commentaire: "Candidatures à l'élection présidentielle française de 2012"
+    consultee_le: 2026-09-20
+  - id: "wikipedia-fr:candidatures-presidentielle-2017"
+    url: "https://fr.wikipedia.org/wiki/Candidatures_%C3%A0_l%27%C3%A9lection_pr%C3%A9sidentielle_fran%C3%A7aise_de_2017"
+    commentaire: "Candidatures à l'élection présidentielle française de 2017"
+    consultee_le: 2026-09-20
+  - id: "wikipedia-fr:candidatures-presidentielle-2022"
+    url: "https://fr.wikipedia.org/wiki/Candidatures_%C3%A0_l%27%C3%A9lection_pr%C3%A9sidentielle_fran%C3%A7aise_de_2022"
+    commentaire: "Candidatures à l'élection présidentielle française de 2022"
+    consultee_le: 2026-09-20
+
+  # Réclamations contre l'établissement de la liste des candidats : le Conseil
+  # y nomme des personnes qui voulaient se présenter et n'ont pas été retenues.
+  # Source bien plus forte qu'une mention encyclopédique.
+  - id: "conseil-constitutionnel:69-15-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1969/6915pdr.htm"
+    commentaire: "Décision du 17 mai 1969 portant sur une réclamation présentée par M. BOURQUIN contre l'établissement de la liste des candidats à la Présidence de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:69-16-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1969/6916PDR.htm"
+    commentaire: "Décision du 17 mai 1969 portant sur une réclamation présentée par M. SIDOS contre l'établissement de la liste des candidats à la Présidence de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:69-17-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1969/6917PDR.htm"
+    commentaire: "Décision du 17 mai 1969 portant sur une réclamation présentée par le \"Centre d'études et de recherches expérimentales\" contre l'établissement de la liste des candidats à la Présidence de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:69-19-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1969/6919pdr.htm"
+    commentaire: "Décision du 21 mai 1969 portant sur une réclamation présentée par M. HÉRAUD contre l'établissement de la liste des candidats à la Présidence de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:74-26-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1974/7426pdr.htm"
+    commentaire: "Décision du 21 avril 1974 portant sur une réclamation présentée par M. ROUSTAN contre l'établissement de la liste des candidats à la Présidence de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:74-27-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1974/7427PDR.htm"
+    commentaire: "Décision du 21 avril 1974 portant sur une réclamation présentée par M. LAFONT contre l'établissement de la liste des candidats à la Présidence de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:81-42-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1981/8142pdr.htm"
+    commentaire: "Décision du 11 avril 1981 sur une réclamation présentée par Monsieur FOUQUET contre la décision arrêtant la liste des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:81-43-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1981/8143pdr.htm"
+    commentaire: "Décision du 11 avril 1981 sur une réclamation présentée par Monsieur  LE PEN contre la décision arrêtant la liste des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:81-44-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1981/8144pdr.htm"
+    commentaire: "Décision du 11 avril 1981 sur une réclamation présentée par Monsieur SCHERNE contre la décision arrêtant la liste des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+
+  # Article principal : son tableau des candidatures n'ayant pas abouti est la
+  # seule trace de vingt-cinq déclarations de 1974.
+  - id: "wikipedia-fr:presidentielle-1974"
+    url: "https://fr.wikipedia.org/wiki/%C3%89lection_pr%C3%A9sidentielle_fran%C3%A7aise_de_1974"
+    commentaire: "Élection présidentielle française de 1974, section « Candidatures n'ayant pas abouti »"
+    consultee_le: 2026-09-20
+
+  # Articles de personnes : chacun établit nommément la candidature de celui
+  # dont il traite, là où la section de l'article d'élection mêlait candidatures
+  # et refus. Une source par personne, donc, et non une pour la liste.
+  - id: "wikipedia-fr:jean-francois-hory"
+    url: "https://fr.wikipedia.org/wiki/Jean-Fran%C3%A7ois_Hory"
+    commentaire: "Jean-François Hory, sur sa candidature à l'élection présidentielle"
+    consultee_le: 2026-09-20
+  - id: "wikipedia-fr:brice-lalonde"
+    url: "https://fr.wikipedia.org/wiki/Brice_Lalonde"
+    commentaire: "Brice Lalonde, sur sa candidature à l'élection présidentielle"
+    consultee_le: 2026-09-20
+  - id: "wikipedia-fr:marlene-mourreau"
+    url: "https://fr.wikipedia.org/wiki/Marl%C3%A8ne_Mourreau"
+    commentaire: "Marlène Mourreau, sur sa candidature à l'élection présidentielle"
+    consultee_le: 2026-09-20
+  - id: "wikipedia-fr:max-simeoni"
+    url: "https://fr.wikipedia.org/wiki/Max_Simeoni"
+    commentaire: "Max Simeoni, sur sa candidature à l'élection présidentielle"
+    consultee_le: 2026-09-20
+  - id: "wikipedia-fr:antoine-waechter"
+    url: "https://fr.wikipedia.org/wiki/Antoine_Waechter"
+    commentaire: "Antoine Waechter, sur sa candidature à l'élection présidentielle"
+    consultee_le: 2026-09-20
+
+  # Première source de presse du dépôt. Elle établit la déclaration elle-même,
+  # là où l'article encyclopédique n'établissait que l'échec aux parrainages.
+  - id: "le-parisien:lalonde-candidat-elysee-2002"
+    url: "https://www.leparisien.fr/politique/lalonde-je-suis-candidat-a-l-elysee-en-2002-23-06-2001-2002253027.php"
+    commentaire: "Lalonde : « Je suis candidat à l'Elysée en 2002 », Le Parisien, 23 juin 2001"
+    consultee_le: 2026-09-20

@@ -1,7 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "candidatures.schema.json",
   "title": "Candidatures à une élection",
-  "description": "Candidatures connues pour une élection, publiées dans son répertoire. Document volatil : pour une élection à venir, il change dès qu'une candidature est annoncée, retirée ou validée. Il reste séparé des résultats, qui ne bougent plus une fois le scrutin proclamé, pour qu'une donnée provisoire ne fasse pas bouger une donnée définitive.",
+  "description": "Qui s'est présenté à une élection, et à quels tours. Document volatil pour une élection à venir, où il change dès qu'une candidature est annoncée, retirée ou validée. Il reste séparé des résultats, qui ne bougent plus une fois le scrutin proclamé, pour qu'une donnée provisoire ne fasse pas bouger une donnée définitive.",
   "type": "object",
   "required": [
     "election",
@@ -20,7 +21,8 @@
     },
     "candidatures": {
       "type": "array",
-      "description": "Triées par nom, puis prénom. Une personne apparaît une seule fois, quel que soit son état.",
+      "description": "Une entrée par personne. Une personne ne se présente qu'une fois à une même élection.",
+      "minItems": 1,
       "items": {
         "$ref": "#/$defs/candidature"
       }
@@ -29,12 +31,11 @@
   "$defs": {
     "candidature": {
       "type": "object",
+      "description": "Une personne se présentant à une élection. La candidature est à l'élection, pas au tour : on ne se porte pas candidat au second tour, on s'y qualifie.",
       "required": [
         "personne",
-        "nom",
-        "prenom",
-        "etat",
-        "sources"
+        "nom_complet",
+        "etats"
       ],
       "additionalProperties": false,
       "properties": {
@@ -46,33 +47,78 @@
             "PE-0001"
           ]
         },
-        "nom": {
+        "nom_complet": {
           "type": "string",
-          "description": "Nom porté lors de cette élection. Ce n'est pas une copie d'un nom de référence : une même personne peut se présenter sous deux noms différents à deux scrutins, et chacun est exact à sa date.",
-          "minLength": 1
+          "minLength": 1,
+          "description": "Nom entier porté lors de cette élection, tel que la source l'écrit. Non découpé en nom et prénom : le découpage est une inférence, fausse dès qu'un nom sort du cas courant — deux prénoms, une particule au milieu, un pseudonyme. La casse suit la source : les décisions du Conseil constitutionnel mettent le patronyme en capitales, pas les articles encyclopédiques. Qui veut la structure la tire de Wikidata, via l'identifiant de la personne."
         },
-        "prenom": {
-          "type": "string",
-          "minLength": 1
+        "etats": {
+          "type": "array",
+          "description": "La trajectoire de la candidature : les états par lesquels elle est passée, dans l'ordre, chacun daté et sourcé. L'état courant est le dernier élément — il n'est pas publié à part, pour qu'il ne puisse pas diverger de la trajectoire. Une candidature déclarée puis abandonnée garde ainsi trace de sa déclaration, et une candidature validée garde qui l'avait annoncée.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/changement"
+          }
         },
-        "wikidata": {
-          "type": "string",
-          "description": "Identifiant Wikidata de la personne, quand il existe. C'est le seul identifiant stable disponible : un homonyme ou un changement de nom rend le couple nom-prénom insuffisant.",
-          "pattern": "^Q[1-9][0-9]*$"
-        },
+        "tours": {
+          "type": "array",
+          "description": "Les tours auxquels cette candidature a pris part, par numéro croissant, chacun une seule fois. Vide tant qu'aucun tour n'a eu lieu : une candidature déclarée puis retirée n'en a aucun. Ne pas supposer qu'une candidature présente au premier tour l'est au second.",
+          "items": {
+            "$ref": "#/$defs/participation"
+          }
+        }
+      }
+    },
+    "changement": {
+      "type": "object",
+      "description": "Un état par lequel la candidature est passée, à sa date et avec ce qui l'établit.",
+      "required": [
+        "etat",
+        "sources"
+      ],
+      "additionalProperties": false,
+      "properties": {
         "etat": {
           "$ref": "#/$defs/etat"
         },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date à laquelle la candidature a pris cet état, telle que la source l'établit : la date de la décision, celle de l'annonce. Jamais une date de traitement. Absente quand la source établit l'état sans le dater — ce qui est courant pour un retrait rapporté sans jour précis. L'ordre du tableau fait alors foi."
+        },
         "sources": {
           "type": "array",
-          "description": "D'où vient cette candidature. Une annonce dans la presse et une liste arrêtée par le Conseil constitutionnel ne valent pas la même chose, et le consommateur doit pouvoir en juger.",
+          "description": "Ce qui établit ce changement d'état.",
           "minItems": 1,
           "items": {
-            "$ref": "#/$defs/source"
+            "$ref": "source.schema.json"
           }
         }
-      },
-      "description": "Une candidature d'une personne à une élection. L'identifiant de personne relie les candidatures successives sans uniformiser les noms."
+      }
+    },
+    "participation": {
+      "type": "object",
+      "description": "La présence d'une candidature à un tour, et ce qui l'établit.",
+      "required": [
+        "numero",
+        "sources"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "numero": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Rang du tour dans l'élection. Correspond à un tour déclaré par les métadonnées de l'élection."
+        },
+        "sources": {
+          "type": "array",
+          "description": "Ce qui établit la présence à ce tour. Pour les élections passées, la décision du Conseil constitutionnel arrêtant la liste des candidats du premier tour, puis celle des candidats habilités au second.",
+          "minItems": 1,
+          "items": {
+            "$ref": "source.schema.json"
+          }
+        }
+      }
     },
     "etat": {
       "description": "Où en est la candidature. Le décompte des parrainages n'est pas un état : il vaut pour toutes les candidatures d'une même période et relèvera d'un document propre.",
@@ -94,26 +140,6 @@
           "description": "N'a pas été retenue sur la liste officielle, faute de parrainages notamment."
         }
       ]
-    },
-    "source": {
-      "type": "object",
-      "required": [
-        "url",
-        "consultee_le"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "url": {
-          "type": "string",
-          "format": "uri",
-          "pattern": "^https://"
-        },
-        "consultee_le": {
-          "type": "string",
-          "format": "date",
-          "description": "Date à laquelle la pipeline a récupéré ce document, lue dans l'archive « raw/ ». Jamais la date du jour au moment de publier : une date de génération ferait bouger le fichier à chaque passage, et un commit dans le dépôt de destination ne signifierait plus que les données ont changé."
-        }
-      }
     }
   }
 }

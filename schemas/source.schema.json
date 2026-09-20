@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "source.schema.json",
+  "title": "Source d'une donnée publiée",
+  "description": "Le document qui établit un fait publié. Cette forme est commune à toutes les données de la Candidathèque : partout où une donnée est sourcée, elle l'est ainsi. Une source est recopiée en clair à côté de la donnée qu'elle établit, jamais citée par une référence que le consommateur devrait résoudre.",
+  "type": "object",
+  "required": ["id", "url", "commentaire", "consultee_le"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "« <autorité>:<identifiant chez elle> ». Le préfixe dit qui fait autorité, ce qui suit est l'identifiant tel que cette autorité le publie. Pour le Conseil constitutionnel, le numéro de décision suivi de sa nature, qui est sa citation officielle : le numéro seul ne désigne pas une décision unique.",
+      "pattern": "^[a-z][a-z0-9-]*:[A-Za-z0-9._-]+$",
+      "examples": ["conseil-constitutionnel:2022-187-PDR"]
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://",
+      "description": "Où lire le document."
+    },
+    "commentaire": {
+      "type": "string",
+      "minLength": 1,
+      "description": "De quoi il s'agit, en clair : l'intitulé de la décision, le titre de l'article. De quoi savoir ce qui est cité sans ouvrir le lien.",
+      "examples": ["Liste des candidats à l'élection présidentielle"]
+    },
+    "consultee_le": {
+      "type": "string",
+      "format": "date",
+      "description": "Date à laquelle la source a été consultée. Saisie, jamais calculée au moment de publier : une date d'horloge ferait bouger les fichiers à chaque passage et viderait l'idempotence de son sens."
+    }
+  }
+}

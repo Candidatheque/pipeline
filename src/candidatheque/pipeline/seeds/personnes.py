@@ -1,10 +1,10 @@
 """Registre des personnes : attribution et unicité des identifiants.
 
 Une personne se présente à plusieurs élections, et l'identifiant la suit d'un
-scrutin à l'autre. Le nom, lui, reste dans la candidature : il peut changer
-entre deux élections, et c'est le nom porté au moment du scrutin qui fait foi.
-Le registre ne cherche donc pas à dire comment une personne s'appelle, seulement
-qui est qui.
+scrutin à l'autre. Le nom qui fait foi reste celui de la candidature : il peut
+changer entre deux élections, et c'est celui porté au moment du scrutin qui
+compte. Le registre porte la même forme — un nom entier — mais pas le même
+statut : une orthographe de référence, pour savoir qui est qui en relisant.
 
 Il n'est pas publié. Regrouper les candidatures d'une même personne ne demande
 que l'identifiant.
@@ -33,9 +33,17 @@ class Personne(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     id: str
-    #: De qui il s'agit, pour la relecture humaine. Jamais publié : le nom qui
-    #: l'est appartient à la candidature.
-    libelle: str
+    #: De qui il s'agit, pour la relecture humaine. Même forme que dans une
+    #: candidature, mais pas le même statut : le nom publié est celui porté lors
+    #: du scrutin, qui appartient à la candidature. Ici, c'est l'orthographe de
+    #: référence.
+    #: Le nom entier, tel que la source l'écrit. Non découpé en nom et prénom :
+    #: le découpage est une inférence, pas une donnée, et il se trompe dès qu'un
+    #: nom sort du cas courant — « Jean Claude Matry » a deux prénoms, « Super
+    #: Châtaigne » est un pseudonyme, « Fessard de Foucault » porte une
+    #: particule au milieu. Qui veut la structure la tire de Wikidata, pour les
+    #: personnes qui y ont un élément.
+    nom_complet: str
     wikidata: str | None = None
 
     @field_validator("id")
@@ -45,11 +53,11 @@ class Personne(BaseModel):
             raise ValueError(f"identifiant attendu sous la forme « PE-0001 » : {value!r}")
         return value
 
-    @field_validator("libelle")
+    @field_validator("nom_complet")
     @classmethod
-    def _libelle_non_vide(cls, value: str) -> str:
+    def _non_vide(cls, value: str) -> str:
         if not value.strip():
-            raise ValueError("le libellé sert à la relecture, il ne peut pas être vide")
+            raise ValueError("le nom sert à la relecture, il ne peut pas être vide")
         return value
 
     @field_validator("wikidata")
