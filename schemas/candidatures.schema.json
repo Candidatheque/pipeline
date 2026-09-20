@@ -3,7 +3,10 @@
   "title": "Candidatures à une élection",
   "description": "Candidatures connues pour une élection, publiées dans son répertoire. Document volatil : pour une élection à venir, il change dès qu'une candidature est annoncée, retirée ou validée. Il reste séparé des résultats, qui ne bougent plus une fois le scrutin proclamé, pour qu'une donnée provisoire ne fasse pas bouger une donnée définitive.",
   "type": "object",
-  "required": ["election", "candidatures"],
+  "required": [
+    "election",
+    "candidatures"
+  ],
   "additionalProperties": false,
   "properties": {
     "$schema": {
@@ -18,30 +21,58 @@
     "candidatures": {
       "type": "array",
       "description": "Triées par nom, puis prénom. Une personne apparaît une seule fois, quel que soit son état.",
-      "items": { "$ref": "#/$defs/candidature" }
+      "items": {
+        "$ref": "#/$defs/candidature"
+      }
     }
   },
   "$defs": {
     "candidature": {
       "type": "object",
-      "required": ["nom", "prenom", "etat", "sources"],
+      "required": [
+        "personne",
+        "nom",
+        "prenom",
+        "etat",
+        "sources"
+      ],
       "additionalProperties": false,
       "properties": {
-        "nom": { "type": "string", "minLength": 1 },
-        "prenom": { "type": "string", "minLength": 1 },
+        "personne": {
+          "type": "string",
+          "description": "Identifiant interne de la personne. Il la suit d'une élection à l'autre, ce qui permet de rapprocher ses candidatures successives. Volontairement opaque : il ne porte aucune information, donc rien n'oblige jamais à le corriger.",
+          "pattern": "^PE-[0-9]{4}$",
+          "examples": [
+            "PE-0001"
+          ]
+        },
+        "nom": {
+          "type": "string",
+          "description": "Nom porté lors de cette élection. Ce n'est pas une copie d'un nom de référence : une même personne peut se présenter sous deux noms différents à deux scrutins, et chacun est exact à sa date.",
+          "minLength": 1
+        },
+        "prenom": {
+          "type": "string",
+          "minLength": 1
+        },
         "wikidata": {
           "type": "string",
           "description": "Identifiant Wikidata de la personne, quand il existe. C'est le seul identifiant stable disponible : un homonyme ou un changement de nom rend le couple nom-prénom insuffisant.",
           "pattern": "^Q[1-9][0-9]*$"
         },
-        "etat": { "$ref": "#/$defs/etat" },
+        "etat": {
+          "$ref": "#/$defs/etat"
+        },
         "sources": {
           "type": "array",
           "description": "D'où vient cette candidature. Une annonce dans la presse et une liste arrêtée par le Conseil constitutionnel ne valent pas la même chose, et le consommateur doit pouvoir en juger.",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/source" }
+          "items": {
+            "$ref": "#/$defs/source"
+          }
         }
-      }
+      },
+      "description": "Une candidature d'une personne à une élection. L'identifiant de personne relie les candidatures successives sans uniformiser les noms."
     },
     "etat": {
       "description": "Où en est la candidature. Le décompte des parrainages n'est pas un état : il vaut pour toutes les candidatures d'une même période et relèvera d'un document propre.",
@@ -66,7 +97,10 @@
     },
     "source": {
       "type": "object",
-      "required": ["url", "consultee_le"],
+      "required": [
+        "url",
+        "consultee_le"
+      ],
       "additionalProperties": false,
       "properties": {
         "url": {

@@ -10,7 +10,7 @@ from pydantic import ValidationError
 
 from candidatheque.pipeline.paths import DATA_REPO
 from candidatheque.pipeline.publication import Statut, publier
-from candidatheque.pipeline.seeds import load_elections
+from candidatheque.pipeline.seeds import load_elections, load_personnes
 
 MARQUES = {
     Statut.CREE: "+",
@@ -23,12 +23,13 @@ MARQUES = {
 def _cmd_valider(_: argparse.Namespace) -> int:
     try:
         elections = load_elections()
+        personnes = load_personnes()
     except ValidationError as erreur:
         print("Seed invalide :", file=sys.stderr)
         print(erreur, file=sys.stderr)
         return 1
 
-    print(f"{len(elections)} élections, seed valide.")
+    print(f"{len(elections)} élections, {len(personnes)} personnes, seeds valides.")
     return 0
 
 

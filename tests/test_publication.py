@@ -134,6 +134,7 @@ class TestSchemaCandidatures:
     @staticmethod
     def _candidature(**remplacements):
         base = {
+            "personne": "PE-0001",
             "nom": "Dupont",
             "prenom": "Camille",
             "etat": "declaree",
@@ -173,3 +174,32 @@ class TestSchemaCandidatures:
     def test_un_identifiant_d_election_mal_forme_est_rejete(self, valideur):
         document = self._document(self._candidature()) | {"election": "2027"}
         assert not valideur.is_valid(document)
+
+    def test_une_candidature_sans_identifiant_de_personne_est_rejetee(self, valideur):
+        """Sans lui, rien ne relie les candidatures successives d'une personne."""
+        sans_personne = self._candidature()
+        del sans_personne["personne"]
+        assert not valideur.is_valid(self._document(sans_personne))
+
+    @pytest.mark.parametrize("identifiant", ["PE-1", "0001", "PR-0001", "pe-0001"])
+    def test_un_identifiant_de_personne_mal_forme_est_rejete(self, valideur, identifiant):
+        assert not valideur.is_valid(self._document(self._candidature(personne=identifiant)))
+
+    def test_une_personne_peut_changer_de_nom_entre_deux_elections(self, valideur):
+        """Le nom publié est celui porté lors du scrutin, pas un nom de référence.
+
+        Deux candidatures de la même personne sous deux noms différents ne sont
+        pas une incohérence : c'est le cas qu'on veut pouvoir représenter.
+        """
+        valideur.validate(
+            {
+                "election": "PR-2012",
+                "candidatures": [self._candidature(personne="PE-0001", nom="Dupont")],
+            }
+        )
+        valideur.validate(
+            {
+                "election": "PR-2017",
+                "candidatures": [self._candidature(personne="PE-0001", nom="Durand")],
+            }
+        )
