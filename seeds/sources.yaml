@@ -128,3 +128,50 @@ sources:
     url: "https://fr.wikipedia.org/wiki/Candidatures_%C3%A0_l%27%C3%A9lection_pr%C3%A9sidentielle_fran%C3%A7aise_de_2022"
     commentaire: "Candidatures à l'élection présidentielle française de 2022"
     consultee_le: 2026-09-20
+
+  # Réclamations contre l'établissement de la liste des candidats : le Conseil
+  # y nomme des personnes qui voulaient se présenter et n'ont pas été retenues.
+  # Source bien plus forte qu'une mention encyclopédique.
+  - id: "conseil-constitutionnel:69-15-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1969/6915pdr.htm"
+    commentaire: "Décision du 17 mai 1969 portant sur une réclamation présentée par M. BOURQUIN contre l'établissement de la liste des candidats à la Présidence de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:69-16-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1969/6916PDR.htm"
+    commentaire: "Décision du 17 mai 1969 portant sur une réclamation présentée par M. SIDOS contre l'établissement de la liste des candidats à la Présidence de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:69-17-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1969/6917PDR.htm"
+    commentaire: "Décision du 17 mai 1969 portant sur une réclamation présentée par le \"Centre d'études et de recherches expérimentales\" contre l'établissement de la liste des candidats à la Présidence de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:69-19-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1969/6919pdr.htm"
+    commentaire: "Décision du 21 mai 1969 portant sur une réclamation présentée par M. HÉRAUD contre l'établissement de la liste des candidats à la Présidence de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:74-26-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1974/7426pdr.htm"
+    commentaire: "Décision du 21 avril 1974 portant sur une réclamation présentée par M. ROUSTAN contre l'établissement de la liste des candidats à la Présidence de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:74-27-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1974/7427PDR.htm"
+    commentaire: "Décision du 21 avril 1974 portant sur une réclamation présentée par M. LAFONT contre l'établissement de la liste des candidats à la Présidence de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:81-42-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1981/8142pdr.htm"
+    commentaire: "Décision du 11 avril 1981 sur une réclamation présentée par Monsieur FOUQUET contre la décision arrêtant la liste des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:81-43-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1981/8143pdr.htm"
+    commentaire: "Décision du 11 avril 1981 sur une réclamation présentée par Monsieur  LE PEN contre la décision arrêtant la liste des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:81-44-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1981/8144pdr.htm"
+    commentaire: "Décision du 11 avril 1981 sur une réclamation présentée par Monsieur SCHERNE contre la décision arrêtant la liste des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+
+  # Article principal : son tableau des candidatures n'ayant pas abouti est la
+  # seule trace de vingt-cinq déclarations de 1974.
+  - id: "wikipedia-fr:presidentielle-1974"
+    url: "https://fr.wikipedia.org/wiki/%C3%89lection_pr%C3%A9sidentielle_fran%C3%A7aise_de_1974"
+    commentaire: "Élection présidentielle française de 1974, section « Candidatures n'ayant pas abouti »"
+    consultee_le: 2026-09-20

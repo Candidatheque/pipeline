@@ -214,3 +214,33 @@ def test_l_ordre_est_verifie_sur_les_seules_dates_connues():
         }
     )
     assert len(candidature.etats) == 2
+
+
+@pytest.mark.parametrize(
+    "election, attendu", [("PR-1969", 4), ("PR-1974", 27), ("PR-1981", 3), ("PR-2022", 52)]
+)
+def test_effectifs_non_valides_par_election(par_election, election, attendu):
+    """Les élections antérieures à 2007 n'ont pas d'article Wikipédia dédié.
+
+    Ce qu'on en sait vient des décisions du Conseil constitutionnel rejetant
+    une réclamation contre la liste arrêtée, et pour 1974 d'un tableau de
+    l'article principal. 1965, 1988, 1995 et 2002 n'ont rien d'exploitable.
+    """
+    non_valides = [c for c in par_election[election].candidats if c.etat != "validee"]
+    assert len(non_valides) == attendu
+
+
+@pytest.mark.parametrize("election", ["PR-1965", "PR-1988", "PR-1995", "PR-2002"])
+def test_elections_sans_candidature_non_validee(par_election, election):
+    """Rien n'a été importé faute de source exploitable, plutôt qu'à peu près."""
+    assert all(c.etat == "validee" for c in par_election[election].candidats)
+
+
+def test_les_ecartees_anciennes_sont_sourcees_par_le_conseil(par_election):
+    """Une réclamation rejetée établit une candidature écartée mieux qu'une
+    mention encyclopédique."""
+    for election in ("PR-1969", "PR-1981"):
+        for candidat in par_election[election].candidats:
+            if candidat.etat == "ecartee":
+                sources = [s for c in candidat.etats for s in c.sources]
+                assert all(s.startswith("conseil-constitutionnel:") for s in sources)

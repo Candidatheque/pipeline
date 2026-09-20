@@ -169,6 +169,34 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:69-13-PDR"
+      - personne: "PE-0017"
+        etats:
+          - etat: "ecartee"
+            date: 1969-05-21
+            sources:
+              - "conseil-constitutionnel:69-19-PDR"
+        tours: []
+      - personne: "PE-0208"
+        etats:
+          - etat: "ecartee"
+            date: 1969-05-17
+            sources:
+              - "conseil-constitutionnel:69-15-PDR"
+        tours: []
+      - personne: "PE-0209"
+        etats:
+          - etat: "ecartee"
+            date: 1969-05-17
+            sources:
+              - "conseil-constitutionnel:69-16-PDR"
+        tours: []
+      - personne: "PE-0210"
+        etats:
+          - etat: "ecartee"
+            date: 1969-05-17
+            sources:
+              - "conseil-constitutionnel:69-17-PDR"
+        tours: []
 
   - election: "PR-1974"
     candidats:
@@ -298,6 +326,170 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
+      - personne: "PE-0208"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0211"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0212"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0213"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0214"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0215"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0216"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0217"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0218"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0219"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0220"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0221"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0222"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0223"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0224"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0225"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0226"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0227"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0228"
+        etats:
+          - etat: "ecartee"
+            date: 1974-04-21
+            sources:
+              - "conseil-constitutionnel:74-27-PDR"
+        tours: []
+      - personne: "PE-0229"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0230"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0231"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0232"
+        etats:
+          - etat: "ecartee"
+            date: 1974-04-21
+            sources:
+              - "conseil-constitutionnel:74-26-PDR"
+        tours: []
+      - personne: "PE-0233"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0234"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0235"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
+      - personne: "PE-0236"
+        etats:
+          - etat: "ecartee"
+            sources:
+              - "wikipedia-fr:presidentielle-1974"
+        tours: []
 
   - election: "PR-1981"
     candidats:
@@ -337,6 +529,13 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
+      - personne: "PE-0019"
+        etats:
+          - etat: "ecartee"
+            date: 1981-04-11
+            sources:
+              - "conseil-constitutionnel:81-43-PDR"
+        tours: []
       - personne: "PE-0024"
         etats:
           - etat: "validee"
@@ -407,6 +606,20 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
+      - personne: "PE-0237"
+        etats:
+          - etat: "ecartee"
+            date: 1981-04-11
+            sources:
+              - "conseil-constitutionnel:81-42-PDR"
+        tours: []
+      - personne: "PE-0238"
+        etats:
+          - etat: "ecartee"
+            date: 1981-04-11
+            sources:
+              - "conseil-constitutionnel:81-44-PDR"
+        tours: []
 
   - election: "PR-1988"
     candidats:
