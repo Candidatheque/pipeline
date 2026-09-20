@@ -265,3 +265,19 @@ def test_les_ecartees_anciennes_sont_sourcees_par_le_conseil(par_election):
             if candidat.etat == "ecartee":
                 sources = [s for c in candidat.etats for s in c.sources]
                 assert all(s.startswith("conseil-constitutionnel:") for s in sources)
+
+
+def test_une_trajectoire_a_deux_etats_de_sources_differentes(par_election):
+    """Brice LALONDE en 2002 : déclaration attestée par la presse, écartement
+    par l'encyclopédie.
+
+    C'est la forme que prendront les candidatures de 2027 : une annonce datée
+    et sourcée, puis ce qu'il en advient, chaque état avec sa propre source.
+    """
+    candidat = next(
+        c for c in par_election["PR-2002"].candidats if c.personne == "PE-0027"
+    )
+    assert [c.etat for c in candidat.etats] == ["declaree", "ecartee"]
+    assert str(candidat.etats[0].date) == "2001-06-23"
+    assert candidat.etats[0].sources == ("le-parisien:lalonde-candidat-elysee-2002",)
+    assert candidat.etat == "ecartee", "l'état courant reste le dernier"

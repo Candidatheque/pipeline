@@ -199,3 +199,10 @@ sources:
     url: "https://fr.wikipedia.org/wiki/Antoine_Waechter"
     commentaire: "Antoine Waechter, sur sa candidature à l'élection présidentielle"
     consultee_le: 2026-09-20
+
+  # Première source de presse du dépôt. Elle établit la déclaration elle-même,
+  # là où l'article encyclopédique n'établissait que l'échec aux parrainages.
+  - id: "le-parisien:lalonde-candidat-elysee-2002"
+    url: "https://www.leparisien.fr/politique/lalonde-je-suis-candidat-a-l-elysee-en-2002-23-06-2001-2002253027.php"
+    commentaire: "Lalonde : « Je suis candidat à l'Elysée en 2002 », Le Parisien, 23 juin 2001"
+    consultee_le: 2026-09-20

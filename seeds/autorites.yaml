@@ -112,6 +112,12 @@ autorites:
       - "francetvinfo.fr"
       - "franceinfo.fr"
 
+  - id: "le-parisien"
+    nom: "Le Parisien"
+    nature: "presse"
+    domaines:
+      - "leparisien.fr"
+
   - id: "public-senat"
     nom: "Public Sénat"
     nature: "presse"
