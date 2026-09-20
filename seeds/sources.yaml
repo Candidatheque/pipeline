@@ -71,6 +71,10 @@ sources:
     url: "https://www.conseil-constitutionnel.fr/decision/2002/2002102PDR.htm"
     commentaire: "Décision du 4 avril 2002 arrêtant la liste des candidats à l'élection présidentielle"
     consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2002-107-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2002/2002107PDR.htm"
+    commentaire: "Décision du 10 avril 2002 portant publication du nom et de la qualité des citoyens ayant présenté les candidats à l'élection présidentielle"
+    consultee_le: 2026-09-20
   - id: "conseil-constitutionnel:2002-110-PDR"
     url: "https://www.conseil-constitutionnel.fr/decision/2002/2002110pdr.htm"
     commentaire: "Décision du 25 avril 2002 relative à la liste des candidats habilités à se présenter au second tour de l'élection présidentielle"
@@ -477,6 +481,10 @@ sources:
   - id: "legifrance:JORFTEXT000000847420"
     url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000847420"
     commentaire: "Liste du 12 avril 1995 des citoyens ayant présenté les candidats à l'élection du Président de la République, JORF n° 87"
+    consultee_le: 2026-09-20
+  - id: "legifrance:JORFTEXT000000407519"
+    url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000407519"
+    commentaire: "Listes des citoyens ayant présenté les candidats à l'élection du Président de la République, JORF n° 84 du 10 avril 2002"
     consultee_le: 2026-09-20
   - id: "legifrance:JORFTEXT000000464348"
     url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000464348"

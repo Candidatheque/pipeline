@@ -29,7 +29,7 @@ def _source(**champs) -> dict:
 
 def test_le_depot_declare_une_source_par_election_couverte():
     sources = load_parrainages()
-    assert len(sources) == 7
+    assert len(sources) == 8
     elections = {election.id for election in load_elections()}
     assert {source.election for source in sources} <= elections
 
