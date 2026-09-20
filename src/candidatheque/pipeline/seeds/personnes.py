@@ -3,7 +3,7 @@
 Une personne se présente à plusieurs élections, et l'identifiant la suit d'un
 scrutin à l'autre. Le nom qui fait foi reste celui de la candidature : il peut
 changer entre deux élections, et c'est celui porté au moment du scrutin qui
-compte. Le registre porte la même forme — nom et prénom — mais pas le même
+compte. Le registre porte la même forme — un nom entier — mais pas le même
 statut : une orthographe de référence, pour savoir qui est qui en relisant.
 
 Il n'est pas publié. Regrouper les candidatures d'une même personne ne demande
@@ -37,8 +37,13 @@ class Personne(BaseModel):
     #: candidature, mais pas le même statut : le nom publié est celui porté lors
     #: du scrutin, qui appartient à la candidature. Ici, c'est l'orthographe de
     #: référence.
-    nom: str
-    prenom: str
+    #: Le nom entier, tel que la source l'écrit. Non découpé en nom et prénom :
+    #: le découpage est une inférence, pas une donnée, et il se trompe dès qu'un
+    #: nom sort du cas courant — « Jean Claude Matry » a deux prénoms, « Super
+    #: Châtaigne » est un pseudonyme, « Fessard de Foucault » porte une
+    #: particule au milieu. Qui veut la structure la tire de Wikidata, pour les
+    #: personnes qui y ont un élément.
+    nom_complet: str
     wikidata: str | None = None
 
     @field_validator("id")
@@ -48,11 +53,11 @@ class Personne(BaseModel):
             raise ValueError(f"identifiant attendu sous la forme « PE-0001 » : {value!r}")
         return value
 
-    @field_validator("nom", "prenom")
+    @field_validator("nom_complet")
     @classmethod
     def _non_vide(cls, value: str) -> str:
         if not value.strip():
-            raise ValueError("nom et prénom servent à la relecture, ils ne peuvent être vides")
+            raise ValueError("le nom sert à la relecture, il ne peut pas être vide")
         return value
 
     @field_validator("wikidata")

@@ -34,8 +34,7 @@
       "description": "Une personne se présentant à une élection. La candidature est à l'élection, pas au tour : on ne se porte pas candidat au second tour, on s'y qualifie.",
       "required": [
         "personne",
-        "nom",
-        "prenom",
+        "nom_complet",
         "etats"
       ],
       "additionalProperties": false,
@@ -48,14 +47,10 @@
             "PE-0001"
           ]
         },
-        "nom": {
+        "nom_complet": {
           "type": "string",
           "minLength": 1,
-          "description": "Nom porté lors de cette élection. Ce n'est pas une copie d'un nom de référence : une même personne peut se présenter sous deux noms à deux scrutins, et chacun est exact à sa date."
-        },
-        "prenom": {
-          "type": "string",
-          "minLength": 1
+          "description": "Nom entier porté lors de cette élection, tel que la source l'écrit. Non découpé en nom et prénom : le découpage est une inférence, fausse dès qu'un nom sort du cas courant — deux prénoms, une particule au milieu, un pseudonyme. La casse suit la source : les décisions du Conseil constitutionnel mettent le patronyme en capitales, pas les articles encyclopédiques. Qui veut la structure la tire de Wikidata, via l'identifiant de la personne."
         },
         "etats": {
           "type": "array",
@@ -79,7 +74,6 @@
       "description": "Un état par lequel la candidature est passée, à sa date et avec ce qui l'établit.",
       "required": [
         "etat",
-        "date",
         "sources"
       ],
       "additionalProperties": false,
@@ -90,7 +84,7 @@
         "date": {
           "type": "string",
           "format": "date",
-          "description": "Date à laquelle la candidature a pris cet état, telle que la source l'établit : la date de la décision, celle de l'annonce. Jamais une date de traitement."
+          "description": "Date à laquelle la candidature a pris cet état, telle que la source l'établit : la date de la décision, celle de l'annonce. Jamais une date de traitement. Absente quand la source établit l'état sans le dater — ce qui est courant pour un retrait rapporté sans jour précis. L'ordre du tableau fait alors foi."
         },
         "sources": {
           "type": "array",

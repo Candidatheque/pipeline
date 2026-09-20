@@ -107,3 +107,24 @@ sources:
     url: "https://www.conseil-constitutionnel.fr/decision/2022/2022196PDR.htm"
     commentaire: "Liste des candidats habilités à se présenter au second tour de l'élection du Président de la République"
     consultee_le: 2026-09-20
+
+  # Articles encyclopédiques : seule source trouvée pour les candidatures
+  # déclarées et non retenues. Plus faible qu'une décision, d'où la nature
+  # « encyclopedique » de l'autorité. À remplacer par les références de
+  # presse que ces articles citent eux-mêmes.
+  - id: "wikipedia-fr:candidatures-presidentielle-2007"
+    url: "https://fr.wikipedia.org/wiki/Candidatures_%C3%A0_l%27%C3%A9lection_pr%C3%A9sidentielle_fran%C3%A7aise_de_2007"
+    commentaire: "Candidatures à l'élection présidentielle française de 2007"
+    consultee_le: 2026-09-20
+  - id: "wikipedia-fr:candidatures-presidentielle-2012"
+    url: "https://fr.wikipedia.org/wiki/Candidatures_%C3%A0_l%27%C3%A9lection_pr%C3%A9sidentielle_fran%C3%A7aise_de_2012"
+    commentaire: "Candidatures à l'élection présidentielle française de 2012"
+    consultee_le: 2026-09-20
+  - id: "wikipedia-fr:candidatures-presidentielle-2017"
+    url: "https://fr.wikipedia.org/wiki/Candidatures_%C3%A0_l%27%C3%A9lection_pr%C3%A9sidentielle_fran%C3%A7aise_de_2017"
+    commentaire: "Candidatures à l'élection présidentielle française de 2017"
+    consultee_le: 2026-09-20
+  - id: "wikipedia-fr:candidatures-presidentielle-2022"
+    url: "https://fr.wikipedia.org/wiki/Candidatures_%C3%A0_l%27%C3%A9lection_pr%C3%A9sidentielle_fran%C3%A7aise_de_2022"
+    commentaire: "Candidatures à l'élection présidentielle française de 2022"
+    consultee_le: 2026-09-20

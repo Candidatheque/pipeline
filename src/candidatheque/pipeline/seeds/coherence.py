@@ -9,6 +9,7 @@ contrôles, lancés par `candidatheque valider`.
 
 from __future__ import annotations
 
+from candidatheque.pipeline.seeds.autorites import load_autorites
 from candidatheque.pipeline.seeds.candidatures import load_candidatures
 from candidatheque.pipeline.seeds.elections import load_elections
 from candidatheque.pipeline.seeds.personnes import load_personnes
@@ -20,10 +21,26 @@ def verifier() -> list[str]:
     elections = {election.id: election for election in load_elections()}
     registre = {personne.id: personne for personne in load_personnes()}
     personnes = set(registre)
-    sources = {source.id for source in load_sources()}
+    sources = {source.id: source for source in load_sources()}
+    autorites = {autorite.id: autorite for autorite in load_autorites()}
     candidatures = load_candidatures()
 
     problemes: list[str] = []
+
+    # Une source ne peut relever que d'une autorité listée, et son URL doit
+    # être servie par un de ses domaines. Sans ce second contrôle, une source
+    # pourrait se réclamer d'une autorité en pointant ailleurs.
+    for source in sources.values():
+        autorite = autorites.get(source.autorite)
+        if autorite is None:
+            problemes.append(
+                f"{source.id} : autorité « {source.autorite} » absente de la liste de confiance"
+            )
+        elif not autorite.sert(source.url):
+            problemes.append(
+                f"{source.id} : l'URL n'est pas servie par {autorite.nom} ({source.url})"
+            )
+
     personnes_citees: set[str] = set()
     sources_citees: set[str] = set()
 
@@ -44,10 +61,7 @@ def verifier() -> list[str]:
             # saisir à l'identique noie l'exception — une personne qui a
             # réellement changé de nom — dans des répétitions.
             personne = registre.get(candidat.personne)
-            if personne is not None and (candidat.nom, candidat.prenom) == (
-                personne.nom,
-                personne.prenom,
-            ):
+            if personne is not None and candidat.nom_complet == personne.nom_complet:
                 problemes.append(
                     f"{ou} : nom saisi alors qu'il est identique au registre, à retirer"
                 )
@@ -77,7 +91,7 @@ def verifier() -> list[str]:
     # erreur : mieux vaut la retirer ou comprendre pourquoi elle est orpheline.
     for orpheline in sorted(personnes - personnes_citees):
         problemes.append(f"{orpheline} : personne du registre citée par aucune candidature")
-    for orpheline in sorted(sources - sources_citees):
+    for orpheline in sorted(set(sources) - sources_citees):
         problemes.append(f"{orpheline} : source du registre citée par aucune donnée")
 
     return problemes

@@ -5,6 +5,8 @@ Ces tests portent donc sur cette garantie plus que sur le contenu.
 
 from __future__ import annotations
 
+import re
+
 import pytest
 from pydantic import ValidationError
 
@@ -20,7 +22,7 @@ def _ecrire(tmp_path, corps):
 
 def test_le_registre_du_depot_est_valide():
     personnes = load_personnes()
-    assert len(personnes) == 75
+    assert len(personnes) == 207
     assert personnes[0].id == "PE-0001"
     numeros = [personne.numero for personne in personnes]
     assert numeros == sorted(set(numeros)), "numérotation unique et croissante"
@@ -32,7 +34,7 @@ def test_un_registre_vide_est_accepte(tmp_path):
 
 
 def test_le_numero_est_lu_depuis_l_identifiant():
-    assert Personne(id="PE-0042", nom="DUPONT", prenom="Camille").numero == 42
+    assert Personne(id="PE-0042", nom_complet="Camille DUPONT").numero == 42
 
 
 @pytest.mark.parametrize(
@@ -41,34 +43,50 @@ def test_le_numero_est_lu_depuis_l_identifiant():
 )
 def test_identifiants_mal_formes_rejetes(identifiant):
     with pytest.raises(ValidationError):
-        Personne(id=identifiant, nom="DUPONT", prenom="Camille")
+        Personne(id=identifiant, nom_complet="Camille DUPONT")
 
 
-@pytest.mark.parametrize("champ", ["nom", "prenom"])
-def test_nom_ou_prenom_vide_rejete(champ):
+def test_nom_vide_rejete():
     """Un registre sans nom lisible perdrait son seul intérêt en revue."""
-    champs = {"id": "PE-0001", "nom": "DUPONT", "prenom": "Camille", champ: "   "}
     with pytest.raises(ValidationError, match="relecture"):
-        Personne(**champs)
+        Personne(id="PE-0001", nom_complet="   ")
 
 
 def test_la_meme_forme_que_dans_une_candidature():
     """Registre et candidature décrivent un nom de la même façon."""
-    personne = Personne(id="PE-0001", nom="DUPONT", prenom="Camille")
-    assert (personne.nom, personne.prenom) == ("DUPONT", "Camille")
+    personne = Personne(id="PE-0001", nom_complet="Camille DUPONT")
+    assert personne.nom_complet == "Camille DUPONT"
+
+
+def test_un_pseudonyme_tient_dans_le_champ():
+    """Un nom unique n'est pas une anomalie : « Super Châtaigne » se présenta."""
+    assert Personne(id="PE-0001", nom_complet="Super Châtaigne").nom_complet
+
+
+#: Ceux qui se sont présentés sous un pseudonyme : pas de patronyme à
+#: distinguer d'un prénom, donc pas de capitales. Énumérés plutôt que devinés.
+PSEUDONYMES = {"Dieudonné", "Lucius Liber", "Super Châtaigne"}
+
+
+def test_le_patronyme_est_en_capitales():
+    """Convention des décisions du Conseil constitutionnel, gardée au registre."""
+    for personne in load_personnes():
+        if personne.nom_complet in PSEUDONYMES:
+            continue
+        assert re.search(r"[A-ZÀ-Þ]{2,}", personne.nom_complet), personne
 
 
 def test_wikidata_mal_forme_rejete():
     with pytest.raises(ValidationError, match="Wikidata"):
-        Personne(id="PE-0001", nom="DUPONT", prenom="Camille", wikidata="P42")
+        Personne(id="PE-0001", nom_complet="Camille DUPONT", wikidata="P42")
 
 
 def test_identifiants_en_double_rejetes(tmp_path):
     seed = _ecrire(
         tmp_path,
         'personnes:\n'
-        '  - id: "PE-0001"\n    nom: "UNE"\n    prenom: "A"\n'
-        '  - id: "PE-0001"\n    nom: "DEUX"\n    prenom: "B"\n',
+        '  - id: "PE-0001"\n    nom_complet: "A UNE"\n'
+        '  - id: "PE-0001"\n    nom_complet: "B DEUX"\n',
     )
     with pytest.raises(ValidationError, match="en double"):
         load_personnes(seed)
@@ -79,8 +97,8 @@ def test_numerotation_decroissante_rejetee(tmp_path):
     seed = _ecrire(
         tmp_path,
         'personnes:\n'
-        '  - id: "PE-0002"\n    nom: "DEUX"\n    prenom: "B"\n'
-        '  - id: "PE-0001"\n    nom: "UNE"\n    prenom: "A"\n',
+        '  - id: "PE-0002"\n    nom_complet: "B DEUX"\n'
+        '  - id: "PE-0001"\n    nom_complet: "A UNE"\n',
     )
     with pytest.raises(ValidationError, match="numéro croissant"):
         load_personnes(seed)
@@ -91,8 +109,8 @@ def test_wikidata_partage_rejete(tmp_path):
     seed = _ecrire(
         tmp_path,
         'personnes:\n'
-        '  - id: "PE-0001"\n    nom: "UNE"\n    prenom: "A"\n    wikidata: "Q1189"\n'
-        '  - id: "PE-0002"\n    nom: "DEUX"\n    prenom: "B"\n    wikidata: "Q1189"\n',
+        '  - id: "PE-0001"\n    nom_complet: "A UNE"\n    wikidata: "Q1189"\n'
+        '  - id: "PE-0002"\n    nom_complet: "B DEUX"\n    wikidata: "Q1189"\n',
     )
     with pytest.raises(ValidationError, match="partagés"):
         load_personnes(seed)
@@ -101,17 +119,29 @@ def test_wikidata_partage_rejete(tmp_path):
 def test_champ_inconnu_rejete():
     with pytest.raises(ValidationError):
         Personne.model_validate(
-            {"id": "PE-0001", "nom": "DUPONT", "prenom": "Camille", "couleur": "bleu"}
+            {"id": "PE-0001", "nom_complet": "Camille DUPONT", "couleur": "bleu"}
         )
 
 
-def test_chaque_personne_porte_son_identifiant_wikidata():
+def test_les_identifiants_wikidata_sont_uniques():
+    """Facultatif : beaucoup de candidats non retenus n'ont pas d'élément."""
+    qids = [p.wikidata for p in load_personnes() if p.wikidata]
+    assert len(set(qids)) == len(qids)
+
+
+def test_les_candidats_valides_ont_tous_un_identifiant_wikidata():
     """Recoupé le 2026-09-20 : la propriété P726 de Wikidata donne exactement
     les candidats des décisions du Conseil constitutionnel, 114 sur 114."""
-    personnes = load_personnes()
-    assert all(personne.wikidata for personne in personnes)
-    qids = [personne.wikidata for personne in personnes]
-    assert len(set(qids)) == len(qids)
+    from candidatheque.pipeline.seeds import load_candidatures
+
+    valides = {
+        c.personne
+        for e in load_candidatures()
+        for c in e.candidats
+        if c.etat == "validee"
+    }
+    par_id = {p.id: p for p in load_personnes()}
+    assert all(par_id[pid].wikidata for pid in valides)
 
 
 def test_quelques_identifiants_wikidata_connus():

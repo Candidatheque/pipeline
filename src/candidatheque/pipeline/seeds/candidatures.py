@@ -65,7 +65,11 @@ class ChangementEtat(BaseModel):
     #: Date à laquelle la candidature a pris cet état, telle que la source
     #: l'établit — la date de la décision, celle de l'annonce. Jamais une date
     #: de traitement.
-    date: dt.date
+    #:
+    #: Facultative : une source peut établir qu'une candidature a été retirée
+    #: sans dire quand. Ne pas connaître la date est un fait ; en inventer une
+    #: serait une faute. L'ordre de la liste fait alors foi.
+    date: dt.date | None = None
     sources: tuple[str, ...] = Field(min_length=1)
 
 
@@ -86,10 +90,9 @@ class Candidature(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     personne: str
-    #: Absents quand ils valent ceux du registre, ce qui est le cas courant.
-    #: Saisis seulement quand la personne a porté un autre nom à ce scrutin.
-    nom: str | None = Field(default=None, min_length=1)
-    prenom: str | None = Field(default=None, min_length=1)
+    #: Absent quand il vaut celui du registre, ce qui est le cas courant. Saisi
+    #: seulement quand la personne a porté un autre nom à ce scrutin.
+    nom_complet: str | None = Field(default=None, min_length=1)
     #: La trajectoire de la candidature, dans l'ordre. Au moins un état.
     etats: tuple[ChangementEtat, ...] = Field(min_length=1)
     #: Les tours auxquels la candidature a pris part. Vide tant qu'aucun tour
@@ -103,10 +106,10 @@ class Candidature(BaseModel):
 
     @model_validator(mode="after")
     def _trajectoire_chronologique(self) -> Candidature:
-        dates = [changement.date for changement in self.etats]
+        dates = [c.date for c in self.etats if c.date is not None]
         if any(suivante < precedente for precedente, suivante in pairwise(dates)):
             raise ValueError(
-                f"{self.personne}: les états doivent être listés par date croissante, "
+                f"{self.personne}: les états datés doivent être listés par date croissante, "
                 f"trouvé {[str(d) for d in dates]}"
             )
 

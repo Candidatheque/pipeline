@@ -136,12 +136,11 @@ def candidatures(
         "candidatures": [
             {
                 "personne": candidat.personne,
-                "nom": candidat.nom or personnes[candidat.personne].nom,
-                "prenom": candidat.prenom or personnes[candidat.personne].prenom,
+                "nom_complet": candidat.nom_complet or personnes[candidat.personne].nom_complet,
                 "etats": [
-                    {
-                        "etat": str(changement.etat),
-                        "date": changement.date.isoformat(),
+                    {"etat": str(changement.etat)}
+                    | ({"date": changement.date.isoformat()} if changement.date else {})
+                    | {
                         "sources": [
                             _source_publiee(sources[identifiant])
                             for identifiant in changement.sources

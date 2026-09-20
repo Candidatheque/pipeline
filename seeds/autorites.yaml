@@ -1,0 +1,125 @@
+# Autorités dont on accepte de citer les publications.
+#
+# Toute source doit relever d'une autorité listée ici : l'identifiant d'une
+# source commence par l'identifiant de son autorité, et son URL doit être servie
+# par l'un de ses domaines. Citer un site qui ne figure pas ici fait échouer la
+# validation — c'est le but. Ajouter une autorité est une décision, prise en
+# revue, pas un effet de bord de la saisie d'une donnée.
+#
+# `nature` ne classe pas les sources, elle décrit leur relation au fait. Une
+# déclaration de candidature publiée par le parti du candidat vaut mieux qu'un
+# article qui la rapporte : le parti est l'auteur de l'acte. Le même site ne
+# vaudrait rien pour établir le score de ce candidat. La fiabilité se juge sur
+# le couple source-fait, jamais sur la source seule.
+#
+#   - `officielle`      : l'institution qui produit le fait par son acte même.
+#                         Une décision du Conseil constitutionnel n'énonce pas
+#                         la liste des candidats, elle l'arrête.
+#   - `partie-prenante` : l'organisation ou la personne que le fait concerne.
+#                         Un parti qui annonce son candidat en est la source
+#                         primaire, et juge et partie sur tout le reste.
+#   - `presse`          : un média à responsabilité éditoriale identifiée,
+#                         extérieur au fait.
+#   - `encyclopedique`  : une synthèse collaborative, révisable, qui cite ses
+#                         propres sources. Utile pour trouver, faible pour
+#                         établir : quand l'article cite la presse, mieux vaut
+#                         citer la presse.
+#
+# La liste de presse est volontairement courte et ouverte à complément. Sur des
+# données politiques, elle gagne à rester diverse : s'en tenir à des titres
+# partageant la même ligne biaiserait ce qu'on est capable de sourcer.
+#
+# Les partis s'ajoutent un par un, au fur et à mesure qu'on cite une de leurs
+# publications. Deux précautions valent d'être connues : leurs domaines changent
+# de campagne en campagne, et une page de communiqué disparaît souvent après
+# l'élection. Le `consultee_le` d'une source dit quand on l'a vue ; un lien mort
+# n'invalide pas la donnée, il empêche de la revérifier.
+
+autorites:
+  - id: "conseil-constitutionnel"
+    nom: "Conseil constitutionnel"
+    nature: "officielle"
+    domaines:
+      - "conseil-constitutionnel.fr"
+
+  - id: "legifrance"
+    nom: "Légifrance, service public de la diffusion du droit"
+    nature: "officielle"
+    domaines:
+      - "legifrance.gouv.fr"
+
+  - id: "data-gouv"
+    nom: "data.gouv.fr, plateforme des données publiques"
+    nature: "officielle"
+    domaines:
+      - "data.gouv.fr"
+      - "static.data.gouv.fr"
+
+  - id: "interieur"
+    nom: "Ministère de l'Intérieur"
+    nature: "officielle"
+    domaines:
+      - "interieur.gouv.fr"
+      - "elections.interieur.gouv.fr"
+
+  - id: "wikipedia-fr"
+    nom: "Wikipédia en français"
+    nature: "encyclopedique"
+    domaines:
+      - "fr.wikipedia.org"
+
+  - id: "wikidata"
+    nom: "Wikidata"
+    nature: "encyclopedique"
+    domaines:
+      - "wikidata.org"
+      - "www.wikidata.org"
+
+  - id: "afp"
+    nom: "Agence France-Presse"
+    nature: "presse"
+    domaines:
+      - "afp.com"
+
+  - id: "le-monde"
+    nom: "Le Monde"
+    nature: "presse"
+    domaines:
+      - "lemonde.fr"
+
+  - id: "le-figaro"
+    nom: "Le Figaro"
+    nature: "presse"
+    domaines:
+      - "lefigaro.fr"
+
+  - id: "liberation"
+    nom: "Libération"
+    nature: "presse"
+    domaines:
+      - "liberation.fr"
+
+  - id: "les-echos"
+    nom: "Les Échos"
+    nature: "presse"
+    domaines:
+      - "lesechos.fr"
+
+  - id: "france-info"
+    nom: "France Info"
+    nature: "presse"
+    domaines:
+      - "francetvinfo.fr"
+      - "franceinfo.fr"
+
+  - id: "public-senat"
+    nom: "Public Sénat"
+    nature: "presse"
+    domaines:
+      - "publicsenat.fr"
+
+  - id: "ouest-france"
+    nom: "Ouest-France"
+    nature: "presse"
+    domaines:
+      - "ouest-france.fr"

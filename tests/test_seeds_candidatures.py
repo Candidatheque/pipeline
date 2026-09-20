@@ -35,8 +35,18 @@ def par_election():
      ("PR-1995", 9), ("PR-2002", 16), ("PR-2007", 12), ("PR-2012", 10), ("PR-2017", 11),
      ("PR-2022", 12)],
 )
-def test_effectifs_par_election(par_election, election, attendu):
-    assert len(par_election[election].candidats) == attendu
+def test_effectifs_valides_par_election(par_election, election, attendu):
+    """Faits publics : 6 candidats en 1965, 16 en 2002, 12 en 2022."""
+    valides = [c for c in par_election[election].candidats if c.etat == "validee"]
+    assert len(valides) == attendu
+
+
+def test_les_candidatures_non_validees_n_ont_aucun_tour(par_election):
+    """Une candidature écartée ou retirée n'a pris part à aucun tour."""
+    for entree in par_election.values():
+        for candidat in entree.candidats:
+            if candidat.etat != "validee":
+                assert candidat.tours == (), (entree.election, candidat.personne)
 
 
 def test_chaque_second_tour_compte_deux_candidatures(par_election):
@@ -106,20 +116,19 @@ def test_le_seed_ne_repete_pas_les_noms(par_election):
         (entree.election, candidat.personne)
         for entree in par_election.values()
         for candidat in entree.candidats
-        if candidat.nom is not None or candidat.prenom is not None
+        if candidat.nom_complet is not None
     ]
     assert saisis == [], f"noms saisis sans nécessité : {saisis}"
 
 
 def test_le_nom_est_absent_par_defaut():
-    candidature = Candidature.model_validate(UNE)
-    assert (candidature.nom, candidature.prenom) == (None, None)
+    assert Candidature.model_validate(UNE).nom_complet is None
 
 
 def test_un_nom_peut_etre_saisi_quand_il_differe():
     """Le champ existe pour la personne qui a porté un autre nom à ce scrutin."""
-    candidature = Candidature.model_validate(UNE | {"nom": "DURAND", "prenom": "Marcel"})
-    assert (candidature.nom, candidature.prenom) == ("DURAND", "Marcel")
+    candidature = Candidature.model_validate(UNE | {"nom_complet": "Marcel DURAND"})
+    assert candidature.nom_complet == "Marcel DURAND"
 
 
 class TestTrajectoire:
@@ -182,4 +191,26 @@ class TestTrajectoire:
             for candidat in entree.candidats:
                 assert candidat.etats
                 assert all(changement.sources for changement in candidat.etats)
-                assert candidat.etat == "validee"
+
+
+def test_un_etat_sans_date_est_accepte():
+    """Une source peut établir un retrait sans dire quand."""
+    candidature = Candidature.model_validate(
+        UNE | {"etats": [{"etat": "retiree", "sources": ["wikipedia-fr:a"]}], "tours": []}
+    )
+    assert candidature.etats[0].date is None
+    assert candidature.etat == "retiree"
+
+
+def test_l_ordre_est_verifie_sur_les_seules_dates_connues():
+    """Un état non daté ne doit pas faire échouer le contrôle chronologique."""
+    candidature = Candidature.model_validate(
+        UNE
+        | {
+            "etats": [
+                {"etat": "declaree", "sources": ["wikipedia-fr:a"]},
+                {"etat": "validee", "date": "1965-11-18", "sources": ["c:d"]},
+            ]
+        }
+    )
+    assert len(candidature.etats) == 2

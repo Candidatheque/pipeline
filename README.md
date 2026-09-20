@@ -99,6 +99,15 @@ porte la ou les sources qui l'établissent.
 Le nom publié est celui porté lors de ce scrutin, et il peut différer d'une
 élection à l'autre — un nom d'usage change, un mariage change un nom.
 
+Il tient dans **un seul champ**, `nom_complet`, non découpé en nom et prénom.
+Le découpage est une inférence et non une donnée : « Jean Claude Matry » a deux
+prénoms, « Fessard de Foucault » porte une particule au milieu, « Super
+Châtaigne » est un pseudonyme. Sur les huit noms de plus de deux mots relevés,
+un découpage automatique s'est trompé trois fois. Le patronyme est écrit en
+capitales, convention des décisions du Conseil constitutionnel, ce qui garde
+l'information sans prétendre à une structure. Qui veut la structure la tire de
+Wikidata, via l'identifiant de la personne.
+
 Dans le seed, il n'est pas répété : il se déduit du registre des personnes, et
 ne se saisit que s'il diffère. L'exception devient ainsi visible au lieu de se
 perdre parmi cent quatorze répétitions, et `candidatheque valider` signale un
@@ -124,12 +133,28 @@ finalement validée. Le champ `tours` peut donc être vide.
 "tours": []
 ```
 
-Les 114 candidatures publiées viennent des vingt-deux décisions du Conseil
+Les candidatures validées viennent des vingt-deux décisions du Conseil
 constitutionnel arrêtant les listes officielles, de 1965 à 2022 — celle du
-premier tour, puis celle des candidats habilités au second. Leur trajectoire n'a
-donc qu'un seul état, `validee` : rien n'a été collecté sur les déclarations qui
-les ont précédées. Les états `declaree`, `retiree` et `ecartee` serviront pour
-une élection à venir.
+premier tour, puis celle des candidats habilités au second.
+
+S'y ajoutent 162 candidatures **déclarées mais non retenues**, relevées dans les
+articles Wikipédia « Candidatures à l'élection présidentielle française de … »
+pour 2007, 2012, 2017 et 2022 : 153 écartées faute de parrainages suffisants et
+9 retirées avant la clôture. Le critère d'inclusion est la déclaration, pas le
+parrainage — en 2027 les candidats seront listés avant tout décompte, et le
+passé doit être cohérent avec ça.
+
+Pour 2022, ces candidatures sont recoupées avec le fichier de parrainages du
+Conseil constitutionnel : les 27 candidats que Wikipédia place dans une tranche
+de parrainages y figurent tous, chacun dans la tranche annoncée, et aucun des 16
+« sans parrainage » n'y apparaît.
+
+Un piège à connaître : recevoir un parrainage ne fait pas de vous un candidat.
+Le fichier officiel de 2022 compte 64 bénéficiaires, parmi lesquels Thomas
+Pesquet et Édouard Philippe, qui n'étaient pas candidats. Wikipédia les isole
+dans une section à part, qui n'est pas reprise ici. Les sections « candidats
+pressentis » ne le sont pas non plus : une spéculation de presse n'est pas une
+déclaration.
 
 Ces seeds ont été constitués en une fois à partir du fonds CONSTIT, l'open data
 du Conseil constitutionnel, puis relus. Chaque participation cite la décision
@@ -158,6 +183,26 @@ Partout où une donnée est sourcée, elle l'est de la même façon, décrite pa
   "consultee_le": "2026-09-20"
 }
 ```
+
+### Autorités
+
+`seeds/autorites.yaml` liste les organismes dont on accepte de citer les
+publications. Une source dont l'autorité n'y figure pas, ou dont l'URL n'est pas
+servie par un domaine de cette autorité, fait échouer la validation. Ajouter une
+autorité est une décision prise en revue, pas un effet de bord de la saisie.
+
+Le champ `nature` ne classe pas les sources, il décrit leur **relation au fait**.
+Une déclaration de candidature publiée par le parti du candidat vaut mieux qu'un
+article qui la rapporte : le parti est l'auteur de l'acte. Le même site ne
+vaudrait rien pour établir le score de ce candidat. La fiabilité se juge sur le
+couple source-fait, jamais sur la source seule.
+
+| nature | relation au fait |
+|---|---|
+| `officielle` | l'institution qui produit le fait par son acte même |
+| `partie-prenante` | l'organisation ou la personne que le fait concerne |
+| `presse` | un média à responsabilité éditoriale, extérieur au fait |
+| `encyclopedique` | une synthèse collaborative, qui cite ses propres sources |
 
 L'identifiant est de la forme `<autorité>:<identifiant chez elle>`. Pour le
 Conseil constitutionnel, le numéro de décision suivi de sa nature, qui est sa
@@ -261,6 +306,14 @@ Seules les présidentielles sont couvertes, de 1965 à 2027.
 `schemas/candidatures.schema.json` n'a pas encore de producteur : il fixe le
 contrat que la collecte devra respecter, et les tests en tiennent lieu de
 spécification. Il bougera sans doute à la rencontre des vraies sources.
+
+Les candidatures non validées ne sont sourcées que par Wikipédia, faute de mieux
+trouvé. C'est une source `encyclopedique`, plus faible qu'une décision : elle
+rapporte les déclarations en citant la presse, et ce sont ces références de
+presse qu'il faudrait citer à sa place.
+
+Seules 2007, 2012, 2017 et 2022 ont un article Wikipédia dédié aux candidatures.
+Les sept élections antérieures n'ont donc aucune candidature non validée.
 
 Trois noms ont été corrigés par rapport à la source, qui les orthographie mal :
 `LALONIDE` pour LALONDE en 1981, `Ariette` pour Arlette LAGUILLER en 1988, et les

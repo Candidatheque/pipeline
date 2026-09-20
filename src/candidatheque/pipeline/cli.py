@@ -11,6 +11,7 @@ from pydantic import ValidationError
 from candidatheque.pipeline.paths import DATA_REPO
 from candidatheque.pipeline.publication import Statut, publier
 from candidatheque.pipeline.seeds import (
+    load_autorites,
     load_candidatures,
     load_elections,
     load_personnes,
@@ -31,6 +32,7 @@ def _cmd_valider(_: argparse.Namespace) -> int:
         elections = load_elections()
         personnes = load_personnes()
         sources = load_sources()
+        autorites = load_autorites()
         candidatures = load_candidatures()
     except ValidationError as erreur:
         print("Seed invalide :", file=sys.stderr)
@@ -47,7 +49,7 @@ def _cmd_valider(_: argparse.Namespace) -> int:
     candidats = sum(len(entree.candidats) for entree in candidatures)
     print(
         f"{len(elections)} élections, {len(personnes)} personnes, {candidats} candidatures, "
-        f"{len(sources)} sources. Seeds valides et cohérents."
+        f"{len(sources)} sources, {len(autorites)} autorités. Seeds valides et cohérents."
     )
     return 0
 
