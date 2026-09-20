@@ -4,7 +4,10 @@
   "title": "Candidatures à une élection",
   "description": "Qui s'est présenté à une élection, et à quels tours. Document volatil pour une élection à venir, où il change dès qu'une candidature est annoncée, retirée ou validée. Il reste séparé des résultats, qui ne bougent plus une fois le scrutin proclamé, pour qu'une donnée provisoire ne fasse pas bouger une donnée définitive.",
   "type": "object",
-  "required": ["election", "candidatures"],
+  "required": [
+    "election",
+    "candidatures"
+  ],
   "additionalProperties": false,
   "properties": {
     "$schema": {
@@ -20,41 +23,92 @@
       "type": "array",
       "description": "Une entrée par personne. Une personne ne se présente qu'une fois à une même élection.",
       "minItems": 1,
-      "items": { "$ref": "#/$defs/candidature" }
+      "items": {
+        "$ref": "#/$defs/candidature"
+      }
     }
   },
   "$defs": {
     "candidature": {
       "type": "object",
       "description": "Une personne se présentant à une élection. La candidature est à l'élection, pas au tour : on ne se porte pas candidat au second tour, on s'y qualifie.",
-      "required": ["personne", "nom", "prenom", "etat", "tours"],
+      "required": [
+        "personne",
+        "nom",
+        "prenom",
+        "etats"
+      ],
       "additionalProperties": false,
       "properties": {
         "personne": {
           "type": "string",
           "description": "Identifiant interne de la personne. Il la suit d'une élection à l'autre, ce qui permet de rapprocher ses candidatures successives. Volontairement opaque : il ne porte aucune information, donc rien n'oblige jamais à le corriger.",
           "pattern": "^PE-[0-9]{4}$",
-          "examples": ["PE-0001"]
+          "examples": [
+            "PE-0001"
+          ]
         },
         "nom": {
           "type": "string",
           "minLength": 1,
           "description": "Nom porté lors de cette élection. Ce n'est pas une copie d'un nom de référence : une même personne peut se présenter sous deux noms à deux scrutins, et chacun est exact à sa date."
         },
-        "prenom": { "type": "string", "minLength": 1 },
-        "etat": { "$ref": "#/$defs/etat" },
+        "prenom": {
+          "type": "string",
+          "minLength": 1
+        },
+        "etats": {
+          "type": "array",
+          "description": "La trajectoire de la candidature : les états par lesquels elle est passée, dans l'ordre, chacun daté et sourcé. L'état courant est le dernier élément — il n'est pas publié à part, pour qu'il ne puisse pas diverger de la trajectoire. Une candidature déclarée puis abandonnée garde ainsi trace de sa déclaration, et une candidature validée garde qui l'avait annoncée.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/changement"
+          }
+        },
         "tours": {
           "type": "array",
-          "description": "Les tours auxquels cette candidature a pris part, par numéro croissant, chacun une seule fois. Ne pas supposer qu'une candidature présente au premier tour l'est au second.",
+          "description": "Les tours auxquels cette candidature a pris part, par numéro croissant, chacun une seule fois. Vide tant qu'aucun tour n'a eu lieu : une candidature déclarée puis retirée n'en a aucun. Ne pas supposer qu'une candidature présente au premier tour l'est au second.",
+          "items": {
+            "$ref": "#/$defs/participation"
+          }
+        }
+      }
+    },
+    "changement": {
+      "type": "object",
+      "description": "Un état par lequel la candidature est passée, à sa date et avec ce qui l'établit.",
+      "required": [
+        "etat",
+        "date",
+        "sources"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "etat": {
+          "$ref": "#/$defs/etat"
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date à laquelle la candidature a pris cet état, telle que la source l'établit : la date de la décision, celle de l'annonce. Jamais une date de traitement."
+        },
+        "sources": {
+          "type": "array",
+          "description": "Ce qui établit ce changement d'état.",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/participation" }
+          "items": {
+            "$ref": "source.schema.json"
+          }
         }
       }
     },
     "participation": {
       "type": "object",
       "description": "La présence d'une candidature à un tour, et ce qui l'établit.",
-      "required": ["numero", "sources"],
+      "required": [
+        "numero",
+        "sources"
+      ],
       "additionalProperties": false,
       "properties": {
         "numero": {
@@ -66,17 +120,31 @@
           "type": "array",
           "description": "Ce qui établit la présence à ce tour. Pour les élections passées, la décision du Conseil constitutionnel arrêtant la liste des candidats du premier tour, puis celle des candidats habilités au second.",
           "minItems": 1,
-          "items": { "$ref": "source.schema.json" }
+          "items": {
+            "$ref": "source.schema.json"
+          }
         }
       }
     },
     "etat": {
       "description": "Où en est la candidature. Le décompte des parrainages n'est pas un état : il vaut pour toutes les candidatures d'une même période et relèvera d'un document propre.",
       "oneOf": [
-        { "const": "declaree", "description": "Annoncée publiquement, sans validation d'aucune sorte." },
-        { "const": "validee", "description": "Figure sur la liste des candidats arrêtée par le Conseil constitutionnel." },
-        { "const": "retiree", "description": "La personne a renoncé après avoir annoncé." },
-        { "const": "ecartee", "description": "N'a pas été retenue sur la liste officielle, faute de parrainages notamment." }
+        {
+          "const": "declaree",
+          "description": "Annoncée publiquement, sans validation d'aucune sorte."
+        },
+        {
+          "const": "validee",
+          "description": "Figure sur la liste des candidats arrêtée par le Conseil constitutionnel."
+        },
+        {
+          "const": "retiree",
+          "description": "La personne a renoncé après avoir annoncé."
+        },
+        {
+          "const": "ecartee",
+          "description": "N'a pas été retenue sur la liste officielle, faute de parrainages notamment."
+        }
       ]
     }
   }

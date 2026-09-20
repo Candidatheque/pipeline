@@ -8,10 +8,15 @@
 # de ce scrutin — un nom d'usage, un mariage. L'exception devient ainsi visible
 # dans le seed, au lieu de se perdre parmi cent quatorze répétitions.
 #
-# Ces candidatures sont toutes à l'état « validee » : elles viennent des
-# décisions du Conseil constitutionnel arrêtant les listes officielles. Les
-# états « declaree », « retiree » et « ecartee » serviront pour une élection à
-# venir, où des candidatures non officielles circulent avant la liste arrêtée.
+# `etats` est une trajectoire, pas un instantané : une suite datée et sourcée,
+# dans l'ordre. L'état courant est le dernier élément, il n'est pas stocké à
+# part. Une candidature déclarée puis abandonnée garde ainsi trace de sa
+# déclaration, et une candidature validée garde qui l'avait annoncée.
+#
+# Ces candidatures n'ont qu'un seul état, « validee » : elles viennent des
+# décisions du Conseil constitutionnel arrêtant les listes officielles, et rien
+# n'a été collecté sur les déclarations qui les ont précédées. Les états
+# « declaree », « retiree » et « ecartee » serviront pour une élection à venir.
 #
 # Constitué en une fois à partir des vingt-deux décisions de 1965 à 2022, puis
 # maintenu à la main.
@@ -20,13 +25,21 @@ candidatures:
   - election: "PR-1965"
     candidats:
       - personne: "PE-0001"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1965-11-18
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:65-3-PDR"
       - personne: "PE-0002"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1965-11-18
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
         tours:
           - numero: 1
             sources:
@@ -35,19 +48,31 @@ candidatures:
             sources:
               - "conseil-constitutionnel:65-7-PDR"
       - personne: "PE-0003"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1965-11-18
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:65-3-PDR"
       - personne: "PE-0004"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1965-11-18
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:65-3-PDR"
       - personne: "PE-0005"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1965-11-18
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
         tours:
           - numero: 1
             sources:
@@ -56,7 +81,11 @@ candidatures:
             sources:
               - "conseil-constitutionnel:65-7-PDR"
       - personne: "PE-0006"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1965-11-18
+            sources:
+              - "conseil-constitutionnel:65-3-PDR"
         tours:
           - numero: 1
             sources:
@@ -65,31 +94,51 @@ candidatures:
   - election: "PR-1969"
     candidats:
       - personne: "PE-0007"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1969-05-15
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:69-13-PDR"
       - personne: "PE-0008"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1969-05-15
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:69-13-PDR"
       - personne: "PE-0009"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1969-05-15
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:69-13-PDR"
       - personne: "PE-0010"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1969-05-15
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:69-13-PDR"
       - personne: "PE-0011"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1969-05-15
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
         tours:
           - numero: 1
             sources:
@@ -98,7 +147,11 @@ candidatures:
             sources:
               - "conseil-constitutionnel:69-21-PDR"
       - personne: "PE-0012"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1969-05-15
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
         tours:
           - numero: 1
             sources:
@@ -107,7 +160,11 @@ candidatures:
             sources:
               - "conseil-constitutionnel:69-21-PDR"
       - personne: "PE-0013"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1969-05-15
+            sources:
+              - "conseil-constitutionnel:69-13-PDR"
         tours:
           - numero: 1
             sources:
@@ -116,7 +173,11 @@ candidatures:
   - election: "PR-1974"
     candidats:
       - personne: "PE-0005"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
         tours:
           - numero: 1
             sources:
@@ -125,25 +186,41 @@ candidatures:
             sources:
               - "conseil-constitutionnel:74-31-PDR"
       - personne: "PE-0010"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0014"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0015"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0016"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
         tours:
           - numero: 1
             sources:
@@ -152,43 +229,71 @@ candidatures:
             sources:
               - "conseil-constitutionnel:74-31-PDR"
       - personne: "PE-0017"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0018"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0019"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0020"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0021"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0022"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
       - personne: "PE-0023"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1974-04-18
+            sources:
+              - "conseil-constitutionnel:74-24-PDR"
         tours:
           - numero: 1
             sources:
@@ -197,7 +302,11 @@ candidatures:
   - election: "PR-1981"
     candidats:
       - personne: "PE-0005"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
         tours:
           - numero: 1
             sources:
@@ -206,7 +315,11 @@ candidatures:
             sources:
               - "conseil-constitutionnel:81-46-PDR"
       - personne: "PE-0016"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
         tours:
           - numero: 1
             sources:
@@ -215,49 +328,81 @@ candidatures:
             sources:
               - "conseil-constitutionnel:81-46-PDR"
       - personne: "PE-0018"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
       - personne: "PE-0024"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
       - personne: "PE-0025"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
       - personne: "PE-0026"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
       - personne: "PE-0027"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
       - personne: "PE-0028"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
       - personne: "PE-0029"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
       - personne: "PE-0030"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1981-04-09
+            sources:
+              - "conseil-constitutionnel:81-40-PDR"
         tours:
           - numero: 1
             sources:
@@ -266,7 +411,11 @@ candidatures:
   - election: "PR-1988"
     candidats:
       - personne: "PE-0005"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
         tours:
           - numero: 1
             sources:
@@ -275,19 +424,31 @@ candidatures:
             sources:
               - "conseil-constitutionnel:88-57-PDR"
       - personne: "PE-0018"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:88-54-PDR"
       - personne: "PE-0019"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:88-54-PDR"
       - personne: "PE-0030"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
         tours:
           - numero: 1
             sources:
@@ -296,31 +457,51 @@ candidatures:
             sources:
               - "conseil-constitutionnel:88-57-PDR"
       - personne: "PE-0031"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:88-54-PDR"
       - personne: "PE-0032"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:88-54-PDR"
       - personne: "PE-0033"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:88-54-PDR"
       - personne: "PE-0034"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:88-54-PDR"
       - personne: "PE-0035"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1988-04-07
+            sources:
+              - "conseil-constitutionnel:88-54-PDR"
         tours:
           - numero: 1
             sources:
@@ -329,19 +510,31 @@ candidatures:
   - election: "PR-1995"
     candidats:
       - personne: "PE-0018"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
       - personne: "PE-0019"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
       - personne: "PE-0030"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
         tours:
           - numero: 1
             sources:
@@ -350,19 +543,31 @@ candidatures:
             sources:
               - "conseil-constitutionnel:95-80-PDR"
       - personne: "PE-0036"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
       - personne: "PE-0037"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
       - personne: "PE-0038"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
         tours:
           - numero: 1
             sources:
@@ -371,19 +576,31 @@ candidatures:
             sources:
               - "conseil-constitutionnel:95-80-PDR"
       - personne: "PE-0039"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
       - personne: "PE-0040"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
       - personne: "PE-0041"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 1995-04-06
+            sources:
+              - "conseil-constitutionnel:95-70-PDR"
         tours:
           - numero: 1
             sources:
@@ -392,13 +609,21 @@ candidatures:
   - election: "PR-2002"
     candidats:
       - personne: "PE-0018"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0019"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
@@ -407,7 +632,11 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2002-110-PDR"
       - personne: "PE-0030"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
@@ -416,79 +645,131 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2002-110-PDR"
       - personne: "PE-0038"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0041"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0042"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0043"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0044"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0045"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0046"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0047"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0048"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0049"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0050"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0051"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
       - personne: "PE-0052"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2002-04-04
+            sources:
+              - "conseil-constitutionnel:2002-102-PDR"
         tours:
           - numero: 1
             sources:
@@ -497,61 +778,101 @@ candidatures:
   - election: "PR-2007"
     candidats:
       - personne: "PE-0018"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0019"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0036"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0039"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0045"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0052"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0053"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0054"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0055"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0056"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
         tours:
           - numero: 1
             sources:
@@ -560,13 +881,21 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2007-140-PDR"
       - personne: "PE-0057"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
       - personne: "PE-0058"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2007-03-19
+            sources:
+              - "conseil-constitutionnel:2007-133-PDR"
         tours:
           - numero: 1
             sources:
@@ -578,19 +907,31 @@ candidatures:
   - election: "PR-2012"
     candidats:
       - personne: "PE-0037"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0045"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0058"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
         tours:
           - numero: 1
             sources:
@@ -599,43 +940,71 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2012-153-PDR"
       - personne: "PE-0059"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0060"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0061"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0062"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0063"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0064"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
       - personne: "PE-0065"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2012-03-19
+            sources:
+              - "conseil-constitutionnel:2012-145-PDR"
         tours:
           - numero: 1
             sources:
@@ -647,13 +1016,21 @@ candidatures:
   - election: "PR-2017"
     candidats:
       - personne: "PE-0037"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0060"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
         tours:
           - numero: 1
             sources:
@@ -662,31 +1039,51 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2017-170-PDR"
       - personne: "PE-0061"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0062"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0063"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0064"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0066"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
         tours:
           - numero: 1
             sources:
@@ -695,25 +1092,41 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2017-170-PDR"
       - personne: "PE-0067"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0068"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0069"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
       - personne: "PE-0070"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2017-03-18
+            sources:
+              - "conseil-constitutionnel:2017-165-PDR"
         tours:
           - numero: 1
             sources:
@@ -722,7 +1135,11 @@ candidatures:
   - election: "PR-2022"
     candidats:
       - personne: "PE-0060"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
         tours:
           - numero: 1
             sources:
@@ -731,31 +1148,51 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2022-196-PDR"
       - personne: "PE-0061"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0062"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0063"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0064"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0066"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
         tours:
           - numero: 1
             sources:
@@ -764,37 +1201,61 @@ candidatures:
             sources:
               - "conseil-constitutionnel:2022-196-PDR"
       - personne: "PE-0068"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0071"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0072"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0073"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0074"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
         tours:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
       - personne: "PE-0075"
-        etat: "validee"
+        etats:
+          - etat: "validee"
+            date: 2022-03-07
+            sources:
+              - "conseil-constitutionnel:2022-187-PDR"
         tours:
           - numero: 1
             sources:

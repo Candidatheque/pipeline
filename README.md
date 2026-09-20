@@ -108,12 +108,28 @@ les données de 1965 à 2022, personne n'a changé de nom entre deux scrutins.
 C'est le même principe que pour les sources : le seed ne répète rien, la
 publication développe tout.
 
+L'état d'une candidature est une **trajectoire**, pas un instantané : une suite
+d'états datés et sourcés, dans l'ordre. L'état courant est le dernier élément et
+n'est pas publié à part — le stocker en double le laisserait diverger.
+
+C'est ce qui permet de représenter une candidature déclarée puis abandonnée, qui
+n'a pris part à aucun tour, et de garder qui avait annoncé une candidature
+finalement validée. Le champ `tours` peut donc être vide.
+
+```json
+"etats": [
+  { "etat": "declaree", "date": "2026-05-01", "sources": [...] },
+  { "etat": "retiree",  "date": "2026-11-03", "sources": [...] }
+],
+"tours": []
+```
+
 Les 114 candidatures publiées viennent des vingt-deux décisions du Conseil
 constitutionnel arrêtant les listes officielles, de 1965 à 2022 — celle du
-premier tour, puis celle des candidats habilités au second. Elles sont donc
-toutes à l'état `validee`. Les états `declaree`, `retiree` et `ecartee`
-serviront pour une élection à venir, où des candidatures non officielles
-circulent avant la liste arrêtée.
+premier tour, puis celle des candidats habilités au second. Leur trajectoire n'a
+donc qu'un seul état, `validee` : rien n'a été collecté sur les déclarations qui
+les ont précédées. Les états `declaree`, `retiree` et `ecartee` serviront pour
+une élection à venir.
 
 Ces seeds ont été constitués en une fois à partir du fonds CONSTIT, l'open data
 du Conseil constitutionnel, puis relus. Chaque participation cite la décision

@@ -15,11 +15,18 @@ parmi les répétitions.
 
 Le nom publié, lui, est toujours celui porté lors du scrutin : la publication le
 résout depuis le registre quand il n'est pas saisi.
+
+L'état d'une candidature est une trajectoire, pas un instantané : une suite
+datée et sourcée. Une candidature déclarée puis abandonnée garde trace de sa
+déclaration, et une candidature validée garde qui l'avait annoncée. L'état
+courant est le dernier élément, il n'est pas stocké à part.
 """
 
 from __future__ import annotations
 
+import datetime as dt
 from enum import StrEnum
+from itertools import pairwise
 from pathlib import Path
 
 import yaml
@@ -45,6 +52,23 @@ class Etat(StrEnum):
     ECARTEE = "ecartee"
 
 
+class ChangementEtat(BaseModel):
+    """Un état par lequel la candidature est passée, à sa date et avec sa source.
+
+    L'état courant n'est pas stocké : c'est le dernier de la trajectoire. Le
+    stocker en plus serait une donnée dérivée, qui finirait par diverger.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    etat: Etat
+    #: Date à laquelle la candidature a pris cet état, telle que la source
+    #: l'établit — la date de la décision, celle de l'annonce. Jamais une date
+    #: de traitement.
+    date: dt.date
+    sources: tuple[str, ...] = Field(min_length=1)
+
+
 class Participation(BaseModel):
     """La présence d'une candidature à un tour donné, et ce qui l'établit."""
 
@@ -66,8 +90,33 @@ class Candidature(BaseModel):
     #: Saisis seulement quand la personne a porté un autre nom à ce scrutin.
     nom: str | None = Field(default=None, min_length=1)
     prenom: str | None = Field(default=None, min_length=1)
-    etat: Etat
-    tours: tuple[Participation, ...] = Field(min_length=1)
+    #: La trajectoire de la candidature, dans l'ordre. Au moins un état.
+    etats: tuple[ChangementEtat, ...] = Field(min_length=1)
+    #: Les tours auxquels la candidature a pris part. Vide tant qu'aucun tour
+    #: n'a eu lieu : quelqu'un qui se déclare puis renonce n'en a aucun.
+    tours: tuple[Participation, ...] = ()
+
+    @property
+    def etat(self) -> Etat:
+        """L'état courant : le dernier de la trajectoire."""
+        return self.etats[-1].etat
+
+    @model_validator(mode="after")
+    def _trajectoire_chronologique(self) -> Candidature:
+        dates = [changement.date for changement in self.etats]
+        if any(suivante < precedente for precedente, suivante in pairwise(dates)):
+            raise ValueError(
+                f"{self.personne}: les états doivent être listés par date croissante, "
+                f"trouvé {[str(d) for d in dates]}"
+            )
+
+        # Deux fois le même état d'affilée ne dit rien de plus que le premier.
+        etats = [changement.etat for changement in self.etats]
+        for precedent, suivant in pairwise(etats):
+            if precedent == suivant:
+                raise ValueError(f"{self.personne}: état « {suivant} » répété d'affilée")
+
+        return self
 
     @model_validator(mode="after")
     def _tours_ordonnes_et_uniques(self) -> Candidature:

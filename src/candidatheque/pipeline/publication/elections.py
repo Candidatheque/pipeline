@@ -138,7 +138,17 @@ def candidatures(
                 "personne": candidat.personne,
                 "nom": candidat.nom or personnes[candidat.personne].nom,
                 "prenom": candidat.prenom or personnes[candidat.personne].prenom,
-                "etat": str(candidat.etat),
+                "etats": [
+                    {
+                        "etat": str(changement.etat),
+                        "date": changement.date.isoformat(),
+                        "sources": [
+                            _source_publiee(sources[identifiant])
+                            for identifiant in changement.sources
+                        ],
+                    }
+                    for changement in candidat.etats
+                ],
                 "tours": [
                     {
                         "numero": participation.numero,

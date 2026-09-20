@@ -52,6 +52,14 @@ def verifier() -> list[str]:
                     f"{ou} : nom saisi alors qu'il est identique au registre, à retirer"
                 )
 
+            for changement in candidat.etats:
+                for identifiant in changement.sources:
+                    if identifiant not in sources:
+                        problemes.append(
+                            f"{ou}/{changement.etat} : source inconnue « {identifiant} »"
+                        )
+                    sources_citees.add(identifiant)
+
             for participation in candidat.tours:
                 if participation.numero not in tours_connus:
                     problemes.append(

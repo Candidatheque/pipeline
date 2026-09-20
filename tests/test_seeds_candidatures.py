@@ -12,9 +12,14 @@ from pydantic import ValidationError
 from candidatheque.pipeline.seeds import load_candidatures
 from candidatheque.pipeline.seeds.candidatures import Candidature, CandidaturesElection
 
+VALIDEE = {
+    "etat": "validee",
+    "date": "1965-11-18",
+    "sources": ["conseil-constitutionnel:65-3-PDR"],
+}
 UNE = {
     "personne": "PE-0001",
-    "etat": "validee",
+    "etats": [VALIDEE],
     "tours": [{"numero": 1, "sources": ["conseil-constitutionnel:65-3-PDR"]}],
 }
 
@@ -66,9 +71,9 @@ def test_une_participation_sans_source_rejetee():
         Candidature.model_validate(UNE | {"tours": [{"numero": 1, "sources": []}]})
 
 
-def test_une_candidature_sans_tour_rejetee():
+def test_une_candidature_sans_etat_rejetee():
     with pytest.raises(ValidationError):
-        Candidature.model_validate(UNE | {"tours": []})
+        Candidature.model_validate(UNE | {"etats": []})
 
 
 def test_tours_en_double_rejetes():
@@ -87,7 +92,7 @@ def test_tours_dans_le_desordre_rejetes():
 
 def test_etat_hors_enumeration_rejete():
     with pytest.raises(ValidationError):
-        Candidature.model_validate(UNE | {"etat": "peut-etre"})
+        Candidature.model_validate(UNE | {"etats": [VALIDEE | {"etat": "peut-etre"}]})
 
 
 def test_deux_candidatures_pour_la_meme_personne_rejetees():
@@ -115,3 +120,66 @@ def test_un_nom_peut_etre_saisi_quand_il_differe():
     """Le champ existe pour la personne qui a porté un autre nom à ce scrutin."""
     candidature = Candidature.model_validate(UNE | {"nom": "DURAND", "prenom": "Marcel"})
     assert (candidature.nom, candidature.prenom) == ("DURAND", "Marcel")
+
+
+class TestTrajectoire:
+    """L'état d'une candidature est une trajectoire, pas un instantané."""
+
+    @staticmethod
+    def _etat(etat, date):
+        return {"etat": etat, "date": date, "sources": ["presse:a"]}
+
+    def test_l_etat_courant_est_le_dernier(self):
+        candidature = Candidature.model_validate(
+            UNE | {"etats": [self._etat("declaree", "1965-09-01"), VALIDEE]}
+        )
+        assert candidature.etat == "validee"
+
+    def test_declaree_puis_retiree_sans_aucun_tour(self):
+        """Le cas que le modèle précédent ne savait pas représenter."""
+        candidature = Candidature.model_validate(
+            {
+                "personne": "PE-0001",
+                "etats": [
+                    self._etat("declaree", "2026-05-01"),
+                    self._etat("retiree", "2026-11-03"),
+                ],
+                "tours": [],
+            }
+        )
+        assert candidature.etat == "retiree"
+        assert candidature.tours == ()
+        assert candidature.etats[0].etat == "declaree", "la déclaration reste tracée"
+
+    def test_la_source_de_declaration_survit_a_la_validation(self):
+        """Une candidature validée garde qui l'avait annoncée."""
+        candidature = Candidature.model_validate(
+            UNE | {"etats": [self._etat("declaree", "1965-09-01"), VALIDEE]}
+        )
+        assert candidature.etats[0].sources == ("presse:a",)
+        assert candidature.etat == "validee"
+
+    def test_etats_antidates_rejetes(self):
+        with pytest.raises(ValidationError, match="date croissante"):
+            Candidature.model_validate(
+                UNE | {"etats": [VALIDEE, self._etat("retiree", "1965-01-01")]}
+            )
+
+    def test_meme_etat_repete_rejete(self):
+        """Deux fois le même état d'affilée ne dit rien de plus que le premier."""
+        with pytest.raises(ValidationError, match="répété"):
+            Candidature.model_validate(
+                UNE | {"etats": [self._etat("declaree", "2026-05-01"),
+                                 self._etat("declaree", "2026-06-01")]}
+            )
+
+    def test_un_etat_sans_source_rejete(self):
+        with pytest.raises(ValidationError):
+            Candidature.model_validate(UNE | {"etats": [VALIDEE | {"sources": []}]})
+
+    def test_toutes_les_trajectoires_du_seed_sont_sourcees(self, par_election):
+        for entree in par_election.values():
+            for candidat in entree.candidats:
+                assert candidat.etats
+                assert all(changement.sources for changement in candidat.etats)
+                assert candidat.etat == "validee"

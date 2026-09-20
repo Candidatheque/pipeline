@@ -28,7 +28,9 @@ def _candidature(**champs):
     base = {
         "election": "PR-1965",
         "candidats": [{
-            "personne": "PE-0001", "nom": "BARBU", "prenom": "Marcel", "etat": "validee",
+            "personne": "PE-0001",
+            "etats": [{"etat": "validee", "date": "1965-11-18",
+                       "sources": ["conseil-constitutionnel:65-3-PDR"]}],
             "tours": [{"numero": 1, "sources": ["conseil-constitutionnel:65-3-PDR"]}],
         }],
     }

@@ -192,3 +192,13 @@ def test_le_nom_publie_est_resolu_depuis_le_registre(destination):
     assert par_personne["PE-0002"]["nom"] == "DE GAULLE"
     assert par_personne["PE-0002"]["prenom"] == "Charles"
     assert all(c["nom"] and c["prenom"] for c in doc["candidatures"])
+
+
+def test_la_trajectoire_est_publiee_sans_etat_courant_a_part(destination):
+    """L'état courant se déduit du dernier élément ; le publier serait dérivé."""
+    doc = _charge(destination / ELECTIONS_DIR / "PR-2022" / "candidatures.json")
+    for candidature in doc["candidatures"]:
+        assert "etat" not in candidature
+        assert candidature["etats"]
+        assert candidature["etats"][-1]["etat"] == "validee"
+        assert all(changement["sources"] for changement in candidature["etats"])
