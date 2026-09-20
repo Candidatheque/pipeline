@@ -10,6 +10,10 @@
 #   - `annee` : année du scrutin. Redondante avec l'identifiant : la pipeline
 #               vérifie que les deux concordent, ce qui transforme une coquille
 #               de saisie en erreur de validation.
+#   - `wikidata`: identifiant de l'élément Wikidata. Se retrouve avec la requête
+#               `requetes/elections-wikidata.rq`. Attention en la rejouant : la
+#               classe interrogée contient aussi les scrutins d'avant 1962, au
+#               suffrage indirect, qui sont hors périmètre.
 #
 # Volontairement minimal. Chaque champ ajouté ici devra être maintenu à la main
 # sur les douze élections, de 1965 à 2027 ; tout ce qui peut être collecté le
@@ -22,25 +26,37 @@
 elections:
   - id: "PR-1965"
     annee: 1965
+    wikidata: "Q1450635"
   - id: "PR-1969"
     annee: 1969
+    wikidata: "Q1450646"
   - id: "PR-1974"
     annee: 1974
+    wikidata: "Q1450654"
   - id: "PR-1981"
     annee: 1981
+    wikidata: "Q930869"
   - id: "PR-1988"
     annee: 1988
+    wikidata: "Q1450661"
   - id: "PR-1995"
     annee: 1995
+    wikidata: "Q1450660"
   - id: "PR-2002"
     annee: 2002
+    wikidata: "Q1129306"
   - id: "PR-2007"
     annee: 2007
+    wikidata: "Q245238"
   - id: "PR-2012"
     annee: 2012
+    wikidata: "Q487666"
   - id: "PR-2017"
     annee: 2017
+    wikidata: "Q7020999"
   - id: "PR-2022"
     annee: 2022
+    wikidata: "Q30638578"
   - id: "PR-2027"
     annee: 2027
+    wikidata: "Q111594692"

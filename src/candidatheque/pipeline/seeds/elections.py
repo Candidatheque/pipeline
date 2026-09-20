@@ -19,6 +19,8 @@ from candidatheque.pipeline.paths import ELECTIONS_SEED
 #: déclarée dans le seed.
 ELECTION_ID = re.compile(r"^PR-(?P<annee>\d{4})$")
 
+WIKIDATA_ID = re.compile(r"^Q[1-9]\d*$")
+
 
 class Election(BaseModel):
     """Une élection, identifiée par « PR-<année> ».
@@ -30,12 +32,23 @@ class Election(BaseModel):
 
     id: str
     annee: int = Field(ge=1965, le=2100)
+    #: Obligatoire : les douze élections en ont un, y compris celle de 2027.
+    #: Une élection nouvelle qui n'aurait pas encore d'élément Wikidata ferait
+    #: échouer la validation, et ce serait une décision à prendre explicitement.
+    wikidata: str
 
     @field_validator("id")
     @classmethod
     def _id_bien_forme(cls, value: str) -> str:
         if not ELECTION_ID.match(value):
             raise ValueError(f"identifiant attendu sous la forme « PR-<année> » : {value!r}")
+        return value
+
+    @field_validator("wikidata")
+    @classmethod
+    def _wikidata_bien_forme(cls, value: str) -> str:
+        if not WIKIDATA_ID.match(value):
+            raise ValueError(f"identifiant Wikidata invalide : {value!r}")
         return value
 
     @model_validator(mode="after")
@@ -67,6 +80,13 @@ class _SeedElections(BaseModel):
 
         if annees != sorted(annees):
             raise ValueError("les élections doivent être listées par année croissante")
+
+        qids = [election.wikidata for election in self.elections]
+        partages = sorted({q for q in qids if qids.count(q) > 1})
+        if partages:
+            raise ValueError(
+                "identifiants Wikidata partagés entre élections : " + ", ".join(partages)
+            )
 
         return self
 

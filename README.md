@@ -16,6 +16,7 @@
 | `seeds/` | Saisi à la main. `elections.yaml` dit quoi publier, `personnes.yaml` attribue les identifiants de personne. |
 | `schemas/` | Les JSON Schema qui décrivent les données publiées. Écrits à la main, recopiés tels quels dans `data`. |
 | `src/` | Le code de la pipeline. |
+| `requetes/` | Requêtes SPARQL lancées à la main pour retrouver des identifiants externes. La pipeline ne les exécute pas. |
 
 Les données produites ne sont pas dans ce dépôt : la pipeline les écrit dans le
 dépôt `data`, cloné à côté de celui-ci.
@@ -57,11 +58,27 @@ Le registre n'est pas publié. Regrouper les candidatures d'une même personne n
 demande que l'identifiant, et le registre n'existe que pour garantir qu'il est
 unique.
 
+## Identifiant Wikidata
+
+Chaque élection porte le QID de son élément Wikidata, obligatoire : les douze en
+ont un, y compris celle de 2027. Il est publié dans les métadonnées de
+l'élection, pas dans l'index, qui ne porte que de quoi énumérer.
+
+La pipeline n'interroge pas Wikidata. Le QID est saisi à la main dans le seed, au
+même titre que l'identifiant et l'année ; il n'y a rien à récupérer sur le
+scrutin lui-même. `requetes/elections-wikidata.rq` sert à le retrouver quand une
+élection s'ajoute, à lancer soi-même sur le service de requête.
+
+Un piège si tu rejoues la requête : la classe interrogée contient aussi les
+élections d'avant 1962, au suffrage indirect — 1848, 1947, 1953, 1958 — qui sont
+hors périmètre, et `P585` porte une date par tour, donc une élection à deux tours
+ressort deux fois sans regroupement.
+
 ## Données publiées
 
 ```
 elections.json                     index : une entrée { id, annee } par élection
-elections/PR-2012/election.json    métadonnées de l'élection
+elections/PR-2012/election.json    métadonnées : identifiant, année, QID Wikidata
 schemas/*.schema.json              copie des schémas de ce dépôt
 ```
 

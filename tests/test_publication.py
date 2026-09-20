@@ -72,6 +72,7 @@ def test_chaque_election_a_son_repertoire_et_ses_metadonnees(destination):
         valideur.validate(metadonnees)
         assert metadonnees["id"] == entree["id"]
         assert metadonnees["annee"] == entree["annee"]
+        assert metadonnees["wikidata"].startswith("Q")
 
 
 def test_le_schema_reference_depuis_les_donnees_existe(destination):

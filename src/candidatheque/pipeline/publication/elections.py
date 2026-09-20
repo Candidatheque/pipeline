@@ -84,6 +84,7 @@ def metadonnees(election: Election) -> dict:
         "$schema": f"../../{SCHEMAS_SUBDIR}/election.schema.json",
         "id": election.id,
         "annee": election.annee,
+        "wikidata": election.wikidata,
     }
 
 
