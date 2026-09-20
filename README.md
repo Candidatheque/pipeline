@@ -50,8 +50,25 @@ schemas/*.schema.json              copie des schémas de ce dépôt
 ```
 
 L'index porte de quoi énumérer les élections et atteindre leur répertoire, rien
-de plus. Ce qui s'ajoutera ensuite, tours, candidats, résultats, ira dans le
-document de l'élection.
+de plus. Le reste vit dans le répertoire de l'élection, à raison d'un document
+par sujet.
+
+Le découpage suit la volatilité, pas le thème. Les résultats d'un scrutin
+proclamé ne changeront plus jamais ; les candidatures à une élection à venir
+changent toutes les semaines et sont fausses une partie du temps. Réunies dans
+un même fichier, la donnée provisoire ferait bouger la donnée définitive à
+chaque passage, et personne ne pourrait plus les mettre en cache séparément.
+Deux élections n'ont donc pas les mêmes documents, selon leur stade.
+
+Un corollaire qui contraint tout ce qui viendra : **aucun document ne porte de
+date de génération**. Les dates publiées viennent des sources, jamais de
+l'horloge au moment de publier. Sinon chaque passage produirait un diff et
+l'idempotence ne voudrait plus rien dire. C'est la raison d'être du champ
+`consultee_le`, lu dans l'archive `raw/`.
+
+De même, rien ne publie d'état dérivé de la date du jour, du genre « élection à
+venir » : il deviendrait faux sans qu'aucune source ait bougé. La date du
+scrutin est un fait, le consommateur la compare à aujourd'hui.
 
 Les schémas sont recopiés à côté des données pour qu'un commit de `data` se
 valide tout seul : un consommateur qui épingle un commit obtient le contrat qui
@@ -109,6 +126,13 @@ le jour où `data` sera servi sur une URL stable.
 
 Seules les présidentielles sont couvertes, de 1965 à 2027, et seuls l'identifiant
 et l'année sont publiés.
+
+`schemas/candidatures.schema.json` n'a pas encore de producteur : il fixe le
+contrat que la collecte devra respecter, et les tests en tiennent lieu de
+spécification. Il bougera sans doute à la rencontre des vraies sources.
+
+Il n'y a pas de schéma de résultats. Sa forme doit sortir des décisions du
+Conseil constitutionnel, qui ne sont pas encore analysées.
 
 Rien ne relance la publication quand une source externe change : le workflow ne
 se déclenche que sur un commit de ce dépôt. Quand la collecte arrivera, il lui
