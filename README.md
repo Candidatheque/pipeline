@@ -217,12 +217,45 @@ référence à résoudre.
 
 `consultee_le` est saisie, jamais calculée au moment de publier.
 
+## Partis
+
+Une candidature porte les partis sous l'étiquette desquels elle se présente.
+**Plusieurs sont possibles** : une coalition présente un candidat unique, et
+l'étiquette est partagée — Mélenchon en 2022 sous La France insoumise et le
+Parti de gauche, Mitterrand en 1965 sous la FGDS et la Convention des
+institutions républicaines.
+
+Chaque parti porte son nom entier et, quand il en a un, son sigle : on dit
+« le PCF », rarement « le Parti communiste français ». 25 des 53 partis ont un
+sigle ; les autres n'en ont pas, et le champ est alors absent plutôt que vide.
+Dix n'ont pas non plus d'élément Wikidata — « Santé en danger », « Osons la
+différence » — parce que ce sont de petits mouvements créés pour l'élection.
+
+`seeds/partis.yaml` attribue les identifiants, sur le même modèle que le
+registre des personnes. Une candidature pointe vers un identifiant de parti,
+jamais vers un nom — un parti change de nom, le Front national est devenu
+Rassemblement national en 2018.
+
+Les affiliations viennent de la propriété `P102` de Wikidata, « membre d'un
+parti politique », et **seules les appartenances datées sont reprises**. Une
+appartenance sans date ne dit pas à quelle élection elle s'applique : la retenir
+aurait fait de Charles de Gaulle un membre de l'UDR en 1965, trois ans avant sa
+fondation. Ce choix ramène la couverture de 162 à 75 candidatures sur 314, mais
+les 75 sont justes.
+
+S'y ajoutent dix affiliations relevées dans les tableaux de l'article de 2022,
+où le parti figure dans la même cellule que le nom. C'est la seule année dont
+les tableaux soient réguliers : 2007, 2012 et 2017 donnent le parti en prose
+libre — « il se présente au nom de son parti l'Union des gens… » — et quatre
+tentatives d'extraction automatique n'en ont tiré que du bruit. Ce qui reste
+demande de la lecture, pas un motif.
+
 ## Données publiées
 
 ```
 elections.json                        index : une entrée { id, annee } par élection
 elections/PR-2012/election.json       métadonnées : identifiant, année, QID, tours
-elections/PR-2012/candidatures.json   qui s'est présenté, et à quels tours
+elections/PR-2012/candidatures.json   qui s'est présenté, à quels tours, sous quelle étiquette
 schemas/*.schema.json                 copie des schémas de ce dépôt
 ```
 

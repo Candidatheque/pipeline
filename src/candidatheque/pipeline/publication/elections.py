@@ -35,12 +35,15 @@ from pathlib import Path
 
 from candidatheque.pipeline.paths import DATA_REPO, SCHEMAS_DIR
 from candidatheque.pipeline.seeds import (
+    Affiliation,
     Candidature,
     Election,
+    Parti,
     Personne,
     Source,
     load_candidatures,
     load_elections,
+    load_partis,
     load_personnes,
     load_sources,
 )
@@ -119,11 +122,32 @@ def _source_publiee(source: Source) -> dict:
     }
 
 
+def _parti_publie(
+    affiliation: Affiliation, parti: Parti, sources: Mapping[str, Source]
+) -> dict:
+    """Un parti tel qu'il est publié à côté de la candidature.
+
+    Le sigle est omis quand le parti n'en a pas : beaucoup de petits mouvements
+    sont dans ce cas, et publier une chaîne vide en inventerait un.
+    """
+    entree = {
+        "id": affiliation.parti,
+        "nom_complet": affiliation.nom_complet or parti.nom_complet,
+    }
+    if parti.sigle:
+        entree["sigle"] = parti.sigle
+    entree["sources"] = [
+        _source_publiee(sources[identifiant]) for identifiant in affiliation.sources
+    ]
+    return entree
+
+
 def candidatures(
     election: Election,
     candidats: Iterable[Candidature],
     sources: Mapping[str, Source],
     personnes: Mapping[str, Personne],
+    partis: Mapping[str, Parti],
 ) -> dict:
     """Le contenu du document des candidatures d'une élection.
 
@@ -148,6 +172,10 @@ def candidatures(
                     }
                     for changement in candidat.etats
                 ],
+                "partis": [
+                    _parti_publie(affiliation, partis[affiliation.parti], sources)
+                    for affiliation in candidat.partis
+                ],
                 "tours": [
                     {
                         "numero": participation.numero,
@@ -169,6 +197,7 @@ def documents(
     candidats: Iterable[Candidature] = (),
     sources: Mapping[str, Source] | None = None,
     personnes: Mapping[str, Personne] | None = None,
+    partis: Mapping[str, Parti] | None = None,
 ) -> Iterator[tuple[str, dict]]:
     """Les documents à publier dans le répertoire d'une élection.
 
@@ -179,7 +208,7 @@ def documents(
     yield ELECTION_FILE, metadonnees(election)
     if candidats:
         yield CANDIDATURES_FILE, candidatures(
-            election, candidats, sources or {}, personnes or {}
+            election, candidats, sources or {}, personnes or {}, partis or {}
         )
 
 
@@ -233,6 +262,7 @@ def publier(destination: Path | None = None) -> list[Ecriture]:
     elections = load_elections()
     sources = {source.id: source for source in load_sources()}
     personnes = {personne.id: personne for personne in load_personnes()}
+    partis = {parti.id: parti for parti in load_partis()}
     par_election = {entree.election: entree.candidats for entree in load_candidatures()}
     ecritures: list[Ecriture] = []
 
@@ -247,7 +277,7 @@ def publier(destination: Path | None = None) -> list[Ecriture]:
         repertoire = racine_elections / election.id
         attendus = set()
         for nom, contenu in documents(
-            election, par_election.get(election.id, ()), sources, personnes
+            election, par_election.get(election.id, ()), sources, personnes, partis
         ):
             attendus.add(nom)
             ecritures.append(_ecrire_json(repertoire / nom, contenu))

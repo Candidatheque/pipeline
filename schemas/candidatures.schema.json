@@ -66,6 +66,13 @@
           "items": {
             "$ref": "#/$defs/participation"
           }
+        },
+        "partis": {
+          "type": "array",
+          "description": "Les partis sous l'étiquette desquels la candidature se présente. Plusieurs sont possibles : une coalition présente un candidat unique, et l'étiquette est partagée. Vide quand la candidature est sans étiquette, ou quand aucune source datée ne permet de l'établir — une appartenance partisane non datée ne dit pas à quelle élection elle s'applique.",
+          "items": {
+            "$ref": "#/$defs/affiliation"
+          }
         }
       }
     },
@@ -117,6 +124,48 @@
           "items": {
             "$ref": "source.schema.json"
           }
+        }
+      }
+    },
+    "affiliation": {
+      "type": "object",
+      "description": "Le rattachement d'une candidature à un parti.",
+      "required": [
+        "id",
+        "nom_complet",
+        "sources"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^PA-[0-9]{4}$",
+          "description": "Identifiant interne du parti, stable d'une élection à l'autre.",
+          "examples": [
+            "PA-0001"
+          ]
+        },
+        "nom_complet": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Nom entier du parti. Un parti change de nom — le Front national est devenu Rassemblement national en 2018 — et c'est le nom porté lors du scrutin qui devrait figurer ici."
+        },
+        "sigle": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Nom court sous lequel le parti est couramment désigné : on dit « le PCF », rarement « le Parti communiste français ». Absent pour un parti qui n'en a pas, ce qui est le cas de beaucoup de petits mouvements.",
+          "examples": [
+            "PCF",
+            "MoDem"
+          ]
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "source.schema.json"
+          },
+          "description": "Ce qui établit ce rattachement."
         }
       }
     },

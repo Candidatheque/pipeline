@@ -169,11 +169,12 @@ def test_aucune_organisation_dans_le_registre():
         )
 
 
-def test_la_numerotation_est_contigue():
-    """Tant que rien n'est publié, un trou se rattrape en renumérotant.
+def test_la_numerotation_est_croissante_et_unique():
+    """Contiguë aujourd'hui, mais ce n'est plus une règle.
 
-    Après la première publication ce test devra sauter : un identifiant publié
-    ne se réattribue pas, et une ligne retirée laissera un trou définitif.
+    Les identifiants ont été publiés le 2026-09-20 : ils sont désormais
+    définitifs, et une ligne retirée laissera un trou qu'il ne faudra pas
+    combler. Seules l'unicité et la croissance restent exigibles.
     """
     numeros = [personne.numero for personne in load_personnes()]
-    assert numeros == list(range(1, len(numeros) + 1))
+    assert numeros == sorted(set(numeros))

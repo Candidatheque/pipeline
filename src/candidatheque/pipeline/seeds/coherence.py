@@ -1,8 +1,8 @@
 """Contrôles entre seeds.
 
 Chaque fichier se valide seul, mais les références d'un fichier à l'autre ne se
-vérifient qu'ici : une candidature cite une personne, une élection, un tour et
-des sources, tous définis ailleurs. Une référence pendante ne casse rien à la
+vérifient qu'ici : une candidature cite une personne, une élection, un tour, un
+parti et des sources, tous définis ailleurs. Une référence pendante ne casse rien à la
 publication, elle produit silencieusement des données fausses — d'où ces
 contrôles, lancés par `candidatheque valider`.
 """
@@ -12,6 +12,7 @@ from __future__ import annotations
 from candidatheque.pipeline.seeds.autorites import load_autorites
 from candidatheque.pipeline.seeds.candidatures import load_candidatures
 from candidatheque.pipeline.seeds.elections import load_elections
+from candidatheque.pipeline.seeds.partis import load_partis
 from candidatheque.pipeline.seeds.personnes import load_personnes
 from candidatheque.pipeline.seeds.sources import load_sources
 
@@ -23,6 +24,7 @@ def verifier() -> list[str]:
     personnes = set(registre)
     sources = {source.id: source for source in load_sources()}
     autorites = {autorite.id: autorite for autorite in load_autorites()}
+    partis = {parti.id for parti in load_partis()}
     candidatures = load_candidatures()
 
     problemes: list[str] = []
@@ -43,6 +45,7 @@ def verifier() -> list[str]:
 
     personnes_citees: set[str] = set()
     sources_citees: set[str] = set()
+    partis_cites: set[str] = set()
 
     for entree in candidatures:
         election = elections.get(entree.election)
@@ -74,6 +77,19 @@ def verifier() -> list[str]:
                         )
                     sources_citees.add(identifiant)
 
+            for affiliation in candidat.partis:
+                if affiliation.parti not in partis:
+                    problemes.append(
+                        f"{ou} : parti « {affiliation.parti} » absent du registre"
+                    )
+                partis_cites.add(affiliation.parti)
+                for identifiant in affiliation.sources:
+                    if identifiant not in sources:
+                        problemes.append(
+                            f"{ou}/{affiliation.parti} : source inconnue « {identifiant} »"
+                        )
+                    sources_citees.add(identifiant)
+
             for participation in candidat.tours:
                 if participation.numero not in tours_connus:
                     problemes.append(
@@ -91,6 +107,8 @@ def verifier() -> list[str]:
     # erreur : mieux vaut la retirer ou comprendre pourquoi elle est orpheline.
     for orpheline in sorted(personnes - personnes_citees):
         problemes.append(f"{orpheline} : personne du registre citée par aucune candidature")
+    for orpheline in sorted(partis - partis_cites):
+        problemes.append(f"{orpheline} : parti du registre cité par aucune candidature")
     for orpheline in sorted(set(sources) - sources_citees):
         problemes.append(f"{orpheline} : source du registre citée par aucune donnée")
 

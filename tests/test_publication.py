@@ -204,3 +204,15 @@ def test_la_trajectoire_est_publiee_sans_etat_courant_a_part(destination):
         assert all(changement["sources"] for changement in candidature["etats"])
         etats_finaux.add(candidature["etats"][-1]["etat"])
     assert etats_finaux == {"validee", "ecartee", "retiree"}
+
+
+def test_les_partis_sont_publies_avec_leur_nom(destination):
+    """Le seed cite un parti par identifiant ; le publié porte aussi son nom."""
+    doc = _charge(destination / ELECTIONS_DIR / "PR-2022" / "candidatures.json")
+    melenchon = next(c for c in doc["candidatures"] if c["personne"] == "PE-0061")
+    assert [(p["nom_complet"], p["sigle"]) for p in melenchon["partis"]] == [
+        ("La France insoumise", "LFI"),
+        ("Parti de gauche", "PG"),
+    ]
+    assert all(p["id"].startswith("PA-") for p in melenchon["partis"])
+    assert all(p["sources"] for p in melenchon["partis"])

@@ -80,6 +80,13 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:65-7-PDR"
+        partis:
+          - parti: "PA-0001"
+            sources:
+              - "wikidata:Q2038"
+          - parti: "PA-0002"
+            sources:
+              - "wikidata:Q2038"
       - personne: "PE-0006"
         etats:
           - etat: "validee"
@@ -133,6 +140,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:69-13-PDR"
+        partis:
+          - parti: "PA-0003"
+            sources:
+              - "wikidata:Q12938"
       - personne: "PE-0011"
         etats:
           - etat: "validee"
@@ -146,6 +157,10 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:69-21-PDR"
+        partis:
+          - parti: "PA-0004"
+            sources:
+              - "wikidata:Q12950"
       - personne: "PE-0012"
         etats:
           - etat: "validee"
@@ -159,6 +174,10 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:69-21-PDR"
+        partis:
+          - parti: "PA-0005"
+            sources:
+              - "wikidata:Q2185"
       - personne: "PE-0013"
         etats:
           - etat: "validee"
@@ -213,6 +232,10 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:74-31-PDR"
+        partis:
+          - parti: "PA-0006"
+            sources:
+              - "wikidata:Q2038"
       - personne: "PE-0010"
         etats:
           - etat: "validee"
@@ -223,6 +246,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
+        partis:
+          - parti: "PA-0007"
+            sources:
+              - "wikidata:Q12938"
       - personne: "PE-0014"
         etats:
           - etat: "validee"
@@ -286,6 +313,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:74-24-PDR"
+        partis:
+          - parti: "PA-0008"
+            sources:
+              - "wikidata:Q7177"
       - personne: "PE-0020"
         etats:
           - etat: "validee"
@@ -506,6 +537,10 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:81-46-PDR"
+        partis:
+          - parti: "PA-0006"
+            sources:
+              - "wikidata:Q2038"
       - personne: "PE-0016"
         etats:
           - etat: "validee"
@@ -536,6 +571,10 @@ candidatures:
             sources:
               - "conseil-constitutionnel:81-43-PDR"
         tours: []
+        partis:
+          - parti: "PA-0008"
+            sources:
+              - "wikidata:Q7177"
       - personne: "PE-0024"
         etats:
           - etat: "validee"
@@ -606,6 +645,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:81-40-PDR"
+        partis:
+          - parti: "PA-0009"
+            sources:
+              - "wikidata:Q2105"
       - personne: "PE-0235"
         etats:
           - etat: "ecartee"
@@ -636,6 +679,10 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:88-57-PDR"
+        partis:
+          - parti: "PA-0006"
+            sources:
+              - "wikidata:Q2038"
       - personne: "PE-0018"
         etats:
           - etat: "validee"
@@ -656,6 +703,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:88-54-PDR"
+        partis:
+          - parti: "PA-0008"
+            sources:
+              - "wikidata:Q7177"
       - personne: "PE-0030"
         etats:
           - etat: "validee"
@@ -669,6 +720,10 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:88-57-PDR"
+        partis:
+          - parti: "PA-0009"
+            sources:
+              - "wikidata:Q2105"
       - personne: "PE-0031"
         etats:
           - etat: "validee"
@@ -742,6 +797,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
+        partis:
+          - parti: "PA-0008"
+            sources:
+              - "wikidata:Q7177"
       - personne: "PE-0027"
         etats:
           - etat: "ecartee"
@@ -761,6 +820,10 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:95-80-PDR"
+        partis:
+          - parti: "PA-0009"
+            sources:
+              - "wikidata:Q2105"
       - personne: "PE-0034"
         etats:
           - etat: "ecartee"
@@ -777,6 +840,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
+        partis:
+          - parti: "PA-0010"
+            sources:
+              - "wikidata:Q704846"
       - personne: "PE-0037"
         etats:
           - etat: "validee"
@@ -820,6 +887,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
+        partis:
+          - parti: "PA-0009"
+            sources:
+              - "wikidata:Q12959"
       - personne: "PE-0041"
         etats:
           - etat: "validee"
@@ -830,6 +901,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:95-70-PDR"
+        partis:
+          - parti: "PA-0011"
+            sources:
+              - "wikidata:Q937091"
       - personne: "PE-0237"
         etats:
           - etat: "retiree"
@@ -874,6 +949,10 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:2002-110-PDR"
+        partis:
+          - parti: "PA-0008"
+            sources:
+              - "wikidata:Q7177"
       - personne: "PE-0027"
         etats:
           - etat: "declaree"
@@ -897,6 +976,10 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:2002-110-PDR"
+        partis:
+          - parti: "PA-0012"
+            sources:
+              - "wikidata:Q2105"
       - personne: "PE-0038"
         etats:
           - etat: "validee"
@@ -917,6 +1000,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
+        partis:
+          - parti: "PA-0011"
+            sources:
+              - "wikidata:Q937091"
       - personne: "PE-0042"
         etats:
           - etat: "validee"
@@ -927,6 +1014,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
+        partis:
+          - parti: "PA-0013"
+            sources:
+              - "wikidata:Q993611"
       - personne: "PE-0043"
         etats:
           - etat: "validee"
@@ -937,6 +1028,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
+        partis:
+          - parti: "PA-0014"
+            sources:
+              - "wikidata:Q291341"
       - personne: "PE-0044"
         etats:
           - etat: "validee"
@@ -987,6 +1082,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2002-102-PDR"
+        partis:
+          - parti: "PA-0015"
+            sources:
+              - "wikidata:Q965109"
       - personne: "PE-0049"
         etats:
           - etat: "validee"
@@ -1050,6 +1149,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
+        partis:
+          - parti: "PA-0008"
+            sources:
+              - "wikidata:Q7177"
       - personne: "PE-0034"
         etats:
           - etat: "ecartee"
@@ -1066,6 +1169,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
+        partis:
+          - parti: "PA-0010"
+            sources:
+              - "wikidata:Q704846"
       - personne: "PE-0037"
         etats:
           - etat: "ecartee"
@@ -1088,12 +1195,20 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2007"
         tours: []
+        partis:
+          - parti: "PA-0013"
+            sources:
+              - "wikidata:Q993611"
       - personne: "PE-0043"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2007"
         tours: []
+        partis:
+          - parti: "PA-0014"
+            sources:
+              - "wikidata:Q291341"
       - personne: "PE-0045"
         etats:
           - etat: "validee"
@@ -1104,6 +1219,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
+        partis:
+          - parti: "PA-0016"
+            sources:
+              - "wikidata:Q12963"
       - personne: "PE-0046"
         etats:
           - etat: "retiree"
@@ -1152,6 +1271,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2007-133-PDR"
+        partis:
+          - parti: "PA-0017"
+            sources:
+              - "wikidata:Q1379706"
       - personne: "PE-0055"
         etats:
           - etat: "validee"
@@ -1198,6 +1321,10 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:2007-140-PDR"
+        partis:
+          - parti: "PA-0012"
+            sources:
+              - "wikidata:Q329"
       - personne: "PE-0064"
         etats:
           - etat: "ecartee"
@@ -1294,12 +1421,20 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2007"
         tours: []
+        partis:
+          - parti: "PA-0018"
+            sources:
+              - "wikidata:Q3167392"
       - personne: "PE-0091"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2007"
         tours: []
+        partis:
+          - parti: "PA-0006"
+            sources:
+              - "wikidata:Q3385791"
       - personne: "PE-0092"
         etats:
           - etat: "ecartee"
@@ -1373,6 +1508,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2012"
         tours: []
+        partis:
+          - parti: "PA-0014"
+            sources:
+              - "wikidata:Q291341"
       - personne: "PE-0045"
         etats:
           - etat: "validee"
@@ -1383,6 +1522,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
+        partis:
+          - parti: "PA-0016"
+            sources:
+              - "wikidata:Q12963"
       - personne: "PE-0058"
         etats:
           - etat: "validee"
@@ -1396,6 +1539,10 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:2012-153-PDR"
+        partis:
+          - parti: "PA-0012"
+            sources:
+              - "wikidata:Q329"
       - personne: "PE-0059"
         etats:
           - etat: "validee"
@@ -1416,6 +1563,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
+        partis:
+          - parti: "PA-0019"
+            sources:
+              - "wikidata:Q12927"
       - personne: "PE-0061"
         etats:
           - etat: "validee"
@@ -1426,6 +1577,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
+        partis:
+          - parti: "PA-0020"
+            sources:
+              - "wikidata:Q5829"
       - personne: "PE-0062"
         etats:
           - etat: "validee"
@@ -1446,6 +1601,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2012-145-PDR"
+        partis:
+          - parti: "PA-0021"
+            sources:
+              - "wikidata:Q439490"
       - personne: "PE-0064"
         etats:
           - etat: "validee"
@@ -1469,18 +1628,30 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:2012-153-PDR"
+        partis:
+          - parti: "PA-0006"
+            sources:
+              - "wikidata:Q157"
       - personne: "PE-0069"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2012"
         tours: []
+        partis:
+          - parti: "PA-0022"
+            sources:
+              - "wikidata:Q12972"
       - personne: "PE-0090"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2012"
         tours: []
+        partis:
+          - parti: "PA-0023"
+            sources:
+              - "wikidata:Q3167392"
       - personne: "PE-0092"
         etats:
           - etat: "ecartee"
@@ -1517,12 +1688,20 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2012"
         tours: []
+        partis:
+          - parti: "PA-0024"
+            sources:
+              - "wikidata:Q927873"
       - personne: "PE-0105"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2012"
         tours: []
+        partis:
+          - parti: "PA-0025"
+            sources:
+              - "wikidata:Q3369641"
       - personne: "PE-0106"
         etats:
           - etat: "ecartee"
@@ -1565,6 +1744,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2012"
         tours: []
+        partis:
+          - parti: "PA-0026"
+            sources:
+              - "wikidata:Q2566436"
       - personne: "PE-0113"
         etats:
           - etat: "ecartee"
@@ -1669,6 +1852,10 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:2017-170-PDR"
+        partis:
+          - parti: "PA-0019"
+            sources:
+              - "wikidata:Q12927"
       - personne: "PE-0061"
         etats:
           - etat: "validee"
@@ -1679,6 +1866,13 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
+        partis:
+          - parti: "PA-0027"
+            sources:
+              - "wikidata:Q5829"
+          - parti: "PA-0020"
+            sources:
+              - "wikidata:Q5829"
       - personne: "PE-0062"
         etats:
           - etat: "validee"
@@ -1699,6 +1893,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
+        partis:
+          - parti: "PA-0021"
+            sources:
+              - "wikidata:Q439490"
       - personne: "PE-0064"
         etats:
           - etat: "validee"
@@ -1722,6 +1920,10 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:2017-170-PDR"
+        partis:
+          - parti: "PA-0028"
+            sources:
+              - "wikidata:Q3052772"
       - personne: "PE-0067"
         etats:
           - etat: "validee"
@@ -1732,6 +1934,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
+        partis:
+          - parti: "PA-0006"
+            sources:
+              - "wikidata:Q818118"
       - personne: "PE-0068"
         etats:
           - etat: "validee"
@@ -1742,6 +1948,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
+        partis:
+          - parti: "PA-0029"
+            sources:
+              - "wikidata:Q3173022"
       - personne: "PE-0069"
         etats:
           - etat: "validee"
@@ -1752,6 +1962,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
+        partis:
+          - parti: "PA-0022"
+            sources:
+              - "wikidata:Q12972"
       - personne: "PE-0070"
         etats:
           - etat: "validee"
@@ -1762,6 +1976,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2017-165-PDR"
+        partis:
+          - parti: "PA-0030"
+            sources:
+              - "wikidata:Q101410"
       - personne: "PE-0083"
         etats:
           - etat: "ecartee"
@@ -1774,6 +1992,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2017"
         tours: []
+        partis:
+          - parti: "PA-0031"
+            sources:
+              - "wikidata:Q3385791"
       - personne: "PE-0093"
         etats:
           - etat: "ecartee"
@@ -1792,12 +2014,23 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2017"
         tours: []
+        partis:
+          - parti: "PA-0024"
+            sources:
+              - "wikidata:Q927873"
       - personne: "PE-0112"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2017"
         tours: []
+        partis:
+          - parti: "PA-0026"
+            sources:
+              - "wikidata:Q2566436"
+          - parti: "PA-0032"
+            sources:
+              - "wikidata:Q2566436"
       - personne: "PE-0116"
         etats:
           - etat: "ecartee"
@@ -2020,6 +2253,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2017"
         tours: []
+        partis:
+          - parti: "PA-0033"
+            sources:
+              - "wikidata:Q18765344"
       - personne: "PE-0161"
         etats:
           - etat: "ecartee"
@@ -2060,6 +2297,10 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:2022-196-PDR"
+        partis:
+          - parti: "PA-0019"
+            sources:
+              - "wikidata:Q12927"
       - personne: "PE-0061"
         etats:
           - etat: "validee"
@@ -2070,6 +2311,13 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
+        partis:
+          - parti: "PA-0027"
+            sources:
+              - "wikidata:Q5829"
+          - parti: "PA-0020"
+            sources:
+              - "wikidata:Q5829"
       - personne: "PE-0062"
         etats:
           - etat: "validee"
@@ -2090,6 +2338,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
+        partis:
+          - parti: "PA-0021"
+            sources:
+              - "wikidata:Q439490"
       - personne: "PE-0064"
         etats:
           - etat: "validee"
@@ -2113,6 +2365,10 @@ candidatures:
           - numero: 2
             sources:
               - "conseil-constitutionnel:2022-196-PDR"
+        partis:
+          - parti: "PA-0028"
+            sources:
+              - "wikidata:Q3052772"
       - personne: "PE-0068"
         etats:
           - etat: "validee"
@@ -2123,12 +2379,20 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
+        partis:
+          - parti: "PA-0029"
+            sources:
+              - "wikidata:Q3173022"
       - personne: "PE-0069"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0022"
+            sources:
+              - "wikidata:Q12972"
       - personne: "PE-0071"
         etats:
           - etat: "validee"
@@ -2139,6 +2403,10 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
+        partis:
+          - parti: "PA-0011"
+            sources:
+              - "wikidata:Q30388733"
       - personne: "PE-0072"
         etats:
           - etat: "validee"
@@ -2179,12 +2447,23 @@ candidatures:
           - numero: 1
             sources:
               - "conseil-constitutionnel:2022-187-PDR"
+        partis:
+          - parti: "PA-0030"
+            sources:
+              - "wikidata:Q455023"
+          - parti: "PA-0034"
+            sources:
+              - "wikidata:Q455023"
       - personne: "PE-0090"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0035"
+            sources:
+              - "wikidata:Q3167392"
       - personne: "PE-0093"
         etats:
           - etat: "ecartee"
@@ -2209,6 +2488,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0033"
+            sources:
+              - "wikidata:Q18765344"
       - personne: "PE-0162"
         etats:
           - etat: "ecartee"
@@ -2221,48 +2504,80 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0036"
+            sources:
+              - "wikidata:Q106405647"
       - personne: "PE-0164"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0044"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0165"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0037"
+            sources:
+              - "wikidata:Q63646237"
       - personne: "PE-0166"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0046"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0167"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0038"
+            sources:
+              - "wikidata:Q29451966"
       - personne: "PE-0168"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0039"
+            sources:
+              - "wikidata:Q54958867"
       - personne: "PE-0169"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0045"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0170"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0047"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0171"
         etats:
           - etat: "ecartee"
@@ -2275,6 +2590,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0051"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0173"
         etats:
           - etat: "ecartee"
@@ -2287,12 +2606,20 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0048"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0175"
         etats:
           - etat: "ecartee"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0049"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0176"
         etats:
           - etat: "ecartee"
@@ -2305,6 +2632,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0050"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0178"
         etats:
           - etat: "ecartee"
@@ -2323,6 +2654,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0052"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0181"
         etats:
           - etat: "ecartee"
@@ -2347,6 +2682,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0053"
+            sources:
+              - "wikipedia-fr:candidatures-presidentielle-2022"
       - personne: "PE-0185"
         etats:
           - etat: "ecartee"
@@ -2365,6 +2704,10 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0040"
+            sources:
+              - "wikidata:Q29225872"
       - personne: "PE-0188"
         etats:
           - etat: "ecartee"
@@ -2451,6 +2794,13 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0041"
+            sources:
+              - "wikidata:Q59535447"
+          - parti: "PA-0042"
+            sources:
+              - "wikidata:Q59535447"
       - personne: "PE-0202"
         etats:
           - etat: "retiree"
@@ -2458,12 +2808,20 @@ candidatures:
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0043"
+            sources:
+              - "wikidata:Q3074223"
       - personne: "PE-0203"
         etats:
           - etat: "retiree"
             sources:
               - "wikipedia-fr:candidatures-presidentielle-2022"
         tours: []
+        partis:
+          - parti: "PA-0042"
+            sources:
+              - "wikidata:Q3165988"
       - personne: "PE-0204"
         etats:
           - etat: "retiree"
