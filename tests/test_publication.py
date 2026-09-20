@@ -73,6 +73,10 @@ def test_chaque_election_a_son_repertoire_et_ses_metadonnees(destination):
         assert metadonnees["id"] == entree["id"]
         assert metadonnees["annee"] == entree["annee"]
         assert metadonnees["wikidata"].startswith("Q")
+        assert metadonnees["tours"], "chaque élection publie au moins un tour"
+        assert [t["numero"] for t in metadonnees["tours"]] == list(
+            range(1, len(metadonnees["tours"]) + 1)
+        )
 
 
 def test_le_schema_reference_depuis_les_donnees_existe(destination):
@@ -204,3 +208,18 @@ class TestSchemaCandidatures:
                 "candidatures": [self._candidature(personne="PE-0001", nom="Durand")],
             }
         )
+
+
+def test_un_tour_sans_qid_omet_le_champ(destination):
+    """Absent se lit « Wikidata ne modélise pas ce tour ».
+
+    Publier `null` inviterait à y voir une valeur.
+    """
+    tours = _charge(destination / ELECTIONS_DIR / "PR-1969" / ELECTION_FILE)["tours"]
+    assert all("wikidata" not in tour for tour in tours)
+
+
+def test_l_index_ne_porte_pas_les_tours(destination):
+    """L'index sert à énumérer ; le détail vit dans le document de l'élection."""
+    for entree in _charge(destination / INDEX_FILE)["elections"]:
+        assert set(entree) == {"id", "annee"}

@@ -74,11 +74,26 @@ Un piège si tu rejoues la requête : la classe interrogée contient aussi les
 hors périmètre, et `P585` porte une date par tour, donc une élection à deux tours
 ressort deux fois sans regroupement.
 
+## Tours
+
+Une élection porte ses tours, numérotés à partir de 1 et dans l'ordre, chacun
+avec sa date et, quand il existe, son QID Wikidata.
+
+Il y a eu deux tours à chaque scrutin depuis 1965, mais c'est un constat et non
+une règle : une majorité absolue au premier tour rendrait le second inutile. Le
+modèle exige au moins un tour et n'en suppose pas le nombre. Ne pas écrire de
+code qui tienne les deux tours pour acquis.
+
+Le QID d'un tour est facultatif, et il est absent du JSON plutôt que publié à
+`null` : Wikidata ne modélise les tours que pour une partie des scrutins, et
+l'absence se lit mieux qu'une valeur nulle. Dix des vingt-quatre tours en ont
+un, les autres non.
+
 ## Données publiées
 
 ```
 elections.json                     index : une entrée { id, annee } par élection
-elections/PR-2012/election.json    métadonnées : identifiant, année, QID Wikidata
+elections/PR-2012/election.json    métadonnées : identifiant, année, QID, tours
 schemas/*.schema.json              copie des schémas de ce dépôt
 ```
 
@@ -157,8 +172,7 @@ gh api /repos/actions/checkout/git/ref/tags/v7.0.1 --jq .object.sha
 Les schémas se référencent par chemin relatif et n'ont pas de `$id`. À reprendre
 le jour où `data` sera servi sur une URL stable.
 
-Seules les présidentielles sont couvertes, de 1965 à 2027, et seuls l'identifiant
-et l'année sont publiés.
+Seules les présidentielles sont couvertes, de 1965 à 2027.
 
 `schemas/candidatures.schema.json` n'a pas encore de producteur : il fixe le
 contrat que la collecte devra respecter, et les tests en tiennent lieu de

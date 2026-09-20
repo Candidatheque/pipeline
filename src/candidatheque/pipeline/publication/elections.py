@@ -85,6 +85,14 @@ def metadonnees(election: Election) -> dict:
         "id": election.id,
         "annee": election.annee,
         "wikidata": election.wikidata,
+        # Le QID d'un tour est omis quand il n'existe pas, plutôt que publié à
+        # `null` : absent se lit « Wikidata ne modélise pas ce tour », là où
+        # `null` inviterait à y voir une valeur.
+        "tours": [
+            {"numero": tour.numero, "date": tour.date.isoformat()}
+            | ({"wikidata": tour.wikidata} if tour.wikidata else {})
+            for tour in election.tours
+        ],
     }
 
 
