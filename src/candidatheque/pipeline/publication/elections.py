@@ -33,9 +33,11 @@ from dataclasses import dataclass
 from enum import StrEnum
 from pathlib import Path
 
+from candidatheque.pipeline.lecture import resultats as lecture_resultats
 from candidatheque.pipeline.lecture.parrainages import Parrainage, lire
 from candidatheque.pipeline.paths import DATA_REPO, SCHEMAS_DIR
 from candidatheque.pipeline.publication import parrainages as publication_parrainages
+from candidatheque.pipeline.publication import resultats as publication_resultats
 from candidatheque.pipeline.seeds import (
     Affiliation,
     Candidature,
@@ -50,6 +52,7 @@ from candidatheque.pipeline.seeds import (
     load_sources,
 )
 from candidatheque.pipeline.seeds.parrainages import SourceParrainages, load_parrainages
+from candidatheque.pipeline.seeds.resultats import SourceResultats, load_resultats
 
 #: Nom du répertoire qui porte une élection, sous la racine du dépôt.
 ELECTIONS_DIR = "elections"
@@ -202,6 +205,7 @@ def documents(
     personnes: Mapping[str, Personne] | None = None,
     partis: Mapping[str, Parti] | None = None,
     presentations: tuple[SourceParrainages, list[Parrainage]] | None = None,
+    resultats: tuple[SourceResultats, dict[tuple[int, int], lecture_resultats.Tour]] | None = None,
 ) -> Iterator[tuple[str, dict]]:
     """Les documents à publier dans le répertoire d'une élection.
 
@@ -227,6 +231,17 @@ def documents(
             {identifiant: p.nom_complet for identifiant, p in (personnes or {}).items()},
             sources or {},
             _source_publiee,
+        )
+    if resultats is not None:
+        source, lus = resultats
+        # Le nom porté lors de ce scrutin, celui que publie la candidature.
+        noms = {
+            candidat.personne: candidat.nom_complet
+            or (personnes or {})[candidat.personne].nom_complet
+            for candidat in candidats
+        }
+        yield publication_resultats.RESULTATS_FILE, publication_resultats.resultats(
+            election, source, lus, noms, sources or {}, _source_publiee
         )
 
 
@@ -295,6 +310,17 @@ def publier(destination: Path | None = None) -> list[Ecriture]:
     presentations = {
         entree.election: (entree, lire(entree)) for entree in load_parrainages()
     }
+    resultats = {
+        entree.election: (
+            entree,
+            {
+                (tour.numero, rang): lecture_resultats.lire(version)
+                for tour in entree.tours
+                for rang, version in enumerate(tour.versions)
+            },
+        )
+        for entree in load_resultats()
+    }
     ecritures: list[Ecriture] = []
 
     for schema in sorted(SCHEMAS_DIR.glob("*.schema.json")):
@@ -314,6 +340,7 @@ def publier(destination: Path | None = None) -> list[Ecriture]:
             personnes,
             partis,
             presentations.get(election.id),
+            resultats.get(election.id),
         ):
             attendus.add(nom)
             ecritures.append(_ecrire_json(repertoire / nom, contenu))

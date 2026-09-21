@@ -1,0 +1,274 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "resultats.schema.json",
+  "title": "Résultats de chaque tour, version après version",
+  "description": "Les résultats de chaque tour, dans les versions successives qu'en publient les autorités : les résultats provisoires puis définitifs du ministère de l'Intérieur, ceux que le Conseil constitutionnel déclare au premier tour puis proclame pour l'élection, et, jusqu'en 1995, ceux que les tableaux annexés au Journal officiel rectifient encore. Elles se rangent dans l'ordre des étapes du processus, une par étape, et la dernière fait foi. L'ordre est celui du processus et non celui des dates : les résultats définitifs du ministère peuvent paraître après la proclamation, qui fait pourtant foi. Elles ne se recoupent pas : le Conseil annule des suffrages et rectifie des erreurs matérielles avant de proclamer, et l'écart entre deux versions est une information, pas un doublon. Seule la version du Conseil est publiée à ce jour. Rien n'y est calculé — ni pourcentage, ni abstention, ni total des annulations — et un décompte que la source ne donne pas est absent plutôt que reconstitué.",
+  "type": "object",
+  "required": [
+    "election",
+    "tours"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Chemin vers ce schéma, pour l'outillage d'édition."
+    },
+    "election": {
+      "type": "string",
+      "description": "Identifiant de l'élection, celui du répertoire qui porte ce document.",
+      "pattern": "^PR-[0-9]{4}$"
+    },
+    "tours": {
+      "type": "array",
+      "description": "Les tours, dans l'ordre, chacun avec la décision qui le proclame.",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/tour"
+      }
+    }
+  },
+  "$defs": {
+    "tour": {
+      "type": "object",
+      "required": [
+        "numero",
+        "date",
+        "versions"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "numero": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Le numéro du tour, celui de « election.json »."
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "La date du scrutin, celle de « election.json » : le document se lit sans l'ouvrir."
+        },
+        "versions": {
+          "type": "array",
+          "description": "Les versions des résultats de ce tour, dans l'ordre des étapes — « resultats-provisoires », « resultats-definitifs », « proclamation », « rectification » —, une au plus par étape. La dernière fait foi.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/version"
+          }
+        }
+      }
+    },
+    "version": {
+      "type": "object",
+      "required": [
+        "etape",
+        "date",
+        "sources",
+        "inscrits",
+        "votants",
+        "suffrages_exprimes",
+        "voix",
+        "annulations"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "etape": {
+          "enum": [
+            "resultats-provisoires",
+            "resultats-definitifs",
+            "proclamation",
+            "rectification"
+          ],
+          "description": "Quelle version, dans l'ordre du processus. « resultats-provisoires » : le ministère de l'Intérieur, le soir du scrutin. « resultats-definitifs » : le ministère, après recensement des votes. « proclamation » : le Conseil constitutionnel, qui déclare les résultats du premier tour et proclame ceux de l'élection. « rectification » : les tableaux annexés au Journal officiel, qui arrêtent les résultats jusqu'en 1995. Seule la proclamation est publiée à ce jour."
+        },
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "La date du document qui porte cette version : celle de la décision pour le Conseil. Jamais une date de traitement. Elle ne range pas les versions : c'est l'étape qui le fait."
+        },
+        "sources": {
+          "type": "array",
+          "description": "Ce qui établit cette version : pour le Conseil, sa décision — « Déclaration relative aux résultats du premier tour », puis « Proclamation des résultats de l'élection ».",
+          "minItems": 1,
+          "items": {
+            "$ref": "source.schema.json"
+          }
+        },
+        "inscrits": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Électeurs inscrits."
+        },
+        "votants": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bulletins_blancs": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Présent seulement quand la décision le donne, soit à partir de 2017. Il ne se déduit pas de « votants » moins « suffrages_exprimes », qui compte aussi les nuls."
+        },
+        "bulletins_nuls": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Présent seulement quand la décision le donne, soit en 2022. La proclamation de 2017 donne les blancs sans les nuls."
+        },
+        "suffrages_exprimes": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Égal à la somme des voix, ce que la pipeline vérifie sur chaque tour."
+        },
+        "majorite_absolue": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "La majorité absolue des suffrages exprimés, telle que la source l'énonce. Absente de la proclamation de 1965, qui ne l'écrit pas."
+        },
+        "voix": {
+          "type": "array",
+          "description": "Les voix de chaque candidat, dans l'ordre de la décision.",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "personne",
+              "nom_complet",
+              "voix"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "personne": {
+                "type": "string",
+                "pattern": "^PE-[0-9]{4}$",
+                "description": "Identifiant du candidat, celui de « candidatures.json »."
+              },
+              "nom_complet": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Le nom porté lors de ce scrutin, prénom puis nom de famille en capitales, celui de la candidature.",
+                "examples": [
+                  "Emmanuel MACRON"
+                ]
+              },
+              "voix": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        },
+        "annulations": {
+          "type": "array",
+          "description": "Les suffrages que la décision annule, un lieu par entrée. Ils sont déjà retranchés des décomptes de cette version, et expliquent une part de son écart avec la précédente : ce n'est pas une correction à appliquer. Vide quand la décision n'annule rien, comme en 1965 et 1969. Deux familles de considérants n'y figurent pas, faute d'annuler un bureau ou une commune : les redressements, où le Conseil rétablit des voix qu'une commission de recensement avait retranchées à tort, et l'annulation des seuls votes par correspondance de Bastia et d'Albertacce en 1974, dont le nombre n'est pas donné.",
+          "items": {
+            "$ref": "#/$defs/annulation"
+          }
+        }
+      }
+    },
+    "annulation": {
+      "type": "object",
+      "required": [
+        "considerant",
+        "portee",
+        "commune",
+        "motif"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "considerant": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Le numéro du considérant qui prononce l'annulation, qui en est la citation officielle : « 2022-197 PDR, cons. 3 ». Un considérant annule souvent plusieurs lieux pour un même motif ; ils portent alors tous son numéro.",
+          "examples": [
+            3
+          ]
+        },
+        "portee": {
+          "enum": [
+            "commune",
+            "bureau-de-vote"
+          ],
+          "description": "Ce qui est annulé : les suffrages de la commune entière — y compris quand elle n'a qu'un bureau — ou ceux de certains de ses bureaux. Explicite plutôt que déduit de l'absence de « bureaux » : à Chenevelles en 2022, un bureau est annulé sans que la décision le numérote."
+        },
+        "commune": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Le nom de la commune tel que la décision l'écrit, l'article rendu quand la préposition l'avait absorbé : « la commune du Blanc-Mesnil » donne « Le Blanc-Mesnil ». Un arrondissement de Paris, où les bureaux sont numérotés par arrondissement, est nommé comme tel.",
+          "examples": [
+            "Audincthun",
+            "Le Blanc-Mesnil",
+            "Paris 13e arrondissement"
+          ]
+        },
+        "departement": {
+          "type": "string",
+          "pattern": "^(?:[0-9]{2}|2[AB]|9[78][0-9])$",
+          "description": "Le code INSEE d'aujourd'hui, comme dans les parrainages, à une exception près : la Corse d'avant 1976, un seul département, garde son code d'époque, 20, plutôt que 2A ou 2B qu'il faudrait choisir. Absent quand la décision ne donne pas de département, comme pour le 7e bureau d'Oyonnax en 2007.",
+          "examples": [
+            "62",
+            "2B",
+            "20",
+            "988"
+          ]
+        },
+        "bureaux": {
+          "type": "array",
+          "description": "Les numéros des bureaux, quand la portée est le bureau et que la décision les donne. Plusieurs dans une même entrée quand la décision ne donne qu'un nombre de suffrages pour l'ensemble — « les bureaux de vote n° 3 et 4 […], dans lesquels 817 suffrages ont été exprimés » : les séparer obligerait à inventer la répartition.",
+          "minItems": 1,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "examples": [
+            [
+              1
+            ],
+            [
+              3,
+              4
+            ]
+          ]
+        },
+        "suffrages_exprimes": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Les suffrages exprimés dans ce lieu, que l'annulation retranche. Absent quand la décision ne le donne pas, ce qui est le cas jusqu'en 1988."
+        },
+        "motif": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Le texte du considérant, tel que la décision l'écrit. Il est recopié sur chaque lieu qu'il annule."
+        },
+        "nomenclature": {
+          "type": "array",
+          "description": "Les rubriques sous lesquelles le Conseil classe ce considérant dans les abstracts de sa décision. C'est son classement, repris tel quel plutôt qu'un vocabulaire inventé. Absent quand la décision ne résume pas ce considérant, ce qui arrive pour une annulation sur deux.",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "code",
+              "intitule"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "code": {
+                "type": "string",
+                "pattern": "^[0-9]+(?:\\.[0-9]+)+$",
+                "examples": [
+                  "8.2.5.4.1"
+                ]
+              },
+              "intitule": {
+                "type": "string",
+                "minLength": 1,
+                "examples": [
+                  "Procédure de dépouillement"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

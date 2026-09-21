@@ -7,12 +7,20 @@
 #
 # Conventions :
 #   - `code` : le code INSEE courant, sur deux ou trois caractères. « 2A » et
-#              « 2B » pour la Corse, qui n'a pas de numéro 20 depuis 1976.
+#              « 2B » pour la Corse depuis 1976, « 20 » pour celle d'avant.
 #   - `nom`  : l'orthographe de référence, accents et traits d'union compris.
 #   - `codes_anciens` : les numéros qu'une source antérieure à `jusqu_en`
 #              emploie pour cette collectivité, et qui en désignent une autre
 #              depuis. Ils se résolvent avec l'année du scrutin : sans cela, un
 #              parrainage wallisien de 1995 serait publié à Saint-Barthélemy.
+#   - `noms_anciens` : les noms que le département a portés avant d'être
+#              renommé. Un nom abandonné n'a été repris par aucun autre, et se
+#              résout donc sans l'année.
+#
+# La Corse d'avant 1976 garde son propre code, 20. Elle formait un seul
+# département, que la partition a remplacé par 2A et 2B : lui donner l'un des
+# deux serait choisir, et le code d'époque dit exactement ce que la source
+# écrit. C'est la seule entrée qui ne désigne plus un département d'aujourd'hui.
 #
 # Trois codes rencontrés dans les sources ne figurent pas ici, faute de
 # désigner un département : « 97A » et « 98 » pour les Français de l'étranger,
@@ -90,6 +98,9 @@ departements:
     nom: "Côte-d'Or"
   - code: "22"
     nom: "Côtes-d'Armor"
+    # Renommé par décret du 27 février 1990. La proclamation de 1988 annule
+    # cinq bureaux de Loudéac, « (Côtes-du-Nord) ».
+    noms_anciens: ["Côtes-du-Nord"]
   - code: "23"
     nom: "Creuse"
   - code: "24"
@@ -104,6 +115,8 @@ departements:
     nom: "Eure-et-Loir"
   - code: "29"
     nom: "Finistère"
+  - code: "20"
+    nom: "Corse"
   - code: "2A"
     nom: "Corse-du-Sud"
   - code: "2B"

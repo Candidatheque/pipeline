@@ -1,0 +1,497 @@
+# Les résultats de chaque tour, version après version.
+#
+# Deux décisions par élection, et c'est la seule forme sous laquelle ces
+# chiffres existent : la déclaration des résultats du premier tour, puis la
+# proclamation des résultats de l'élection. Le Conseil ne publie rien d'autre
+# en données ouvertes, hors un tableau par département du seul premier tour de
+# 2022.
+#
+# Ces chiffres ne sont pas ceux du ministère de l'Intérieur. Le Conseil annule
+# des suffrages et rectifie des erreurs matérielles avant de proclamer ; les
+# totaux qu'il donne sont nets de ces annulations, et ne se recoupent donc pas
+# avec ceux d'un recensement administratif.
+#
+# Chaque tour empile ses versions dans l'ordre des étapes, une par étape, et la
+# dernière fait foi :
+#   - `resultats-provisoires` : le ministère de l'Intérieur, le soir du scrutin ;
+#   - `resultats-definitifs`  : le ministère, après recensement des votes ;
+#   - `proclamation`          : le Conseil constitutionnel, qui déclare les
+#                               résultats du premier tour puis proclame ceux de
+#                               l'élection ;
+#   - `rectification`         : les tableaux annexés au Journal officiel, qui
+#                               arrêtent les résultats jusqu'en 1995.
+# L'ordre est celui du processus, pas celui des dates : les résultats
+# définitifs du ministère peuvent paraître après la proclamation, qui fait
+# pourtant foi. Seule la proclamation est collectée à ce jour.
+#
+# `date` est celle de la décision. `fichier` renvoie au texte commité sous
+# `raw/resultats/`, `origine` à la décision dans le registre des sources.
+#
+# `candidats` rapproche le nom qu'écrit la décision de la personne au registre.
+# Comme pour les parrainages, le rapprochement est déclaré et jamais deviné :
+# la transcription de 1965 écrit « Jean-Louis TIXIER-VIGNANCOU » sans son R
+# final, celle de 1988 « Ariette LAGUILLER » pour Arlette. Un nom écrit noir sur
+# blanc ici se relit et se corrige ; un seuil de ressemblance, non.
+#
+# L'ordre des candidats n'a pas d'importance ici : la publication suit celui
+# de la décision, lu dans son texte.
+
+resultats:
+  - election: "PR-1965"
+    tours:
+      - numero: 1
+        versions:
+          - etape: "proclamation"
+            date: 1965-12-07
+            fichier: "resultats/65-6-PDR.txt"
+            origine: "conseil-constitutionnel:65-6-PDR"
+            candidats:
+              - titre: "Marcel BARBU"
+                personne: "PE-0001"
+              - titre: "Charles DE GAULLE"
+                personne: "PE-0002"
+              - titre: "Jean LECANUET"
+                personne: "PE-0003"
+              - titre: "Pierre MARCILHACY"
+                personne: "PE-0004"
+              - titre: "François MITTERRAND"
+                personne: "PE-0005"
+              - titre: "Jean-Louis TIXIER-VIGNANCOU"
+                personne: "PE-0006"
+      - numero: 2
+        versions:
+          - etape: "proclamation"
+            date: 1965-12-28
+            fichier: "resultats/65-10-PDR.txt"
+            origine: "conseil-constitutionnel:65-10-PDR"
+            candidats:
+              - titre: "Charles de Gaulle"
+                personne: "PE-0002"
+              - titre: "François Mitterrand"
+                personne: "PE-0005"
+
+  - election: "PR-1969"
+    tours:
+      - numero: 1
+        versions:
+          - etape: "proclamation"
+            date: 1969-06-03
+            fichier: "resultats/69-20-PDR.txt"
+            origine: "conseil-constitutionnel:69-20-PDR"
+            candidats:
+              - titre: "Gaston DEFFERRE"
+                personne: "PE-0007"
+              - titre: "Louis DUCATEL"
+                personne: "PE-0008"
+              - titre: "Jacques DUCLOS"
+                personne: "PE-0009"
+              - titre: "Alain KRIVINE"
+                personne: "PE-0010"
+              - titre: "Alain POHER"
+                personne: "PE-0011"
+              - titre: "Georges POMPIDOU"
+                personne: "PE-0012"
+              - titre: "Michel ROCARD"
+                personne: "PE-0013"
+      - numero: 2
+        versions:
+          - etape: "proclamation"
+            date: 1969-06-19
+            fichier: "resultats/69-22-PDR.txt"
+            origine: "conseil-constitutionnel:69-22-PDR"
+            candidats:
+              - titre: "Alain POHER"
+                personne: "PE-0011"
+              - titre: "Georges POMPIDOU"
+                personne: "PE-0012"
+
+  - election: "PR-1974"
+    tours:
+      - numero: 1
+        versions:
+          - etape: "proclamation"
+            date: 1974-05-07
+            fichier: "resultats/74-30-PDR.txt"
+            origine: "conseil-constitutionnel:74-30-PDR"
+            candidats:
+              - titre: "François Mitterrand"
+                personne: "PE-0005"
+              - titre: "Alain Krivine"
+                personne: "PE-0010"
+              - titre: "Jacques Chaban-Delmas"
+                personne: "PE-0014"
+              - titre: "René Dumont"
+                personne: "PE-0015"
+              - titre: "Valéry Giscard d'Estaing"
+                personne: "PE-0016"
+              - titre: "Guy Héraud"
+                personne: "PE-0017"
+              - titre: "Arlette Laguiller"
+                personne: "PE-0018"
+              - titre: "Jean-Marie Le Pen"
+                personne: "PE-0019"
+              - titre: "Emile Muller"
+                personne: "PE-0020"
+              - titre: "Bertrand Renouvin"
+                personne: "PE-0021"
+              - titre: "Jean Royer"
+                personne: "PE-0022"
+              - titre: "Jean-Claude Sebag"
+                personne: "PE-0023"
+      - numero: 2
+        versions:
+          - etape: "proclamation"
+            date: 1974-05-24
+            fichier: "resultats/74-32-PDR.txt"
+            origine: "conseil-constitutionnel:74-32-PDR"
+            candidats:
+              - titre: "François Mitterrand"
+                personne: "PE-0005"
+              - titre: "Valéry Giscard d'Estaing"
+                personne: "PE-0016"
+
+  - election: "PR-1981"
+    tours:
+      - numero: 1
+        versions:
+          - etape: "proclamation"
+            date: 1981-04-29
+            fichier: "resultats/81-45-PDR.txt"
+            origine: "conseil-constitutionnel:81-45-PDR"
+            candidats:
+              - titre: "François MITTERRAND"
+                personne: "PE-0005"
+              - titre: "Valéry GISCARD D'ESTAING"
+                personne: "PE-0016"
+              - titre: "Arlette LAGUILLER"
+                personne: "PE-0018"
+              - titre: "Marie-France GARAUD"
+                personne: "PE-0024"
+              - titre: "Michel CRÉPEAU"
+                personne: "PE-0025"
+              - titre: "Huguette BOUCHARDEAU"
+                personne: "PE-0026"
+              - titre: "Brice LALONDE"
+                personne: "PE-0027"
+              - titre: "Georges MARCHAIS"
+                personne: "PE-0028"
+              - titre: "Michel DEBRÉ"
+                personne: "PE-0029"
+              - titre: "Jacques Chirac"
+                personne: "PE-0030"
+      - numero: 2
+        versions:
+          - etape: "proclamation"
+            date: 1981-05-15
+            fichier: "resultats/81-47-PDR.txt"
+            origine: "conseil-constitutionnel:81-47-PDR"
+            candidats:
+              - titre: "François Mitterrand"
+                personne: "PE-0005"
+              - titre: "Valéry Giscard d'Estaing"
+                personne: "PE-0016"
+
+  - election: "PR-1988"
+    tours:
+      - numero: 1
+        versions:
+          - etape: "proclamation"
+            date: 1988-04-27
+            fichier: "resultats/88-56-PDR.txt"
+            origine: "conseil-constitutionnel:88-56-PDR"
+            candidats:
+              - titre: "François MITTERRAND"
+                personne: "PE-0005"
+              - titre: "Ariette LAGUILLER"
+                personne: "PE-0018"
+              - titre: "Jean-Marie LE PEN"
+                personne: "PE-0019"
+              - titre: "Jacques CHIRAC"
+                personne: "PE-0030"
+              - titre: "Raymond BARRE"
+                personne: "PE-0031"
+              - titre: "Pierre JUQUIN"
+                personne: "PE-0032"
+              - titre: "Pierre BOUSSEL"
+                personne: "PE-0033"
+              - titre: "Antoine WAECHTER"
+                personne: "PE-0034"
+              - titre: "André LAJOINIE"
+                personne: "PE-0035"
+      - numero: 2
+        versions:
+          - etape: "proclamation"
+            date: 1988-05-11
+            fichier: "resultats/88-60-PDR.txt"
+            origine: "conseil-constitutionnel:88-60-PDR"
+            candidats:
+              - titre: "François MITTERRAND"
+                personne: "PE-0005"
+              - titre: "Jacques CHIRAC"
+                personne: "PE-0030"
+
+  - election: "PR-1995"
+    tours:
+      - numero: 1
+        versions:
+          - etape: "proclamation"
+            date: 1995-04-26
+            fichier: "resultats/95-79-PDR.txt"
+            origine: "conseil-constitutionnel:95-79-PDR"
+            candidats:
+              - titre: "Arlette Laguiller"
+                personne: "PE-0018"
+              - titre: "Jean-Marie Le Pen"
+                personne: "PE-0019"
+              - titre: "Jacques Chirac"
+                personne: "PE-0030"
+              - titre: "Philippe de Villiers"
+                personne: "PE-0036"
+              - titre: "Jacques Cheminade"
+                personne: "PE-0037"
+              - titre: "Lionel Jospin"
+                personne: "PE-0038"
+              - titre: "Dominique Voynet"
+                personne: "PE-0039"
+              - titre: "Edouard Balladur"
+                personne: "PE-0040"
+              - titre: "Robert Hue"
+                personne: "PE-0041"
+      - numero: 2
+        versions:
+          - etape: "proclamation"
+            date: 1995-05-12
+            fichier: "resultats/95-81-PDR.txt"
+            origine: "conseil-constitutionnel:95-81-PDR"
+            candidats:
+              - titre: "Jacques Chirac"
+                personne: "PE-0030"
+              - titre: "Lionel Jospin"
+                personne: "PE-0038"
+
+  - election: "PR-2002"
+    tours:
+      - numero: 1
+        versions:
+          - etape: "proclamation"
+            date: 2002-04-24
+            fichier: "resultats/2002-109-PDR.txt"
+            origine: "conseil-constitutionnel:2002-109-PDR"
+            candidats:
+              - titre: "Arlette Laguiller ...................."
+                personne: "PE-0018"
+              - titre: "Jean-Marie Le Pen ...................."
+                personne: "PE-0019"
+              - titre: "Jacques Chirac ...................."
+                personne: "PE-0030"
+              - titre: "Lionel Jospin ...................."
+                personne: "PE-0038"
+              - titre: "Robert Hue ...................."
+                personne: "PE-0041"
+              - titre: "Bruno Mégret ...................."
+                personne: "PE-0042"
+              - titre: "Corinne Lepage ...................."
+                personne: "PE-0043"
+              - titre: "Daniel Gluckstein ...................."
+                personne: "PE-0044"
+              - titre: "François Bayrou ...................."
+                personne: "PE-0045"
+              - titre: "Christiane Taubira ...................."
+                personne: "PE-0046"
+              - titre: "Jean Saint-Josse ...................."
+                personne: "PE-0047"
+              - titre: "Noël Mamère ...................."
+                personne: "PE-0048"
+              - titre: "Christine Boutin ...................."
+                personne: "PE-0049"
+              - titre: "Jean-Pierre Chevènement ...................."
+                personne: "PE-0050"
+              - titre: "Alain Madelin ...................."
+                personne: "PE-0051"
+              - titre: "Olivier Besancenot ...................."
+                personne: "PE-0052"
+      - numero: 2
+        versions:
+          - etape: "proclamation"
+            date: 2002-05-08
+            fichier: "resultats/2002-111-PDR.txt"
+            origine: "conseil-constitutionnel:2002-111-PDR"
+            candidats:
+              - titre: "Jean-Marie LE PEN"
+                personne: "PE-0019"
+              - titre: "Jacques CHIRAC"
+                personne: "PE-0030"
+
+  - election: "PR-2007"
+    tours:
+      - numero: 1
+        versions:
+          - etape: "proclamation"
+            date: 2007-04-25
+            fichier: "resultats/2007-139-PDR.txt"
+            origine: "conseil-constitutionnel:2007-139-PDR"
+            candidats:
+              - titre: "Arlette LAGUILLER"
+                personne: "PE-0018"
+              - titre: "Jean-Marie LE PEN"
+                personne: "PE-0019"
+              - titre: "Philippe de VILLIERS"
+                personne: "PE-0036"
+              - titre: "Dominique VOYNET"
+                personne: "PE-0039"
+              - titre: "François BAYROU"
+                personne: "PE-0045"
+              - titre: "Olivier BESANCENOT"
+                personne: "PE-0052"
+              - titre: "Marie-George BUFFET"
+                personne: "PE-0053"
+              - titre: "Gérard SCHIVARDI"
+                personne: "PE-0054"
+              - titre: "José BOVÉ"
+                personne: "PE-0055"
+              - titre: "Ségolène ROYAL"
+                personne: "PE-0056"
+              - titre: "Frédéric NIHOUS"
+                personne: "PE-0057"
+              - titre: "Nicolas SARKOZY"
+                personne: "PE-0058"
+      - numero: 2
+        versions:
+          - etape: "proclamation"
+            date: 2007-05-10
+            fichier: "resultats/2007-141-PDR.txt"
+            origine: "conseil-constitutionnel:2007-141-PDR"
+            candidats:
+              - titre: "Ségolène ROYAL"
+                personne: "PE-0056"
+              - titre: "Nicolas SARKOZY"
+                personne: "PE-0058"
+
+  - election: "PR-2012"
+    tours:
+      - numero: 1
+        versions:
+          - etape: "proclamation"
+            date: 2012-04-25
+            fichier: "resultats/2012-152-PDR.txt"
+            origine: "conseil-constitutionnel:2012-152-PDR"
+            candidats:
+              - titre: "Jacques Cheminade"
+                personne: "PE-0037"
+              - titre: "François Bayrou"
+                personne: "PE-0045"
+              - titre: "Nicolas Sarkozy"
+                personne: "PE-0058"
+              - titre: "Eva Joly"
+                personne: "PE-0059"
+              - titre: "Marine Le Pen"
+                personne: "PE-0060"
+              - titre: "Jean-Luc Mélenchon"
+                personne: "PE-0061"
+              - titre: "Philippe Poutou"
+                personne: "PE-0062"
+              - titre: "Nathalie Arthaud"
+                personne: "PE-0063"
+              - titre: "Nicolas Dupont-Aignan"
+                personne: "PE-0064"
+              - titre: "François Hollande"
+                personne: "PE-0065"
+      - numero: 2
+        versions:
+          - etape: "proclamation"
+            date: 2012-05-10
+            fichier: "resultats/2012-154-PDR.txt"
+            origine: "conseil-constitutionnel:2012-154-PDR"
+            candidats:
+              - titre: "Nicolas SARKOZY"
+                personne: "PE-0058"
+              - titre: "François HOLLANDE"
+                personne: "PE-0065"
+
+  - election: "PR-2017"
+    tours:
+      - numero: 1
+        versions:
+          - etape: "proclamation"
+            date: 2017-04-26
+            fichier: "resultats/2017-169-PDR.txt"
+            origine: "conseil-constitutionnel:2017-169-PDR"
+            candidats:
+              - titre: "Jacques Cheminade"
+                personne: "PE-0037"
+              - titre: "Marine Le Pen"
+                personne: "PE-0060"
+              - titre: "Jean-Luc Mélenchon"
+                personne: "PE-0061"
+              - titre: "Philippe Poutou"
+                personne: "PE-0062"
+              - titre: "Nathalie Arthaud"
+                personne: "PE-0063"
+              - titre: "Nicolas Dupont-Aignan"
+                personne: "PE-0064"
+              - titre: "Emmanuel Macron"
+                personne: "PE-0066"
+              - titre: "Benoît Hamon"
+                personne: "PE-0067"
+              - titre: "Jean Lassalle"
+                personne: "PE-0068"
+              - titre: "François Asselineau"
+                personne: "PE-0069"
+              - titre: "François Fillon"
+                personne: "PE-0070"
+      - numero: 2
+        versions:
+          - etape: "proclamation"
+            date: 2017-05-10
+            fichier: "resultats/2017-171-PDR.txt"
+            origine: "conseil-constitutionnel:2017-171-PDR"
+            candidats:
+              - titre: "Marine Le Pen"
+                personne: "PE-0060"
+              - titre: "Emmanuel Macron"
+                personne: "PE-0066"
+
+  - election: "PR-2022"
+    tours:
+      - numero: 1
+        versions:
+          - etape: "proclamation"
+            date: 2022-04-13
+            fichier: "resultats/2022-195-PDR.txt"
+            origine: "conseil-constitutionnel:2022-195-PDR"
+            candidats:
+              - titre: "Marine LE PEN"
+                personne: "PE-0060"
+              - titre: "Jean-Luc MÉLENCHON"
+                personne: "PE-0061"
+              - titre: "Philippe POUTOU"
+                personne: "PE-0062"
+              - titre: "Nathalie ARTHAUD"
+                personne: "PE-0063"
+              - titre: "Nicolas DUPONT-AIGNAN"
+                personne: "PE-0064"
+              - titre: "Emmanuel MACRON"
+                personne: "PE-0066"
+              - titre: "Jean LASSALLE"
+                personne: "PE-0068"
+              - titre: "Fabien ROUSSEL"
+                personne: "PE-0071"
+              - titre: "Éric ZEMMOUR"
+                personne: "PE-0072"
+              - titre: "Anne HIDALGO"
+                personne: "PE-0073"
+              - titre: "Yannick JADOT"
+                personne: "PE-0074"
+              - titre: "Valérie PÉCRESSE"
+                personne: "PE-0075"
+      - numero: 2
+        versions:
+          - etape: "proclamation"
+            date: 2022-04-27
+            fichier: "resultats/2022-197-PDR.txt"
+            origine: "conseil-constitutionnel:2022-197-PDR"
+            candidats:
+              - titre: "Marine LE PEN"
+                personne: "PE-0060"
+              - titre: "Emmanuel MACRON"
+                personne: "PE-0066"

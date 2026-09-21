@@ -83,6 +83,8 @@ def _tables() -> tuple[dict[str, str], dict[str, str], dict[str, tuple[str, int]
     anciens: dict[str, tuple[str, int]] = {}
     for departement in load_departements():
         par_nom[_plat(departement.nom)] = departement.code
+        for ancien_nom in departement.noms_anciens:
+            par_nom[_plat(ancien_nom)] = departement.code
         par_code[departement.code] = departement.code
         for ancien in departement.codes_anciens:
             anciens[ancien.code] = (departement.code, ancien.jusqu_en)

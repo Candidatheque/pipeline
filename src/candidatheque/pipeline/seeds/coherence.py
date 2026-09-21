@@ -16,6 +16,7 @@ from candidatheque.pipeline.seeds.elections import load_elections
 from candidatheque.pipeline.seeds.parrainages import load_parrainages
 from candidatheque.pipeline.seeds.partis import load_partis
 from candidatheque.pipeline.seeds.personnes import load_personnes
+from candidatheque.pipeline.seeds.resultats import load_resultats
 from candidatheque.pipeline.seeds.sources import load_sources
 
 
@@ -29,6 +30,7 @@ def verifier() -> list[str]:
     partis = {parti.id for parti in load_partis()}
     candidatures = load_candidatures()
     sources_parrainages = load_parrainages()
+    sources_resultats = load_resultats()
 
     problemes: list[str] = []
 
@@ -146,6 +148,52 @@ def verifier() -> list[str]:
                 problemes.append(
                     f"{entree.election} : « {surnumeraire} » déclaré, absent de la source"
                 )
+
+    # Les résultats d'un tour citent la décision qui les proclame, et les
+    # candidats que cette décision nomme. Ceux-ci doivent être exactement les
+    # participants déclarés au tour : un candidat oublié ici, ce sont ses voix
+    # qui manqueraient au total sans que rien ne le signale.
+    participants = {
+        (entree.election, participation.numero): {
+            candidat.personne
+            for candidat in entree.candidats
+            for participation_ in candidat.tours
+            if participation_.numero == participation.numero
+        }
+        for entree in candidatures
+        for candidat in entree.candidats
+        for participation in candidat.tours
+    }
+    for entree in sources_resultats:
+        election = elections.get(entree.election)
+        if election is None:
+            problemes.append(f"{entree.election} : élection inconnue du seed des élections")
+            continue
+        tours_connus = {tour.numero for tour in election.tours}
+        for tour in entree.tours:
+            if tour.numero not in tours_connus:
+                problemes.append(
+                    f"{entree.election}/T{tour.numero} : tour inexistant pour cette élection "
+                    f"(tours connus : {sorted(tours_connus)})"
+                )
+            attendus = participants.get((entree.election, tour.numero), set())
+            for version in tour.versions:
+                ou = f"{entree.election}/T{tour.numero}/{version.etape}"
+                if not version.chemin().is_file():
+                    problemes.append(f"{ou} : fichier absent, {version.fichier}")
+                if version.origine not in sources:
+                    problemes.append(f"{ou} : origine inconnue « {version.origine} »")
+                sources_citees.add(version.origine)
+
+                declares = {candidat.personne for candidat in version.candidats}
+                for inconnue in sorted(declares - personnes):
+                    problemes.append(f"{ou} : {inconnue} absent du registre des personnes")
+                for absent in sorted(attendus - declares):
+                    problemes.append(f"{ou} : {absent} a participé au tour, sans ligne de voix")
+                for surnumeraire in sorted(declares - attendus - (declares - personnes)):
+                    problemes.append(
+                        f"{ou} : {surnumeraire} porte des voix, sans candidature à ce tour"
+                    )
 
     for orpheline in sorted(partis - partis_cites):
         problemes.append(f"{orpheline} : parti du registre cité par aucune candidature")
