@@ -126,18 +126,22 @@ class Parcours(BaseModel):
         if debuts != sorted(debuts):
             raise ValueError(f"{self.personne} : fonctions à lister par date de début")
 
-        # Deux mandats identiques qui se chevauchent sont un doublon de saisie :
-        # on ne siège pas deux fois pour la même circonscription.
+        # Deux mandats successifs peuvent se recouvrir de quelques semaines :
+        # pour les législatures anciennes, Sycomore fait commencer un mandat le
+        # jour de l'élection, avant la fin officielle du précédent. On garde
+        # les dates de la source. Un mandat contenu dans un autre, ou ouvert
+        # alors que le précédent n'a pas de fin, est en revanche un doublon.
         vues: dict[tuple[Fonction, str | None, str | None], Occupation] = {}
         for occupation in self.fonctions:
             cle = (occupation.fonction, occupation.ressort, occupation.intitule)
             precedente = vues.get(cle)
             if precedente is not None and (
-                precedente.fin is None or precedente.fin >= occupation.debut
+                precedente.fin is None
+                or (occupation.fin is not None and occupation.fin <= precedente.fin)
             ):
                 raise ValueError(
-                    f"{self.personne} : {occupation.fonction} commencé le {occupation.debut} "
-                    f"alors que le précédent court encore"
+                    f"{self.personne} : {occupation.fonction} du {occupation.debut} "
+                    f"compris dans le précédent"
                 )
             vues[cle] = occupation
         return self

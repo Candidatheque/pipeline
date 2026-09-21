@@ -24,6 +24,7 @@ def test_le_seed_du_depot_est_valide():
     assert len(chirac.fonctions) == 9
     assert {o.fonction for o in chirac.fonctions} == {Fonction.DEPUTE}
     assert chirac.fonctions[-1].fin == dt.date(1995, 5, 16)
+    assert sum(len(p.fonctions) for p in parcours) == 257
 
 
 def test_une_fonction_sans_source_est_rejetee():
@@ -69,10 +70,19 @@ def test_fonctions_dans_le_desordre_rejetees():
             _depute("1968-07-11", "1968-08-12"), _depute("1967-04-03", "1967-05-07")]})
 
 
-def test_deux_mandats_identiques_qui_se_chevauchent_rejetes():
-    with pytest.raises(ValidationError, match="court encore"):
+def test_un_mandat_compris_dans_un_autre_est_rejete():
+    with pytest.raises(ValidationError, match="compris dans le précédent"):
         Parcours.model_validate({"personne": "PE-0030", "fonctions": [
-            _depute("1967-04-03", "1968-01-01"), _depute("1967-06-01", "1968-08-12")]})
+            _depute("1967-04-03", "1968-08-12"), _depute("1967-06-01", "1968-01-01")]})
+    with pytest.raises(ValidationError, match="compris dans le précédent"):
+        Parcours.model_validate({"personne": "PE-0030", "fonctions": [
+            _depute("1967-04-03", None), _depute("1968-06-01", None)]})
+
+
+def test_une_reelection_avant_la_fin_de_la_legislature_est_admise():
+    """Mitterrand, réélu le 17 juin 1951 : Sycomore arrête le mandat précédent au 4 juillet."""
+    Parcours.model_validate({"personne": "PE-0005", "fonctions": [
+        _depute("1946-11-10", "1951-07-04"), _depute("1951-06-17", "1955-12-01")]})
 
 
 def test_mandats_bout_a_bout_acceptes():
