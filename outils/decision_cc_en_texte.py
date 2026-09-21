@@ -108,7 +108,7 @@ def _page(source: str) -> str:
     """La page, depuis le site du Conseil ou depuis un fichier local."""
     if source.startswith("http"):
         requete = urllib.request.Request(source, headers={"User-Agent": "candidatheque"})
-        with urllib.request.urlopen(requete) as reponse:  # noqa: S310 — URL du seed
+        with urllib.request.urlopen(requete) as reponse:
             return reponse.read().decode("utf-8")
     return Path(source).read_text(encoding="utf-8")
 

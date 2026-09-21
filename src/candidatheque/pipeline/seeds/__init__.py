@@ -18,6 +18,11 @@ from candidatheque.pipeline.seeds.parrainages import (
 )
 from candidatheque.pipeline.seeds.partis import Parti, load_partis
 from candidatheque.pipeline.seeds.personnes import Personne, load_personnes
+from candidatheque.pipeline.seeds.resultats import (
+    SourceResultats,
+    TourResultats,
+    load_resultats,
+)
 from candidatheque.pipeline.seeds.sources import Source, load_sources
 
 __all__ = [
@@ -35,12 +40,15 @@ __all__ = [
     "Personne",
     "Source",
     "SourceParrainages",
+    "SourceResultats",
     "Tour",
+    "TourResultats",
     "load_autorites",
     "load_candidatures",
     "load_elections",
     "load_parrainages",
     "load_partis",
     "load_personnes",
+    "load_resultats",
     "load_sources",
 ]

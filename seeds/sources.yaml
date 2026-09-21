@@ -502,3 +502,91 @@ sources:
     url: "https://static.data.gouv.fr/resources/parrainages-des-candidats-a-lelection-presidentielle-francaise-de-2022/20220307-183354/parrainagestotal.json"
     commentaire: "Parrainages des candidats à l'élection présidentielle de 2022, publication du 7 mars 2022 par le Conseil constitutionnel"
     consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:65-6-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1965/656pdr.htm"
+    commentaire: "Déclaration du 7 décembre 1965 relative aux résultats du premier tour de scrutin de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:65-10-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1965/6510pdr.htm"
+    commentaire: "Proclamation des résultats de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:69-20-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1969/6920PDR.htm"
+    commentaire: "Déclaration du 3 juin 1969 relative aux résultats du premier tour de scrutin de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:69-22-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1969/6922pdr.htm"
+    commentaire: "Proclamation des résultats de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:74-30-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1974/7430pdr.htm"
+    commentaire: "Déclaration du 7 mai 1974 relative aux résultats du premier tour de scrutin"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:74-32-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1974/7432PDR.htm"
+    commentaire: "Proclamation des résultats de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:81-45-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1981/8145pdr.htm"
+    commentaire: "Déclaration du 29 avril 1981 relative aux résultats du premier tour de scrutin"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:81-47-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1981/8147pdr.htm"
+    commentaire: "Proclamation des résultats de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:88-56-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1988/8856pdr.htm"
+    commentaire: "Déclaration du 27 avril 1988, résultats du premier tour de scrutin"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:88-60-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1988/8860PDR.htm"
+    commentaire: "Proclamation des résultats de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:95-79-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1995/9579pdr.htm"
+    commentaire: "Déclaration du 26 avril 1995 relative aux résultats du premier tour de scrutin"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:95-81-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1995/9581PDR.htm"
+    commentaire: "Proclamation des résultats de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:2002-109-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2002/2002109PDR.htm"
+    commentaire: "Déclaration du 24 avril 2002 relative aux résultats du premier tour de scrutin"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:2002-111-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2002/2002111PDR.htm"
+    commentaire: "Décision du 8 mai 2002 portant proclamation des résultats de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:2007-139-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2007/2007139PDR.htm"
+    commentaire: "Déclaration du 25 avril 2007 relative aux résultats du premier tour de scrutin de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:2007-141-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2007/2007141pdr.htm"
+    commentaire: "Décision du 10 mai 2007 portant proclamation des résultats de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:2012-152-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2012/2012152PDR.htm"
+    commentaire: "Déclaration du 25 avril 2012 relative aux résultats du premier tour de scrutin de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:2012-154-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2012/2012154PDR.htm"
+    commentaire: "Décision du 10 mai 2012 portant proclamation des résultats de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:2017-169-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2017/2017169PDR.htm"
+    commentaire: "Déclaration du 26 avril 2017 relative aux résultats du premier tour de scrutin de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:2017-171-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2017/2017171PDR.htm"
+    commentaire: "Proclamation des résultats de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:2022-195-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2022/2022195PDR.htm"
+    commentaire: "Déclaration du 13 avril 2022 relative aux résultats du premier tour de scrutin de l'élection du Président de la République"
+    consultee_le: 2026-09-21
+  - id: "conseil-constitutionnel:2022-197-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2022/2022197PDR.htm"
+    commentaire: "Proclamation des résultats de l'élection du Président de la République"
+    consultee_le: 2026-09-21

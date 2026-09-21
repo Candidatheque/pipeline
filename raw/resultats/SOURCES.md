@@ -21,18 +21,18 @@ alors vide.
 
 | Fichier | Décision | Page |
 | ------- | -------- | ---- |
-| `1965-6-PDR.txt` | Déclaration du 7 décembre 1965 relative aux résultats du premier tour | `https://www.conseil-constitutionnel.fr/decision/1965/656pdr.htm` |
-| `1965-10-PDR.txt` | Proclamation des résultats de l'élection | `https://www.conseil-constitutionnel.fr/decision/1965/6510pdr.htm` |
-| `1969-20-PDR.txt` | Déclaration du 3 juin 1969 relative aux résultats du premier tour | `https://www.conseil-constitutionnel.fr/decision/1969/6920PDR.htm` |
-| `1969-22-PDR.txt` | Proclamation des résultats de l'élection | `https://www.conseil-constitutionnel.fr/decision/1969/6922pdr.htm` |
-| `1974-30-PDR.txt` | Déclaration du 7 mai 1974 relative aux résultats du premier tour | `https://www.conseil-constitutionnel.fr/decision/1974/7430pdr.htm` |
-| `1974-32-PDR.txt` | Proclamation des résultats de l'élection | `https://www.conseil-constitutionnel.fr/decision/1974/7432PDR.htm` |
-| `1981-45-PDR.txt` | Déclaration du 29 avril 1981 relative aux résultats du premier tour | `https://www.conseil-constitutionnel.fr/decision/1981/8145pdr.htm` |
-| `1981-47-PDR.txt` | Proclamation des résultats de l'élection | `https://www.conseil-constitutionnel.fr/decision/1981/8147pdr.htm` |
-| `1988-56-PDR.txt` | Déclaration du 27 avril 1988 relative aux résultats du premier tour | `https://www.conseil-constitutionnel.fr/decision/1988/8856pdr.htm` |
-| `1988-60-PDR.txt` | Proclamation des résultats de l'élection | `https://www.conseil-constitutionnel.fr/decision/1988/8860PDR.htm` |
-| `1995-79-PDR.txt` | Déclaration du 26 avril 1995 relative aux résultats du premier tour | `https://www.conseil-constitutionnel.fr/decision/1995/9579pdr.htm` |
-| `1995-81-PDR.txt` | Proclamation des résultats de l'élection | `https://www.conseil-constitutionnel.fr/decision/1995/9581PDR.htm` |
+| `65-6-PDR.txt` | Déclaration du 7 décembre 1965 relative aux résultats du premier tour | `https://www.conseil-constitutionnel.fr/decision/1965/656pdr.htm` |
+| `65-10-PDR.txt` | Proclamation des résultats de l'élection | `https://www.conseil-constitutionnel.fr/decision/1965/6510pdr.htm` |
+| `69-20-PDR.txt` | Déclaration du 3 juin 1969 relative aux résultats du premier tour | `https://www.conseil-constitutionnel.fr/decision/1969/6920PDR.htm` |
+| `69-22-PDR.txt` | Proclamation des résultats de l'élection | `https://www.conseil-constitutionnel.fr/decision/1969/6922pdr.htm` |
+| `74-30-PDR.txt` | Déclaration du 7 mai 1974 relative aux résultats du premier tour | `https://www.conseil-constitutionnel.fr/decision/1974/7430pdr.htm` |
+| `74-32-PDR.txt` | Proclamation des résultats de l'élection | `https://www.conseil-constitutionnel.fr/decision/1974/7432PDR.htm` |
+| `81-45-PDR.txt` | Déclaration du 29 avril 1981 relative aux résultats du premier tour | `https://www.conseil-constitutionnel.fr/decision/1981/8145pdr.htm` |
+| `81-47-PDR.txt` | Proclamation des résultats de l'élection | `https://www.conseil-constitutionnel.fr/decision/1981/8147pdr.htm` |
+| `88-56-PDR.txt` | Déclaration du 27 avril 1988 relative aux résultats du premier tour | `https://www.conseil-constitutionnel.fr/decision/1988/8856pdr.htm` |
+| `88-60-PDR.txt` | Proclamation des résultats de l'élection | `https://www.conseil-constitutionnel.fr/decision/1988/8860PDR.htm` |
+| `95-79-PDR.txt` | Déclaration du 26 avril 1995 relative aux résultats du premier tour | `https://www.conseil-constitutionnel.fr/decision/1995/9579pdr.htm` |
+| `95-81-PDR.txt` | Proclamation des résultats de l'élection | `https://www.conseil-constitutionnel.fr/decision/1995/9581PDR.htm` |
 | `2002-109-PDR.txt` | Déclaration du 24 avril 2002 relative aux résultats du premier tour | `https://www.conseil-constitutionnel.fr/decision/2002/2002109PDR.htm` |
 | `2002-111-PDR.txt` | Proclamation des résultats de l'élection | `https://www.conseil-constitutionnel.fr/decision/2002/2002111PDR.htm` |
 | `2007-139-PDR.txt` | Déclaration du 25 avril 2007 relative aux résultats du premier tour | `https://www.conseil-constitutionnel.fr/decision/2007/2007139PDR.htm` |

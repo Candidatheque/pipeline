@@ -29,6 +29,7 @@ AUTORITES_SEED = SEEDS_DIR / "autorites.yaml"
 PARTIS_SEED = SEEDS_DIR / "partis.yaml"
 CANDIDATURES_SEED = SEEDS_DIR / "candidatures.yaml"
 PARRAINAGES_SEED = SEEDS_DIR / "parrainages.yaml"
+RESULTATS_SEED = SEEDS_DIR / "resultats.yaml"
 #: Table de référence, jamais publiée : elle sert à normaliser ce que les
 #: sources écrivent du département.
 DEPARTEMENTS_SEED = SEEDS_DIR / "departements.yaml"
