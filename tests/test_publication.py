@@ -263,8 +263,10 @@ def test_une_fonction_terminee_garde_sa_fin(destination):
 
 
 def test_sans_fonction_connue_le_parcours_est_vide(destination):
-    doc = _charge(destination / ELECTIONS_DIR / "PR-1965" / "candidatures.json")
-    assert all(c["parcours"] == [] for c in doc["candidatures"])
+    """Nathalie Arthaud n'a jamais siégé à l'Assemblée."""
+    doc = _charge(destination / ELECTIONS_DIR / "PR-2022" / "candidatures.json")
+    arthaud = next(c for c in doc["candidatures"] if c["personne"] == "PE-0063")
+    assert arthaud["parcours"] == []
 
 
 def test_une_fonction_qui_commence_le_jour_du_scrutin_est_retenue():
