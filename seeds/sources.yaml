@@ -854,3 +854,67 @@ sources:
     url: "https://www2.assemblee-nationale.fr/sycomore/fiche/(num_dept)/3863"
     commentaire: "Jean-François Hory, fiche de la base de données des députés français depuis 1789 (Sycomore)"
     consultee_le: 2026-09-21
+  - id: "senat:lecanuet_jean000442"
+    url: "https://www.senat.fr/senateur/lecanuet_jean000442.html"
+    commentaire: "LECANUET Jean, fiche d'ancien sénateur de la Ve République"
+    consultee_le: 2026-09-21
+  - id: "senat:marcilhacy_pierre000236"
+    url: "https://www.senat.fr/senateur/marcilhacy_pierre000236.html"
+    commentaire: "MARCILHACY Pierre, fiche d'ancien sénateur de la Ve République"
+    consultee_le: 2026-09-21
+  - id: "senat:4eme-republique.marcilhacy_pierre000236"
+    url: "https://www.senat.fr/senateur-4eme-republique/marcilhacy_pierre000236.html"
+    commentaire: "MARCILHACY Pierre, fiche d'ancien sénateur de la IVe République"
+    consultee_le: 2026-09-21
+  - id: "senat:mitterrand_francois000379"
+    url: "https://www.senat.fr/senateur/mitterrand_francois000379.html"
+    commentaire: "MITTERRAND François, fiche d'ancien sénateur de la Ve République"
+    consultee_le: 2026-09-21
+  - id: "senat:defferre_gaston000250"
+    url: "https://www.senat.fr/senateur/defferre_gaston000250.html"
+    commentaire: "DEFFERRE Gaston, fiche d'ancien sénateur de la Ve République"
+    consultee_le: 2026-09-21
+  - id: "senat:duclos_jacques000681"
+    url: "https://www.senat.fr/senateur/duclos_jacques000681.html"
+    commentaire: "DUCLOS Jacques, fiche d'ancien sénateur de la Ve République"
+    consultee_le: 2026-09-21
+  - id: "senat:poher_alain000211"
+    url: "https://www.senat.fr/senateur/poher_alain000211.html"
+    commentaire: "POHER Alain, fiche d'ancien sénateur de la Ve République"
+    consultee_le: 2026-09-21
+  - id: "senat:4eme-republique.poher_alain000211"
+    url: "https://www.senat.fr/senateur-4eme-republique/poher_alain000211.html"
+    commentaire: "POHER Alain, fiche d'ancien sénateur de la IVe République"
+    consultee_le: 2026-09-21
+  - id: "senat:rocard_michel95064m"
+    url: "https://www.senat.fr/senateur/rocard_michel95064m.html"
+    commentaire: "ROCARD Michel, fiche d'ancien sénateur de la Ve République"
+    consultee_le: 2026-09-21
+  - id: "senat:4eme-republique.debre_michel0147r4"
+    url: "https://www.senat.fr/senateur-4eme-republique/debre_michel0147r4.html"
+    commentaire: "DEBRÉ Michel, fiche d'ancien sénateur de la IVe République"
+    consultee_le: 2026-09-21
+  - id: "senat:voynet_dominique04082l"
+    url: "https://www.senat.fr/senateur/voynet_dominique04082l.html"
+    commentaire: "VOYNET Dominique, fiche d'ancien sénateur de la Ve République"
+    consultee_le: 2026-09-21
+  - id: "senat:hue_robert04078q"
+    url: "https://www.senat.fr/senateur/hue_robert04078q.html"
+    commentaire: "HUE Robert, fiche d'ancien sénateur de la Ve République"
+    consultee_le: 2026-09-21
+  - id: "senat:chevenement_jean_pierre02053w"
+    url: "https://www.senat.fr/senateur/chevenement_jean_pierre02053w.html"
+    commentaire: "CHEVÈNEMENT Jean-Pierre, fiche d'ancien sénateur de la Ve République"
+    consultee_le: 2026-09-21
+  - id: "senat:melenchon_jean_luc86039k"
+    url: "https://www.senat.fr/senateur/melenchon_jean_luc86039k.html"
+    commentaire: "MÉLENCHON Jean-Luc, fiche d'ancien sénateur de la Ve République"
+    consultee_le: 2026-09-21
+  - id: "senat:fillon_francois02009s"
+    url: "https://www.senat.fr/senateur/fillon_francois02009s.html"
+    commentaire: "FILLON François, fiche d'ancien sénateur de la Ve République"
+    consultee_le: 2026-09-21
+  - id: "senat:jadot_yannick21093m"
+    url: "https://www.senat.fr/senateur/jadot_yannick21093m.html"
+    commentaire: "JADOT Yannick, fiche de sénateur"
+    consultee_le: 2026-09-21

@@ -15,7 +15,9 @@
 #   - P1045 : fiche Sycomore de l'Assemblée nationale ;
 #   - P1808 : fiche du Sénat, sous la forme « senateur/<matricule> ». Seul
 #             le matricule entre dans l'identifiant de source, qui refuse la
-#             barre oblique : « senat:mitterrand_francois000379 » ;
+#             barre oblique : « senat:mitterrand_francois000379 ». Une fiche de la
+#             IVe République prend le préfixe « 4eme-republique. », le
+#             matricule étant partagé ; le Sénat de la Communauté est ignoré ;
 #   - P1186 : fiche du Parlement européen.
 #
 # Une déclaration sans date de début (P580) ne dit pas si la fonction précède
