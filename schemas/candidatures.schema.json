@@ -35,7 +35,8 @@
       "required": [
         "personne",
         "nom_complet",
-        "etats"
+        "etats",
+        "parcours"
       ],
       "additionalProperties": false,
       "properties": {
@@ -72,6 +73,13 @@
           "description": "Les partis sous l'étiquette desquels la candidature se présente. Plusieurs sont possibles : une coalition présente un candidat unique, et l'étiquette est partagée. Vide quand la candidature est sans étiquette, ou quand aucune source datée ne permet de l'établir — une appartenance partisane non datée ne dit pas à quelle élection elle s'applique.",
           "items": {
             "$ref": "#/$defs/affiliation"
+          }
+        },
+        "parcours": {
+          "type": "array",
+          "description": "Les mandats et fonctions de la personne tels qu'on pouvait les connaître le jour du premier tour : ceux commencés ce jour-là au plus tard, par date de début. Rien de ce qui a suivi n'y figure — ni une fonction obtenue plus tard, ni la date de fin d'une fonction encore en cours. Vide quand aucune fonction n'est connue, ce qui ne veut pas dire que la personne n'en exerçait aucune : la collecte est progressive.",
+          "items": {
+            "$ref": "#/$defs/occupation"
           }
         }
       }
@@ -166,6 +174,75 @@
             "$ref": "source.schema.json"
           },
           "description": "Ce qui établit ce rattachement."
+        }
+      }
+    },
+    "occupation": {
+      "type": "object",
+      "description": "Une fonction tenue par la personne : un mandat électif ou une fonction gouvernementale.",
+      "required": [
+        "fonction",
+        "debut",
+        "en_cours",
+        "sources"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "fonction": {
+          "description": "Code de la fonction, dans un vocabulaire fixe. Un renommage garde deux codes : le conseiller général est devenu conseiller départemental en 2015.",
+          "enum": [
+            "president-de-la-republique",
+            "premier-ministre",
+            "ministre",
+            "ministre-delegue",
+            "secretaire-d-etat",
+            "depute",
+            "senateur",
+            "depute-europeen",
+            "maire",
+            "conseiller-municipal",
+            "conseiller-general",
+            "conseiller-departemental",
+            "conseiller-regional",
+            "president-de-conseil-general",
+            "president-de-conseil-departemental",
+            "president-de-conseil-regional"
+          ]
+        },
+        "ressort": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Le territoire du mandat tel que la source l'écrit : le département d'un député ou d'un sénateur, la commune d'un maire. Absent pour une fonction nationale.",
+          "examples": [
+            "Corrèze"
+          ]
+        },
+        "intitule": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Pour un membre du gouvernement, le portefeuille tel que le décret de nomination le libelle."
+        },
+        "debut": {
+          "type": "string",
+          "format": "date",
+          "description": "Premier jour de la fonction, selon la source citée."
+        },
+        "fin": {
+          "type": "string",
+          "format": "date",
+          "description": "Dernier jour de la fonction, présent seulement si elle avait pris fin avant le premier tour."
+        },
+        "en_cours": {
+          "type": "boolean",
+          "description": "Vrai si la fonction était exercée le jour du premier tour. Sa fin n'est alors pas publiée : elle appartient à l'avenir de l'élection."
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "source.schema.json"
+          },
+          "description": "Ce qui établit la fonction et ses dates : la fiche de l'assemblée pour un mandat parlementaire, le décret de nomination pour une fonction gouvernementale."
         }
       }
     },
