@@ -482,13 +482,18 @@ class TestResultats:
         """Un fichier absent dit qu'il n'y a rien, mieux qu'un fichier vide."""
         assert not (destination / ELECTIONS_DIR / "PR-2027" / self.FICHIER).exists()
 
-    def test_la_proclamation_ferme_chaque_tour(self, destination):
-        """Elle fait foi : elle est la dernière version, quelle que soit sa date.
+    def test_les_versions_suivent_l_ordre_des_etapes(self, destination):
+        """La dernière fait foi, quelle que soit sa date.
 
         Le ministère publie ses résultats définitifs de 2022 le lendemain de la
-        proclamation ; rangés par date, ils prendraient sa place.
+        proclamation ; rangés par date, ils prendraient sa place. Jusqu'en
+        1995, les tableaux du Journal officiel arrêtent les résultats après la
+        proclamation, et ferment le tour.
         """
         attendues = {
+            "PR-1981": ["proclamation", "rectification"],
+            "PR-1988": ["proclamation", "rectification"],
+            "PR-1995": ["proclamation", "rectification"],
             "PR-2007": ["resultats-definitifs", "proclamation"],
             "PR-2012": ["resultats-definitifs", "proclamation"],
             "PR-2017": ["resultats-provisoires", "resultats-definitifs", "proclamation"],

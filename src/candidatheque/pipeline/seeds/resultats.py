@@ -21,6 +21,7 @@ import datetime as dt
 from enum import StrEnum
 from itertools import pairwise
 from pathlib import Path
+from typing import Literal
 
 import yaml
 from pydantic import BaseModel, ConfigDict, Field, model_validator
@@ -77,6 +78,48 @@ class Format(StrEnum):
     #: Les CSV du ministère de l'Intérieur, recopiés de ses fichiers par
     #: `outils/interieur_en_csv.py` : un national, et un par département.
     INTERIEUR = "interieur"
+    #: Les tableaux annexés à une proclamation au Journal officiel, extraits
+    #: de l'édition par `outils/tableau_pdf_en_texte.py`.
+    TABLEAU_JO = "tableau-jo"
+
+
+class TableauJO(BaseModel):
+    """Un tableau du Journal officiel : ses pages, et ce que porte chaque colonne.
+
+    Un tableau coupé en deux moitiés sur des pages alternées — le premier tour
+    de 1995 — se déclare en deux tableaux, que la lecture réunit département
+    par département.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    #: Les pages du texte extrait, à partir de 1, séparées par des sauts de page.
+    pages: tuple[int, ...] = Field(min_length=1)
+    #: Dans l'ordre du tableau : « inscrits », « votants », « suffrages_exprimes »,
+    #: « total » pour la colonne qui redit les exprimés en fin de seconde moitié,
+    #: et pour un candidat le titre que `candidats` rapproche d'une personne.
+    colonnes: tuple[str, ...] = Field(min_length=2)
+    #: Comment le tableau sépare les milliers : « 262.000 » ou « 284 999 ».
+    milliers: Literal["point", "espace"]
+    #: Le tableau imprime-t-il un pourcentage après les voix de chaque candidat ?
+    pourcentages: bool = False
+
+
+class CorrectionJO(BaseModel):
+    """Une ligne que la lecture ne sait pas établir, lue à la main sur l'image.
+
+    Elle n'entre ici que lorsque les contrôles ne suffisent pas : plusieurs
+    lignes illisibles dans un même tableau, que le total ne départage plus.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    #: Le code du département, ou « etranger » pour les Français établis hors
+    #: de France.
+    departement: str
+    #: Colonne → valeur, pour les seules colonnes corrigées.
+    valeurs: dict[str, int] = Field(min_length=1)
+    motif: str = Field(min_length=20)
 
 
 class VersionResultats(BaseModel):
@@ -94,6 +137,14 @@ class VersionResultats(BaseModel):
     #: Chemin sous `raw/` des résultats par département, quand la source en
     #: publie.
     departements: str | None = None
+    #: Les tableaux du Journal officiel, pour le format `tableau-jo`.
+    tableaux: tuple[TableauJO, ...] = ()
+    #: Les libellés que le scan a trop abîmés pour que le registre des
+    #: départements les reconnaisse — « CARD » pour le Gard en 1981 —, rapprochés
+    #: ici de leur code, lu sur l'ordre du tableau.
+    libelles: dict[str, str] = Field(default_factory=dict)
+    #: Les lignes lues à la main, pour le format `tableau-jo`.
+    corrections: tuple[CorrectionJO, ...] = ()
     #: La décision ou le jeu de données, dans le registre des sources.
     origine: str
     #: Tous les candidats du tour. Ils doivent y être tous : c'est ce qui

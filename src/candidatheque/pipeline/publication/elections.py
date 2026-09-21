@@ -35,6 +35,7 @@ from pathlib import Path
 
 from candidatheque.pipeline.lecture import resultats as lecture_resultats
 from candidatheque.pipeline.lecture import resultats_interieur as lecture_interieur
+from candidatheque.pipeline.lecture import resultats_jo as lecture_jo
 from candidatheque.pipeline.lecture.parrainages import Parrainage, lire
 from candidatheque.pipeline.paths import DATA_REPO, SCHEMAS_DIR
 from candidatheque.pipeline.publication import parrainages as publication_parrainages
@@ -255,6 +256,13 @@ def lire_version(version: VersionResultats, numero: int) -> lecture_resultats.To
     """Une version des résultats d'un tour, lue selon le format de sa source."""
     if version.format is Format.INTERIEUR:
         return lecture_interieur.lire(version, numero)
+    if version.format is Format.TABLEAU_JO:
+        tour, problemes = lecture_jo.lire(version)
+        # Une case qui n'a pu être établie ne se publie pas à moitié : la
+        # version entière attend qu'elle le soit, au seed.
+        if problemes:
+            raise ValueError(f"{version.fichier} : " + " ; ".join(problemes))
+        return tour
     return lecture_resultats.lire(version)
 
 

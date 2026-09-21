@@ -575,6 +575,35 @@ reconstitués par soustraction. Un décompte que la source ne donne pas est
 absent. Les bulletins blancs n'apparaissent qu'en 2017, les nuls qu'en 2022, et
 la proclamation de 1965 n'écrit pas la majorité absolue.
 
+### La rectification du Journal officiel
+
+Jusqu'en 1995, le Conseil arrête les résultats des deux tours « conformément
+aux tableaux annexés » à sa proclamation, au Journal officiel. Ces tableaux ne
+sont ni sur son site, ni transcrits par la DILA : seul le PDF de l'édition les
+porte. Ils sont lus pour 1981, 1988 et 1995, et forment l'étape
+`rectification`, avec le détail par département.
+
+Ils ne sont pas une redite. Au premier tour de 1988, ils comptent 30 706
+suffrages exprimés de plus que la déclaration du Conseil, dont 14 112 pour
+François Mitterrand ; au premier tour de 1995, 1 919 de plus. Au second tour, et
+en 1981, ils redisent la proclamation à l'unité près.
+
+Leur texte vient de l'océrisation de Légifrance, et il en porte les fautes :
+« 299997 » pour 299 997, « 1 1 126 » pour 11 126, « 4.0G4 », et en 1981 des 3 et
+des 5 confondus par centaines. Rien n'y est pris sur la foi d'une lecture. Le
+tableau porte ses propres contrôles — la somme des voix d'une ligne fait ses
+exprimés, chaque colonne fait la ligne TOTAL, et en 1995 un pourcentage imprimé
+à côté des voix tombe juste à l'arrondi près — et la lecture s'en sert pour
+choisir entre les découpages d'une ligne, remplir une case illisible et
+corriger une case fausse quand une ligne et une colonne la désignent ensemble.
+
+Ce que ces contrôles ne suffisent pas à établir est lu à la main sur l'image de
+l'édition, et déclaré au seed avec ce que l'océrisation avait lu : 42 cases sur
+30 lignes au premier tour de 1981, deux lignes en 1995, rien en 1988. Chaque tableau doit en outre porter
+les 96 départements de métropole : une ligne absente ne se remarquerait pas
+autrement, la case qu'une autre ligne déduirait du total l'absorbant en
+silence.
+
 ### Les annulations
 
 La version du Conseil porte les suffrages que la décision annule, un lieu par
@@ -700,11 +729,8 @@ signalées en commentaire dans `seeds/personnes.yaml`.
 Rien ne collecte : les candidatures ont été extraites en une fois et sont
 maintenues à la main. Une élection à venir demandera un collecteur.
 
-Jusqu'en 1995, la proclamation a rectifié une dernière fois les résultats du
-premier tour, dans des tableaux annexés au Journal officiel que le site du
-Conseil ne reprend pas, et que l'archive de la DILA ne transcrit pas : la
-notice du 14 mai 1995 couvre 52 pages sans aucun article. Ces rectifications
-seront une étape de plus, le jour où elles seront lues dans le PDF.
+L'édition du Journal officiel qui porte les tableaux de 1974 n'est pas
+accessible : pour cette élection, la proclamation reste la dernière version.
 
 Rien ne relance la publication quand une source externe change : le workflow ne
 se déclenche que sur un commit de ce dépôt. Quand la collecte arrivera, il lui
