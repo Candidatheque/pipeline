@@ -24,6 +24,14 @@
 # définitifs du ministère peuvent paraître après la proclamation, qui fait
 # pourtant foi.
 #
+# La rectification des tableaux annexés au Journal officiel est collectée pour
+# 1981, 1988 et 1995 : `format: "tableau-jo"`, le texte de l'édition sous
+# `raw/resultats/jo/`, et pour chaque tableau ses pages, ses colonnes et sa
+# façon d'écrire les milliers. `libelles` rapproche de leur code les noms que
+# le scan a trop abîmés ; `corrections` porte les cases que les contrôles du
+# tableau ne suffisent pas à établir, lues à la main sur l'image, chacune avec
+# ce que l'océrisation avait lu. L'édition de 1974 n'est pas accessible.
+#
 # Les résultats du ministère sont collectés de 2007 à 2022, avec leur détail
 # par département : `format: "interieur"`, un `fichier` national et un fichier
 # `departements`, tous deux recopiés en CSV sous `raw/resultats/interieur/`.
@@ -188,6 +196,158 @@ resultats:
                 personne: "PE-0029"
               - titre: "Jacques Chirac"
                 personne: "PE-0030"
+          - etape: "rectification"
+            format: "tableau-jo"
+            date: 1981-05-16
+            fichier: "resultats/jo/1981.txt"
+            origine: "legifrance:JORF_19810516_115"
+            tableaux:
+              - pages: [1, 2, 3]
+                milliers: "point"
+                colonnes:
+                  - "inscrits"
+                  - "votants"
+                  - "suffrages_exprimes"
+                  - "A. LAGUILLER"
+                  - "M.-F. GARAUD"
+                  - "M. CREPEAU"
+                  - "H. BOUCHARDEAU"
+                  - "B. LALONDE"
+                  - "F. MITTERRAND"
+                  - "V. GISCARD D'ESTAING"
+                  - "G. MARCHAIS"
+                  - "M. DEBRE"
+                  - "J. CHIRAC"
+            libelles:
+              "ALPES-de-Ht* PROVENCE": "04"
+              "ARIECE": "09"
+              "BOUCHES-JU-RHONE": "13"
+              "CHARENTE-MA RtTlM": "17"
+              "CORSE-DU-SL'Û": "2A"
+              "EURE-ct-LOIR": "28"
+              "CARD": "30"
+              "CARONNE (HAUTE-)": "31"
+              "CERS": "32"
+              "LOIR-ct-CHER": "41"
+              "MAlNE-*t-LOIRE": "49"
+              "ME URTHE-* t-MOS ELLE": "54"
+              "PAS-Ut-CAUIS": "62"
+              "TARN-et-CARONNE": "82"
+              "TERRIT.de BELFORT": "90"
+              "CITY ANE": "973"
+              "St-PIERRE-et-MIQUELON": "975"
+            corrections:
+              - departement: "04"
+                valeurs: {inscrits: 87661}
+                motif: "L'image imprime 87.661 ; l'océrisation a lu 67.661, moins que les 70.914 votants."
+              - departement: "51"
+                valeurs: {inscrits: 342529}
+                motif: "L'image imprime 342.529 ; l'océrisation a lu « 342.52? »."
+              - departement: "66"
+                valeurs: {votants: 174891}
+                motif: "L'image imprime 174.891 ; l'océrisation a lu « 174.»91 »."
+              - departement: "72"
+                valeurs: {inscrits: 346161}
+                motif: "L'image imprime 346.161 ; l'océrisation a lu « 34)6.161 »."
+              - departement: "77"
+                valeurs: {votants: 437390}
+                motif: "L'image imprime 437.390 ; l'océrisation a lu « 437.^90 »."
+              - departement: "01"
+                valeurs: {"M. CREPEAU": 5206}
+                motif: "L'image imprime 5.206 ; l'océrisation a lu 3.206, et la ligne ne faisait pas ses exprimés."
+              - departement: "03"
+                valeurs: {"F. MITTERRAND": 52072, "V. GISCARD D'ESTAING": 55467}
+                motif: "L'image imprime 52.072 et 55.467 ; l'océrisation a lu 32.072 et 53.467, et la ligne ne faisait pas ses exprimés."
+              - departement: "08"
+                valeurs: {"J. CHIRAC": 25828}
+                motif: "L'image imprime 25.828 ; l'océrisation a lu « 2S.82S », et la ligne ne faisait pas ses exprimés."
+              - departement: "10"
+                valeurs: {"J. CHIRAC": 26225}
+                motif: "L'image imprime 26.225 ; l'océrisation a lu 26.223, et la ligne ne faisait pas ses exprimés."
+              - departement: "11"
+                valeurs: {"M.-F. GARAUD": 1516}
+                motif: "L'image imprime 1.516 ; l'océrisation a lu 1.316, et la ligne ne faisait pas ses exprimés."
+              - departement: "14"
+                valeurs: {"F. MITTERRAND": 85255, "G. MARCHAIS": 36415, "M. DEBRE": 5042}
+                motif: "L'image imprime 85.255 et 36.415 et 5.042 ; l'océrisation a lu 85.253, 36.413 et 3.042, et la ligne ne faisait pas ses exprimés."
+              - departement: "16"
+                valeurs: {"A. LAGUILLER": 4573, "B. LALONDE": 5782}
+                motif: "L'image imprime 4.573 et 5.782 ; l'océrisation a lu 4.373 et 3.782, et la ligne ne faisait pas ses exprimés."
+              - departement: "17"
+                valeurs: {"A. LAGUILLER": 5233}
+                motif: "L'image imprime 5.233 ; l'océrisation a lu 3.233, et la ligne ne faisait pas ses exprimés."
+              - departement: "2A"
+                valeurs: {"F. MITTERRAND": 13655}
+                motif: "L'image imprime 13.655 ; l'océrisation a lu 13.653, et la ligne ne faisait pas ses exprimés."
+              - departement: "2B"
+                valeurs: {"M. CREPEAU": 7150}
+                motif: "L'image imprime 7.150 ; l'océrisation a lu 7.130, et la ligne ne faisait pas ses exprimés."
+              - departement: "21"
+                valeurs: {"A. LAGUILLER": 5774, "M. CREPEAU": 5503, "J. CHIRAC": 45145}
+                motif: "L'image imprime 5.774 et 5.503 et 45.145 ; l'océrisation a lu 3.774, 5.303 et 43.145, et la ligne ne faisait pas ses exprimés."
+              - departement: "22"
+                valeurs: {"M.-F. GARAUD": 2975, "J. CHIRAC": 56549}
+                motif: "L'image imprime 2.975 et 56.549 ; l'océrisation a lu 2.973 et 36.549, et la ligne ne faisait pas ses exprimés."
+              - departement: "24"
+                valeurs: {"G. MARCHAIS": 50028}
+                motif: "L'image imprime 50.028 ; l'océrisation a lu 30.028, et la ligne ne faisait pas ses exprimés."
+              - departement: "25"
+                valeurs: {"H. BOUCHARDEAU": 3845}
+                motif: "L'image imprime 3.845 ; l'océrisation a lu 3.843, et la ligne ne faisait pas ses exprimés."
+              - departement: "27"
+                valeurs: {"M. DEBRE": 4004}
+                motif: "L'image imprime 4.004 ; l'océrisation a lu « 4.0G4 », et la ligne ne faisait pas ses exprimés."
+              - departement: "28"
+                valeurs: {"M. DEBRE": 3522}
+                motif: "L'image imprime 3.522 ; l'océrisation a lu 3.322, et la ligne ne faisait pas ses exprimés."
+              - departement: "35"
+                valeurs: {"H. BOUCHARDEAU": 6028}
+                motif: "L'image imprime 6.028 ; l'océrisation a lu 6.026, et la ligne ne faisait pas ses exprimés."
+              - departement: "50"
+                valeurs: {"J. CHIRAC": 58007}
+                motif: "L'image imprime 58.007 ; l'océrisation a lu « 5S.007 », et la ligne ne faisait pas ses exprimés."
+              - departement: "23"
+                valeurs: {"A. LAGUILLER": 2688, "G. MARCHAIS": 18269}
+                motif: "L'image imprime 2.688 et 18.269 ; l'océrisation a lu « i.688 » et « 18.2(9 », deux fautes qui se compensaient dans la ligne."
+              - departement: "26"
+                valeurs: {"A. LAGUILLER": 5043, "V. GISCARD D'ESTAING": 55028}
+                motif: "L'image imprime 5.043 et 55.028 ; l'océrisation a lu 3.043 et 33.028, et la ligne ne faisait pas ses exprimés."
+              - departement: "29"
+                valeurs: {"M. CREPEAU": 8530, "G. MARCHAIS": 48561}
+                motif: "L'image imprime 8.530 et 48.561 ; l'océrisation a lu 3.530 et « 48.5(1 », deux fautes qui se compensaient dans la ligne."
+              - departement: "34"
+                valeurs: {inscrits: 458322}
+                motif: "L'image imprime 458.322 ; l'océrisation a lu 456.322."
+              - departement: "76"
+                valeurs: {inscrits: 782984}
+                motif: "L'image imprime 782.984 ; l'océrisation a lu 762.984, vingt mille de moins que les 782.968 inscrits du second tour."
+              - departement: "33"
+                valeurs: {suffrages_exprimes: 587211, "H. BOUCHARDEAU": 4755, "M. DEBRE": 12854}
+                motif: "L'image imprime 587.211, 4.755 et 12.854 ; l'océrisation a lu « 587.2U », 4.753 et 12.834."
+              - departement: "64"
+                valeurs: {votants: 318656}
+                motif: "L'image imprime 318.656 ; l'océrisation a lu 316.656, qui ne laissait que 0,6 % de blancs et nuls."
+            candidats:
+              - titre: "A. LAGUILLER"
+                personne: "PE-0018"
+              - titre: "M.-F. GARAUD"
+                personne: "PE-0024"
+              - titre: "M. CREPEAU"
+                personne: "PE-0025"
+              - titre: "H. BOUCHARDEAU"
+                personne: "PE-0026"
+              - titre: "B. LALONDE"
+                personne: "PE-0027"
+              - titre: "F. MITTERRAND"
+                personne: "PE-0005"
+              - titre: "V. GISCARD D'ESTAING"
+                personne: "PE-0016"
+              - titre: "G. MARCHAIS"
+                personne: "PE-0028"
+              - titre: "M. DEBRE"
+                personne: "PE-0029"
+              - titre: "J. CHIRAC"
+                personne: "PE-0030"
       - numero: 2
         versions:
           - etape: "proclamation"
@@ -198,6 +358,28 @@ resultats:
               - titre: "François Mitterrand"
                 personne: "PE-0005"
               - titre: "Valéry Giscard d'Estaing"
+                personne: "PE-0016"
+          - etape: "rectification"
+            format: "tableau-jo"
+            date: 1981-05-16
+            fichier: "resultats/jo/1981.txt"
+            origine: "legifrance:JORF_19810516_115"
+            tableaux:
+              - pages: [4, 5, 6]
+                milliers: "point"
+                colonnes:
+                  - "inscrits"
+                  - "votants"
+                  - "suffrages_exprimes"
+                  - "F. MITTERRAND"
+                  - "V. GISCARD D'ESTAING"
+            libelles:
+              "ALPES-DE-Hte-PROVENCE": "04"
+              "S t-PIERRE-et-MIOUELON": "975"
+            candidats:
+              - titre: "F. MITTERRAND"
+                personne: "PE-0005"
+              - titre: "V. GISCARD D'ESTAING"
                 personne: "PE-0016"
 
   - election: "PR-1988"
@@ -227,12 +409,74 @@ resultats:
                 personne: "PE-0034"
               - titre: "André LAJOINIE"
                 personne: "PE-0035"
+          - etape: "rectification"
+            format: "tableau-jo"
+            date: 1988-05-12
+            fichier: "resultats/jo/1988.txt"
+            origine: "legifrance:JORF_19880512_111"
+            tableaux:
+              - pages: [1, 2]
+                milliers: "espace"
+                colonnes:
+                  - "inscrits"
+                  - "votants"
+                  - "suffrages_exprimes"
+                  - "R. BARRE"
+                  - "P. JUQUIN"
+                  - "J.-M. LE PEN"
+                  - "J. CHIRAC"
+                  - "F. MITTERRAND"
+                  - "P. BOUSSEL"
+                  - "A. WAECHTER"
+                  - "A. LAGUILLER"
+                  - "A. LAJOINIE"
+            libelles:
+              "GuadelotiDe": "971"
+              "Guvanèk": "973"
+            candidats:
+              - titre: "R. BARRE"
+                personne: "PE-0031"
+              - titre: "P. JUQUIN"
+                personne: "PE-0032"
+              - titre: "J.-M. LE PEN"
+                personne: "PE-0019"
+              - titre: "J. CHIRAC"
+                personne: "PE-0030"
+              - titre: "F. MITTERRAND"
+                personne: "PE-0005"
+              - titre: "P. BOUSSEL"
+                personne: "PE-0033"
+              - titre: "A. WAECHTER"
+                personne: "PE-0034"
+              - titre: "A. LAGUILLER"
+                personne: "PE-0018"
+              - titre: "A. LAJOINIE"
+                personne: "PE-0035"
       - numero: 2
         versions:
           - etape: "proclamation"
             date: 1988-05-11
             fichier: "resultats/88-60-PDR.txt"
             origine: "conseil-constitutionnel:88-60-PDR"
+            candidats:
+              - titre: "François MITTERRAND"
+                personne: "PE-0005"
+              - titre: "Jacques CHIRAC"
+                personne: "PE-0030"
+          - etape: "rectification"
+            format: "tableau-jo"
+            date: 1988-05-12
+            fichier: "resultats/jo/1988.txt"
+            origine: "legifrance:JORF_19880512_111"
+            tableaux:
+              - pages: [3, 4, 5, 6]
+                milliers: "point"
+                colonnes:
+                  - "inscrits"
+                  - "votants"
+                  - "suffrages_exprimes"
+                  - "François MITTERRAND"
+                  - "Jacques CHIRAC"
             candidats:
               - titre: "François MITTERRAND"
                 personne: "PE-0005"
@@ -266,6 +510,62 @@ resultats:
                 personne: "PE-0040"
               - titre: "Robert Hue"
                 personne: "PE-0041"
+          - etape: "rectification"
+            format: "tableau-jo"
+            date: 1995-05-14
+            fichier: "resultats/jo/1995.txt"
+            origine: "legifrance:JORF_19950514_113"
+            tableaux:
+              - pages: [1, 3, 5]
+                milliers: "espace"
+                pourcentages: true
+                colonnes:
+                  - "inscrits"
+                  - "votants"
+                  - "suffrages_exprimes"
+                  - "1 - DE VILLIERS"
+                  - "2 - LE PEN"
+                  - "3 - CHIRAC"
+                  - "4 - LAGUILLER"
+                  - "5 - CHEMINADE"
+              - pages: [2, 4, 6]
+                milliers: "espace"
+                pourcentages: true
+                colonnes:
+                  - "6 - JOSPIN"
+                  - "7 - VOYNET"
+                  - "8 - BALLADUR"
+                  - "9 - HUE"
+                  - "total"
+            libelles:
+              "IGUYANE": "973"
+              "REUNION": "974"
+            corrections:
+              - departement: "10"
+                valeurs: {"6 - JOSPIN": 30342, "7 - VOYNET": 4190, "8 - BALLADUR": 28672, "9 - HUE": 11834}
+                motif: "L'image imprime 30 342, 4 190, 28 672 et 11 834 ; l'océrisation a lu le pourcentage de Robert Hue « T,85% » pour 7,85 %, et la ligne ne se découpe plus."
+              - departement: "32"
+                valeurs: {"6 - JOSPIN": 31813, "7 - VOYNET": 3406, "8 - BALLADUR": 19008, "9 - HUE": 8991}
+                motif: "L'image imprime 19 008 pour Édouard Balladur ; l'océrisation a lu « 19 0p8 »."
+            candidats:
+              - titre: "1 - DE VILLIERS"
+                personne: "PE-0036"
+              - titre: "2 - LE PEN"
+                personne: "PE-0019"
+              - titre: "3 - CHIRAC"
+                personne: "PE-0030"
+              - titre: "4 - LAGUILLER"
+                personne: "PE-0018"
+              - titre: "5 - CHEMINADE"
+                personne: "PE-0037"
+              - titre: "6 - JOSPIN"
+                personne: "PE-0038"
+              - titre: "7 - VOYNET"
+                personne: "PE-0039"
+              - titre: "8 - BALLADUR"
+                personne: "PE-0040"
+              - titre: "9 - HUE"
+                personne: "PE-0041"
       - numero: 2
         versions:
           - etape: "proclamation"
@@ -277,6 +577,26 @@ resultats:
                 personne: "PE-0030"
               - titre: "Lionel Jospin"
                 personne: "PE-0038"
+          - etape: "rectification"
+            format: "tableau-jo"
+            date: 1995-05-14
+            fichier: "resultats/jo/1995.txt"
+            origine: "legifrance:JORF_19950514_113"
+            tableaux:
+              - pages: [7, 8]
+                milliers: "espace"
+                pourcentages: true
+                colonnes:
+                  - "inscrits"
+                  - "votants"
+                  - "suffrages_exprimes"
+                  - "Lionel JOSPIN"
+                  - "Jacques CHIRAC"
+            candidats:
+              - titre: "Lionel JOSPIN"
+                personne: "PE-0038"
+              - titre: "Jacques CHIRAC"
+                personne: "PE-0030"
 
   - election: "PR-2002"
     tours:

@@ -60,7 +60,9 @@ CODES_DE_L_INTERIEUR = {
 #: se nomment donc, en vocabulaire fixe, là où les autres portent un code.
 HORS_DEPARTEMENT = {
     # Les Français établis hors de France votent dans des bureaux consulaires.
+    # « ZZ » chez le ministère, « etranger » à la lecture des tableaux du JO.
     "ZZ": "francais-etablis-hors-de-france",
+    "etranger": "francais-etablis-hors-de-france",
     # Saint-Barthélemy et Saint-Martin, que le ministère réunit sur une ligne :
     # y choisir 977 ou 978 affirmerait une précision qu'il ne donne pas.
     "ZX": "saint-barthelemy-et-saint-martin",
