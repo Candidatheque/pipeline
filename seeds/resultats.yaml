@@ -11,12 +11,18 @@
 # totaux qu'il donne sont nets de ces annulations, et ne se recoupent donc pas
 # avec ceux d'un recensement administratif.
 #
-# Chaque tour empile ses versions, dans l'ordre où elles ont été publiées, et
-# la dernière fait foi — comme les `etats` d'une candidature. `etape` dit
-# laquelle : `proclamation` pour celle du Conseil, qui déclare les résultats du
-# premier tour puis proclame ceux de l'élection. Les résultats provisoires du
-# ministère de l'Intérieur et les rectifications des tableaux annexés au
-# Journal officiel viendront s'y ajouter.
+# Chaque tour empile ses versions dans l'ordre des étapes, une par étape, et la
+# dernière fait foi :
+#   - `resultats-provisoires` : le ministère de l'Intérieur, le soir du scrutin ;
+#   - `resultats-definitifs`  : le ministère, après recensement des votes ;
+#   - `proclamation`          : le Conseil constitutionnel, qui déclare les
+#                               résultats du premier tour puis proclame ceux de
+#                               l'élection ;
+#   - `rectification`         : les tableaux annexés au Journal officiel, qui
+#                               arrêtent les résultats jusqu'en 1995.
+# L'ordre est celui du processus, pas celui des dates : les résultats
+# définitifs du ministère peuvent paraître après la proclamation, qui fait
+# pourtant foi. Seule la proclamation est collectée à ce jour.
 #
 # `date` est celle de la décision. `fichier` renvoie au texte commité sous
 # `raw/resultats/`, `origine` à la décision dans le registre des sources.

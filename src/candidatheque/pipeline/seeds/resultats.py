@@ -1,12 +1,15 @@
 """D'où viennent les résultats de chaque tour, version après version.
 
 Un tour connaît plusieurs versions de ses résultats : ceux que le ministère de
-l'Intérieur publie le soir du scrutin, ceux que le Conseil constitutionnel
-déclare au premier tour puis proclame pour l'élection, et, jusqu'en 1995, ceux
-que les tableaux annexés au Journal officiel rectifient encore. Elles
-s'empilent dans l'ordre où elles ont été publiées, et la dernière fait foi,
-comme les états d'une candidature : l'écart entre deux versions est une
-information, pas un doublon.
+l'Intérieur publie le soir du scrutin puis après recensement, ceux que le
+Conseil constitutionnel déclare au premier tour puis proclame pour l'élection,
+et, jusqu'en 1995, ceux que les tableaux annexés au Journal officiel rectifient
+encore. L'écart entre deux versions est une information, pas un doublon.
+
+Elles se rangent dans l'ordre des étapes du processus, et non dans celui de
+leur publication : les résultats définitifs du ministère peuvent paraître après
+la proclamation, et c'est pourtant elle qui fait foi. La dernière version d'un
+tour fait donc foi par construction.
 
 Seule la version du Conseil est collectée à ce jour. Le texte de ses décisions
 est commité dans `raw/resultats/`, jamais téléchargé.
@@ -42,11 +45,27 @@ class CandidatSource(BaseModel):
 
 
 class Etape(StrEnum):
-    """Quelle version des résultats, dans la vie d'un scrutin."""
+    """Quelle version des résultats, dans l'ordre du processus.
 
-    #: Les résultats du Conseil constitutionnel : la déclaration du premier
-    #: tour, la proclamation de l'élection. Nets des suffrages qu'il annule.
+    L'ordre de déclaration est celui des étapes : c'est lui qui range les
+    versions d'un tour, et la dernière fait foi.
+    """
+
+    #: Les résultats que le ministère de l'Intérieur publie le soir du scrutin.
+    RESULTATS_PROVISOIRES = "resultats-provisoires"
+    #: Ceux qu'il publie après le recensement des votes.
+    RESULTATS_DEFINITIFS = "resultats-definitifs"
+    #: Ceux du Conseil constitutionnel : la déclaration du premier tour, la
+    #: proclamation de l'élection. Nets des suffrages qu'il annule.
     PROCLAMATION = "proclamation"
+    #: Ceux que les tableaux annexés au Journal officiel arrêtent en dernier,
+    #: jusqu'en 1995.
+    RECTIFICATION = "rectification"
+
+    @property
+    def rang(self) -> int:
+        """La place de l'étape dans le processus."""
+        return list(Etape).index(self)
 
 
 class VersionResultats(BaseModel):
@@ -55,7 +74,8 @@ class VersionResultats(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     etape: Etape
-    #: La date du document : celle de la décision pour le Conseil.
+    #: La date du document : celle de la décision pour le Conseil. Elle est
+    #: publiée, mais ne range pas les versions.
     date: dt.date
     #: Chemin sous `raw/`.
     fichier: str
@@ -90,15 +110,16 @@ class TourResultats(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     numero: int = Field(ge=1)
-    #: Dans l'ordre où elles ont été publiées : la dernière fait foi.
+    #: Dans l'ordre des étapes, une version par étape : la dernière fait foi.
     versions: tuple[VersionResultats, ...] = Field(min_length=1)
 
     @model_validator(mode="after")
-    def _versions_dans_l_ordre(self) -> TourResultats:
-        dates = [version.date for version in self.versions]
-        if any(suivante < precedente for precedente, suivante in pairwise(dates)):
+    def _versions_dans_l_ordre_des_etapes(self) -> TourResultats:
+        rangs = [version.etape.rang for version in self.versions]
+        if any(suivant <= precedent for precedent, suivant in pairwise(rangs)):
             raise ValueError(
-                f"tour {self.numero} : les versions se rangent dans l'ordre de leur date"
+                f"tour {self.numero} : les versions se rangent dans l'ordre des étapes, "
+                f"une par étape — vu {[str(v.etape) for v in self.versions]}"
             )
         return self
 

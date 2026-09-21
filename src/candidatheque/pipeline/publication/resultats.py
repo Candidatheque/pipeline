@@ -1,8 +1,9 @@
 """Publication des résultats de chaque tour, version après version.
 
 Un document par élection, `resultats.json`. Chaque tour y empile ses versions
-dans l'ordre où elles ont été publiées, et la dernière fait foi, comme les
-états d'une candidature. Les chiffres du ministère de l'Intérieur, ceux que le
+dans l'ordre des étapes du processus — résultats provisoires, puis définitifs
+du ministère, proclamation du Conseil, rectification au Journal officiel — et
+la dernière fait foi. Les chiffres du ministère de l'Intérieur, ceux que le
 Conseil constitutionnel proclame et ceux que les tableaux annexés au Journal
 officiel rectifient ne se recoupent pas, et c'est précisément ce qu'on veut
 pouvoir lire : l'écart entre deux versions, et pour celle du Conseil les

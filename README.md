@@ -499,21 +499,32 @@ n'est pas un trou dans la collecte, c'est l'état du droit.
 
 `resultats.json` porte, pour chaque tour, les versions successives de ses
 résultats : inscrits, votants, suffrages exprimés, majorité absolue, et les voix
-de chaque candidat. Elles s'empilent dans l'ordre où elles ont été publiées, et
-la dernière fait foi, comme les `etats` d'une candidature. Chacune dit son
-`etape`, sa date et ses `sources`, sous la même forme que partout ailleurs.
+de chaque candidat. Chacune dit son `etape`, sa date et ses `sources`, sous la
+même forme que partout ailleurs.
 
-Trois versions existent dans la vie d'un scrutin : les résultats provisoires du
-ministère de l'Intérieur, ceux que le Conseil constitutionnel déclare au premier
-tour puis proclame pour l'élection, et, jusqu'en 1995, ceux que les tableaux
-annexés au Journal officiel rectifient encore. Elles ne se recoupent pas : le
+Quatre versions existent dans la vie d'un scrutin, et elles se rangent dans cet
+ordre :
+
+| `etape` | Autorité |
+|---|---|
+| `resultats-provisoires` | ministère de l'Intérieur, le soir du scrutin |
+| `resultats-definitifs` | ministère de l'Intérieur, après recensement des votes |
+| `proclamation` | Conseil constitutionnel : déclaration du 1er tour, proclamation de l'élection |
+| `rectification` | Conseil constitutionnel, tableaux annexés au Journal officiel, jusqu'en 1995 |
+
+La dernière fait foi. L'ordre est celui du processus et non celui des dates :
+les résultats définitifs du ministère peuvent être mis en ligne après la
+proclamation, et les ranger par date de publication donnerait la main à
+l'Intérieur sur le Conseil. La date reste publiée sur chaque version.
+
+Elles ne se recoupent pas : le
 Conseil annule des suffrages et rectifie des erreurs matérielles avant de
 proclamer. Deux fichiers, un par autorité, auraient présenté comme concurrents
 ce qui est une seule histoire ; empilées, l'écart entre deux versions se lit, et
 les annulations l'expliquent. Seule la version du Conseil, `proclamation`, est
 collectée à ce jour.
 
-Ses chiffres n'existent nulle part ailleurs sous forme exploitable. L'open data
+Les chiffres du Conseil n'existent nulle part ailleurs sous forme exploitable. L'open data
 du Conseil se limite aux parrainages et à un tableau par département du seul
 premier tour de 2022. Ils sont donc lus dans le texte des 22 décisions, deux
 par élection, commité dans `raw/resultats/`.

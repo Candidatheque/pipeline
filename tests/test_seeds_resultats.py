@@ -107,18 +107,27 @@ def test_un_candidat_ne_figure_qu_une_fois_par_tour():
         )
 
 
-def test_les_versions_d_un_tour_se_rangent_dans_l_ordre_de_leur_date():
-    """La dernière fait foi : une version antidatée prendrait la place d'une autre."""
-    with pytest.raises(ValidationError, match="ordre de leur date"):
+def test_les_versions_se_rangent_dans_l_ordre_des_etapes_et_non_des_dates():
+    """La proclamation fait foi, même quand le ministère publie après elle.
+
+    Les résultats définitifs de l'Intérieur peuvent paraître après la
+    décision du Conseil ; rangés par date, ils prendraient sa place.
+    """
+    tardifs = _version(etape="resultats-definitifs", date="2022-05-02")
+    SourceResultats.model_validate(
+        _entree(tours=[{"numero": 1, "versions": [tardifs, _version(date="2022-04-13")]}])
+    )
+    with pytest.raises(ValidationError, match="ordre des étapes"):
         SourceResultats.model_validate(
-            _entree(
-                tours=[
-                    {
-                        "numero": 1,
-                        "versions": [_version(date="2022-04-13"), _version(date="2022-04-11")],
-                    }
-                ]
-            )
+            _entree(tours=[{"numero": 1, "versions": [_version(), tardifs]}])
+        )
+
+
+def test_une_etape_ne_donne_qu_une_version_par_tour():
+    """Deux proclamations d'un même tour se contrediraient sans que rien le dise."""
+    with pytest.raises(ValidationError, match="une par étape"):
+        SourceResultats.model_validate(
+            _entree(tours=[{"numero": 1, "versions": [_version(), _version()]}])
         )
 
 

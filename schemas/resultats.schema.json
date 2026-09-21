@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "resultats.schema.json",
   "title": "Résultats de chaque tour, version après version",
-  "description": "Les résultats de chaque tour, dans les versions successives qu'en publient les autorités : les résultats provisoires du ministère de l'Intérieur, ceux que le Conseil constitutionnel déclare au premier tour puis proclame pour l'élection, et, jusqu'en 1995, ceux que les tableaux annexés au Journal officiel rectifient encore. Elles s'empilent dans l'ordre où elles ont été publiées, et la dernière fait foi, comme les états d'une candidature. Elles ne se recoupent pas : le Conseil annule des suffrages et rectifie des erreurs matérielles avant de proclamer, et l'écart entre deux versions est une information, pas un doublon. Seule la version du Conseil est publiée à ce jour. Rien n'y est calculé — ni pourcentage, ni abstention, ni total des annulations — et un décompte que la source ne donne pas est absent plutôt que reconstitué.",
+  "description": "Les résultats de chaque tour, dans les versions successives qu'en publient les autorités : les résultats provisoires puis définitifs du ministère de l'Intérieur, ceux que le Conseil constitutionnel déclare au premier tour puis proclame pour l'élection, et, jusqu'en 1995, ceux que les tableaux annexés au Journal officiel rectifient encore. Elles se rangent dans l'ordre des étapes du processus, une par étape, et la dernière fait foi. L'ordre est celui du processus et non celui des dates : les résultats définitifs du ministère peuvent paraître après la proclamation, qui fait pourtant foi. Elles ne se recoupent pas : le Conseil annule des suffrages et rectifie des erreurs matérielles avant de proclamer, et l'écart entre deux versions est une information, pas un doublon. Seule la version du Conseil est publiée à ce jour. Rien n'y est calculé — ni pourcentage, ni abstention, ni total des annulations — et un décompte que la source ne donne pas est absent plutôt que reconstitué.",
   "type": "object",
   "required": [
     "election",
@@ -50,7 +50,7 @@
         },
         "versions": {
           "type": "array",
-          "description": "Les versions des résultats de ce tour, dans l'ordre où elles ont été publiées. La dernière fait foi.",
+          "description": "Les versions des résultats de ce tour, dans l'ordre des étapes — « resultats-provisoires », « resultats-definitifs », « proclamation », « rectification » —, une au plus par étape. La dernière fait foi.",
           "minItems": 1,
           "items": {
             "$ref": "#/$defs/version"
@@ -74,14 +74,17 @@
       "properties": {
         "etape": {
           "enum": [
-            "proclamation"
+            "resultats-provisoires",
+            "resultats-definitifs",
+            "proclamation",
+            "rectification"
           ],
-          "description": "Quelle version. « proclamation » : celle du Conseil constitutionnel, qui déclare les résultats du premier tour et proclame ceux de l'élection. Les résultats provisoires du ministère de l'Intérieur et les rectifications des tableaux annexés au Journal officiel prendront chacun leur étape."
+          "description": "Quelle version, dans l'ordre du processus. « resultats-provisoires » : le ministère de l'Intérieur, le soir du scrutin. « resultats-definitifs » : le ministère, après recensement des votes. « proclamation » : le Conseil constitutionnel, qui déclare les résultats du premier tour et proclame ceux de l'élection. « rectification » : les tableaux annexés au Journal officiel, qui arrêtent les résultats jusqu'en 1995. Seule la proclamation est publiée à ce jour."
         },
         "date": {
           "type": "string",
           "format": "date",
-          "description": "La date du document qui porte cette version : celle de la décision pour le Conseil. Jamais une date de traitement."
+          "description": "La date du document qui porte cette version : celle de la décision pour le Conseil. Jamais une date de traitement. Elle ne range pas les versions : c'est l'étape qui le fait."
         },
         "sources": {
           "type": "array",
