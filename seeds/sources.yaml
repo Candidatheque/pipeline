@@ -642,3 +642,7 @@ sources:
     url: "https://www.legifrance.gouv.fr/jorf/jo/1995/05/14/0113"
     commentaire: "Journal officiel n° 113 du 14 mai 1995, présentation détaillée des résultats annexée à la proclamation des résultats de l'élection du Président de la République"
     consultee_le: 2026-09-21
+  - id: "assemblee-nationale:1798"
+    url: "https://www2.assemblee-nationale.fr/sycomore/fiche/(num_dept)/1798"
+    commentaire: "Jacques Chirac, fiche de la base de données des députés français depuis 1789 (Sycomore)"
+    consultee_le: 2026-09-21

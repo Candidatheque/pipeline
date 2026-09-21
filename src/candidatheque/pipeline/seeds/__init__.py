@@ -10,6 +10,12 @@ from candidatheque.pipeline.seeds.candidatures import (
     load_candidatures,
 )
 from candidatheque.pipeline.seeds.elections import Election, Tour, load_elections
+from candidatheque.pipeline.seeds.fonctions import (
+    Fonction,
+    Occupation,
+    Parcours,
+    load_fonctions,
+)
 from candidatheque.pipeline.seeds.parrainages import (
     Etendue,
     Format,
@@ -34,8 +40,11 @@ __all__ = [
     "Election",
     "Etat",
     "Etendue",
+    "Fonction",
     "Format",
     "Nature",
+    "Occupation",
+    "Parcours",
     "Parti",
     "Participation",
     "Personne",
@@ -48,6 +57,7 @@ __all__ = [
     "load_autorites",
     "load_candidatures",
     "load_elections",
+    "load_fonctions",
     "load_parrainages",
     "load_partis",
     "load_personnes",
