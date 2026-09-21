@@ -353,6 +353,33 @@ autre institution qu'une assemblée de province.
 Les 60 723 présentations portent toutes un code ; un test le vérifie, pour
 qu'une graphie inédite se voie en revue plutôt que de vider le champ en silence.
 
+### Où le mandat s'exerce
+
+`circonscription` ne pouvait pas porter ce qu'il portait. Le mot désigne en
+droit électoral la circonscription législative, alors que le champ recevait
+tantôt une commune, tantôt un canton, tantôt une région, un EPCI, une
+collectivité d'outre-mer ou un numéro. Il se lit désormais en deux champs.
+
+`territoire` porte le nom propre du lieu, et seulement lui : une commune pour un
+maire, un canton pour un conseiller général, un EPCI pour un président de
+communauté, la ville où siège un conseil consulaire. Le type n'y figure jamais,
+le mandat le portant déjà : `RABAT`, et non « Conseil supérieur des Français de
+l'étranger de RABAT » ; `CONFOLENTAIS`, et non « communauté de communes du
+CONFOLENTAIS ». Le champ est absent quand le code nomme déjà la collectivité,
+comme `membre-assemblee-corse` — contrairement à `membre-assemblee-outre-mer`,
+où le territoire est la seule mention de la Guyane ou de Wallis-et-Futuna.
+
+Les motifs de redite sont explicites, jamais génériques. Près de 2 800 communes
+s'ouvrent sur `LE`, `LA` ou `VILLE` — `LE THOUR`, `VILLEDOUX` —, et un
+décapage par préfixe les mutilerait.
+
+`circonscription` ne garde que le numéro de la circonscription législative d'un
+député, en nombre. Les sources l'écrivent `2ème circonscription`, `la 3e
+circonscription` ou `1er` selon l'année : 192 graphies pour un entier, qui se lit
+avec le département. 73 députés font exception, dont la source écrit le
+département au lieu du numéro ; leur ressort reste dans `territoire` plutôt que
+d'être perdu, en attendant que le département passe en code.
+
 Recevoir un parrainage ne fait pas de vous un candidat. Thomas PESQUET et
 Édouard PHILIPPE en ont reçu en 2022, François HOLLANDE en 2017 et en 2022,
 sans jamais se présenter. Les écarter publierait un total faux ; leur donner un

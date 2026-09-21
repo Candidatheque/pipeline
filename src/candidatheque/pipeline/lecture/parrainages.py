@@ -32,8 +32,11 @@ class Parrainage:
     civilite: str | None = None
     #: Le mandat qui rend l'élu habilité : maire, conseiller départemental…
     mandat: str | None = None
-    #: La commune, le département ou la circonscription de ce mandat.
-    circonscription: str | None = None
+    #: Là où s'exerce le mandat, tel que la source l'écrit : une commune pour
+    #: un maire, un canton pour un conseiller général, un numéro de
+    #: circonscription pour un député, une collectivité pour un membre
+    #: d'assemblée d'outre-mer. La publication se charge de le mettre en forme.
+    territoire: str | None = None
     departement: str | None = None
     #: La date à laquelle le Conseil l'a rendu public. Absente des formats
     #: antérieurs à 2017, qui ne publiaient qu'une fois.
@@ -60,7 +63,7 @@ def _json_plat(contenu: list[dict], defaut: dt.date | None) -> list[Parrainage]:
                 prenom=_texte(entree.get("Prenom")),
                 civilite=_texte(entree.get("Civilite")),
                 mandat=_texte(entree.get("Mandat")),
-                circonscription=_texte(entree.get("Circonscription")),
+                territoire=_texte(entree.get("Circonscription")),
                 departement=_texte(entree.get("Departement")),
                 publie_le=dt.date.fromisoformat(jour[:10]) if jour else defaut,
             )
@@ -89,7 +92,7 @@ def _json_par_candidat(contenu: list[dict], defaut: dt.date | None) -> list[Parr
                     prenom=_texte(entree.get("Prénom")),
                     civilite=_texte(entree.get("Civilité")),
                     mandat=_texte(entree.get("Mandat")),
-                    circonscription=_texte(entree.get("Circonscription")),
+                    territoire=_texte(entree.get("Circonscription")),
                     departement=_texte(entree.get("Département")),
                     publie_le=_jour_francais(_texte(entree.get("Date de publication"))) or defaut,
                 )
@@ -403,7 +406,7 @@ def _texte_jo(
                     nom=nom,
                     civilite=civilite,
                     mandat=mandat,
-                    circonscription=lieu,
+                    territoire=lieu,
                     departement=departement,
                     publie_le=defaut,
                 )

@@ -26,6 +26,7 @@ from __future__ import annotations
 import difflib
 import re
 import unicodedata
+from dataclasses import dataclass
 
 #: L'écriture inclusive, réduite au masculin qui sert de forme de citation.
 #: 2017 écrit « Conseiller/ère départemental-e », 2022 « Conseiller
@@ -149,17 +150,86 @@ REDIT_L_INSTITUTION = re.compile(r"\b(assemblee|congres|conseil)\b")
 SEUIL = 0.66
 
 
-def normaliser(mandat: str | None, ressort: str | None = None) -> tuple[str | None, str | None]:
-    """Le code du mandat et son ressort.
+#: Ce que le territoire redit du mandat et qu'il n'a donc pas à porter : le type
+#: de la collectivité, que le code dit déjà. « Conseil supérieur des Français de
+#: l'étranger de RABAT » ne doit laisser que « RABAT », « communauté de communes
+#: du CONFOLENTAIS » que « CONFOLENTAIS », « commune associée de LECOURT » que
+#: « LECOURT ». Les motifs sont explicites plutôt que génériques : un préfixe
+#: « LE », « LA » ou « VILLE » appartient au nom de la commune neuf fois sur dix
+#: — « LE THOUR », « VILLEDOUX » —, et le retirer mutilerait 2 800 territoires.
+REDITES = (
+    re.compile(
+        r"^(?:la |le |l['’])?commune\s+(?:associ[ée]e|d[ée]l[ée]gu[ée]e|nouvelle)\s+"
+        r"(?:de\s+|d['’]|du\s+|des\s+)?",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"^(?:le\s+)?conseil\s+sup[ée]rieur\s+des\s+fran[çc]ais\s+de\s+l['’][ée]tranger\s+"
+        r"(?:de\s+|d['’])",
+        re.IGNORECASE,
+    ),
+    # Le type d'EPCI, parfois écrit deux fois de suite — « communauté de communes
+    # COMMUNAUTÉ DE COMMUNES DE LA HAUTE SAINTONGE ».
+    re.compile(
+        r"^(?:(?:la |le |les )?communaut[ée]\s+(?:de\s+communes|d['’]agglom[ée]ration"
+        r"|urbaine|intercommunale|de\s+m[ée]tropole)\s*"
+        r"(?:de\s+la\s+|de\s+|du\s+|des\s+|d['’])?)+",
+        re.IGNORECASE,
+    ),
+)
+#: Un territoire qui ne dit plus rien une fois la redite ôtée : la source n'y
+#: nommait que l'institution. « C.S.F.E. » n'est pas un lieu.
+SANS_LIEU = re.compile(
+    r"^(?:c\W*s\W*f\W*e\W*|(?:l['’])?assembl[ée]e\s+des\s+fran[çc]ais\s+de\s+l['’][ée]tranger)$",
+    re.IGNORECASE,
+)
+#: Les codes qui nomment déjà la collectivité : leur territoire ne ferait que
+#: la redire. « membre-assemblee-outre-mer » n'en est pas, justement : c'est la
+#: catégorie unique de 2022, et seul le territoire dit s'il s'agit de la Guyane
+#: ou de Wallis-et-Futuna.
+TERRITOIRE_IMPLICITE = frozenset(
+    {
+        "conseiller-paris",
+        "conseiller-metropolitain-lyon",
+        "membre-assemblee-corse",
+        "membre-congres-nouvelle-caledonie",
+        "president-polynesie",
+        "president-gouvernement-nouvelle-caledonie",
+        "president-conseil-executif-martinique",
+    }
+)
+#: Le numéro de la circonscription législative, dans les formes que les sources
+#: lui donnent : « 2ème circonscription », « la 3e circonscription », « 1er »,
+#: et jusqu'à « l’Hérault (7 e) », où le département s'est invité.
+NUMERO_DE_CIRCONSCRIPTION = re.compile(
+    r"\b(\d{1,2})\s*(?:er|re|ère|ere|ème|eme|e)\b", re.IGNORECASE
+)
 
-    `ressort` sert deux fois. Il départage d'abord les libellés que la source
-    laisse incomplets : « conseiller » ne dit pas lequel, « conseiller » et
-    « Paris » le disent. Il est ensuite rendu, éventuellement complété par la
-    règle quand c'est le libellé du mandat qui portait le lieu.
+
+@dataclass(frozen=True)
+class Qualite:
+    """Ce qui rend un élu habilité : son mandat, et où il l'exerce."""
+
+    #: Le code du mandat, ou None si la source n'en donne pas.
+    mandat: str | None
+    #: Le nom propre du lieu — commune, canton, EPCI, collectivité, ville où
+    #: siège un conseil consulaire. Jamais le type, que le mandat porte déjà.
+    territoire: str | None = None
+    #: Le numéro de la circonscription législative, pour les seuls députés.
+    circonscription: int | None = None
+
+
+def normaliser(mandat: str | None, ressort: str | None = None) -> Qualite:
+    """Le mandat en vocabulaire fixe, et le lieu où il s'exerce.
+
+    `ressort` est ce que la source écrit à côté du mandat. Il sert deux fois :
+    il départage d'abord les libellés que la source laisse incomplets —
+    « conseiller » ne dit pas lequel, « conseiller » et « Paris » le disent —,
+    puis il devient le territoire, une fois ôté ce que le mandat redit.
     """
     plat = _plat(mandat)
     if not plat:
-        return None, ressort
+        return Qualite(None, _territoire(None, ressort))
     plat_ressort = _plat(ressort)
     for code, motif, motif_ressort, rendu in _COMPILEES:
         if motif.search(plat) and (motif_ressort is None or motif_ressort.search(plat_ressort)):
@@ -167,9 +237,41 @@ def normaliser(mandat: str | None, ressort: str | None = None) -> tuple[str | No
             # lieu et se contente de redire l'institution : « l’Assemblée de la
             # Polynésie » répète le mandat là où la règle nomme la collectivité.
             if rendu and (not ressort or REDIT_L_INSTITUTION.search(plat_ressort)):
-                return code, rendu
-            return code, ressort or None
-    return _approché(plat), ressort
+                return _avec_ressort(code, rendu)
+            return _avec_ressort(code, ressort)
+    return _avec_ressort(_approché(plat), ressort)
+
+
+def _avec_ressort(code: str | None, ressort: str | None) -> Qualite:
+    """Range le ressort, en numéro pour un député, en territoire sinon.
+
+    Tous les chemins y passent, y compris celui d'une règle qui rend
+    elle-même le ressort : c'est ici, et ici seulement, que les codes nommant
+    déjà leur collectivité s'en voient priver.
+    """
+    if code in TERRITOIRE_IMPLICITE:
+        return Qualite(code)
+    if code == "depute":
+        # Le numéro quand la source le donne. Sinon elle a écrit le département
+        # — « député de la DRÔME » —, qu'on garde faute de mieux plutôt que de
+        # le jeter : c'est la seule mention du département sur ces lignes.
+        numero = NUMERO_DE_CIRCONSCRIPTION.search(ressort or "")
+        if numero:
+            return Qualite(code, None, int(numero.group(1)))
+        return Qualite(code, _territoire(code, ressort))
+    return Qualite(code, _territoire(code, ressort))
+
+
+def _territoire(code: str | None, ressort: str | None) -> str | None:
+    """Le ressort débarrassé de ce que le mandat dit déjà."""
+    if not ressort:
+        return None
+    propre = ressort.strip()
+    for redite in REDITES:
+        propre = redite.sub("", propre).strip()
+    if not propre or SANS_LIEU.match(propre):
+        return None
+    return propre
 
 
 def _approché(plat: str) -> str | None:

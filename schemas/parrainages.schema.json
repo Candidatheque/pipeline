@@ -120,10 +120,16 @@
             "senateur"
           ]
         },
-        "circonscription": {
+        "territoire": {
           "type": "string",
-          "description": "La commune ou la circonscription où s'exerce le mandat, quand la source la donne.",
-          "examples": ["SAUMUR-NORD", "Mont-Saint-Père"]
+          "description": "Le nom propre du lieu où s'exerce le mandat : une commune pour un maire, un canton pour un conseiller général ou départemental, un EPCI pour un président de communauté, une collectivité pour un membre d'assemblée d'outre-mer, la ville où siège un conseil consulaire. Le type n'y figure jamais, le mandat le portant déjà : « RABAT » et non « Conseil supérieur des Français de l'étranger de RABAT », « CONFOLENTAIS » et non « communauté de communes du CONFOLENTAIS ». Le champ est absent quand le mandat nomme déjà la collectivité, comme « membre-assemblee-corse ».",
+          "examples": ["Mont-Saint-Père", "SAUMUR-NORD", "Guyane", "RABAT", "CONFOLENTAIS"]
+        },
+        "circonscription": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Le numéro de la circonscription législative, pour les seuls députés, et seulement quand la source le donne. Il se lit avec le département : la 3e circonscription de la Sarthe. Les sources l'écrivent « 2ème circonscription », « la 3e circonscription » ou « 1er » selon l'année ; il est publié en nombre.",
+          "examples": [1, 3, 12]
         },
         "departement": {
           "type": "string",

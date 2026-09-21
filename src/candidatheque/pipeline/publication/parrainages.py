@@ -55,11 +55,13 @@ def _presentation_publiee(parrainage: Parrainage) -> dict:
     entree["nom"] = parrainage.nom
     if parrainage.prenom:
         entree["prenom"] = parrainage.prenom
-    mandat, ressort = normaliser_mandat(parrainage.mandat, parrainage.circonscription)
-    if mandat:
-        entree["mandat"] = mandat
-    if ressort:
-        entree["circonscription"] = ressort
+    qualite = normaliser_mandat(parrainage.mandat, parrainage.territoire)
+    if qualite.mandat:
+        entree["mandat"] = qualite.mandat
+    if qualite.territoire:
+        entree["territoire"] = qualite.territoire
+    if qualite.circonscription is not None:
+        entree["circonscription"] = qualite.circonscription
     if parrainage.departement:
         entree["departement"] = parrainage.departement
     if parrainage.publie_le:

@@ -2,12 +2,16 @@
 
 import pytest
 
-from candidatheque.pipeline.publication.mandats import REGLES, normaliser
+from candidatheque.pipeline.publication.mandats import REGLES, Qualite, normaliser
 
 
 def code(mandat, ressort=None):
     """Le seul code, là où le ressort ne fait pas partie de ce qu'on vérifie."""
-    return normaliser(mandat, ressort)[0]
+    return normaliser(mandat, ressort).mandat
+
+
+def territoire(mandat, ressort=None):
+    return normaliser(mandat, ressort).territoire
 
 
 class TestGraphies:
@@ -96,14 +100,16 @@ class TestOutreMer:
         ],
     )
     def test_la_collectivite_passe_dans_le_ressort(self, libelle, collectivite):
-        assert normaliser(libelle) == ("membre-assemblee-outre-mer", collectivite)
+        assert code(libelle) == "membre-assemblee-outre-mer"
+        assert territoire(libelle) == collectivite
 
     def test_la_corse_n_est_pas_l_outre_mer(self):
         """Collectivité à statut particulier, mais métropolitaine.
 
         Le jeu de 2022 lui garde aussi sa propre catégorie.
         """
-        assert normaliser("Membre de l'Assemblée de Corse") == ("membre-assemblee-corse", "Corse")
+        assert code("Membre de l'Assemblée de Corse") == "membre-assemblee-corse"
+        assert territoire("Membre de l'Assemblée de Corse") is None
 
     def test_le_congres_n_est_pas_une_assemblee_de_province(self):
         """Deux institutions de Nouvelle-Calédonie, et non deux noms d'une même."""
@@ -112,14 +118,77 @@ class TestOutreMer:
 
     def test_un_ressort_qui_redit_l_institution_cede_a_la_regle(self):
         """« l'Assemblée de la Polynésie » répète le mandat au lieu de le situer."""
-        assert normaliser("membre", "l'Assemblée de la Polynésie") == (
-            "membre-assemblee-outre-mer",
-            "Polynésie française",
+        assert normaliser("membre", "l'Assemblée de la Polynésie") == Qualite(
+            "membre-assemblee-outre-mer", "Polynésie française"
         )
 
+    def test_le_type_de_la_collectivite_ne_se_repete_pas_dans_le_territoire(self):
+        """Le mandat porte le type ; le territoire ne porte que le nom propre."""
+        assert normaliser("membre élu", "Conseil supérieur des Français de l’étranger de RABAT") == Qualite(
+            "membre-csfe", "RABAT"
+        )
+        assert normaliser("président", "la communauté de communes SUD-EST PAYS MANCEAU") == Qualite(
+            "president-communaute", "SUD-EST PAYS MANCEAU"
+        )
+        assert normaliser("Maire délégué-e", "commune associée de LECOURT") == Qualite(
+            "maire-delegue", "LECOURT"
+        )
+
+    @pytest.mark.parametrize("commune", ["LE THOUR", "LA COUARDE", "VILLEDOUX", "LES VARENNES"])
+    def test_un_nom_de_commune_n_est_pas_pris_pour_une_redite(self, commune):
+        """2 800 communes s'ouvrent sur « LE », « LA » ou « VILLE ».
+
+        Les motifs de redite sont explicites pour cette raison : un préfixe
+        générique mutilerait « VILLEDOUX » en « DOUX ».
+        """
+        assert territoire("maire", commune) == commune
+
+    def test_un_ressort_qui_ne_nomme_aucun_lieu_disparait(self):
+        """« C.S.F.E. » est le nom de l'institution, pas celui d'une ville."""
+        assert territoire("membre élu", "C.S.F.E.") is None
+
+
+class TestCirconscription:
+    """Le député ne porte pas un lieu mais un numéro.
+
+    Les sources l'écrivent « 2ème circonscription », « la 3e circonscription »,
+    « 1er », et jusqu'à « l’Hérault (7 e) » : 192 graphies pour un entier, qui
+    se lit avec le département.
+    """
+
+    @pytest.mark.parametrize(
+        "ressort, numero",
+        [
+            ("la 3e circonscription", 3),
+            ("2ème circonscription", 2),
+            ("1er", 1),
+            ("la 1re circonscription", 1),
+            ("l’Hérault (7 e)", 7),
+        ],
+    )
+    def test_le_numero_est_publie_en_nombre(self, ressort, numero):
+        assert normaliser("député", ressort) == Qualite("depute", None, numero)
+
+    def test_un_departement_ecrit_a_la_place_du_numero_est_conserve(self):
+        """« député de la DRÔME » : la source ne donne pas de numéro.
+
+        Le jeter perdrait la seule mention du département sur ces lignes. Il est
+        conservé tel quel, article compris : l'ôter demanderait un motif
+        générique, qui mutilerait les communes en « LE » et « LA ». Ces 73
+        lignes sont à reprendre quand le département passera en code.
+        """
+        assert normaliser("député", "la DRÔME") == Qualite("depute", "la DRÔME")
+
+    def test_les_autres_mandats_n_ont_pas_de_circonscription(self):
+        assert normaliser("maire", "Béon").circonscription is None
+
+
+class TestRessortConserve:
     def test_un_ressort_qui_nomme_un_lieu_est_conserve(self):
-        """La circonscription consulaire du C.S.F.E. n'est pas redite du mandat."""
-        assert normaliser("membre élu", "Conseil supérieur des Français de l'étranger de TOKYO")[0] == "membre-csfe"
+        """La territoire consulaire du C.S.F.E. n'est pas redite du mandat."""
+        assert normaliser("membre élu", "Conseil supérieur des Français de l'étranger de TOKYO") == Qualite(
+            "membre-csfe", "TOKYO"
+        )
 
     def test_un_conseiller_sans_ressort_ne_devient_pas_conseiller_de_paris(self):
         """Le ressort est exigé, pas supposé."""

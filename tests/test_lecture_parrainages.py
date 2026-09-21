@@ -74,7 +74,7 @@ class TestProseDuJournalOfficiel:
 
     def test_le_lieu_se_detache_du_mandat(self):
         lus, _ = self._lire("Monsieur Raymond BARRE\nAlain MAITRE, maire d’AMFREVILLE (50).\n")
-        assert (lus[0].mandat, lus[0].circonscription) == ("maire", "AMFREVILLE")
+        assert (lus[0].mandat, lus[0].territoire) == ("maire", "AMFREVILLE")
 
     def test_un_nom_de_commune_ne_declenche_pas_de_titre(self):
         """« LA CHAPELLE-FORAINVILLIERS » contient « VILLIERS »."""
@@ -90,7 +90,7 @@ class TestProseDuJournalOfficiel:
         lus, _ = self._lire(
             "Monsieur Raymond BARRE\nJean DUPONT, maire de NOVY-CHEVRIE-\nRES (08).\n"
         )
-        assert lus[0].circonscription == "NOVY-CHEVRIERES"
+        assert lus[0].territoire == "NOVY-CHEVRIERES"
 
     def test_le_trait_d_union_conditionnel_recolle_le_mandat(self):
         lus, rates = self._lire("Monsieur Raymond BARRE\nRené TRAVERT, séna­\nteur (50).\n")
@@ -104,7 +104,7 @@ class TestProseDuJournalOfficiel:
             "4788 JOURNAL OFFICIEL DE LA\n"
             "GUERAY (50).\n"
         )
-        assert (lus[0].nom, lus[0].circonscription) == ("Marie-Thérèse HULMEL", "MARGUERAY")
+        assert (lus[0].nom, lus[0].territoire) == ("Marie-Thérèse HULMEL", "MARGUERAY")
 
     def test_la_note_de_bas_de_page_ne_coupe_pas_une_presentation(self):
         """Elle tombe au milieu d'une liste et sépare le nom de son mandat."""
@@ -117,7 +117,7 @@ class TestProseDuJournalOfficiel:
             "maire de BOISSEAUX (45).\n"
         )
         assert not rates
-        assert (lus[0].nom, lus[0].circonscription) == ("Claude LUCHE", "BOISSEAUX")
+        assert (lus[0].nom, lus[0].territoire) == ("Claude LUCHE", "BOISSEAUX")
 
     @pytest.mark.parametrize("separateur", [" ; ", " * ", " • ", " j»1 ", " î ", ". ", ", ", " "])
     def test_les_presentations_se_separent_quel_que_soit_le_signe(self, separateur):
@@ -144,7 +144,7 @@ class TestProseDuJournalOfficiel:
         """« mgire », « maii’e », « jnaire » : l'impression malmène « maire »."""
         lus, rates = self._lire("Monsieur Raymond BARRE\nCélestin MANIN, mgire d’ALLEMONT (38).\n")
         assert not rates
-        assert lus[0].circonscription == "ALLEMONT"
+        assert lus[0].territoire == "ALLEMONT"
 
     @pytest.mark.parametrize(
         "prose",
@@ -172,7 +172,7 @@ class TestProseDuJournalOfficiel:
         """
         lus, rates = self._lire(f"Monsieur Raymond BARRE\nHenri PERRET, {prose}.\n")
         assert not rates
-        assert (lus[0].mandat, lus[0].circonscription) == ("maire", "IZIEU")
+        assert (lus[0].mandat, lus[0].territoire) == ("maire", "IZIEU")
 
     def test_une_commune_en_du_ne_perd_pas_ses_deux_premieres_lettres(self):
         """« DUTTLENHEIM » n'est pas « du TTLENHEIM ».
@@ -180,7 +180,7 @@ class TestProseDuJournalOfficiel:
         La préposition en capitales ne s'ôte que suivie d'une espace.
         """
         lus, _ = self._lire("Monsieur Raymond BARRE\nPaul KLEIN, maire der DUTTLENHEIM (67).\n")
-        assert lus[0].circonscription == "DUTTLENHEIM"
+        assert lus[0].territoire == "DUTTLENHEIM"
 
     def test_un_mandat_compose_ne_se_coupe_pas_sur_une_majuscule(self):
         """« Assemblée » et « Parlement » portent une majuscule, pas deux."""
@@ -190,7 +190,7 @@ class TestProseDuJournalOfficiel:
             "Luc FAURE, conseiller à l’Assemblée (75).\n"
         )
         assert [p.mandat for p in lus] == ["représentant au Parlement européen", "conseiller à l’Assemblée"]
-        assert [p.circonscription for p in lus] == [None, None]
+        assert [p.territoire for p in lus] == [None, None]
 
     def test_le_decret_imprime_sous_la_liste_est_coupe(self):
         """La présentation est vraie ; seul ce qui suit son point final ne l'est pas.
