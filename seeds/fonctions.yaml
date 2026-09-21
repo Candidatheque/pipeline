@@ -1,0 +1,79 @@
+# Les fonctions occupées par les candidats : mandats électifs et fonctions
+# gouvernementales, datés et sourcés.
+#
+# Le seed tient la biographie entière, sans égard aux élections. C'est à la
+# publication qu'une candidature ne reçoit que ce qui avait commencé avant son
+# premier tour, et sans la date de fin d'une fonction encore en cours ce
+# jour-là : elle appartient à l'avenir de l'élection.
+#
+# Conventions :
+#   - une entrée par mandat tel que la source le découpe. Sycomore coupe les
+#     mandats de député à chaque législature et à chaque entrée au
+#     gouvernement ; on garde ce découpage, sans fusionner.
+#   - `fonction` : un code du vocabulaire fixe, défini dans
+#                  `src/candidatheque/pipeline/seeds/fonctions.py`.
+#   - `ressort`  : le territoire du mandat, tel que la source l'écrit — le
+#                  département d'un député ou d'un sénateur, la commune d'un
+#                  maire. Absent pour une fonction nationale.
+#   - `intitule` : pour un membre du gouvernement seulement, le portefeuille
+#                  tel que le décret de nomination le libelle.
+#   - `debut`, `fin` : lus dans la source citée, jamais dans Wikidata quand
+#                  une source officielle existe. Quand les deux divergent,
+#                  la source fait foi. `fin` est absente d'une fonction encore
+#                  en cours.
+#   - `sources`  : au moins une. La fiche de l'assemblée pour un mandat
+#                  parlementaire, le décret au Journal officiel pour une
+#                  fonction gouvernementale. Wikidata n'est admis que pour un
+#                  mandat local, faute de mieux.
+#
+# Les personnes sont listées par identifiant croissant, leurs fonctions par
+# date de début.
+
+parcours:
+  - personne: "PE-0030"
+    fonctions:
+      - fonction: "depute"
+        ressort: "Corrèze"
+        debut: 1967-04-03
+        fin: 1967-05-07
+        sources: ["assemblee-nationale:1798"]
+      - fonction: "depute"
+        ressort: "Corrèze"
+        debut: 1968-07-11
+        fin: 1968-08-12
+        sources: ["assemblee-nationale:1798"]
+      - fonction: "depute"
+        ressort: "Corrèze"
+        debut: 1973-04-02
+        fin: 1973-05-08
+        sources: ["assemblee-nationale:1798"]
+      - fonction: "depute"
+        ressort: "Corrèze"
+        debut: 1976-11-14
+        fin: 1978-04-02
+        sources: ["assemblee-nationale:1798"]
+      - fonction: "depute"
+        ressort: "Corrèze"
+        debut: 1978-04-03
+        fin: 1981-05-22
+        sources: ["assemblee-nationale:1798"]
+      - fonction: "depute"
+        ressort: "Corrèze"
+        debut: 1981-07-02
+        fin: 1986-04-01
+        sources: ["assemblee-nationale:1798"]
+      - fonction: "depute"
+        ressort: "Corrèze"
+        debut: 1986-04-02
+        fin: 1986-04-02
+        sources: ["assemblee-nationale:1798"]
+      - fonction: "depute"
+        ressort: "Corrèze"
+        debut: 1988-06-06
+        fin: 1993-04-01
+        sources: ["assemblee-nationale:1798"]
+      - fonction: "depute"
+        ressort: "Corrèze"
+        debut: 1993-04-02
+        fin: 1995-05-16
+        sources: ["assemblee-nationale:1798"]

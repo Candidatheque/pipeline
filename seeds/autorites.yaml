@@ -62,6 +62,24 @@ autorites:
       - "interieur.gouv.fr"
       - "elections.interieur.gouv.fr"
 
+  - id: "assemblee-nationale"
+    nom: "Assemblée nationale"
+    nature: "officielle"
+    domaines:
+      - "assemblee-nationale.fr"
+
+  - id: "senat"
+    nom: "Sénat"
+    nature: "officielle"
+    domaines:
+      - "senat.fr"
+
+  - id: "parlement-europeen"
+    nom: "Parlement européen"
+    nature: "officielle"
+    domaines:
+      - "europarl.europa.eu"
+
   - id: "wikipedia-fr"
     nom: "Wikipédia en français"
     nature: "encyclopedique"

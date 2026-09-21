@@ -1,0 +1,38 @@
+# Fonctions occupées (P39) par une liste de personnes, avec leurs dates, et les
+# identifiants qui mènent à la source officielle de chaque mandat.
+#
+# La pipeline ne l'exécute pas. Elle sert à repérer quoi saisir dans
+# `seeds/fonctions.yaml`, pas à le remplir : Wikidata indique qu'un mandat
+# existe, la fiche de l'institution en donne les dates et sert de source. Sur
+# nos candidats, moins de la moitié des déclarations P39 portent une référence,
+# et une bonne part de celles-ci renvoie à Wikipédia.
+#
+# Remplacer le contenu de VALUES par les QID de `seeds/personnes.yaml`. Le
+# service SPARQL renvoie parfois une erreur 502 sur une longue liste : la
+# couper en lots d'une trentaine.
+#
+# Identifiants utiles, quand la personne en a un :
+#   - P1045 : fiche Sycomore de l'Assemblée nationale ;
+#   - P1808 : fiche du Sénat, sous la forme « senateur/<matricule> ». Seul
+#             le matricule entre dans l'identifiant de source, qui refuse la
+#             barre oblique : « senat:mitterrand_francois000379 » ;
+#   - P1186 : fiche du Parlement européen.
+#
+# Une déclaration sans date de début (P580) ne dit pas si la fonction précède
+# une élection : elle ne sert qu'à signaler un mandat à chercher ailleurs.
+
+SELECT ?personne ?fonction ?fonctionLabel ?ressortLabel ?debut ?fin
+       ?sycomore ?senat ?parlementEuropeen
+WHERE {
+  VALUES ?personne { wd:Q2105 wd:Q2038 }
+  ?personne p:P39 ?declaration .
+  ?declaration ps:P39 ?fonction .
+  OPTIONAL { ?declaration pq:P580 ?debut }
+  OPTIONAL { ?declaration pq:P582 ?fin }
+  OPTIONAL { ?declaration pq:P768 ?ressort }
+  OPTIONAL { ?personne wdt:P1045 ?sycomore }
+  OPTIONAL { ?personne wdt:P1808 ?senat }
+  OPTIONAL { ?personne wdt:P1186 ?parlementEuropeen }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en". }
+}
+ORDER BY ?personne ?debut

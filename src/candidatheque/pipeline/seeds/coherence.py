@@ -10,9 +10,10 @@ contrôles, lancés par `candidatheque valider`.
 from __future__ import annotations
 
 from candidatheque.pipeline.lecture.parrainages import lire
-from candidatheque.pipeline.seeds.autorites import load_autorites
+from candidatheque.pipeline.seeds.autorites import Nature, load_autorites
 from candidatheque.pipeline.seeds.candidatures import load_candidatures
 from candidatheque.pipeline.seeds.elections import load_elections
+from candidatheque.pipeline.seeds.fonctions import LOCALES, load_fonctions
 from candidatheque.pipeline.seeds.parrainages import load_parrainages
 from candidatheque.pipeline.seeds.partis import load_partis
 from candidatheque.pipeline.seeds.personnes import load_personnes
@@ -31,6 +32,7 @@ def verifier() -> list[str]:
     candidatures = load_candidatures()
     sources_parrainages = load_parrainages()
     sources_resultats = load_resultats()
+    parcours = load_fonctions()
 
     problemes: list[str] = []
 
@@ -196,6 +198,29 @@ def verifier() -> list[str]:
                 for surnumeraire in sorted(declares - attendus - (declares - personnes)):
                     problemes.append(
                         f"{ou} : {surnumeraire} porte des voix, sans candidature à ce tour"
+                    )
+
+    # Une source encyclopédique n'est admise que pour un mandat local. Pour un mandat parlementaire ou
+    # gouvernemental, l'institution publie elle-même la liste de ses membres.
+    for entree in parcours:
+        if entree.personne not in personnes:
+            problemes.append(f"{entree.personne} : parcours d'une personne absente du registre")
+        for occupation in entree.fonctions:
+            ou = f"{entree.personne}/{occupation.fonction}/{occupation.debut}"
+            for identifiant in occupation.sources:
+                sources_citees.add(identifiant)
+                source = sources.get(identifiant)
+                if source is None:
+                    problemes.append(f"{ou} : source inconnue « {identifiant} »")
+                    continue
+                autorite = autorites.get(source.autorite)
+                if (
+                    autorite is not None
+                    and autorite.nature is Nature.ENCYCLOPEDIQUE
+                    and occupation.fonction not in LOCALES
+                ):
+                    problemes.append(
+                        f"{ou} : source encyclopédique « {identifiant} » réservée aux mandats locaux"
                     )
 
     for orpheline in sorted(partis - partis_cites):
