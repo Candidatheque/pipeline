@@ -146,6 +146,73 @@ class TestProseDuJournalOfficiel:
         assert not rates
         assert lus[0].circonscription == "ALLEMONT"
 
+    @pytest.mark.parametrize(
+        "prose",
+        [
+            "maire d’IZIEU (01)",  # la préposition telle qu'elle doit être
+            "maire dTZIEU (01)",  # « ’I » recollé en un T
+            "maire dlZIEU (01)",  # « ’I » recollé en un l
+            "maire dé IZIEU (01)",  # l'apostrophe lue comme un accent
+            "maire dç IZIEU (01)",  # … ou comme une cédille
+            "maire ds IZIEU (01)",
+            "maire cle IZIEU (01)",  # « de » lu « cle »
+            "maire deIZIEU (01)",  # l'espace mangée
+            "maire.de IZIEU (01)",
+            "maire-de IZIEU (01)",
+            "maire d ’ IZIEU (01)",
+            "maire DE IZIEU (01)",  # la préposition passée en capitales
+            "maire IZIEU (01)",  # la préposition tout bonnement absente
+        ],
+    )
+    def test_le_lieu_se_detache_meme_sans_preposition_lisible(self, prose):
+        """Quarante ans de scans ont inventé une trentaine de « de ».
+
+        Les énumérer serait sans fin : le repère est la casse, les communes
+        étant imprimées en capitales et les mandats en minuscules.
+        """
+        lus, rates = self._lire(f"Monsieur Raymond BARRE\nHenri PERRET, {prose}.\n")
+        assert not rates
+        assert (lus[0].mandat, lus[0].circonscription) == ("maire", "IZIEU")
+
+    def test_une_commune_en_du_ne_perd_pas_ses_deux_premieres_lettres(self):
+        """« DUTTLENHEIM » n'est pas « du TTLENHEIM ».
+
+        La préposition en capitales ne s'ôte que suivie d'une espace.
+        """
+        lus, _ = self._lire("Monsieur Raymond BARRE\nPaul KLEIN, maire der DUTTLENHEIM (67).\n")
+        assert lus[0].circonscription == "DUTTLENHEIM"
+
+    def test_un_mandat_compose_ne_se_coupe_pas_sur_une_majuscule(self):
+        """« Assemblée » et « Parlement » portent une majuscule, pas deux."""
+        lus, _ = self._lire(
+            "Monsieur Raymond BARRE\n"
+            "Anne MOREL, représentant au Parlement européen ; "
+            "Luc FAURE, conseiller à l’Assemblée (75).\n"
+        )
+        assert [p.mandat for p in lus] == ["représentant au Parlement européen", "conseiller à l’Assemblée"]
+        assert [p.circonscription for p in lus] == [None, None]
+
+    def test_le_decret_imprime_sous_la_liste_est_coupe(self):
+        """La présentation est vraie ; seul ce qui suit son point final ne l'est pas.
+
+        Claude HURIET était bien conseiller général de Meurthe-et-Moselle :
+        écarter la ligne entière perdrait une présentation réelle.
+        """
+        lus, rates = self._lire(
+            "Monsieur Raymond BARRE\n"
+            "Claude HURIET, conseiller général (54). DÉCRETS, ARRÊTÉS ET CIRCULAIRES "
+            "MINISTERE DES AFFAIRES ETRANGERES Décret n° 81-346 du portant publication "
+            "de l’accord de coopération touristique entre le Gouvernement de la et le "
+            "Gouvernement des Etats-Unis du Mexique, signé à Paris le (1).\n"
+        )
+        assert not rates
+        assert len(lus) == 1
+        assert (lus[0].nom, lus[0].mandat, lus[0].departement) == (
+            "Claude HURIET",
+            "conseiller général",
+            "54",
+        )
+
     def test_une_virgule_parasite_ne_coupe_pas_le_nom(self):
         lus, _ = self._lire("Monsieur Raymond BARRE\nJulien , VIDAL, maire de NEBIAN (34).\n")
         assert lus[0].nom == "Julien VIDAL"

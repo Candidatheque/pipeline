@@ -152,6 +152,8 @@ def _sans_cesure(lignes: list[str]) -> str:
     # « (55; ; » : la parenthèse fermante lue comme un point-virgule. Sans
     # cette reprise, le département part avec elle et un morceau vide s'ouvre.
     texte = re.sub(r"\((\d{2,3}\s?[AB]?)\s*;", r"(\1)", texte)
+    # « d’I » recollé en une lettre par l'impression : « dTZIEU », « dlNJOUX ».
+    texte = APOSTROPHE_RECOLLEE.sub("d’I", texte)
     return " ".join(texte.split())
 
 
@@ -204,8 +206,58 @@ def _decouper(morceau: str) -> tuple[str, str | None, str | None, str | None, st
     m = LIEU.match(reste)
     if m:
         reste, lieu = m.group("mandat").strip(), m.group("lieu").strip()
+    else:
+        reste, lieu = _lieu_en_capitales(reste)
 
     return _civilite(nom) + (_sans_scories(reste) or None, lieu, departement)
+
+
+#: L'apostrophe de « d’ » suivie d'un I, que l'impression recolle en une seule
+#: lettre : « maire dTZIEU » pour « maire d’IZIEU », « dlNJOUX-GENISSIAT »
+#: pour « d’INJOUX-GENISSIAT ». Le nom de la commune se vérifie à chaque fois.
+APOSTROPHE_RECOLLEE = re.compile(r"\bd[Tl1](?=[A-ZÉÈÀÂÎÔÛ])")
+#: Le lieu quand la préposition qui l'introduit est sortie abîmée de
+#: l'impression — « maire dé BARONVILLE », « mairede SAINTE-NATHALENE »,
+#: « maire cle DOMEVRE-EN-HAYE » — ou qu'elle manque : « maire FASSIONS ».
+#: Le repère sûr n'est alors plus la préposition, dont chaque scan invente une
+#: variante, mais la casse : le Journal officiel imprime les communes tout en
+#: capitales et les mandats en minuscules.
+DEBUT_DE_LIEU = re.compile(r"[A-ZÉÈÀÂÎÔÛÇ]{2}")
+#: Ce qu'il reste de la préposition du côté du mandat, une fois la coupure
+#: faite : « maire dé », « mairede », « maire.de ».
+#: Collée au mandat — « mairede » —, détachée — « maire dé » —, ou réduite à sa
+#: première lettre suivie d'une apostrophe égardée : « maire d ’ ».
+RESTE_DE_PREPOSITION = re.compile(
+    r"(?:[\s.,'’\-]+\S{1,3}|(?<=[a-zé])(?:de|du|des)|\bd)\s*$", re.IGNORECASE
+)
+#: La préposition passée du côté du lieu, quand elle aussi était en capitales :
+#: « maire DU BOULVÉ ». L'espace est exigée : sans elle, « DUTTLENHEIM »
+#: perdrait ses deux premières lettres.
+PREPOSITION_EN_CAPITALES = re.compile(r"^(?:DE|DU|DES|D\s*[’']?)\s+")
+
+
+def _lieu_en_capitales(reste: str) -> tuple[str, str | None]:
+    """Sépare le mandat du lieu sur la casse, quand la préposition a été perdue.
+
+    C'est le repli de `LIEU`, qui demande une préposition lisible. Quarante ans
+    de scans en ont inventé une trentaine de graphies — « dé », « dç », « ds »,
+    « der », « d5 », « cle », « deLA » — et les énumérer serait sans fin.
+    """
+    m = DEBUT_DE_LIEU.search(reste)
+    if not m:
+        return reste, None
+    mandat, lieu = reste[: m.start()], reste[m.start() :].strip()
+    lieu = PREPOSITION_EN_CAPITALES.sub("", lieu).strip(" .,;:")
+    # Un lieu plus long qu'un nom de commune n'en est pas un : c'est un texte
+    # voisin que la mise en page a laissé traaîner. Mieux vaut ne rien couper et
+    # laisser l'appelant compter la présentation comme non lue.
+    if not lieu or len(lieu) > 70:
+        return reste, None
+    # Une préposition peut laisser plusieurs bribes derrière elle — « maire d ’ »
+    # en laisse deux —, d'où le retrait jusqu'à ce qu'il n'en reste plus.
+    while (court := RESTE_DE_PREPOSITION.sub("", mandat)) != mandat:
+        mandat = court
+    return mandat.strip(" .,;:-'’"), lieu
 
 
 def _civilite(nom: str) -> tuple[str, str | None]:
@@ -245,6 +297,18 @@ MANDAT_EN_TETE = re.compile(
     re.IGNORECASE,
 )
 
+
+#: Le texte voisin qui a suivi la fin d'une liste : le point final que ferme le
+#: département — « … conseiller général (54). » — est le dernier mot du Conseil
+#: constitutionnel, et ce qui vient ensuite appartient au décret imprimé en
+#: dessous. La présentation, elle, est vraie : on la garde et on coupe la suite.
+TEXTE_ETRANGER = re.compile(
+    r"^(?P<presentation>.*?\(\s*\d{2,3}\s?[AB]?\s*\))\s*\.\s+\S.{40,}$", re.DOTALL
+)
+
+#: Au-delà, et une fois le texte voisin coupé, le morceau n'est plus une
+#: présentation. La plus longue lue en tient 105.
+LONGUEUR_MAX = 200
 
 #: Le point final qui ferme la liste d'un candidat, après son dernier
 #: département : « … maire de POUILLENAY (21). »
@@ -321,8 +385,11 @@ def _texte_jo(
         if not candidat:
             return
         for morceau in _separer(_sans_cesure(tampon)):
-            morceau = morceau.strip(" .")
+            morceau = TEXTE_ETRANGER.sub(r"\g<presentation>", morceau).strip(" .")
             if len(morceau) < 8 or NOTE.search(morceau):
+                continue
+            if len(morceau) > LONGUEUR_MAX:
+                rates.append(morceau)
                 continue
             nom, civilite, mandat, lieu, departement = _decouper(morceau)
             # Un nom d'élu tient en quelques mots : au-delà, le morceau vient
