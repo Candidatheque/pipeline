@@ -26,6 +26,7 @@ au moment de publier.
 
 from __future__ import annotations
 
+import datetime as dt
 import json
 import shutil
 from collections.abc import Iterable, Iterator, Mapping
@@ -44,11 +45,14 @@ from candidatheque.pipeline.seeds import (
     Affiliation,
     Candidature,
     Election,
+    Occupation,
+    Parcours,
     Parti,
     Personne,
     Source,
     load_candidatures,
     load_elections,
+    load_fonctions,
     load_partis,
     load_personnes,
     load_sources,
@@ -155,18 +159,55 @@ def _parti_publie(
     return entree
 
 
+def parcours(
+    fonctions: Iterable[Occupation], reference: dt.date, sources: Mapping[str, Source]
+) -> list[dict]:
+    """Les fonctions d'une personne telles qu'on pouvait les connaître à `reference`.
+
+    Ne sont retenues que les fonctions commencées ce jour-là au plus tard. Une
+    fonction encore en cours ce jour-là est publiée sans sa date de fin, qui
+    appartient à l'avenir de l'élection : écrire qu'un député de 1995 le
+    restera jusqu'au 16 mai en dirait plus que l'électeur n'en savait.
+    """
+    publiees = []
+    for occupation in fonctions:
+        if occupation.debut > reference:
+            continue
+        terminee = occupation.fin is not None and occupation.fin < reference
+        entree: dict = {"fonction": str(occupation.fonction)}
+        if occupation.ressort:
+            entree["ressort"] = occupation.ressort
+        if occupation.intitule:
+            entree["intitule"] = occupation.intitule
+        entree["debut"] = occupation.debut.isoformat()
+        if terminee:
+            entree["fin"] = occupation.fin.isoformat()
+        entree["en_cours"] = not terminee
+        entree["sources"] = [
+            _source_publiee(sources[identifiant]) for identifiant in occupation.sources
+        ]
+        publiees.append(entree)
+    return publiees
+
+
 def candidatures(
     election: Election,
     candidats: Iterable[Candidature],
     sources: Mapping[str, Source],
     personnes: Mapping[str, Personne],
     partis: Mapping[str, Parti],
+    fonctions: Mapping[str, Parcours] | None = None,
 ) -> dict:
     """Le contenu du document des candidatures d'une élection.
 
     Le nom absent du seed est résolu depuis le registre : le seed ne le répète
     pas, le document publié le porte toujours.
+
+    Le parcours s'arrête au premier tour : c'est ce jour-là que l'électeur a
+    choisi, et ce qu'il pouvait savoir des candidats s'arrêtait là.
     """
+    fonctions = fonctions or {}
+    reference = election.tours[0].date
     return {
         "$schema": f"../../{SCHEMAS_SUBDIR}/candidatures.schema.json",
         "election": election.id,
@@ -199,6 +240,13 @@ def candidatures(
                     }
                     for participation in candidat.tours
                 ],
+                "parcours": parcours(
+                    fonctions[candidat.personne].fonctions
+                    if candidat.personne in fonctions
+                    else (),
+                    reference,
+                    sources,
+                ),
             }
             for candidat in candidats
         ],
@@ -211,6 +259,7 @@ def documents(
     sources: Mapping[str, Source] | None = None,
     personnes: Mapping[str, Personne] | None = None,
     partis: Mapping[str, Parti] | None = None,
+    fonctions: Mapping[str, Parcours] | None = None,
     presentations: tuple[SourceParrainages, list[Parrainage]] | None = None,
     resultats: tuple[SourceResultats, dict[tuple[int, int], lecture_resultats.Tour]] | None = None,
 ) -> Iterator[tuple[str, dict]]:
@@ -227,7 +276,7 @@ def documents(
     yield ELECTION_FILE, metadonnees(election)
     if candidats:
         yield CANDIDATURES_FILE, candidatures(
-            election, candidats, sources or {}, personnes or {}, partis or {}
+            election, candidats, sources or {}, personnes or {}, partis or {}, fonctions
         )
     if presentations is not None:
         source, lus = presentations
@@ -324,6 +373,7 @@ def publier(destination: Path | None = None) -> list[Ecriture]:
     sources = {source.id: source for source in load_sources()}
     personnes = {personne.id: personne for personne in load_personnes()}
     partis = {parti.id: parti for parti in load_partis()}
+    fonctions = {entree.personne: entree for entree in load_fonctions()}
     par_election = {entree.election: entree.candidats for entree in load_candidatures()}
     # Les parrainages sont lus depuis `raw/` à chaque publication, comme le
     # reste : le seed déclare le fichier et la façon de le lire, rien n'est mis
@@ -360,6 +410,7 @@ def publier(destination: Path | None = None) -> list[Ecriture]:
             sources,
             personnes,
             partis,
+            fonctions,
             presentations.get(election.id),
             resultats.get(election.id),
         ):

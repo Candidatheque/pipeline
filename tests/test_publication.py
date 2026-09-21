@@ -7,6 +7,7 @@ vide dans le dépôt de destination.
 
 from __future__ import annotations
 
+import datetime as dt
 import json
 
 import pytest
@@ -20,8 +21,9 @@ from candidatheque.pipeline.publication.elections import (
     ELECTIONS_DIR,
     INDEX_FILE,
     documents,
+    parcours,
 )
-from candidatheque.pipeline.seeds import load_elections
+from candidatheque.pipeline.seeds import Fonction, Occupation, Source, load_elections
 
 
 @pytest.fixture(scope="module")
@@ -230,6 +232,60 @@ def test_les_partis_sont_publies_avec_leur_nom(destination):
     ]
     assert all(p["id"].startswith("PA-") for p in melenchon["partis"])
     assert all(p["sources"] for p in melenchon["partis"])
+
+
+def _parcours_de_chirac(destination, election):
+    doc = _charge(destination / ELECTIONS_DIR / election / "candidatures.json")
+    return next(c for c in doc["candidatures"] if c["personne"] == "PE-0030")["parcours"]
+
+
+def test_le_parcours_s_arrete_au_premier_tour(destination):
+    """En 1981, Chirac a été député cinq fois ; les mandats de 1981 à 1995 n'existent pas encore."""
+    publies = _parcours_de_chirac(destination, "PR-1981")
+    assert [f["debut"] for f in publies] == [
+        "1967-04-03", "1968-07-11", "1973-04-02", "1976-11-14", "1978-04-03",
+    ]
+    assert all(f["fonction"] == "depute" and f["ressort"] == "Corrèze" for f in publies)
+
+
+def test_une_fonction_en_cours_ne_dit_pas_quand_elle_finira(destination):
+    """Au premier tour de 1995, le 23 avril, Chirac est député ; il ne l'est plus le 16 mai."""
+    en_cours = _parcours_de_chirac(destination, "PR-1995")[-1]
+    assert en_cours["debut"] == "1993-04-02"
+    assert en_cours["en_cours"] is True
+    assert "fin" not in en_cours
+
+
+def test_une_fonction_terminee_garde_sa_fin(destination):
+    premiere = _parcours_de_chirac(destination, "PR-1988")[0]
+    assert premiere == premiere | {"debut": "1967-04-03", "fin": "1967-05-07", "en_cours": False}
+    assert premiere["sources"][0]["id"] == "assemblee-nationale:1798"
+
+
+def test_sans_fonction_connue_le_parcours_est_vide(destination):
+    doc = _charge(destination / ELECTIONS_DIR / "PR-1965" / "candidatures.json")
+    assert all(c["parcours"] == [] for c in doc["candidatures"])
+
+
+def test_une_fonction_qui_commence_le_jour_du_scrutin_est_retenue():
+    jour = dt.date(1981, 4, 26)
+    occupation = Occupation.model_validate(
+        {"fonction": "maire", "ressort": "X", "debut": jour, "fin": jour, "sources": ["s"]}
+    )
+    (publiee,) = parcours([occupation], jour, {"s": _source_factice()})
+    assert publiee["en_cours"] is True and "fin" not in publiee
+
+
+def _source_factice():
+    return Source(id="a:b", url="https://a.fr", commentaire="c", consultee_le=dt.date(2026, 1, 1))
+
+
+def test_le_schema_connait_toutes_les_fonctions():
+    """Le vocabulaire est écrit deux fois, en Python et dans le schéma : ils doivent concorder."""
+    schema = _charge(SCHEMAS_DIR / "candidatures.schema.json")
+    assert schema["$defs"]["occupation"]["properties"]["fonction"]["enum"] == [
+        str(f) for f in Fonction
+    ]
 
 
 class TestParrainages:
