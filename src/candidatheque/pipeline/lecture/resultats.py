@@ -103,6 +103,25 @@ class Annulation:
 
 
 @dataclass(frozen=True)
+class Departement:
+    """Les résultats d'un tour dans un département, tels qu'une source les donne.
+
+    `code` et `libelle` sont ceux de la source : « 1 » et « AIN », « ZZ » et
+    « Français établis hors de France ». La publication les ramène au registre.
+    """
+
+    code: str
+    libelle: str
+    inscrits: int | None = None
+    votants: int | None = None
+    bulletins_blancs: int | None = None
+    bulletins_nuls: int | None = None
+    bulletins_blancs_et_nuls: int | None = None
+    suffrages_exprimes: int | None = None
+    voix: tuple[Voix, ...] = ()
+
+
+@dataclass(frozen=True)
 class Tour:
     """Les résultats d'un tour, tels qu'une version les donne."""
 
@@ -110,10 +129,14 @@ class Tour:
     votants: int | None = None
     bulletins_blancs: int | None = None
     bulletins_nuls: int | None = None
+    #: Ce que les sources d'avant 2014 comptent ensemble, la loi ne séparant
+    #: pas encore les blancs des nuls. Jamais additionné ni soustrait ici.
+    bulletins_blancs_et_nuls: int | None = None
     suffrages_exprimes: int | None = None
     majorite_absolue: int | None = None
     voix: tuple[Voix, ...] = ()
     annulations: tuple[Annulation, ...] = ()
+    departements: tuple[Departement, ...] = ()
 
 
 def _nombre(brut: str) -> int:

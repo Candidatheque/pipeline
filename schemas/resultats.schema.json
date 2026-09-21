@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "resultats.schema.json",
   "title": "Résultats de chaque tour, version après version",
-  "description": "Les résultats de chaque tour, dans les versions successives qu'en publient les autorités : les résultats provisoires puis définitifs du ministère de l'Intérieur, ceux que le Conseil constitutionnel déclare au premier tour puis proclame pour l'élection, et, jusqu'en 1995, ceux que les tableaux annexés au Journal officiel rectifient encore. Elles se rangent dans l'ordre des étapes du processus, une par étape, et la dernière fait foi. L'ordre est celui du processus et non celui des dates : les résultats définitifs du ministère peuvent paraître après la proclamation, qui fait pourtant foi. Elles ne se recoupent pas : le Conseil annule des suffrages et rectifie des erreurs matérielles avant de proclamer, et l'écart entre deux versions est une information, pas un doublon. Seule la version du Conseil est publiée à ce jour. Rien n'y est calculé — ni pourcentage, ni abstention, ni total des annulations — et un décompte que la source ne donne pas est absent plutôt que reconstitué.",
+  "description": "Les résultats de chaque tour, dans les versions successives qu'en publient les autorités : les résultats provisoires puis définitifs du ministère de l'Intérieur, ceux que le Conseil constitutionnel déclare au premier tour puis proclame pour l'élection, et, jusqu'en 1995, ceux que les tableaux annexés au Journal officiel rectifient encore. Elles se rangent dans l'ordre des étapes du processus, une par étape, et la dernière fait foi. L'ordre est celui du processus et non celui des dates : les résultats définitifs du ministère peuvent paraître après la proclamation, qui fait pourtant foi. Elles ne se recoupent pas : le Conseil annule des suffrages et rectifie des erreurs matérielles avant de proclamer, et l'écart entre deux versions est une information, pas un doublon. La proclamation couvre toutes les élections depuis 1965 ; les versions du ministère de l'Intérieur, de 2007 à 2022, portent en plus le détail par département. Rien n'y est calculé — ni pourcentage, ni abstention, ni total des annulations — et un décompte que la source ne donne pas est absent plutôt que reconstitué.",
   "type": "object",
   "required": [
     "election",
@@ -67,8 +67,7 @@
         "inscrits",
         "votants",
         "suffrages_exprimes",
-        "voix",
-        "annulations"
+        "voix"
       ],
       "additionalProperties": false,
       "properties": {
@@ -79,12 +78,12 @@
             "proclamation",
             "rectification"
           ],
-          "description": "Quelle version, dans l'ordre du processus. « resultats-provisoires » : le ministère de l'Intérieur, le soir du scrutin. « resultats-definitifs » : le ministère, après recensement des votes. « proclamation » : le Conseil constitutionnel, qui déclare les résultats du premier tour et proclame ceux de l'élection. « rectification » : les tableaux annexés au Journal officiel, qui arrêtent les résultats jusqu'en 1995. Seule la proclamation est publiée à ce jour."
+          "description": "Quelle version, dans l'ordre du processus. « resultats-provisoires » : le ministère de l'Intérieur, le soir du scrutin. « resultats-definitifs » : le ministère, après recensement des votes. « proclamation » : le Conseil constitutionnel, qui déclare les résultats du premier tour et proclame ceux de l'élection. « rectification » : les tableaux annexés au Journal officiel, qui arrêtent les résultats jusqu'en 1995. Les résultats définitifs du ministère reprennent à l'unité près les totaux proclamés, et y ajoutent le détail par département ; ils restent une version à part, parce qu'ils ont leur propre source et leur propre date."
         },
         "date": {
           "type": "string",
           "format": "date",
-          "description": "La date du document qui porte cette version : celle de la décision pour le Conseil. Jamais une date de traitement. Elle ne range pas les versions : c'est l'étape qui le fait."
+          "description": "La date du document qui porte cette version : celle de la décision pour le Conseil, celle de la mise en ligne du jeu de données pour le ministère — la seule que sa source porte, et qui pour 2007 et 2012, versés sur data.gouv.fr en 2013, est bien postérieure au scrutin. Elle ne range pas les versions : c'est l'étape qui le fait."
         },
         "sources": {
           "type": "array",
@@ -112,6 +111,11 @@
           "type": "integer",
           "minimum": 0,
           "description": "Présent seulement quand la décision le donne, soit en 2022. La proclamation de 2017 donne les blancs sans les nuls."
+        },
+        "bulletins_blancs_et_nuls": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Les blancs et les nuls comptés ensemble, tels que le ministère les publie en 2007 et 2012, avant que la loi de 2014 ne sépare les blancs. Jamais reconstitué par soustraction."
         },
         "suffrages_exprimes": {
           "type": "integer",
@@ -158,9 +162,17 @@
         },
         "annulations": {
           "type": "array",
-          "description": "Les suffrages que la décision annule, un lieu par entrée. Ils sont déjà retranchés des décomptes de cette version, et expliquent une part de son écart avec la précédente : ce n'est pas une correction à appliquer. Vide quand la décision n'annule rien, comme en 1965 et 1969. Deux familles de considérants n'y figurent pas, faute d'annuler un bureau ou une commune : les redressements, où le Conseil rétablit des voix qu'une commission de recensement avait retranchées à tort, et l'annulation des seuls votes par correspondance de Bastia et d'Albertacce en 1974, dont le nombre n'est pas donné.",
+          "description": "Présent sur la version du Conseil seulement : les suffrages que la décision annule, un lieu par entrée. Ils sont déjà retranchés des décomptes de cette version, et expliquent une part de son écart avec la précédente : ce n'est pas une correction à appliquer. Vide quand la décision n'annule rien, comme en 1965 et 1969. Deux familles de considérants n'y figurent pas, faute d'annuler un bureau ou une commune : les redressements, où le Conseil rétablit des voix qu'une commission de recensement avait retranchées à tort, et l'annulation des seuls votes par correspondance de Bastia et d'Albertacce en 1974, dont le nombre n'est pas donné.",
           "items": {
             "$ref": "#/$defs/annulation"
+          }
+        },
+        "departements": {
+          "type": "array",
+          "description": "Le détail par département, quand la source le publie : les versions du ministère de l'Intérieur, de 2007 à 2022. Pour les résultats définitifs, la somme des lignes retombe exactement sur le total national, ce que la pipeline vérifie ; pour les résultats provisoires, instantanés de la soirée électorale, pas toujours — le vote des Français de l'étranger y manque parfois.",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/departement"
           }
         }
       }
@@ -264,6 +276,94 @@
                 "examples": [
                   "Procédure de dépouillement"
                 ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "departement": {
+      "type": "object",
+      "description": "Les résultats d'un département, ou d'une ligne que le ministère publie à côté des départements sans en être un.",
+      "required": [
+        "inscrits",
+        "votants",
+        "suffrages_exprimes",
+        "voix"
+      ],
+      "oneOf": [
+        {
+          "required": [
+            "departement"
+          ]
+        },
+        {
+          "required": [
+            "hors_departement"
+          ]
+        }
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "departement": {
+          "type": "string",
+          "pattern": "^(?:[0-9]{2}|2[AB]|9[78][0-9])$",
+          "description": "Le code INSEE, comme dans les parrainages. Le ministère écrit « ZA » pour la Guadeloupe ou « 1 » pour l'Ain ; tout est ramené au même code.",
+          "examples": [
+            "01",
+            "2A",
+            "971"
+          ]
+        },
+        "hors_departement": {
+          "enum": [
+            "francais-etablis-hors-de-france",
+            "saint-barthelemy-et-saint-martin"
+          ],
+          "description": "Une ligne qui n'est pas un département, mais sans laquelle la somme ne ferait pas le total national : le vote des Français établis hors de France, et Saint-Barthélemy et Saint-Martin, que le ministère réunit sur une ligne et où choisir 977 ou 978 affirmerait une précision qu'il ne donne pas."
+        },
+        "inscrits": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "votants": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bulletins_blancs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bulletins_nuls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "bulletins_blancs_et_nuls": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "suffrages_exprimes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "voix": {
+          "type": "array",
+          "description": "Les voix de chaque candidat dans ce département. Le nom est au niveau national, sous la même personne.",
+          "items": {
+            "type": "object",
+            "required": [
+              "personne",
+              "voix"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "personne": {
+                "type": "string",
+                "pattern": "^PE-[0-9]{4}$"
+              },
+              "voix": {
+                "type": "integer",
+                "minimum": 0
               }
             }
           }

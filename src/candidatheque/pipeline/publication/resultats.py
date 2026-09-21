@@ -9,7 +9,8 @@ officiel rectifient ne se recoupent pas, et c'est précisément ce qu'on veut
 pouvoir lire : l'écart entre deux versions, et pour celle du Conseil les
 annulations qui l'expliquent.
 
-Seule la version du Conseil est collectée à ce jour.
+Les versions du ministère portent en plus le détail par département, que la
+décision du Conseil ne donne pas.
 
 Rien n'y est calculé. Ni pourcentage, ni abstention, ni total des suffrages
 annulés : tout se redérive des entiers publiés, et une valeur calculée qui ne
@@ -22,23 +23,48 @@ from __future__ import annotations
 
 from collections.abc import Callable, Mapping
 
-from candidatheque.pipeline.lecture.resultats import Annulation, Tour
+from candidatheque.pipeline.lecture.resultats import Annulation, Departement, Tour
 from candidatheque.pipeline.publication.departements import normaliser as normaliser_departement
 from candidatheque.pipeline.seeds import Election, Source
-from candidatheque.pipeline.seeds.resultats import SourceResultats, VersionResultats
+from candidatheque.pipeline.seeds.resultats import Format, SourceResultats, VersionResultats
 
 #: Document des résultats, sous le répertoire de l'élection.
 RESULTATS_FILE = "resultats.json"
 
-#: Les décomptes, dans l'ordre où les décisions les donnent.
+#: Les décomptes, dans l'ordre où les sources les donnent.
 DECOMPTES = (
     "inscrits",
     "votants",
     "bulletins_blancs",
     "bulletins_nuls",
+    "bulletins_blancs_et_nuls",
     "suffrages_exprimes",
     "majorite_absolue",
 )
+
+#: Les codes que le ministère de l'Intérieur donne à l'outre-mer, ramenés à
+#: ceux de l'INSEE, que publient toutes les autres données.
+CODES_DE_L_INTERIEUR = {
+    "ZA": "971",
+    "ZB": "972",
+    "ZC": "973",
+    "ZD": "974",
+    "ZS": "975",
+    "ZM": "976",
+    "ZW": "986",
+    "ZP": "987",
+    "ZN": "988",
+}
+#: Les lignes du ministère qui ne sont pas un département. Les écarter ferait
+#: que la somme des départements ne retombe plus sur le total national. Elles
+#: se nomment donc, en vocabulaire fixe, là où les autres portent un code.
+HORS_DEPARTEMENT = {
+    # Les Français établis hors de France votent dans des bureaux consulaires.
+    "ZZ": "francais-etablis-hors-de-france",
+    # Saint-Barthélemy et Saint-Martin, que le ministère réunit sur une ligne :
+    # y choisir 977 ou 978 affirmerait une précision qu'il ne donne pas.
+    "ZX": "saint-barthelemy-et-saint-martin",
+}
 
 
 def _annulation_publiee(annulation: Annulation, annee: int) -> dict:
@@ -68,6 +94,21 @@ def _annulation_publiee(annulation: Annulation, annee: int) -> dict:
     return entree
 
 
+def _departement_publie(departement: Departement) -> dict:
+    """Une ligne départementale : son code, ses décomptes, ses voix."""
+    code = departement.code
+    if code in HORS_DEPARTEMENT:
+        entree: dict = {"hors_departement": HORS_DEPARTEMENT[code]}
+    else:
+        entree = {"departement": CODES_DE_L_INTERIEUR.get(code) or code.zfill(2)}
+    for champ in DECOMPTES:
+        valeur = getattr(departement, champ, None)
+        if valeur is not None:
+            entree[champ] = valeur
+    entree["voix"] = [{"personne": voix.personne, "voix": voix.voix} for voix in departement.voix]
+    return entree
+
+
 def _version_publiee(
     version: VersionResultats,
     lu: Tour,
@@ -94,7 +135,15 @@ def _version_publiee(
         {"personne": voix.personne, "nom_complet": noms[voix.personne], "voix": voix.voix}
         for voix in lu.voix
     ]
-    entree["annulations"] = [_annulation_publiee(annulation, annee) for annulation in lu.annulations]
+    # Les annulations sont celles que prononce le Conseil : une version du
+    # ministère n'en a pas, et une liste vide y ferait croire que rien n'a été
+    # annulé.
+    if version.format is Format.DECISION:
+        entree["annulations"] = [
+            _annulation_publiee(annulation, annee) for annulation in lu.annulations
+        ]
+    if lu.departements:
+        entree["departements"] = [_departement_publie(d) for d in lu.departements]
     return entree
 
 

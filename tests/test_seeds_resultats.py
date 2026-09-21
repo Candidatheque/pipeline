@@ -60,7 +60,8 @@ def test_chaque_tour_cite_la_decision_qui_le_proclame():
     origines = set()
     for election, numero, version in _versions():
         assert version.origine in sources, f"{election}/T{numero}"
-        origines.add(version.origine)
+        if version.etape == "proclamation":
+            origines.add(version.origine)
     # Une décision proclame un tour et un seul : deux tours qui citeraient la
     # même auraient les mêmes chiffres sans que rien ne le dise.
     assert len(origines) == 22

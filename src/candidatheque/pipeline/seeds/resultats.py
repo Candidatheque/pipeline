@@ -11,8 +11,8 @@ leur publication : les résultats définitifs du ministère peuvent paraître ap
 la proclamation, et c'est pourtant elle qui fait foi. La dernière version d'un
 tour fait donc foi par construction.
 
-Seule la version du Conseil est collectée à ce jour. Le texte de ses décisions
-est commité dans `raw/resultats/`, jamais téléchargé.
+Le texte des décisions du Conseil est commité dans `raw/resultats/`, les
+résultats du ministère dans `raw/resultats/interieur/`, jamais téléchargés.
 """
 
 from __future__ import annotations
@@ -68,18 +68,33 @@ class Etape(StrEnum):
         return list(Etape).index(self)
 
 
+class Format(StrEnum):
+    """Comment lire le fichier d'une version."""
+
+    #: Le texte d'une décision du Conseil constitutionnel, tiré de son site par
+    #: `outils/decision_cc_en_texte.py`.
+    DECISION = "decision"
+    #: Les CSV du ministère de l'Intérieur, recopiés de ses fichiers par
+    #: `outils/interieur_en_csv.py` : un national, et un par département.
+    INTERIEUR = "interieur"
+
+
 class VersionResultats(BaseModel):
     """Une version des résultats d'un tour, et le document qui la porte."""
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     etape: Etape
+    format: Format = Format.DECISION
     #: La date du document : celle de la décision pour le Conseil. Elle est
     #: publiée, mais ne range pas les versions.
     date: dt.date
-    #: Chemin sous `raw/`.
+    #: Chemin sous `raw/` : la décision, ou les résultats nationaux.
     fichier: str
-    #: La décision, dans le registre des sources.
+    #: Chemin sous `raw/` des résultats par département, quand la source en
+    #: publie.
+    departements: str | None = None
+    #: La décision ou le jeu de données, dans le registre des sources.
     origine: str
     #: Tous les candidats du tour. Ils doivent y être tous : c'est ce qui
     #: garantit qu'aucune ligne de voix n'est ignorée. Leur ordre est indifférent,
@@ -96,8 +111,12 @@ class VersionResultats(BaseModel):
         return self
 
     def chemin(self, racine: Path | None = None) -> Path:
-        """Le texte de la décision, sous `raw/`."""
+        """Le fichier national, ou le texte de la décision, sous `raw/`."""
         return (racine or RAW_DIR) / self.fichier
+
+    def chemin_departements(self, racine: Path | None = None) -> Path | None:
+        """Le fichier départemental, sous `raw/`, quand il y en a un."""
+        return (racine or RAW_DIR) / self.departements if self.departements else None
 
     def personne_de(self, titre: str) -> str | None:
         """La personne que ce nom désigne."""

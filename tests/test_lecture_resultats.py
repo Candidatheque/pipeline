@@ -6,14 +6,19 @@ import pytest
 
 from candidatheque.pipeline.lecture import resultats
 from candidatheque.pipeline.lecture.resultats import lire, lire_en_detail
-from candidatheque.pipeline.seeds.resultats import load_resultats
+from candidatheque.pipeline.seeds.resultats import Etape, load_resultats
+
+
+def _proclamation(tour):
+    """La version du Conseil : c'est elle que ce module lit."""
+    return next(v for v in tour.versions if v.etape is Etape.PROCLAMATION)
 
 
 @pytest.fixture(scope="module")
 def tours():
     """Les vingt-deux tours, lus une fois."""
     return {
-        (entree.election, tour.numero): (tour.versions[0], lire(tour.versions[0]))
+        (entree.election, tour.numero): (_proclamation(tour), lire(_proclamation(tour)))
         for entree in load_resultats()
         for tour in entree.tours
     }
@@ -100,7 +105,7 @@ def test_les_decomptes_cousus_de_2002_sont_separes(tours):
 def en_detail():
     """Les vingt-deux tours, avec ce que la lecture n'a pas su lire."""
     return {
-        (entree.election, tour.numero): lire_en_detail(tour.versions[0])
+        (entree.election, tour.numero): lire_en_detail(_proclamation(tour))
         for entree in load_resultats()
         for tour in entree.tours
     }

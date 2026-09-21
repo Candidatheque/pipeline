@@ -590,3 +590,43 @@ sources:
     url: "https://www.conseil-constitutionnel.fr/decision/2022/2022197PDR.htm"
     commentaire: "Proclamation des résultats de l'élection du Président de la République"
     consultee_le: 2026-09-21
+  - id: "data-gouv:election-presidentielle-des-10-et-24-avril-2022-resultats-du-1er-tour"
+    url: "https://www.data.gouv.fr/datasets/election-presidentielle-des-10-et-24-avril-2022-resultats-du-1er-tour/"
+    commentaire: "Élection présidentielle des 10 et 24 avril 2022, résultats du 1er tour, ceux de la soirée électorale, publiés par le ministère de l'Intérieur"
+    consultee_le: 2026-09-21
+  - id: "data-gouv:election-presidentielle-des-10-et-24-avril-2022-resultats-du-second-tour"
+    url: "https://www.data.gouv.fr/datasets/election-presidentielle-des-10-et-24-avril-2022-resultats-du-second-tour/"
+    commentaire: "Élection présidentielle des 10 et 24 avril 2022, résultats du second tour, ceux de la soirée électorale, publiés par le ministère de l'Intérieur"
+    consultee_le: 2026-09-21
+  - id: "data-gouv:election-presidentielle-des-10-et-24-avril-2022-resultats-definitifs-du-1er-tour"
+    url: "https://www.data.gouv.fr/datasets/election-presidentielle-des-10-et-24-avril-2022-resultats-definitifs-du-1er-tour/"
+    commentaire: "Élection présidentielle des 10 et 24 avril 2022, résultats définitifs du 1er tour, publiés par le ministère de l'Intérieur"
+    consultee_le: 2026-09-21
+  - id: "data-gouv:election-presidentielle-des-10-et-24-avril-2022-resultats-definitifs-du-2nd-tour"
+    url: "https://www.data.gouv.fr/datasets/election-presidentielle-des-10-et-24-avril-2022-resultats-definitifs-du-2nd-tour/"
+    commentaire: "Élection présidentielle des 10 et 24 avril 2022, résultats définitifs du 2nd tour, publiés par le ministère de l'Intérieur"
+    consultee_le: 2026-09-21
+  - id: "data-gouv:election-presidentielle-des-23-avril-et-7-mai-2017-resultats-du-1er-tour"
+    url: "https://www.data.gouv.fr/datasets/election-presidentielle-des-23-avril-et-7-mai-2017-resultats-du-1er-tour/"
+    commentaire: "Élection présidentielle des 23 avril et 7 mai 2017, résultats du 1er tour, ceux de la soirée électorale, publiés par le ministère de l'Intérieur"
+    consultee_le: 2026-09-21
+  - id: "data-gouv:election-presidentielle-des-23-avril-et-7-mai-2017-resultats-du-2eme-tour-1"
+    url: "https://www.data.gouv.fr/datasets/election-presidentielle-des-23-avril-et-7-mai-2017-resultats-du-2eme-tour-1/"
+    commentaire: "Élection présidentielle des 23 avril et 7 mai 2017, résultats du 2ème tour, ceux de la soirée électorale, publiés par le ministère de l'Intérieur"
+    consultee_le: 2026-09-21
+  - id: "data-gouv:election-presidentielle-des-23-avril-et-7-mai-2017-resultats-definitifs-du-1er-tour-1"
+    url: "https://www.data.gouv.fr/datasets/election-presidentielle-des-23-avril-et-7-mai-2017-resultats-definitifs-du-1er-tour-1/"
+    commentaire: "Élection présidentielle des 23 avril et 7 mai 2017, résultats définitifs du 1er tour, publiés par le ministère de l'Intérieur"
+    consultee_le: 2026-09-21
+  - id: "data-gouv:election-presidentielle-des-23-avril-et-7-mai-2017-resultats-definitifs-du-2nd-tour"
+    url: "https://www.data.gouv.fr/datasets/election-presidentielle-des-23-avril-et-7-mai-2017-resultats-definitifs-du-2nd-tour/"
+    commentaire: "Élection présidentielle des 23 avril et 7 mai 2017, résultats définitifs du 2nd tour, publiés par le ministère de l'Intérieur"
+    consultee_le: 2026-09-21
+  - id: "data-gouv:election-presidentielle-2012-resultats-572124"
+    url: "https://www.data.gouv.fr/datasets/election-presidentielle-2012-resultats-572124/"
+    commentaire: "Élection présidentielle 2012, résultats des tours 1 et 2 par régions, départements, circonscriptions législatives et cantons, publiés par le ministère de l'Intérieur"
+    consultee_le: 2026-09-21
+  - id: "data-gouv:election-presidentielle-2007-resultats-572120"
+    url: "https://www.data.gouv.fr/datasets/election-presidentielle-2007-resultats-572120/"
+    commentaire: "Élection présidentielle 2007, résultats des tours 1 et 2 par régions, départements, circonscriptions législatives et cantons, publiés par le ministère de l'Intérieur"
+    consultee_le: 2026-09-21

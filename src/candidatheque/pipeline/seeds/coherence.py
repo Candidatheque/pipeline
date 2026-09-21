@@ -181,6 +181,9 @@ def verifier() -> list[str]:
                 ou = f"{entree.election}/T{tour.numero}/{version.etape}"
                 if not version.chemin().is_file():
                     problemes.append(f"{ou} : fichier absent, {version.fichier}")
+                departements = version.chemin_departements()
+                if departements is not None and not departements.is_file():
+                    problemes.append(f"{ou} : fichier absent, {version.departements}")
                 if version.origine not in sources:
                     problemes.append(f"{ou} : origine inconnue « {version.origine} »")
                 sources_citees.add(version.origine)
