@@ -114,9 +114,14 @@ class TestRegistre:
         assert len({d.nom for d in registre}) == len(registre)
 
     def test_les_cent_un_departements_sont_la(self):
-        """96 métropolitains, Corse comptée en 2A et 2B, et 5 d'outre-mer."""
+        """96 métropolitains, Corse comptée en 2A et 2B, et 5 d'outre-mer.
+
+        Plus la Corse d'avant 1976, sous son code d'époque.
+        """
         registre = load_departements()
-        assert len([d for d in registre if not d.code.startswith("9") or d.code < "96"]) == 96
+        metropole = [d for d in registre if not d.code.startswith("9") or d.code < "96"]
+        assert len(metropole) == 97
+        assert "20" in {d.code for d in metropole}
         assert {"971", "972", "973", "974", "976"} <= {d.code for d in registre}
 
 
@@ -127,6 +132,9 @@ class TestNomsAnciens:
         """La proclamation de 1988 écrit « (Côtes-du-Nord) », nom d'avant 1990."""
         assert normaliser("Côtes-du-Nord", 1988) == "22"
 
-    def test_la_corse_d_avant_la_partition_reste_sans_code(self):
-        """Un seul département en 1974, deux aujourd'hui : choisir serait deviner."""
-        assert normaliser("Corse", 1974) is None
+    def test_la_corse_d_avant_la_partition_garde_son_code_d_epoque(self):
+        """Un seul département en 1974, deux aujourd'hui : choisir serait deviner.
+
+        Le code 20 dit ce que la source écrit, sans trancher entre 2A et 2B.
+        """
+        assert normaliser("Corse", 1974) == "20"

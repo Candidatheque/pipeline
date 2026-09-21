@@ -7,7 +7,7 @@
 #
 # Conventions :
 #   - `code` : le code INSEE courant, sur deux ou trois caractères. « 2A » et
-#              « 2B » pour la Corse, qui n'a pas de numéro 20 depuis 1976.
+#              « 2B » pour la Corse depuis 1976, « 20 » pour celle d'avant.
 #   - `nom`  : l'orthographe de référence, accents et traits d'union compris.
 #   - `codes_anciens` : les numéros qu'une source antérieure à `jusqu_en`
 #              emploie pour cette collectivité, et qui en désignent une autre
@@ -17,10 +17,10 @@
 #              renommé. Un nom abandonné n'a été repris par aucun autre, et se
 #              résout donc sans l'année.
 #
-# La Corse d'avant 1976 n'a pas d'entrée. Elle formait un seul département,
-# numéroté 20, que la partition a remplacé par 2A et 2B : lui donner l'un des
-# deux serait choisir, et la commune seule le dirait. « Corse » en 1974 reste
-# donc sans code.
+# La Corse d'avant 1976 garde son propre code, 20. Elle formait un seul
+# département, que la partition a remplacé par 2A et 2B : lui donner l'un des
+# deux serait choisir, et le code d'époque dit exactement ce que la source
+# écrit. C'est la seule entrée qui ne désigne plus un département d'aujourd'hui.
 #
 # Trois codes rencontrés dans les sources ne figurent pas ici, faute de
 # désigner un département : « 97A » et « 98 » pour les Français de l'étranger,
@@ -115,6 +115,8 @@ departements:
     nom: "Eure-et-Loir"
   - code: "29"
     nom: "Finistère"
+  - code: "20"
+    nom: "Corse"
   - code: "2A"
     nom: "Corse-du-Sud"
   - code: "2B"
