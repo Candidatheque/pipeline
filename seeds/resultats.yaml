@@ -21,8 +21,8 @@
 # final, celle de 1988 « Ariette LAGUILLER » pour Arlette. Un nom écrit noir sur
 # blanc ici se relit et se corrige ; un seuil de ressemblance, non.
 #
-# L'ordre des candidats est celui de la décision, qui n'est ni alphabétique ni
-# celui des voix : c'est celui du tirage au sort de la liste officielle.
+# L'ordre des candidats n'a pas d'importance ici : la publication suit celui
+# de la décision, lu dans son texte.
 
 resultats:
   - election: "PR-1965"

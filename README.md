@@ -260,6 +260,8 @@ elections/PR-2012/candidats/PE-0058/parrainages.json
                                       les élus qui ont présenté ce candidat
 elections/PR-2022/parrainages-sans-candidature.json
                                       les présentations reçues par qui n'était pas candidat
+elections/PR-2022/resultats-proclames.json
+                                      les résultats de chaque tour, et les suffrages annulés
 schemas/*.schema.json                 copie des schémas de ce dépôt
 ```
 
@@ -494,6 +496,66 @@ nom des présentateurs vient de la loi organique du 18 juin 1976, que la note de
 bas de page du Journal officiel de 1981 cite comme la règle qui l'impose. Ce
 n'est pas un trou dans la collecte, c'est l'état du droit.
 
+## Résultats proclamés
+
+`resultats-proclames.json` porte, pour chaque tour, les chiffres que le Conseil
+constitutionnel déclare au premier tour puis proclame pour l'élection :
+inscrits, votants, suffrages exprimés, majorité absolue, et les voix de chaque
+candidat. Le nom dit l'autorité. Le ministère de l'Intérieur publie ses propres
+résultats, et ils ne se recoupent pas : le Conseil annule des suffrages et
+rectifie des erreurs matérielles avant de proclamer. Le jour où ceux de
+l'Intérieur seront collectés, ils auront leur fichier.
+
+Ces chiffres n'existent nulle part ailleurs sous forme exploitable. L'open data
+du Conseil se limite aux parrainages et à un tableau par département du seul
+premier tour de 2022. Ils sont donc lus dans le texte des 22 décisions, deux
+par élection, commité dans `raw/resultats/`.
+
+La lecture se contrôle sur la décision elle-même : la somme des voix doit
+tomber exactement sur les suffrages exprimés annoncés. Les 22 tours tombent
+juste, y compris les 1 260 208 voix de Jean-Louis Tixier-Vignancour, que la
+transcription de 1965 écrit « l 260 208 ».
+
+Rien n'est calculé : ni pourcentage, ni abstention, ni blancs et nuls
+reconstitués par soustraction. Un décompte que la décision ne donne pas est
+absent. Les bulletins blancs n'apparaissent qu'en 2017, les nuls qu'en 2022, et
+la proclamation de 1965 n'écrit pas la majorité absolue.
+
+### Les annulations
+
+Chaque tour porte les suffrages que la décision annule, un lieu par entrée :
+195 en quarante ans, 114 bureaux de vote et 81 communes entières. Ils sont
+déjà retranchés des totaux ; c'est une piste d'audit, pas une correction à
+appliquer.
+
+Une annulation cite son considérant, le paragraphe numéroté de la décision qui
+la prononce et qui en est la citation officielle : « 2022-197 PDR, cons. 3 ».
+Un même considérant annule souvent plusieurs lieux pour un motif commun, et
+chacun porte alors son numéro. Le motif est le texte du considérant, et le
+classement des abstracts du Conseil — « 8.2.5.4.1 Procédure de dépouillement »
+— est repris quand la décision en porte, plutôt qu'un vocabulaire inventé.
+
+La portée est explicite, `commune` ou `bureau-de-vote`, plutôt que déduite de
+l'absence de numéro : à Chenevelles en 2022, la décision annule un bureau
+qu'elle ne numérote pas. Quand elle ne donne qu'un nombre de suffrages pour
+plusieurs bureaux — « les bureaux de vote n° 3 et 4 […], dans lesquels 817
+suffrages ont été exprimés » —, ils restent ensemble : les séparer obligerait
+à inventer la répartition.
+
+Chaque nombre de suffrages que la décision écrit avant sa formule
+d'annulation doit se retrouver dans une annulation lue. C'est le contrôle
+croisé de cette lecture, et aucun ne manque. Jusqu'en 1988, les décisions ne
+donnent pas ces nombres.
+
+Deux familles de considérants restent à l'écart, faute d'annuler un bureau ou
+une commune. Les redressements, d'abord : une commission de recensement avait
+retranché des voix à tort, et le Conseil les rétablit. Ensuite l'annulation des
+seuls votes par correspondance de Bastia et d'Albertacce en 1974, dont le
+nombre n'est pas donné.
+
+Le département est ramené au code du registre, comme pour les parrainages. La
+Corse d'avant 1976, un seul département, garde son code d'époque, 20.
+
 ## Publication automatique
 
 `.github/workflows/publier.yml` publie vers `data` à chaque push sur `main` qui
@@ -584,8 +646,9 @@ signalées en commentaire dans `seeds/personnes.yaml`.
 Rien ne collecte : les candidatures ont été extraites en une fois et sont
 maintenues à la main. Une élection à venir demandera un collecteur.
 
-Il n'y a pas de schéma de résultats. Sa forme doit sortir des décisions du
-Conseil constitutionnel, qui ne sont pas encore analysées.
+Jusqu'en 1995, la proclamation a rectifié une dernière fois les résultats du
+premier tour, dans des tableaux annexés au Journal officiel que le site du
+Conseil ne reprend pas. Le premier tour publié est celui de la déclaration.
 
 Rien ne relance la publication quand une source externe change : le workflow ne
 se déclenche que sur un commit de ce dépôt. Quand la collecte arrivera, il lui

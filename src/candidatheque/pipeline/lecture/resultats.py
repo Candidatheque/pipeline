@@ -156,25 +156,26 @@ def _decomptes(lignes: list[str]) -> dict[str, int]:
 
 
 def _voix(lignes: list[str], source: TourResultats) -> list[Voix]:
-    """Les voix de chaque candidat déclaré.
+    """Les voix de chaque candidat déclaré, dans l'ordre de la décision.
 
     Le nom doit fermer sa ligne sur un nombre : « Proclame Charles de Gaulle
     élu Président de la République » le porte aussi, mais ne dit pas ses voix.
+    L'ordre est celui des lignes, non celui du seed : c'est la décision qui le
+    fixe.
     """
-    trouvees = []
+    trouvees: list[tuple[int, Voix]] = []
     for candidat in source.candidats:
         motif = re.compile(
             rf"{re.escape(candidat.titre)}\s*:?\s*(?P<voix>{NOMBRE.pattern})(?:\s*voix)?\s*[.,;]?$"
         )
-        for ligne in lignes:
+        for rang, ligne in enumerate(lignes):
             m = motif.search(ligne)
             if m is None:
                 continue
-            trouvees.append(
-                Voix(titre=candidat.titre, personne=candidat.personne, voix=_nombre(m.group("voix")))
-            )
+            voix = Voix(titre=candidat.titre, personne=candidat.personne, voix=_nombre(m.group("voix")))
+            trouvees.append((rang, voix))
             break
-    return trouvees
+    return [voix for _, voix in sorted(trouvees, key=lambda paire: paire[0])]
 
 
 # ---------------------------------------------------------------------------

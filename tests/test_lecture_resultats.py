@@ -252,3 +252,9 @@ def test_chaque_annulation_porte_son_motif_et_les_rubriques_du_conseil(tours):
     )
     # Les décisions anciennes n'ont pas d'abstracts pour tous leurs considérants.
     assert all(a.motif for _, lu in tours.values() for a in lu.annulations)
+
+
+def test_les_voix_suivent_l_ordre_de_la_decision(tours):
+    """C'est la décision qui fixe l'ordre, non le seed."""
+    _, lu = tours[("PR-2022", 2)]
+    assert [v.titre for v in lu.voix] == ["Emmanuel MACRON", "Marine LE PEN"]
