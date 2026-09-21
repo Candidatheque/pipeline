@@ -411,6 +411,22 @@ Ce qui ne se résout pas reste sans code plutôt que d'être deviné. « OS » v
 appliquée sans regarder le territoire se tromperait une fois sur deux. Un champ
 absent se voit, un département faux non.
 
+Quand le territoire tranche, la forme est déclarée dans `corrections`, au même
+seed, avec le motif qui l'établit — « maire de DOUMELY-BEGNY », commune des
+Ardennes, donc « OS » vaut « 08 ». C'est ce motif qui se relit en revue, pas le
+code. Deux présentations sur 60 723 en relèvent.
+
+Quatre restent sans département, et volontairement. « 97 » et « OU » figurent en
+1981 sur des présentations sans territoire, qui seul aurait pu trancher. Les
+deux députés de « Saint-Martin/Saint-Barthélemy » relèvent d'un autre cas : là,
+c'est la source qui ne tranche pas, les deux collectivités partageant une
+circonscription législative sans avoir de code commun.
+
+Un conseiller de Paris est élu à Paris. Le Journal officiel d'avant 1988 ne le
+précise pas, mais ce n'est pas une déduction hasardeuse : c'est la définition du
+mandat, et 401 présentations reçoivent leur « 75 » de cette façon. La métropole
+de Lyon ne bénéficie pas du même raccourci, n'étant pas le Rhône.
+
 Deux familles avaient leurs champs inversés. Le Journal officiel de 2012 écrit
 « député de la DRÔME (1re) », et la lecture rangeait « 1re » dans le département
 et « la DRÔME » dans le ressort ; treize sénateurs de la même année portaient

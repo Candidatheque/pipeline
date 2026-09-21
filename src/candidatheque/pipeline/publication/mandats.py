@@ -198,6 +198,12 @@ TERRITOIRE_IMPLICITE = frozenset(
         "president-conseil-executif-martinique",
     }
 )
+#: Les mandats dont le département découle du mandat lui-même. Un conseiller de
+#: Paris est élu à Paris ; le Journal officiel d'avant 1988 ne le précise pas,
+#: mais ce n'est pas une déduction hasardeuse, c'est la définition du mandat.
+#: La métropole de Lyon n'y figure pas : elle n'est pas le Rhône.
+DEPARTEMENT_IMPLICITE = {"conseiller-paris": "75"}
+
 #: Le numéro de la circonscription législative, dans les formes que les sources
 #: lui donnent : « 2ème circonscription », « la 3e circonscription », « 1er »,
 #: et jusqu'à « l’Hérault (7 e) », où le département s'est invité.

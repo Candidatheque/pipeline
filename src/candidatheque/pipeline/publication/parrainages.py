@@ -30,6 +30,7 @@ from collections.abc import Iterable, Iterator, Mapping
 
 from candidatheque.pipeline.lecture.parrainages import Parrainage
 from candidatheque.pipeline.publication.departements import normaliser as normaliser_departement
+from candidatheque.pipeline.publication.mandats import DEPARTEMENT_IMPLICITE
 from candidatheque.pipeline.publication.mandats import normaliser as normaliser_mandat
 from candidatheque.pipeline.seeds import Source
 from candidatheque.pipeline.seeds.parrainages import SourceParrainages
@@ -98,7 +99,8 @@ def _presentation_publiee(parrainage: Parrainage, annee: int) -> dict:
         entree["territoire"] = territoire
     if qualite.circonscription is not None:
         entree["circonscription"] = qualite.circonscription
-    if departement := normaliser_departement(brut, annee):
+    departement = normaliser_departement(brut, annee) or DEPARTEMENT_IMPLICITE.get(qualite.mandat)
+    if departement:
         entree["departement"] = departement
     if parrainage.publie_le:
         entree["publie_le"] = parrainage.publie_le.isoformat()

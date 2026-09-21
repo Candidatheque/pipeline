@@ -20,6 +20,33 @@
 # dit « de nationalité française et élus en France ». Le mandat les distingue
 # déjà, et le champ reste absent.
 
+# Formes qu'aucune règle ne sait résoudre, corrigées à la main. Elles sont rares
+# — six présentations sur 60 723 — et toutes dues à l'océrisation des scans de
+# 1981. Chacune porte le motif qui l'établit : c'est ce motif qui se relit en
+# revue, pas le code.
+#
+# Le territoire lu à côté tranche ce que la forme seule laisse ambigu. « OS »
+# vaut « 08 » ou « 05 » selon qu'on lit le S en 8 ou en 5 ; la commune nommée
+# dans la même présentation le dit. Sans cette vérification, rien n'entre ici.
+#
+# Quatre formes restent volontairement absentes, faute d'être établissables :
+#   - « 97 » et « OU » en 1981, sur des présentations sans territoire ;
+#   - « Saint-Martin/Saint-Barthélemy » en 2017 et 2022, où c'est la source qui
+#     ne tranche pas : les deux collectivités partagent une circonscription
+#     législative et n'ont pas de code commun.
+
+corrections:
+  - brut: "OS"
+    code: "08"
+    motif: >-
+      « Bernard DEDOUBLE, maire de DOUMELY-BEGNY » en 1981 : la commune est dans
+      les Ardennes. Le O est un zéro et le S un 8.
+  - brut: "II"
+    code: "11"
+    motif: >-
+      « Pierre PLAS, maire de MERIAL » en 1981 : la commune est dans l'Aude. Les
+      deux I sont des 1, comme ailleurs dans le même scan.
+
 departements:
   - code: "01"
     nom: "Ain"

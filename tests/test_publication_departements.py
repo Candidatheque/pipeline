@@ -75,14 +75,36 @@ class TestHorsDepartement:
         """
         assert normaliser(brut, 2002) is None
 
-    @pytest.mark.parametrize("brut", ["OS", "II", "OU", None, "", "   "])
+    @pytest.mark.parametrize("brut", ["OU", "97", "Saint-Martin/Saint-Barthélemy", None, "", "   "])
     def test_ce_qui_ne_se_resout_pas_reste_sans_code(self, brut):
-        """« OS » vaut « 08 » ou « 05 » selon qu'on lit le S en 8 ou en 5.
+        """Rien n'est deviné quand rien ne l'établit.
 
-        Une substitution appliquée sans regarder le territoire se tromperait une
-        fois sur deux : un champ absent se voit, un département faux non.
+        « OU » et « 97 » figurent en 1981 sur des présentations sans territoire,
+        qui seul aurait pu trancher. « Saint-Martin/Saint-Barthélemy » est le
+        cas où c'est la source qui ne tranche pas : les deux collectivités
+        partagent une circonscription législative et n'ont pas de code commun.
         """
         assert normaliser(brut, 1981) is None
+
+
+class TestCorrections:
+    """Les formes qu'aucune règle ne résout, déclarées au seed.
+
+    Elles n'y entrent que lorsque le territoire lu dans la même présentation
+    établit le code : c'est écrit à la main parce que cela se relit, non parce
+    que cela se devine.
+    """
+
+    @pytest.mark.parametrize("brut, code", [("OS", "08"), ("II", "11")])
+    def test_une_forme_corrigee_donne_son_code(self, brut, code):
+        assert normaliser(brut, 1981) == code
+
+    def test_chaque_correction_porte_son_motif(self):
+        """Le motif se relit en revue ; le code seul ne se vérifierait pas."""
+        from candidatheque.pipeline.seeds.departements import load_corrections
+
+        for correction in load_corrections():
+            assert len(correction.motif) >= 20, correction
 
 
 class TestRegistre:

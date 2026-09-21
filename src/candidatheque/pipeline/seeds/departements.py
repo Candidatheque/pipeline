@@ -69,10 +69,35 @@ class Departement(BaseModel):
         return value
 
 
+class Correction(BaseModel):
+    """Une forme qu'aucune règle ne résout, et le code qu'elle désigne.
+
+    Le motif n'est pas un ornement : c'est lui qui se relit en revue. Une
+    correction sans justification vérifiable dans la donnée serait une
+    devinette écrite en dur.
+    """
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    #: La forme exacte que la source écrit.
+    brut: str = Field(min_length=1)
+    code: str
+    #: Ce qui établit le code, en général la commune nommée à côté.
+    motif: str = Field(min_length=20)
+
+    @field_validator("code")
+    @classmethod
+    def _code_bien_forme(cls, value: str) -> str:
+        if not CODE.match(value):
+            raise ValueError(f"code INSEE attendu : {value!r}")
+        return value
+
+
 class _SeedDepartements(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     departements: tuple[Departement, ...]
+    corrections: tuple[Correction, ...] = ()
 
     @model_validator(mode="after")
     def _aucun_code_en_double(self) -> _SeedDepartements:
@@ -95,8 +120,30 @@ class _SeedDepartements(BaseModel):
         return self
 
 
+    @model_validator(mode="after")
+    def _les_corrections_visent_un_departement_connu(self) -> _SeedDepartements:
+        """Corriger vers un code absent du registre ne corrigerait rien."""
+        connus = {d.code for d in self.departements}
+        for correction in self.corrections:
+            if correction.code not in connus:
+                raise ValueError(
+                    f"la correction de {correction.brut!r} vise {correction.code!r}, "
+                    "qui n'est pas au registre"
+                )
+        return self
+
+
 def load_departements(path: Path | None = None) -> tuple[Departement, ...]:
     """Le registre des départements, validé."""
+    return _charger(path).departements
+
+
+def load_corrections(path: Path | None = None) -> tuple[Correction, ...]:
+    """Les formes corrigées à la main, validées."""
+    return _charger(path).corrections
+
+
+def _charger(path: Path | None = None) -> _SeedDepartements:
     chemin = path or DEPARTEMENTS_SEED
     contenu = yaml.safe_load(chemin.read_text(encoding="utf-8")) or {}
-    return _SeedDepartements.model_validate(contenu).departements
+    return _SeedDepartements.model_validate(contenu)
