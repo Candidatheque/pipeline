@@ -189,6 +189,11 @@ SANS_LIEU = re.compile(
 #: ou de Wallis-et-Futuna.
 TERRITOIRE_IMPLICITE = frozenset(
     {
+        # Un député européen n'est pas élu dans un ressort que la source nomme :
+        # le Journal officiel écrit « représentant au Parlement européen de
+        # nationalité française et élu en France », et la fin de la phrase
+        # tombait dans le territoire comme si c'était un lieu.
+        "representant-parlement-europeen",
         "conseiller-paris",
         "conseiller-metropolitain-lyon",
         "membre-assemblee-corse",

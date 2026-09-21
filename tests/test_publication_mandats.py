@@ -143,6 +143,16 @@ class TestOutreMer:
         """
         assert territoire("maire", commune) == commune
 
+    def test_le_parlement_europeen_n_a_pas_de_territoire(self):
+        """« … de nationalité française et élu en France » n'est pas un lieu.
+
+        C'est la fin de la phrase du Journal officiel, que le découpage laissait
+        tomber dans le territoire.
+        """
+        assert territoire(
+            "représentant au Parlement européen", "nationalité française et élu en France"
+        ) is None
+
     def test_un_ressort_qui_ne_nomme_aucun_lieu_disparait(self):
         """« C.S.F.E. » est le nom de l'institution, pas celui d'une ville."""
         assert territoire("membre élu", "C.S.F.E.") is None
