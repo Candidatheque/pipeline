@@ -60,6 +60,10 @@ class Departement(BaseModel):
     #: Les numéros qu'une source ancienne emploie pour cette collectivité et
     #: qui en désignent une autre depuis.
     codes_anciens: tuple[CodeAncien, ...] = ()
+    #: Les noms qu'elle a portés avant un changement de nom. Contrairement à un
+    #: code ancien, un nom abandonné n'a été repris par personne : il se résout
+    #: sans l'année.
+    noms_anciens: tuple[str, ...] = ()
 
     @field_validator("code")
     @classmethod

@@ -118,3 +118,15 @@ class TestRegistre:
         registre = load_departements()
         assert len([d for d in registre if not d.code.startswith("9") or d.code < "96"]) == 96
         assert {"971", "972", "973", "974", "976"} <= {d.code for d in registre}
+
+
+class TestNomsAnciens:
+    """Un département renommé garde son ancien nom dans les sources d'avant."""
+
+    def test_les_cotes_du_nord_sont_les_cotes_d_armor(self):
+        """La proclamation de 1988 écrit « (Côtes-du-Nord) », nom d'avant 1990."""
+        assert normaliser("Côtes-du-Nord", 1988) == "22"
+
+    def test_la_corse_d_avant_la_partition_reste_sans_code(self):
+        """Un seul département en 1974, deux aujourd'hui : choisir serait deviner."""
+        assert normaliser("Corse", 1974) is None
