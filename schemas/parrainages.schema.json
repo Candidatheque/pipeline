@@ -133,8 +133,9 @@
         },
         "departement": {
           "type": "string",
-          "description": "Le département, tel que la source l'écrit : un numéro jusqu'en 2007, un nom ensuite.",
-          "examples": ["49", "Aisne"]
+          "pattern": "^(?:[0-9]{2}|2[AB]|9[78][0-9])$",
+          "description": "Le code INSEE du département ou de la collectivité, celui d'aujourd'hui. Les sources l'écrivent en numéro jusqu'en 2007, en nom ensuite, et le Journal officiel y ajoute ses césures ; tout est ramené au même code. Le champ est absent quand le mandat ne s'exerce pas dans un département : représentant au Parlement européen, conseiller à l'Assemblée des Français de l'étranger, président de conseil consulaire.",
+          "examples": ["49", "2A", "988"]
         },
         "publie_le": {
           "type": "string",

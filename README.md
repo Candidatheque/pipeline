@@ -380,6 +380,43 @@ avec le département. 73 députés font exception, dont la source écrit le
 département au lieu du numéro ; leur ressort reste dans `territoire` plutôt que
 d'être perdu, en attendant que le département passe en code.
 
+### Le département
+
+`departement` porte le code INSEE d'aujourd'hui. Les sources l'écrivent en
+numéro jusqu'en 2007, en nom capitalisé en 2012, en nom ordinaire depuis 2017,
+et le Journal officiel y ajoute ses césures — « HAUTS-DESEINE », « MAINEET-LOIRE »,
+« SAÔNEET-LOIRE » — quand l'impression mange le trait d'union. Les noms se
+comparent sur une forme aplatie, sans accent ni trait d'union ni espace : la
+césure ne se voit alors plus, et la forme abîmée tombe sur le nom de référence.
+
+Le registre est dans `seeds/departements.yaml`, relu en revue comme les autres
+seeds, et n'est pas publié : il ne sert qu'à cette normalisation.
+
+Un piège mérite d'être dit, parce que rien dans la donnée ne le signalerait.
+Les numéros ultramarins ont changé de sens : avant que Saint-Barthélemy et
+Saint-Martin ne reçoivent 977 et 978 en 2007, ces numéros désignaient
+Wallis-et-Futuna et la Nouvelle-Calédonie. Un parrainage wallisien de 1995
+publié à Saint-Barthélemy serait faux et silencieux. Le seed déclare ces
+numéros avec l'année où ils ont changé de main, et la résolution se fait avec
+l'année du scrutin.
+
+Trois codes rencontrés ne désignent aucun département : « 97A » et « 98 » pour
+les Français de l'étranger, « 99 » pour les représentants au Parlement
+européen, que le Journal officiel dit « de nationalité française et élus en
+France ». Le mandat les distingue déjà, et le champ reste absent — comme pour
+les 641 présentations dont le mandat ne s'exerce dans aucun département.
+
+Ce qui ne se résout pas reste sans code plutôt que d'être deviné. « OS » vaut
+« 08 » si le S est un 8 mal imprimé, « 05 » s'il est un 5 : une substitution
+appliquée sans regarder le territoire se tromperait une fois sur deux. Un champ
+absent se voit, un département faux non.
+
+Deux familles avaient leurs champs inversés. Le Journal officiel de 2012 écrit
+« député de la DRÔME (1re) », et la lecture rangeait « 1re » dans le département
+et « la DRÔME » dans le ressort ; treize sénateurs de la même année portaient
+leur département à côté du mandat quand les 848 autres le mettaient où il faut.
+Les uns et les autres sont redressés, ce qui rend leur numéro à 61 députés.
+
 Recevoir un parrainage ne fait pas de vous un candidat. Thomas PESQUET et
 Édouard PHILIPPE en ont reçu en 2022, François HOLLANDE en 2017 et en 2022,
 sans jamais se présenter. Les écarter publierait un total faux ; leur donner un
@@ -502,9 +539,6 @@ signalées en commentaire dans `seeds/personnes.yaml`.
 
 Rien ne collecte : les candidatures ont été extraites en une fois et sont
 maintenues à la main. Une élection à venir demandera un collecteur.
-
-Le département est publié tel que la source l'écrit : un numéro jusqu'en 2007,
-un nom ensuite. Même raisonnement.
 
 Il n'y a pas de schéma de résultats. Sa forme doit sortir des décisions du
 Conseil constitutionnel, qui ne sont pas encore analysées.

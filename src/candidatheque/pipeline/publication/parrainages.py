@@ -25,12 +25,19 @@ publier un total faux.
 
 from __future__ import annotations
 
+import re
 from collections.abc import Iterable, Iterator, Mapping
 
 from candidatheque.pipeline.lecture.parrainages import Parrainage
+from candidatheque.pipeline.publication.departements import normaliser as normaliser_departement
 from candidatheque.pipeline.publication.mandats import normaliser as normaliser_mandat
 from candidatheque.pipeline.seeds import Source
 from candidatheque.pipeline.seeds.parrainages import SourceParrainages
+
+#: Un département réduit à un ordinal : c'est le numéro de circonscription d'un
+#: député, que le Journal officiel de 2012 a mis entre parenthèses là où il
+#: écrit ailleurs le département.
+NUMERO_SEUL = re.compile(r"\d{1,2}\s*(?:er|re|ère|ere|ème|eme|e)", re.IGNORECASE)
 
 #: Répertoire des candidats, sous celui d'une élection.
 CANDIDATS_DIR = "candidats"
@@ -41,13 +48,29 @@ PARRAINAGES_FILE = "parrainages.json"
 SANS_CANDIDATURE_FILE = "parrainages-sans-candidature.json"
 
 
-def _presentation_publiee(parrainage: Parrainage) -> dict:
+def _champs_du_depute(brut: str | None, territoire: str | None) -> tuple[str | None, str | None]:
+    """Redresse les présentations de députés dont les deux champs sont inversés.
+
+    Le Journal officiel de 2012 écrit « député de la DRÔME (1re) » : la lecture
+    range « 1re » dans le département, entre parenthèses, et « la DRÔME » dans
+    le ressort. Les deux champs ont donc échangé leur contenu, et les prendre
+    pour argent comptant perdrait à la fois le numéro et le département.
+    """
+    if brut and NUMERO_SEUL.fullmatch(brut.strip()):
+        return territoire, brut
+    return brut, None
+
+
+def _presentation_publiee(parrainage: Parrainage, annee: int) -> dict:
     """Une présentation, telle qu'elle est publiée.
 
     Les champs absents sont omis plutôt que publiés vides. Le Journal officiel
     de 2002 désigne chaque présentateur « par son nom et sa qualité », sans
     prénom, là où celui de 1995 donne les trois : publier un prénom vide
     laisserait croire à une donnée perdue.
+
+    `annee` est celle du scrutin, sans laquelle le département ne se résout
+    pas : les numéros ultramarins ont changé de sens en 2007.
     """
     entree: dict = {}
     if parrainage.civilite:
@@ -55,18 +78,36 @@ def _presentation_publiee(parrainage: Parrainage) -> dict:
     entree["nom"] = parrainage.nom
     if parrainage.prenom:
         entree["prenom"] = parrainage.prenom
+
+    brut, numero = parrainage.departement, None
     qualite = normaliser_mandat(parrainage.mandat, parrainage.territoire)
+    if qualite.mandat == "depute":
+        brut, numero = _champs_du_depute(parrainage.departement, parrainage.territoire)
+        if numero:
+            qualite = normaliser_mandat(parrainage.mandat, numero)
+    # Le sénateur est élu dans un département, et c'est là que son ressort va.
+    # Treize présentations de 2012 l'écrivent à côté du mandat — « sénateur de
+    # PARIS » — quand les 848 autres le mettent où il faut.
+    territoire = qualite.territoire
+    if qualite.mandat == "senateur" and not brut and normaliser_departement(territoire, annee):
+        brut, territoire = territoire, None
+
     if qualite.mandat:
         entree["mandat"] = qualite.mandat
-    if qualite.territoire:
-        entree["territoire"] = qualite.territoire
+    if territoire and not numero:
+        entree["territoire"] = territoire
     if qualite.circonscription is not None:
         entree["circonscription"] = qualite.circonscription
-    if parrainage.departement:
-        entree["departement"] = parrainage.departement
+    if departement := normaliser_departement(brut, annee):
+        entree["departement"] = departement
     if parrainage.publie_le:
         entree["publie_le"] = parrainage.publie_le.isoformat()
     return entree
+
+
+def _annee(source: SourceParrainages) -> int:
+    """L'année du scrutin, lue dans son identifiant « PR-2012 »."""
+    return int(source.election.rsplit("-", 1)[1])
 
 
 def _publications_publiees(
@@ -100,7 +141,7 @@ def parrainages_du_candidat(
         "nom_complet": nom_complet,
         "etendue": str(source.etendue),
         "publications": _publications_publiees(source, sources, publiee_par),
-        "parrainages": [_presentation_publiee(p) for p in presentations],
+        "parrainages": [_presentation_publiee(p, _annee(source)) for p in presentations],
     }
 
 
@@ -164,7 +205,7 @@ def documents(
         if candidat.personne:
             entree["personne"] = candidat.personne
             entree["nom_complet"] = noms[candidat.personne]
-        entree["parrainages"] = [_presentation_publiee(p) for p in presentations]
+        entree["parrainages"] = [_presentation_publiee(p, _annee(source)) for p in presentations]
         beneficiaires.append(entree)
 
     if beneficiaires:

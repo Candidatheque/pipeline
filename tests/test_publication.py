@@ -337,6 +337,25 @@ class TestParrainages:
             sans = [p for p in _charge(chemin)["parrainages"] if "mandat" not in p]
             assert not sans, (chemin, sans[:3])
 
+    def test_le_departement_publie_est_un_code_du_registre(self, destination):
+        """Aucun nom, aucune césure, aucun code inventé n'arrive dans les données."""
+        from candidatheque.pipeline.seeds.departements import load_departements
+
+        connus = {d.code for d in load_departements()}
+        for chemin in (destination / ELECTIONS_DIR).glob("*/candidats/*/parrainages.json"):
+            publies = {p["departement"] for p in _charge(chemin)["parrainages"] if "departement" in p}
+            assert publies <= connus, (chemin, sorted(publies - connus))
+
+    def test_seuls_les_deputes_portent_une_circonscription(self, destination):
+        """Le numéro n'a de sens que pour eux ; ailleurs, c'est une erreur."""
+        for chemin in (destination / ELECTIONS_DIR).glob("*/candidats/*/parrainages.json"):
+            autres = [
+                p
+                for p in _charge(chemin)["parrainages"]
+                if "circonscription" in p and p.get("mandat") != "depute"
+            ]
+            assert not autres, (chemin, autres[:3])
+
     def test_un_non_candidat_connu_du_registre_porte_son_identifiant(self, destination):
         """François HOLLANDE a reçu des présentations sans être candidat."""
         publie = _charge(

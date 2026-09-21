@@ -29,6 +29,9 @@ AUTORITES_SEED = SEEDS_DIR / "autorites.yaml"
 PARTIS_SEED = SEEDS_DIR / "partis.yaml"
 CANDIDATURES_SEED = SEEDS_DIR / "candidatures.yaml"
 PARRAINAGES_SEED = SEEDS_DIR / "parrainages.yaml"
+#: Table de référence, jamais publiée : elle sert à normaliser ce que les
+#: sources écrivent du département.
+DEPARTEMENTS_SEED = SEEDS_DIR / "departements.yaml"
 
 # Dépôt distinct, cloné à côté de celui-ci. `publier --destination` vise ailleurs.
 DATA_REPO = REPO_ROOT.parent / "data"
