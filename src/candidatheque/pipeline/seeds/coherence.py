@@ -9,9 +9,11 @@ contrôles, lancés par `candidatheque valider`.
 
 from __future__ import annotations
 
+from candidatheque.pipeline.lecture.parrainages import lire
 from candidatheque.pipeline.seeds.autorites import load_autorites
 from candidatheque.pipeline.seeds.candidatures import load_candidatures
 from candidatheque.pipeline.seeds.elections import load_elections
+from candidatheque.pipeline.seeds.parrainages import load_parrainages
 from candidatheque.pipeline.seeds.partis import load_partis
 from candidatheque.pipeline.seeds.personnes import load_personnes
 from candidatheque.pipeline.seeds.sources import load_sources
@@ -26,6 +28,7 @@ def verifier() -> list[str]:
     autorites = {autorite.id: autorite for autorite in load_autorites()}
     partis = {parti.id for parti in load_partis()}
     candidatures = load_candidatures()
+    sources_parrainages = load_parrainages()
 
     problemes: list[str] = []
 
@@ -107,6 +110,43 @@ def verifier() -> list[str]:
     # erreur : mieux vaut la retirer ou comprendre pourquoi elle est orpheline.
     for orpheline in sorted(personnes - personnes_citees):
         problemes.append(f"{orpheline} : personne du registre citée par aucune candidature")
+    # Les parrainages citent leurs sources depuis leur propre seed, et leur
+    # fichier doit exister : une déclaration qui pointe vers rien produirait une
+    # publication muette, sans erreur.
+    for entree in sources_parrainages:
+        if entree.election not in elections:
+            problemes.append(f"{entree.election} : élection inconnue du seed des élections")
+        if not entree.chemin().is_file():
+            problemes.append(f"{entree.election} : fichier absent, {entree.fichier}")
+        if entree.origine not in sources:
+            problemes.append(f"{entree.election} : origine inconnue « {entree.origine} »")
+        sources_citees.add(entree.origine)
+        for publication in entree.publications:
+            if publication.source not in sources:
+                problemes.append(
+                    f"{entree.election}/{publication.date} : "
+                    f"source inconnue « {publication.source} »"
+                )
+            sources_citees.add(publication.source)
+        for candidat in entree.candidats:
+            if candidat.personne is not None and candidat.personne not in personnes:
+                problemes.append(
+                    f"{entree.election} : « {candidat.titre} » renvoie à "
+                    f"{candidat.personne}, absent du registre des personnes"
+                )
+        # Le seed doit nommer exactement les candidats que porte le fichier.
+        # Un titre oublié, c'est une liste entière qui disparaît sans bruit ;
+        # un titre en trop, une déclaration qui ne correspond plus à la source.
+        if entree.chemin().is_file():
+            portes = {parrainage.candidat for parrainage in lire(entree)}
+            declares = {candidat.titre for candidat in entree.candidats}
+            for absent in sorted(portes - declares):
+                problemes.append(f"{entree.election} : « {absent} » porté par la source, non déclaré")
+            for surnumeraire in sorted(declares - portes):
+                problemes.append(
+                    f"{entree.election} : « {surnumeraire} » déclaré, absent de la source"
+                )
+
     for orpheline in sorted(partis - partis_cites):
         problemes.append(f"{orpheline} : parti du registre cité par aucune candidature")
     for orpheline in sorted(set(sources) - sources_citees):

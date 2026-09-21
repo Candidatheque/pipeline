@@ -71,6 +71,10 @@ sources:
     url: "https://www.conseil-constitutionnel.fr/decision/2002/2002102PDR.htm"
     commentaire: "Décision du 4 avril 2002 arrêtant la liste des candidats à l'élection présidentielle"
     consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2002-107-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2002/2002107PDR.htm"
+    commentaire: "Décision du 10 avril 2002 portant publication du nom et de la qualité des citoyens ayant présenté les candidats à l'élection présidentielle"
+    consultee_le: 2026-09-20
   - id: "conseil-constitutionnel:2002-110-PDR"
     url: "https://www.conseil-constitutionnel.fr/decision/2002/2002110pdr.htm"
     commentaire: "Décision du 25 avril 2002 relative à la liste des candidats habilités à se présenter au second tour de l'élection présidentielle"
@@ -369,4 +373,132 @@ sources:
   - id: "wikidata:Q3165988"
     url: "https://www.wikidata.org/wiki/Q3165988"
     commentaire: "Jean-Frédéric POISSON sur Wikidata, appartenance partisane (P102)"
+    consultee_le: 2026-09-20
+
+  # Listes des citoyens ayant présenté des candidats. À partir de 2017, le
+  # Conseil les publie par vagues pendant la campagne, et chaque parrainage
+  # cite la décision qui l'a rendu public, pas une source générique.
+  - id: "conseil-constitutionnel:81-41-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1981/8141pdr.htm"
+    commentaire: "Listes des citoyens habilités ayant présenté les candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:88-55-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1988/8855pdr.htm"
+    commentaire: "Listes des citoyens habilités ayant présenté les candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:95-78-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/1995/9578pdr.htm"
+    commentaire: "Listes des citoyens habilités ayant présenté les candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2007-136-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2007/2007136pdr.htm"
+    commentaire: "Listes des citoyens habilités ayant présenté les candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2012-150-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2012/2012150pdr.htm"
+    commentaire: "Listes des citoyens habilités ayant présenté les candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2017-158-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2017/2017158PDR.htm"
+    commentaire: "Liste du 1er mars 2017 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2017-159-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2017/2017159PDR.htm"
+    commentaire: "Liste du 2 mars 2017 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2017-160-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2017/2017160PDR.htm"
+    commentaire: "Liste du 7 mars 2017 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2017-161-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2017/2017161PDR.htm"
+    commentaire: "Liste du 9 mars 2017 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2017-162-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2017/2017162PDR.htm"
+    commentaire: "Liste du 14 mars 2017 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2017-164-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2017/2017164PDR.htm"
+    commentaire: "Liste du 17 mars 2017 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2022-175-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2022/2022175PDR.htm"
+    commentaire: "Liste du 1er février 2022 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2022-176-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2022/2022176PDR.htm"
+    commentaire: "Liste du 3 février 2022 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2022-177-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2022/2022177PDR.htm"
+    commentaire: "Liste du 8 février 2022 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2022-178-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2022/2022178PDR.htm"
+    commentaire: "Liste du 10 février 2022 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2022-179-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2022/2022179PDR.htm"
+    commentaire: "Liste du 15 février 2022 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2022-180-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2022/2022180PDR.htm"
+    commentaire: "Liste du 17 février 2022 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2022-181-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2022/2022181PDR.htm"
+    commentaire: "Liste du 22 février 2022 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2022-182-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2022/2022182PDR.htm"
+    commentaire: "Liste du 24 février 2022 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2022-183-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2022/2022183PDR.htm"
+    commentaire: "Liste du 1er mars 2022 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2022-185-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2022/2022185PDR.htm"
+    commentaire: "Liste du 3 mars 2022 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+  - id: "conseil-constitutionnel:2022-186-PDR"
+    url: "https://www.conseil-constitutionnel.fr/decision/2022/2022186PDR.htm"
+    commentaire: "Liste du 7 mars 2022 des citoyens habilités ayant présenté des candidats à l'élection du Président de la République"
+    consultee_le: 2026-09-20
+
+  # Les documents d'où sont tirés les fichiers de parrainages. Ils se
+  # distinguent des décisions ci-dessus : la décision est l'acte qui rend les
+  # présentations publiques, ces sources sont les documents qui les portent.
+  - id: "legifrance:JORFTEXT000000850614"
+    url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000850614"
+    commentaire: "Liste du 15 avril 1981 des élus ayant présenté les candidats à l'élection du Président de la République, JORF n° 90"
+    consultee_le: 2026-09-20
+  - id: "legifrance:JORFTEXT000000299022"
+    url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000299022"
+    commentaire: "Liste du 12 avril 1988 des citoyens ayant présenté les candidats à l'élection du Président de la République, JORF n° 86"
+    consultee_le: 2026-09-20
+  - id: "legifrance:JORFTEXT000000847420"
+    url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000847420"
+    commentaire: "Liste du 12 avril 1995 des citoyens ayant présenté les candidats à l'élection du Président de la République, JORF n° 87"
+    consultee_le: 2026-09-20
+  - id: "legifrance:JORFTEXT000000407519"
+    url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000407519"
+    commentaire: "Listes des citoyens ayant présenté les candidats à l'élection du Président de la République, JORF n° 84 du 10 avril 2002"
+    consultee_le: 2026-09-20
+  - id: "legifrance:JORFTEXT000000464348"
+    url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000464348"
+    commentaire: "Listes des citoyens ayant présenté les candidats à l'élection du Président de la République, JORF n° 71 du 24 mars 2007"
+    consultee_le: 2026-09-20
+  - id: "legifrance:JORFTEXT000025595654"
+    url: "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000025595654"
+    commentaire: "Listes des citoyens ayant présenté les candidats à l'élection du Président de la République, JORF n° 78 du 31 mars 2012"
+    consultee_le: 2026-09-20
+  - id: "data-gouv:parrainages-2017"
+    url: "https://static.data.gouv.fr/resources/parrainages/20170320-103248/parrainagestotal.json"
+    commentaire: "Parrainages des candidats à l'élection présidentielle de 2017, publication du 20 mars 2017 par le Conseil constitutionnel"
+    consultee_le: 2026-09-20
+  - id: "data-gouv:parrainages-2022"
+    url: "https://static.data.gouv.fr/resources/parrainages-des-candidats-a-lelection-presidentielle-francaise-de-2022/20220307-183354/parrainagestotal.json"
+    commentaire: "Parrainages des candidats à l'élection présidentielle de 2022, publication du 7 mars 2022 par le Conseil constitutionnel"
     consultee_le: 2026-09-20

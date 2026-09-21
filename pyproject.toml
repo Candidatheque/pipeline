@@ -9,6 +9,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# La pipeline n'ouvre jamais de PDF : elle lit le texte que `outils/` en a tiré
+# une fois, et qui est commité dans `raw/`. Cette dépendance n'est donc pas la
+# sienne.
+outils = [
+    "pypdf>=6.0",
+]
 dev = [
     "jsonschema>=4.23",
     "pytest>=8.0",

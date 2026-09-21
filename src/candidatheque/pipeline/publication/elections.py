@@ -33,7 +33,9 @@ from dataclasses import dataclass
 from enum import StrEnum
 from pathlib import Path
 
+from candidatheque.pipeline.lecture.parrainages import Parrainage, lire
 from candidatheque.pipeline.paths import DATA_REPO, SCHEMAS_DIR
+from candidatheque.pipeline.publication import parrainages as publication_parrainages
 from candidatheque.pipeline.seeds import (
     Affiliation,
     Candidature,
@@ -47,6 +49,7 @@ from candidatheque.pipeline.seeds import (
     load_personnes,
     load_sources,
 )
+from candidatheque.pipeline.seeds.parrainages import SourceParrainages, load_parrainages
 
 #: Nom du répertoire qui porte une élection, sous la racine du dépôt.
 ELECTIONS_DIR = "elections"
@@ -198,17 +201,32 @@ def documents(
     sources: Mapping[str, Source] | None = None,
     personnes: Mapping[str, Personne] | None = None,
     partis: Mapping[str, Parti] | None = None,
+    presentations: tuple[SourceParrainages, list[Parrainage]] | None = None,
 ) -> Iterator[tuple[str, dict]]:
     """Les documents à publier dans le répertoire d'une élection.
 
     Point d'extension : un sujet collecté de plus, c'est un `yield` de plus.
     Une élection sans candidature connue ne publie pas de document vide — deux
     élections n'ont pas les mêmes documents, selon leur stade.
+
+    Le nom rendu est un chemin relatif au répertoire de l'élection : les
+    parrainages vivent sous `candidats/<PE>/`, un répertoire par candidat.
     """
+    candidats = tuple(candidats)
     yield ELECTION_FILE, metadonnees(election)
     if candidats:
         yield CANDIDATURES_FILE, candidatures(
             election, candidats, sources or {}, personnes or {}, partis or {}
+        )
+    if presentations is not None:
+        source, lus = presentations
+        yield from publication_parrainages.documents(
+            source,
+            lus,
+            {candidat.personne for candidat in candidats},
+            {identifiant: p.nom_complet for identifiant, p in (personnes or {}).items()},
+            sources or {},
+            _source_publiee,
         )
 
 
@@ -216,16 +234,23 @@ def _supprimer_orphelins(repertoire: Path, attendus: set[str]) -> list[Ecriture]
     """Retire d'un répertoire d'élection les documents qui ne sont plus produits.
 
     Un sujet peut cesser d'exister : une élection à venir perd ses candidatures
-    provisoires le jour où la liste officielle les remplace.
+    provisoires le jour où la liste officielle les remplace, et un candidat
+    perd son répertoire le jour où sa candidature est retirée du seed. Le
+    parcours est récursif depuis que les parrainages vivent un cran plus bas.
     """
     if not repertoire.is_dir():
         return []
 
     ecritures = []
-    for chemin in sorted(repertoire.iterdir()):
-        if chemin.is_file() and chemin.name not in attendus:
+    for chemin in sorted(repertoire.rglob("*")):
+        if chemin.is_file() and str(chemin.relative_to(repertoire)) not in attendus:
             chemin.unlink()
             ecritures.append(Ecriture(chemin, Statut.SUPPRIME))
+    # Un répertoire vidé de ses documents n'a plus de raison d'être ; il est
+    # retiré après coup, du plus profond au moins profond.
+    for chemin in sorted(repertoire.rglob("*"), reverse=True):
+        if chemin.is_dir() and not any(chemin.iterdir()):
+            chemin.rmdir()
     return ecritures
 
 
@@ -264,6 +289,12 @@ def publier(destination: Path | None = None) -> list[Ecriture]:
     personnes = {personne.id: personne for personne in load_personnes()}
     partis = {parti.id: parti for parti in load_partis()}
     par_election = {entree.election: entree.candidats for entree in load_candidatures()}
+    # Les parrainages sont lus depuis `raw/` à chaque publication, comme le
+    # reste : le seed déclare le fichier et la façon de le lire, rien n'est mis
+    # en cache entre deux passages.
+    presentations = {
+        entree.election: (entree, lire(entree)) for entree in load_parrainages()
+    }
     ecritures: list[Ecriture] = []
 
     for schema in sorted(SCHEMAS_DIR.glob("*.schema.json")):
@@ -277,7 +308,12 @@ def publier(destination: Path | None = None) -> list[Ecriture]:
         repertoire = racine_elections / election.id
         attendus = set()
         for nom, contenu in documents(
-            election, par_election.get(election.id, ()), sources, personnes, partis
+            election,
+            par_election.get(election.id, ()),
+            sources,
+            personnes,
+            partis,
+            presentations.get(election.id),
         ):
             attendus.add(nom)
             ecritures.append(_ecrire_json(repertoire / nom, contenu))

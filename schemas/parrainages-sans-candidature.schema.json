@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "parrainages-sans-candidature.schema.json",
+  "title": "Parrainages reçus par qui n'était pas candidat",
+  "description": "Les présentations reçues par des personnes dont aucune candidature n'est connue à cette élection. Thomas PESQUET et Édouard PHILIPPE en ont reçu en 2022 sans jamais se porter candidats, François HOLLANDE en 2017 et en 2022. Les écarter reviendrait à publier un total faux ; leur donner un répertoire de candidat reviendrait à affirmer une candidature qui n'a pas eu lieu.",
+  "type": "object",
+  "required": ["election", "etendue", "publications", "beneficiaires"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Chemin vers ce schéma, pour l'outillage d'édition."
+    },
+    "election": {
+      "type": "string",
+      "description": "Identifiant de l'élection, celui du répertoire qui porte ce document.",
+      "pattern": "^PR-[0-9]{4}$"
+    },
+    "etendue": {
+      "enum": ["integrale", "tirage-au-sort"],
+      "description": "Ce que la source publie ; même sens que dans « parrainages.schema.json »."
+    },
+    "publications": {
+      "type": "array",
+      "description": "Les vagues de publication, et la décision qui a rendu chacune publique.",
+      "minItems": 1,
+      "items": { "$ref": "parrainages.schema.json#/$defs/publication" }
+    },
+    "beneficiaires": {
+      "type": "array",
+      "description": "Une entrée par personne ayant reçu des présentations sans candidature connue.",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/beneficiaire" }
+    }
+  },
+  "$defs": {
+    "beneficiaire": {
+      "type": "object",
+      "required": ["nom_source", "parrainages"],
+      "additionalProperties": false,
+      "properties": {
+        "nom_source": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Le nom tel que la source l'écrit, seule chose dont on soit sûr. L'ordre et la casse sont ceux de la publication.",
+          "examples": ["PESQUET Thomas", "HOLLANDE François"]
+        },
+        "personne": {
+          "type": "string",
+          "pattern": "^PE-[0-9]{4}$",
+          "description": "Identifiant au registre des personnes, présent seulement si la personne y figure par ailleurs — parce qu'elle s'est portée candidate à une autre élection.",
+          "examples": ["PE-0065"]
+        },
+        "nom_complet": {
+          "type": "string",
+          "description": "Nom au registre, présent avec « personne ». Il peut différer de « nom_source », qui garde l'écriture de la publication."
+        },
+        "parrainages": {
+          "type": "array",
+          "description": "Les présentations reçues, de même forme que celles d'un candidat.",
+          "items": { "$ref": "parrainages.schema.json#/$defs/parrainage" }
+        }
+      }
+    }
+  }
+}

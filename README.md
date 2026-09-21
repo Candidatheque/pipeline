@@ -256,6 +256,10 @@ demande de la lecture, pas un motif.
 elections.json                        index : une entrée { id, annee } par élection
 elections/PR-2012/election.json       métadonnées : identifiant, année, QID, tours
 elections/PR-2012/candidatures.json   qui s'est présenté, à quels tours, sous quelle étiquette
+elections/PR-2012/candidats/PE-0058/parrainages.json
+                                      les élus qui ont présenté ce candidat
+elections/PR-2022/parrainages-sans-candidature.json
+                                      les présentations reçues par qui n'était pas candidat
 schemas/*.schema.json                 copie des schémas de ce dépôt
 ```
 
@@ -289,6 +293,189 @@ produits.
 La publication est idempotente. Un fichier au contenu inchangé n'est pas réécrit,
 et les répertoires sans entrée correspondante dans le seed sont supprimés. Un
 commit dans `data` signifie donc toujours que les données ont bougé.
+
+## Parrainages
+
+Un document par candidat, sous `candidats/<identifiant>/`, plutôt qu'un fichier
+unique par élection : celui de 2002 réunirait seize listes, et qui suit un seul
+candidat n'a pas à télécharger les quinze autres. 60 723 présentations pour les
+huit élections couvertes.
+
+Deux mentions comptent autant que les présentations elles-mêmes.
+
+`etendue` dit si la source publie tout ou un échantillon. Jusqu'en 2012, la loi
+n'imposait de publier que **500 noms par candidat, tirés au sort**. Compter les
+lignes de 2007 sans le savoir ferait conclure que Nicolas Sarkozy n'a reçu que
+500 parrainages. Depuis 2017 la publication est intégrale et le compte a un
+sens : François Fillon en a reçu 3 635 en 2017.
+
+`publications` donne, pour chaque date, la décision du Conseil constitutionnel
+qui l'a rendue publique, et chaque présentation porte sa date. C'est le seul
+endroit où une source n'est pas recopiée à côté de la donnée qu'elle établit :
+depuis 2017 le Conseil publie par vagues pendant la campagne, et répéter la
+décision sur chacune des 3 635 présentations de Fillon pèserait plus que les
+données. La référence reste résoluble dans le même fichier.
+
+### Le mandat de l'élu
+
+Le champ `mandat` porte un code d'un vocabulaire fixe, et non le libellé de la
+source. Quarante ans de publications écrivent le même mandat de dix façons :
+`maire` sous la plume du Journal officiel, `Maire` sous celle du Conseil
+constitutionnel ; `Conseiller/ère départemental-e` en 2017, puis `Conseiller
+départemental` et `Conseillère départementale` en 2022. Compter les maires sur
+l'ensemble des scrutins demandait de refaire ce tri, et chacun l'aurait refait
+différemment.
+
+Le découpage est celui du jeu de données de 2022 du Conseil constitutionnel, le
+plus récent : ses 29 catégories se retrouvent ici une pour une, les onze codes
+de moins n'étant que ses doublets masculin/féminin. Les codes supplémentaires
+sont des mandats que 2022 ne pouvait pas connaître — `conseiller-general`,
+supprimé en 2015, ou `membre-csfe`, le Conseil supérieur des Français de
+l'étranger d'avant 2004.
+
+Un renommage n'est pas une variante de graphie. Le conseiller général et le
+conseiller départemental sont le même siège sous deux noms, mais la bascule a
+une date : les confondre ferait disparaître une réforme d'un jeu de données
+historique, et qui compte les conseillers généraux en 2022 doit trouver zéro.
+Ils gardent donc deux codes, comme les trois âges de l'Assemblée des Français
+de l'étranger.
+
+Le mandat se lit avec son ressort. Le Journal officiel écrit `conseiller` tout
+court et met `Paris` dans le champ d'à côté ; `membre élu` et `C.S.F.E.`. Les
+354 présentations qui paraissaient tronquées ne l'étaient pas : l'information
+était passée dans l'autre champ. Inversement, 2017 nomme la collectivité dans le
+libellé — `Membre de l'assemblée de Guyane` — là où 2022 range les six assemblées
+d'outre-mer sous une catégorie unique. Le code suit 2022, et la collectivité
+passe dans le ressort : rien de ce que 2017 disait n'est perdu. La Corse reste à
+part, étant métropolitaine, et le congrès de Nouvelle-Calédonie aussi, étant une
+autre institution qu'une assemblée de province.
+
+Les 60 723 présentations portent toutes un code ; un test le vérifie, pour
+qu'une graphie inédite se voie en revue plutôt que de vider le champ en silence.
+
+### Où le mandat s'exerce
+
+`circonscription` ne pouvait pas porter ce qu'il portait. Le mot désigne en
+droit électoral la circonscription législative, alors que le champ recevait
+tantôt une commune, tantôt un canton, tantôt une région, un EPCI, une
+collectivité d'outre-mer ou un numéro. Il se lit désormais en deux champs.
+
+`territoire` porte le nom propre du lieu, et seulement lui : une commune pour un
+maire, un canton pour un conseiller général, un EPCI pour un président de
+communauté, la ville où siège un conseil consulaire. Le type n'y figure jamais,
+le mandat le portant déjà : `RABAT`, et non « Conseil supérieur des Français de
+l'étranger de RABAT » ; `CONFOLENTAIS`, et non « communauté de communes du
+CONFOLENTAIS ». Le champ est absent quand le code nomme déjà la collectivité,
+comme `membre-assemblee-corse`. Il l'est aussi quand le département la nomme :
+« Guyane » n'ajoute rien à « 973 », et le territoire ne subsiste, pour une
+assemblée d'outre-mer, que sur la présentation où le département manque. Cette
+règle ne vaut que pour les mandats dont le ressort est une collectivité
+entière : le maire de MAYENNE est maire d'une commune de la Mayenne, et son
+territoire nomme la commune.
+
+Un ressort peut enfin couvrir deux collectivités. Saint-Barthélemy et
+Saint-Martin, codes 977 et 978, partagent une circonscription législative, et le
+Conseil constitutionnel écrit les deux noms dans le champ du département. En
+choisir un affirmerait une précision qu'il ne donne pas : le nom va au
+territoire, et le département reste vide.
+
+Les motifs de redite sont explicites, jamais génériques. Près de 2 800 communes
+s'ouvrent sur `LE`, `LA` ou `VILLE` — `LE THOUR`, `VILLEDOUX` —, et un
+décapage par préfixe les mutilerait.
+
+`circonscription` ne garde que le numéro de la circonscription législative d'un
+député, en nombre. Les sources l'écrivent `2ème circonscription`, `la 3e
+circonscription` ou `1er` selon l'année : 192 graphies pour un entier, qui se lit
+avec le département. 73 députés font exception, dont la source écrit le
+département au lieu du numéro ; leur ressort reste dans `territoire` plutôt que
+d'être perdu, en attendant que le département passe en code.
+
+### Le département
+
+`departement` porte le code INSEE d'aujourd'hui. Les sources l'écrivent en
+numéro jusqu'en 2007, en nom capitalisé en 2012, en nom ordinaire depuis 2017,
+et le Journal officiel y ajoute ses césures — « HAUTS-DESEINE », « MAINEET-LOIRE »,
+« SAÔNEET-LOIRE » — quand l'impression mange le trait d'union. Les noms se
+comparent sur une forme aplatie, sans accent ni trait d'union ni espace : la
+césure ne se voit alors plus, et la forme abîmée tombe sur le nom de référence.
+
+Le registre est dans `seeds/departements.yaml`, relu en revue comme les autres
+seeds, et n'est pas publié : il ne sert qu'à cette normalisation.
+
+Un piège mérite d'être dit, parce que rien dans la donnée ne le signalerait.
+Les numéros ultramarins ont changé de sens : avant que Saint-Barthélemy et
+Saint-Martin ne reçoivent 977 et 978 en 2007, ces numéros désignaient
+Wallis-et-Futuna et la Nouvelle-Calédonie. Un parrainage wallisien de 1995
+publié à Saint-Barthélemy serait faux et silencieux. Le seed déclare ces
+numéros avec l'année où ils ont changé de main, et la résolution se fait avec
+l'année du scrutin.
+
+Trois codes rencontrés ne désignent aucun département : « 97A » et « 98 » pour
+les Français de l'étranger, « 99 » pour les représentants au Parlement
+européen, que le Journal officiel dit « de nationalité française et élus en
+France ». Le mandat les distingue déjà, et le champ reste absent — comme pour
+les 641 présentations dont le mandat ne s'exerce dans aucun département.
+
+Ce qui ne se résout pas reste sans code plutôt que d'être deviné. « OS » vaut
+« 08 » si le S est un 8 mal imprimé, « 05 » s'il est un 5 : une substitution
+appliquée sans regarder le territoire se tromperait une fois sur deux. Un champ
+absent se voit, un département faux non.
+
+Quand le territoire tranche, la forme est déclarée dans `corrections`, au même
+seed, avec le motif qui l'établit — « maire de DOUMELY-BEGNY », commune des
+Ardennes, donc « OS » vaut « 08 ». C'est ce motif qui se relit en revue, pas le
+code. Deux présentations sur 60 723 en relèvent.
+
+Trois restent sans département, et volontairement. « OU » figure en 1981 sur une
+présentation dont le Journal officiel n'a même pas fermé la parenthèse —
+« Jean CHABERT, conseiller général (OU ; » — et sans territoire pour trancher.
+Les deux députés de « Saint-Martin/Saint-Barthélemy » relèvent d'un autre cas :
+là, c'est la source qui ne tranche pas, les deux collectivités partageant une
+circonscription législative sans avoir de code INSEE commun.
+
+Un conseiller de Paris est élu à Paris. Le Journal officiel d'avant 1988 ne le
+précise pas, mais ce n'est pas une déduction hasardeuse : c'est la définition du
+mandat, et 401 présentations reçoivent leur « 75 » de cette façon. La métropole
+de Lyon ne bénéficie pas du même raccourci, n'étant pas le Rhône.
+
+Deux familles avaient leurs champs inversés. Le Journal officiel de 2012 écrit
+« député de la DRÔME (1re) », et la lecture rangeait « 1re » dans le département
+et « la DRÔME » dans le ressort ; treize sénateurs de la même année portaient
+leur département à côté du mandat quand les 848 autres le mettaient où il faut.
+Les uns et les autres sont redressés, ce qui rend leur numéro à 61 députés.
+
+Recevoir un parrainage ne fait pas de vous un candidat. Thomas PESQUET et
+Édouard PHILIPPE en ont reçu en 2022, François HOLLANDE en 2017 et en 2022,
+sans jamais se présenter. Les écarter publierait un total faux ; leur donner un
+répertoire de candidat affirmerait une candidature qui n'a pas eu lieu. Ils
+sont donc réunis dans `parrainages-sans-candidature.json`, sous l'élection, où
+chacun porte son nom tel que la source l'écrit, et son identifiant de personne
+s'il figure au registre par ailleurs.
+
+### D'où viennent les données
+
+`seeds/parrainages.yaml` déclare, pour chaque élection, le fichier de `raw/`,
+son format, son `origine` — le document dont il est tiré — et la correspondance
+entre le nom qu'écrit la source et l'identifiant de personne. Cette
+correspondance est déclarée, jamais devinée : l'impression du Journal officiel
+abîme les titres jusqu'aux capitales — `M. Michel DE3RE.`, `Madame ArU 3
+LAGUILLER` —, et un rapprochement par ressemblance finirait par confondre deux
+homonymes. Un contrôle de cohérence exige que le seed nomme exactement les
+candidats que porte le fichier, dans les deux sens.
+
+La pipeline ne télécharge ni n'océrise rien : les fichiers sources sont commités
+dans `raw/`, et `outils/` porte les convertisseurs qui en tirent le texte, pour
+que le résultat soit rejouable. `raw/parrainages/SOURCES.md` donne la commande
+exacte pour chacun.
+
+L'exhaustivité est vérifiée, pas supposée. Les 500 noms par candidat sont un
+oracle : les cinquante-six listes tirées au sort en comptent exactement 500,
+et un test le vérifie à la lecture comme dans les fichiers publiés.
+
+1965, 1969 et 1974 n'auront jamais de parrainages. L'obligation de publier le
+nom des présentateurs vient de la loi organique du 18 juin 1976, que la note de
+bas de page du Journal officiel de 1981 cite comme la règle qui l'impose. Ce
+n'est pas un trou dans la collecte, c'est l'état du droit.
 
 ## Publication automatique
 

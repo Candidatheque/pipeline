@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "parrainages.schema.json",
+  "title": "Parrainages reçus par un candidat",
+  "description": "Les élus qui ont présenté un candidat à une élection, tels que le Conseil constitutionnel les a rendus publics. Un document par candidat : un consommateur qui ne s'intéresse qu'à l'un d'eux ne télécharge pas les quinze autres. Lire « etendue » avant de compter : jusqu'en 2012, la loi n'imposait de publier que 500 noms par candidat, tirés au sort, et le nombre de lignes n'est donc pas le nombre de parrainages reçus.",
+  "type": "object",
+  "required": [
+    "election",
+    "personne",
+    "nom_complet",
+    "etendue",
+    "publications",
+    "parrainages"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Chemin vers ce schéma, pour l'outillage d'édition."
+    },
+    "election": {
+      "type": "string",
+      "description": "Identifiant de l'élection, celui du répertoire qui porte ce document.",
+      "pattern": "^PR-[0-9]{4}$"
+    },
+    "personne": {
+      "type": "string",
+      "description": "Identifiant du candidat présenté, celui du répertoire qui porte ce document.",
+      "pattern": "^PE-[0-9]{4}$"
+    },
+    "nom_complet": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Nom du candidat présenté, nom de famille en capitales.",
+      "examples": ["Jacques CHIRAC"]
+    },
+    "etendue": {
+      "enum": ["integrale", "tirage-au-sort"],
+      "description": "Ce que la source publie. « integrale » : toutes les présentations reçues, à partir de 2017. « tirage-au-sort » : 500 noms par candidat tirés au sort par le Conseil constitutionnel, ce que la loi imposait avant la réforme de 2016. Compter les entrées d'un document « tirage-au-sort » donne 500 pour chaque candidat, ce qui n'est pas leur nombre de parrainages."
+    },
+    "publications": {
+      "type": "array",
+      "description": "Les vagues de publication, et la décision du Conseil constitutionnel qui a rendu chacune publique. Chaque présentation porte sa date plutôt que la description entière de sa source : depuis 2017 le Conseil publie par vagues pendant la campagne, et recopier la décision sur chacune des 3 635 présentations de François Fillon pèserait plus que les données elles-mêmes.",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/publication" }
+    },
+    "parrainages": {
+      "type": "array",
+      "description": "Une entrée par présentation, dans l'ordre où la source les donne.",
+      "items": { "$ref": "#/$defs/parrainage" }
+    }
+  },
+  "$defs": {
+    "publication": {
+      "type": "object",
+      "required": ["date", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "Date de publication, celle que portent les présentations concernées."
+        },
+        "source": {
+          "$ref": "source.schema.json",
+          "description": "La décision qui a rendu ces présentations publiques."
+        }
+      }
+    },
+    "parrainage": {
+      "type": "object",
+      "description": "Une présentation par un élu habilité. Seuls les champs que la source donne sont présents : le Journal officiel de 2002 désigne chaque présentateur « par son nom et sa qualité », sans prénom, là où celui de 1995 donne les trois.",
+      "required": ["nom"],
+      "additionalProperties": false,
+      "properties": {
+        "civilite": {
+          "type": "string",
+          "description": "Civilité, quand la source la donne.",
+          "examples": ["M.", "Mme"]
+        },
+        "nom": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Le nom tel que la source l'écrit. Il porte le prénom quand la source ne l'en sépare pas, ce qui est le cas de toutes les publications au Journal officiel : « Paul BOISNIER ». Le séparer demanderait de deviner où s'arrête le prénom, ce qui se trompe sur les noms composés.",
+          "examples": ["Paul BOISNIER", "LARSONNEUR-MOREL"]
+        },
+        "prenom": {
+          "type": "string",
+          "description": "Prénom, présent seulement quand la source le publie dans un champ distinct, ce que font les jeux de données de 2017 et 2022."
+        },
+        "mandat": {
+          "type": "string",
+          "description": "Le mandat qui rend l'élu habilité à présenter un candidat, en vocabulaire fixe. Les sources écrivent le même mandat de plusieurs façons selon l'année — « maire » et « Maire », « Conseiller/ère départemental-e » en 2017, « Conseiller départemental » et « Conseillère départementale » en 2022 — et ces graphies sont ramenées à un code. Le découpage est celui du jeu de données de 2022 du Conseil constitutionnel, dont les 29 catégories se retrouvent ici une pour une. Un mandat que la loi a renommé garde en revanche son code d'époque : le conseiller général est devenu départemental en 2015, et les confondre effacerait la réforme.",
+          "enum": [
+            "conseiller-afe",
+            "conseiller-departemental",
+            "conseiller-general",
+            "conseiller-metropolitain-lyon",
+            "conseiller-paris",
+            "conseiller-regional",
+            "conseiller-territorial",
+            "conseiller-territorial-com",
+            "depute",
+            "maire",
+            "maire-arrondissement",
+            "maire-delegue",
+            "membre-afe",
+            "membre-assemblee-corse",
+            "membre-assemblee-outre-mer",
+            "membre-congres-nouvelle-caledonie",
+            "membre-csfe",
+            "president-communaute",
+            "president-conseil-consulaire",
+            "president-conseil-executif-martinique",
+            "president-epci",
+            "president-gouvernement-nouvelle-caledonie",
+            "president-metropole",
+            "president-polynesie",
+            "representant-parlement-europeen",
+            "senateur"
+          ]
+        },
+        "territoire": {
+          "type": "string",
+          "description": "Le nom propre du lieu où s'exerce le mandat : une commune pour un maire, un canton pour un conseiller général ou départemental, un EPCI pour un président de communauté, une collectivité pour un membre d'assemblée d'outre-mer, la ville où siège un conseil consulaire. Le type n'y figure jamais, le mandat le portant déjà : « RABAT » et non « Conseil supérieur des Français de l'étranger de RABAT », « CONFOLENTAIS » et non « communauté de communes du CONFOLENTAIS ». Le champ est absent quand le mandat nomme déjà la collectivité, comme « membre-assemblee-corse ».",
+          "examples": ["Mont-Saint-Père", "SAUMUR-NORD", "Guyane", "RABAT", "CONFOLENTAIS"]
+        },
+        "circonscription": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Le numéro de la circonscription législative, pour les seuls députés, et seulement quand la source le donne. Il se lit avec le département : la 3e circonscription de la Sarthe. Les sources l'écrivent « 2ème circonscription », « la 3e circonscription » ou « 1er » selon l'année ; il est publié en nombre.",
+          "examples": [1, 3, 12]
+        },
+        "departement": {
+          "type": "string",
+          "pattern": "^(?:[0-9]{2}|2[AB]|9[78][0-9])$",
+          "description": "Le code INSEE du département ou de la collectivité, celui d'aujourd'hui. Les sources l'écrivent en numéro jusqu'en 2007, en nom ensuite, et le Journal officiel y ajoute ses césures ; tout est ramené au même code. Le champ est absent quand le mandat ne s'exerce pas dans un département : représentant au Parlement européen, conseiller à l'Assemblée des Français de l'étranger, président de conseil consulaire.",
+          "examples": ["49", "2A", "988"]
+        },
+        "publie_le": {
+          "type": "string",
+          "format": "date",
+          "description": "La date de publication de cette présentation, qui renvoie à une entrée de « publications »."
+        }
+      }
+    }
+  }
+}
