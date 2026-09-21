@@ -316,6 +316,23 @@ depuis 2017 le Conseil publie par vagues pendant la campagne, et répéter la
 décision sur chacune des 3 635 présentations de Fillon pèserait plus que les
 données. La référence reste résoluble dans le même fichier.
 
+### Le nom de l'élu
+
+Le champ `nom_complet` porte le nom d'un seul tenant, prénom puis nom de famille
+en capitales : `Thierry NICOLAS`. Les sources ne s'accordent pas — les jeux de
+données de 2017 et 2022 séparent le prénom du nom, le Journal officiel écrit
+`Paul BOISNIER` sans jamais les séparer, et celui de 2002 ne donne pas de prénom
+du tout. Publier les deux formes obligerait qui lit les huit élections à
+connaître cette histoire, et le découpage manquerait de toute façon partout où
+la source ne le fait pas. C'est aussi la forme qu'ont les noms partout ailleurs
+dans les données.
+
+Les noms que la source écrit à l'envers — `PESQUET Thomas` — sont remis dans cet
+ordre. La bascule se fait sur la casse, que les sources tiennent sans faute, et
+non sur un découpage au jugé : `MARECHAL Philippe Célestin` a deux prénoms,
+`KOSCIUSKO-MORIZET Nathalie` un nom composé. Là où le repère manque, parce que
+tout est en capitales ou que rien ne l'est, le nom est laissé tel quel.
+
 ### Le mandat de l'élu
 
 Le champ `mandat` porte un code d'un vocabulaire fixe, et non le libellé de la
@@ -449,8 +466,8 @@ Recevoir un parrainage ne fait pas de vous un candidat. Thomas PESQUET et
 sans jamais se présenter. Les écarter publierait un total faux ; leur donner un
 répertoire de candidat affirmerait une candidature qui n'a pas eu lieu. Ils
 sont donc réunis dans `parrainages-sans-candidature.json`, sous l'élection, où
-chacun porte son nom tel que la source l'écrit, et son identifiant de personne
-s'il figure au registre par ailleurs.
+chacun porte son `nom_complet` et son identifiant de personne s'il figure au
+registre par ailleurs.
 
 ### D'où viennent les données
 

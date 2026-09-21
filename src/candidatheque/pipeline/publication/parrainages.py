@@ -26,7 +26,9 @@ publier un total faux.
 from __future__ import annotations
 
 import re
+import unicodedata
 from collections.abc import Iterable, Iterator, Mapping
+from itertools import takewhile
 
 from candidatheque.pipeline.lecture.parrainages import Parrainage
 from candidatheque.pipeline.publication.departements import normaliser as normaliser_departement
@@ -52,6 +54,43 @@ PARRAINAGES_FILE = "parrainages.json"
 #: nous, sous le répertoire de l'élection.
 SANS_CANDIDATURE_FILE = "parrainages-sans-candidature.json"
 
+#: La civilité en tête d'un nom, que le Journal officiel écrit et que le nom
+#: publié ne porte pas : elle est une qualité, pas une partie du nom.
+CIVILITE_EN_TETE = re.compile(r"^(?:M\.|Mme|Mlle|Monsieur|Madame|Mademoiselle)\s+")
+
+
+def _est_un_nom_de_famille(mot: str) -> bool:
+    """Ce mot est-il tout en capitales, comme les sources écrivent les noms ?
+
+    Deux lettres au moins : « M. » n'est pas un nom, et une initiale isolée ne
+    se distingue pas d'une civilité.
+    """
+    lettres = [
+        c
+        for c in unicodedata.normalize("NFD", mot)
+        if c.isalpha() and not unicodedata.combining(c)
+    ]
+    return len(lettres) >= 2 and all(c.isupper() for c in lettres)
+
+
+def nom_a_l_endroit(nom: str) -> str:
+    """Un nom remis dans l'ordre du registre : prénom puis nom de famille.
+
+    Les jeux de données du Conseil constitutionnel nomment les candidats
+    présentés « PESQUET Thomas », là où tout le reste des données publiées
+    écrit « Thomas PESQUET ». La bascule se fait sur la casse, que les sources
+    tiennent sans faute : le nom de famille est en capitales, le prénom non.
+    C'est le seul repère sûr — « MARECHAL Philippe Célestin » a deux prénoms,
+    « KOSCIUSKO-MORIZET Nathalie » un nom composé —, et là où il manque, parce
+    que tout est en capitales ou que rien ne l'est, le nom est laissé tel quel
+    plutôt que coupé au jugé.
+    """
+    mots = CIVILITE_EN_TETE.sub("", " ".join(nom.split())).split()
+    famille = list(takewhile(_est_un_nom_de_famille, mots))
+    if not famille or len(famille) == len(mots):
+        return " ".join(mots)
+    return " ".join(mots[len(famille) :] + famille)
+
 
 def _champs_du_depute(brut: str | None, territoire: str | None) -> tuple[str | None, str | None]:
     """Redresse les présentations de députés dont les deux champs sont inversés.
@@ -74,15 +113,21 @@ def _presentation_publiee(parrainage: Parrainage, annee: int) -> dict:
     prénom, là où celui de 1995 donne les trois : publier un prénom vide
     laisserait croire à une donnée perdue.
 
+    Le nom est publié d'un seul tenant, « Thierry NICOLAS », quelle que soit la
+    forme de la source : les jeux de données de 2017 et 2022 séparent le prénom
+    du nom, le Journal officiel ne l'a jamais fait, et un consommateur qui lit
+    les huit élections ne doit pas avoir à connaître cette histoire. C'est aussi
+    la forme qu'ont les noms partout ailleurs dans les données publiées.
+
     `annee` est celle du scrutin, sans laquelle le département ne se résout
     pas : les numéros ultramarins ont changé de sens en 2007.
     """
     entree: dict = {}
     if parrainage.civilite:
         entree["civilite"] = parrainage.civilite
-    entree["nom"] = parrainage.nom
-    if parrainage.prenom:
-        entree["prenom"] = parrainage.prenom
+    entree["nom_complet"] = nom_a_l_endroit(
+        f"{parrainage.prenom} {parrainage.nom}" if parrainage.prenom else parrainage.nom
+    )
 
     brut, numero = parrainage.departement, None
     qualite = normaliser_mandat(parrainage.mandat, parrainage.territoire)
@@ -172,10 +217,11 @@ def parrainages_sans_candidature(
 ) -> dict:
     """Le document de ceux qui ont reçu des présentations sans candidature.
 
-    Un nom y est donné tel que la source l'écrit ; `personne` n'apparaît que
-    pour qui figure au registre par ailleurs. François HOLLANDE a reçu des
-    présentations en 2017 et en 2022 sans se porter candidat ni l'une ni
-    l'autre fois : il est au registre, et son identifiant le dit.
+    Le nom est celui du registre quand la personne y figure, et sinon celui de
+    la source remis dans l'ordre ; `personne` n'apparaît que pour qui figure au
+    registre par ailleurs. François HOLLANDE a reçu des présentations en 2017 et
+    en 2022 sans se porter candidat ni l'une ni l'autre fois : il est au
+    registre, et son identifiant le dit.
     """
     return {
         "$schema": "../../schemas/parrainages-sans-candidature.schema.json",
@@ -220,10 +266,13 @@ def documents(
                 ),
             )
             continue
-        entree: dict = {"nom_source": candidat.titre}
+        entree: dict = {
+            "nom_complet": noms[candidat.personne]
+            if candidat.personne
+            else nom_a_l_endroit(candidat.titre)
+        }
         if candidat.personne:
             entree["personne"] = candidat.personne
-            entree["nom_complet"] = noms[candidat.personne]
         entree["parrainages"] = [_presentation_publiee(p, _annee(source)) for p in presentations]
         beneficiaires.append(entree)
 

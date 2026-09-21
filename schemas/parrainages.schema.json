@@ -70,7 +70,7 @@
     "parrainage": {
       "type": "object",
       "description": "Une présentation par un élu habilité. Seuls les champs que la source donne sont présents : le Journal officiel de 2002 désigne chaque présentateur « par son nom et sa qualité », sans prénom, là où celui de 1995 donne les trois.",
-      "required": ["nom"],
+      "required": ["nom_complet"],
       "additionalProperties": false,
       "properties": {
         "civilite": {
@@ -78,15 +78,11 @@
           "description": "Civilité, quand la source la donne.",
           "examples": ["M.", "Mme"]
         },
-        "nom": {
+        "nom_complet": {
           "type": "string",
           "minLength": 1,
-          "description": "Le nom tel que la source l'écrit. Il porte le prénom quand la source ne l'en sépare pas, ce qui est le cas de toutes les publications au Journal officiel : « Paul BOISNIER ». Le séparer demanderait de deviner où s'arrête le prénom, ce qui se trompe sur les noms composés.",
-          "examples": ["Paul BOISNIER", "LARSONNEUR-MOREL"]
-        },
-        "prenom": {
-          "type": "string",
-          "description": "Prénom, présent seulement quand la source le publie dans un champ distinct, ce que font les jeux de données de 2017 et 2022."
+          "description": "Le nom de l'élu, prénom puis nom de famille en capitales, d'un seul tenant. Les sources ne s'accordent pas : les jeux de données de 2017 et 2022 séparent le prénom du nom, le Journal officiel écrit « Paul BOISNIER » sans jamais les séparer, et celui de 2002 désigne chaque présentateur « par son nom et sa qualité », sans prénom du tout. Le champ porte ce que la source donne, dans l'ordre qu'ont les noms partout ailleurs dans ces données ; il ne porte donc pas de prénom quand la source n'en publie pas.",
+          "examples": ["Paul BOISNIER", "Thierry NICOLAS", "LARSONNEUR-MOREL"]
         },
         "mandat": {
           "type": "string",

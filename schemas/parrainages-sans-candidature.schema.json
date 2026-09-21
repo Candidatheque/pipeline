@@ -36,24 +36,20 @@
   "$defs": {
     "beneficiaire": {
       "type": "object",
-      "required": ["nom_source", "parrainages"],
+      "required": ["nom_complet", "parrainages"],
       "additionalProperties": false,
       "properties": {
-        "nom_source": {
+        "nom_complet": {
           "type": "string",
           "minLength": 1,
-          "description": "Le nom tel que la source l'écrit, seule chose dont on soit sûr. L'ordre et la casse sont ceux de la publication.",
-          "examples": ["PESQUET Thomas", "HOLLANDE François"]
+          "description": "Le nom du bénéficiaire, prénom puis nom de famille en capitales, comme partout ailleurs dans ces données. Il vient du registre des personnes quand elle y figure, et sinon de la source, dont l'ordre est remis à l'endroit : les jeux de données du Conseil constitutionnel écrivent « PESQUET Thomas ».",
+          "examples": ["Thomas PESQUET", "François HOLLANDE"]
         },
         "personne": {
           "type": "string",
           "pattern": "^PE-[0-9]{4}$",
           "description": "Identifiant au registre des personnes, présent seulement si la personne y figure par ailleurs — parce qu'elle s'est portée candidate à une autre élection.",
           "examples": ["PE-0065"]
-        },
-        "nom_complet": {
-          "type": "string",
-          "description": "Nom au registre, présent avec « personne ». Il peut différer de « nom_source », qui garde l'écriture de la publication."
         },
         "parrainages": {
           "type": "array",
