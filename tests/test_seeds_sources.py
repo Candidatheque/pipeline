@@ -20,11 +20,12 @@ SOURCE = {
 
 def test_le_registre_du_depot_est_valide():
     sources = load_sources()
-    assert len(sources) == 217
+    assert len(sources) == 254
     autorites = {source.autorite for source in sources}
     assert autorites == {
         "assemblee-nationale",
         "senat",
+        "parlement-europeen",
         "conseil-constitutionnel",
         "wikipedia-fr",
         "le-parisien",
