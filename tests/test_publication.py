@@ -454,10 +454,10 @@ class TestParrainages:
         assert not intrus.exists()
 
 
-class TestResultatsProclames:
-    """Les résultats de chaque tour, tels que le Conseil constitutionnel les proclame."""
+class TestResultats:
+    """Les résultats de chaque tour, version après version."""
 
-    FICHIER = "resultats-proclames.json"
+    FICHIER = "resultats.json"
 
     def _documents(self, destination):
         return {
@@ -465,8 +465,14 @@ class TestResultatsProclames:
             for chemin in (destination / ELECTIONS_DIR).glob(f"*/{self.FICHIER}")
         }
 
+    def _versions(self, destination):
+        for election, document in self._documents(destination).items():
+            for tour in document["tours"]:
+                for version in tour["versions"]:
+                    yield election, tour, version
+
     def test_les_documents_sont_conformes_a_leur_schema(self, destination):
-        valideur = _valideur("resultats-proclames.schema.json")
+        valideur = _valideur("resultats.schema.json")
         documents_publies = self._documents(destination)
         assert len(documents_publies) == 11
         for document in documents_publies.values():
@@ -476,51 +482,60 @@ class TestResultatsProclames:
         """Un fichier absent dit qu'il n'y a rien, mieux qu'un fichier vide."""
         assert not (destination / ELECTIONS_DIR / "PR-2027" / self.FICHIER).exists()
 
-    def test_la_somme_des_voix_fait_les_suffrages_exprimes(self, destination):
+    def test_chaque_tour_a_la_version_du_conseil(self, destination):
+        """Seule version collectée à ce jour : la proclamation, et elle fait foi."""
         for election, document in self._documents(destination).items():
             for tour in document["tours"]:
-                somme = sum(v["voix"] for v in tour["voix"])
-                assert somme == tour["suffrages_exprimes"], f"{election} T{tour['numero']}"
+                assert [v["etape"] for v in tour["versions"]] == ["proclamation"], election
+
+    def test_les_sources_ont_la_forme_de_celles_des_candidatures(self, destination):
+        """Une liste de sources recopiées en clair, comme partout ailleurs."""
+        valideur = _valideur("source.schema.json")
+        for election, _, version in self._versions(destination):
+            assert version["sources"], election
+            for source in version["sources"]:
+                valideur.validate(source)
+
+    def test_la_somme_des_voix_fait_les_suffrages_exprimes(self, destination):
+        for election, tour, version in self._versions(destination):
+            somme = sum(v["voix"] for v in version["voix"])
+            assert somme == version["suffrages_exprimes"], f"{election} T{tour['numero']}"
 
     def test_les_tours_et_les_candidats_renvoient_a_ceux_de_l_election(self, destination):
         """Même date que « election.json », mêmes personnes que les candidatures."""
-        for election, document in self._documents(destination).items():
+        for election, tour, version in self._versions(destination):
             repertoire = destination / ELECTIONS_DIR / election
             dates = {t["numero"]: t["date"] for t in _charge(repertoire / "election.json")["tours"]}
             candidatures = {
-                c["personne"]: c
-                for c in _charge(repertoire / "candidatures.json")["candidatures"]
+                c["personne"]: c for c in _charge(repertoire / "candidatures.json")["candidatures"]
             }
-            for tour in document["tours"]:
-                assert tour["date"] == dates[tour["numero"]], election
-                for voix in tour["voix"]:
-                    candidature = candidatures[voix["personne"]]
-                    assert voix["nom_complet"] == candidature["nom_complet"]
-                    assert tour["numero"] in {t["numero"] for t in candidature["tours"]}
+            assert tour["date"] == dates[tour["numero"]], election
+            assert version["date"] >= tour["date"], election
+            for voix in version["voix"]:
+                candidature = candidatures[voix["personne"]]
+                assert voix["nom_complet"] == candidature["nom_complet"]
+                assert tour["numero"] in {t["numero"] for t in candidature["tours"]}
 
     def test_le_departement_d_une_annulation_est_un_code_du_registre(self, destination):
         from candidatheque.pipeline.seeds.departements import load_departements
 
         connus = {d.code for d in load_departements()}
-        for election, document in self._documents(destination).items():
-            for tour in document["tours"]:
-                publies = {a["departement"] for a in tour["annulations"] if "departement" in a}
-                assert publies <= connus, (election, sorted(publies - connus))
+        for election, _, version in self._versions(destination):
+            publies = {a["departement"] for a in version["annulations"] if "departement" in a}
+            assert publies <= connus, (election, sorted(publies - connus))
 
     def test_seul_le_bureau_porte_des_numeros(self, destination):
         """Une commune entière annulée n'a pas de numéro de bureau."""
-        for document in self._documents(destination).values():
-            for tour in document["tours"]:
-                for annulation in tour["annulations"]:
-                    if annulation["portee"] == "commune":
-                        assert "bureaux" not in annulation, annulation
+        for _, _, version in self._versions(destination):
+            for annulation in version["annulations"]:
+                if annulation["portee"] == "commune":
+                    assert "bureaux" not in annulation, annulation
 
     def test_rien_n_est_calcule(self, destination):
-        """Ni pourcentage, ni abstention : les entiers de la décision, et eux seuls."""
-        for document in self._documents(destination).values():
-            for tour in document["tours"]:
-                assert not {"abstention", "pourcentage", "blancs_et_nuls"} & set(tour)
-                assert all(set(v) == {"personne", "nom_complet", "voix"} for v in tour["voix"])
+        """Ni pourcentage, ni abstention : les entiers de la source, et eux seuls."""
+        for _, _, version in self._versions(destination):
+            assert not {"abstention", "pourcentage", "blancs_et_nuls"} & set(version)
+            assert all(set(v) == {"personne", "nom_complet", "voix"} for v in version["voix"])
 
 
 class TestNomALEndroit:

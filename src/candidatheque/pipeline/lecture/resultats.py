@@ -21,7 +21,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass, replace
 
-from candidatheque.pipeline.seeds.resultats import TourResultats
+from candidatheque.pipeline.seeds.resultats import VersionResultats
 
 #: Un considérant : son numéro en tête de ligne, puis son texte. La rédaction
 #: « Considérant que… » s'arrête en 2016, le numéro demeure.
@@ -104,9 +104,8 @@ class Annulation:
 
 @dataclass(frozen=True)
 class Tour:
-    """Un tour de scrutin, tel que la décision le donne."""
+    """Les résultats d'un tour, tels qu'une version les donne."""
 
-    numero: int
     inscrits: int | None = None
     votants: int | None = None
     bulletins_blancs: int | None = None
@@ -155,7 +154,7 @@ def _decomptes(lignes: list[str]) -> dict[str, int]:
     return trouves
 
 
-def _voix(lignes: list[str], source: TourResultats) -> list[Voix]:
+def _voix(lignes: list[str], source: VersionResultats) -> list[Voix]:
     """Les voix de chaque candidat déclaré, dans l'ordre de la décision.
 
     Le nom doit fermer sa ligne sur un nombre : « Proclame Charles de Gaulle
@@ -591,7 +590,7 @@ def _annulations(lignes: list[str]) -> tuple[list[Annulation], list[int], list[i
     return annulations, sans_lieu, sans_suffrages
 
 
-def lire_en_detail(source: TourResultats, racine=None) -> tuple[Tour, list[int], list[int]]:
+def lire_en_detail(source: VersionResultats, racine=None) -> tuple[Tour, list[int], list[int]]:
     """Comme `lire`, mais rend aussi les considérants lus de travers.
 
     Les deux listes sont celles de `_annulations` : considérants qui annulent
@@ -607,7 +606,6 @@ def lire_en_detail(source: TourResultats, racine=None) -> tuple[Tour, list[int],
         for annulation in annulations
     ]
     tour = Tour(
-        numero=source.numero,
         voix=tuple(_voix(lignes, source)),
         annulations=tuple(annulations),
         **_decomptes(lignes),
@@ -615,6 +613,6 @@ def lire_en_detail(source: TourResultats, racine=None) -> tuple[Tour, list[int],
     return tour, sans_lieu, sans_suffrages
 
 
-def lire(source: TourResultats, racine=None) -> Tour:
-    """Un tour, lu dans le texte de la décision qui le proclame."""
+def lire(source: VersionResultats, racine=None) -> Tour:
+    """Les résultats d'un tour, lus dans le texte de la décision qui les proclame."""
     return lire_en_detail(source, racine)[0]

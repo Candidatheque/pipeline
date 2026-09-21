@@ -260,8 +260,7 @@ elections/PR-2012/candidats/PE-0058/parrainages.json
                                       les élus qui ont présenté ce candidat
 elections/PR-2022/parrainages-sans-candidature.json
                                       les présentations reçues par qui n'était pas candidat
-elections/PR-2022/resultats-proclames.json
-                                      les résultats de chaque tour, et les suffrages annulés
+elections/PR-2022/resultats.json      les résultats de chaque tour, version après version
 schemas/*.schema.json                 copie des schémas de ce dépôt
 ```
 
@@ -496,17 +495,25 @@ nom des présentateurs vient de la loi organique du 18 juin 1976, que la note de
 bas de page du Journal officiel de 1981 cite comme la règle qui l'impose. Ce
 n'est pas un trou dans la collecte, c'est l'état du droit.
 
-## Résultats proclamés
+## Résultats
 
-`resultats-proclames.json` porte, pour chaque tour, les chiffres que le Conseil
-constitutionnel déclare au premier tour puis proclame pour l'élection :
-inscrits, votants, suffrages exprimés, majorité absolue, et les voix de chaque
-candidat. Le nom dit l'autorité. Le ministère de l'Intérieur publie ses propres
-résultats, et ils ne se recoupent pas : le Conseil annule des suffrages et
-rectifie des erreurs matérielles avant de proclamer. Le jour où ceux de
-l'Intérieur seront collectés, ils auront leur fichier.
+`resultats.json` porte, pour chaque tour, les versions successives de ses
+résultats : inscrits, votants, suffrages exprimés, majorité absolue, et les voix
+de chaque candidat. Elles s'empilent dans l'ordre où elles ont été publiées, et
+la dernière fait foi, comme les `etats` d'une candidature. Chacune dit son
+`etape`, sa date et ses `sources`, sous la même forme que partout ailleurs.
 
-Ces chiffres n'existent nulle part ailleurs sous forme exploitable. L'open data
+Trois versions existent dans la vie d'un scrutin : les résultats provisoires du
+ministère de l'Intérieur, ceux que le Conseil constitutionnel déclare au premier
+tour puis proclame pour l'élection, et, jusqu'en 1995, ceux que les tableaux
+annexés au Journal officiel rectifient encore. Elles ne se recoupent pas : le
+Conseil annule des suffrages et rectifie des erreurs matérielles avant de
+proclamer. Deux fichiers, un par autorité, auraient présenté comme concurrents
+ce qui est une seule histoire ; empilées, l'écart entre deux versions se lit, et
+les annulations l'expliquent. Seule la version du Conseil, `proclamation`, est
+collectée à ce jour.
+
+Ses chiffres n'existent nulle part ailleurs sous forme exploitable. L'open data
 du Conseil se limite aux parrainages et à un tableau par département du seul
 premier tour de 2022. Ils sont donc lus dans le texte des 22 décisions, deux
 par élection, commité dans `raw/resultats/`.
@@ -517,16 +524,16 @@ juste, y compris les 1 260 208 voix de Jean-Louis Tixier-Vignancour, que la
 transcription de 1965 écrit « l 260 208 ».
 
 Rien n'est calculé : ni pourcentage, ni abstention, ni blancs et nuls
-reconstitués par soustraction. Un décompte que la décision ne donne pas est
+reconstitués par soustraction. Un décompte que la source ne donne pas est
 absent. Les bulletins blancs n'apparaissent qu'en 2017, les nuls qu'en 2022, et
 la proclamation de 1965 n'écrit pas la majorité absolue.
 
 ### Les annulations
 
-Chaque tour porte les suffrages que la décision annule, un lieu par entrée :
-195 en quarante ans, 114 bureaux de vote et 81 communes entières. Ils sont
-déjà retranchés des totaux ; c'est une piste d'audit, pas une correction à
-appliquer.
+La version du Conseil porte les suffrages que la décision annule, un lieu par
+entrée : 195 en quarante ans, 114 bureaux de vote et 81 communes entières. Ils
+sont déjà retranchés de ses totaux, et expliquent une part de son écart avec
+les résultats provisoires ; ce n'est pas une correction à appliquer.
 
 Une annulation cite son considérant, le paragraphe numéroté de la décision qui
 la prononce et qui en est la citation officielle : « 2022-197 PDR, cons. 3 ».
@@ -648,7 +655,9 @@ maintenues à la main. Une élection à venir demandera un collecteur.
 
 Jusqu'en 1995, la proclamation a rectifié une dernière fois les résultats du
 premier tour, dans des tableaux annexés au Journal officiel que le site du
-Conseil ne reprend pas. Le premier tour publié est celui de la déclaration.
+Conseil ne reprend pas, et que l'archive de la DILA ne transcrit pas : la
+notice du 14 mai 1995 couvre 52 pages sans aucun article. Ces rectifications
+seront une étape de plus, le jour où elles seront lues dans le PDF.
 
 Rien ne relance la publication quand une source externe change : le workflow ne
 se déclenche que sur un commit de ce dépôt. Quand la collecte arrivera, il lui

@@ -13,7 +13,7 @@ from candidatheque.pipeline.seeds.resultats import load_resultats
 def tours():
     """Les vingt-deux tours, lus une fois."""
     return {
-        (entree.election, tour.numero): (tour, lire(tour))
+        (entree.election, tour.numero): (tour.versions[0], lire(tour.versions[0]))
         for entree in load_resultats()
         for tour in entree.tours
     }
@@ -100,7 +100,7 @@ def test_les_decomptes_cousus_de_2002_sont_separes(tours):
 def en_detail():
     """Les vingt-deux tours, avec ce que la lecture n'a pas su lire."""
     return {
-        (entree.election, tour.numero): lire_en_detail(tour)
+        (entree.election, tour.numero): lire_en_detail(tour.versions[0])
         for entree in load_resultats()
         for tour in entree.tours
     }

@@ -1,18 +1,21 @@
-"""D'où viennent les résultats proclamés, et à quoi ils se rattachent.
+"""D'où viennent les résultats de chaque tour, version après version.
 
-Un tour, une décision. Le Conseil constitutionnel déclare les résultats du
-premier tour, puis proclame ceux de l'élection : ce sont les deux seuls
-documents où ces chiffres existent, et leur texte est commité dans
-`raw/resultats/`, jamais téléchargé.
+Un tour connaît plusieurs versions de ses résultats : ceux que le ministère de
+l'Intérieur publie le soir du scrutin, ceux que le Conseil constitutionnel
+déclare au premier tour puis proclame pour l'élection, et, jusqu'en 1995, ceux
+que les tableaux annexés au Journal officiel rectifient encore. Elles
+s'empilent dans l'ordre où elles ont été publiées, et la dernière fait foi,
+comme les états d'une candidature : l'écart entre deux versions est une
+information, pas un doublon.
 
-Ces chiffres ne sont pas ceux du ministère de l'Intérieur. Le Conseil annule
-des suffrages et rectifie des erreurs matérielles avant de proclamer ; ce qu'il
-donne est net de ces annulations, et ne se recoupe donc pas avec un recensement
-administratif.
+Seule la version du Conseil est collectée à ce jour. Le texte de ses décisions
+est commité dans `raw/resultats/`, jamais téléchargé.
 """
 
 from __future__ import annotations
 
+import datetime as dt
+from enum import StrEnum
 from itertools import pairwise
 from pathlib import Path
 
@@ -38,27 +41,38 @@ class CandidatSource(BaseModel):
     personne: str
 
 
-class TourResultats(BaseModel):
-    """Les résultats d'un tour, et la décision qui les porte."""
+class Etape(StrEnum):
+    """Quelle version des résultats, dans la vie d'un scrutin."""
+
+    #: Les résultats du Conseil constitutionnel : la déclaration du premier
+    #: tour, la proclamation de l'élection. Nets des suffrages qu'il annule.
+    PROCLAMATION = "proclamation"
+
+
+class VersionResultats(BaseModel):
+    """Une version des résultats d'un tour, et le document qui la porte."""
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
-    numero: int = Field(ge=1)
+    etape: Etape
+    #: La date du document : celle de la décision pour le Conseil.
+    date: dt.date
     #: Chemin sous `raw/`.
     fichier: str
     #: La décision, dans le registre des sources.
     origine: str
-    #: Tous les candidats du tour, dans l'ordre de la décision. Ils doivent y
-    #: être tous : c'est ce qui garantit qu'aucune ligne de voix n'est ignorée.
+    #: Tous les candidats du tour. Ils doivent y être tous : c'est ce qui
+    #: garantit qu'aucune ligne de voix n'est ignorée. Leur ordre est indifférent,
+    #: la publication suit celui du document.
     candidats: tuple[CandidatSource, ...] = Field(min_length=1)
 
     @model_validator(mode="after")
-    def _un_candidat_une_fois(self) -> TourResultats:
+    def _un_candidat_une_fois(self) -> VersionResultats:
         for champ in ("titre", "personne"):
             valeurs = [getattr(candidat, champ) for candidat in self.candidats]
             doublons = sorted({v for v in valeurs if valeurs.count(v) > 1})
             if doublons:
-                raise ValueError(f"tour {self.numero} : deux fois " + ", ".join(doublons))
+                raise ValueError(f"{self.origine} : deux fois " + ", ".join(doublons))
         return self
 
     def chemin(self, racine: Path | None = None) -> Path:
@@ -68,6 +82,25 @@ class TourResultats(BaseModel):
     def personne_de(self, titre: str) -> str | None:
         """La personne que ce nom désigne."""
         return next((c.personne for c in self.candidats if c.titre == titre), None)
+
+
+class TourResultats(BaseModel):
+    """Les versions successives des résultats d'un tour."""
+
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    numero: int = Field(ge=1)
+    #: Dans l'ordre où elles ont été publiées : la dernière fait foi.
+    versions: tuple[VersionResultats, ...] = Field(min_length=1)
+
+    @model_validator(mode="after")
+    def _versions_dans_l_ordre(self) -> TourResultats:
+        dates = [version.date for version in self.versions]
+        if any(suivante < precedente for precedente, suivante in pairwise(dates)):
+            raise ValueError(
+                f"tour {self.numero} : les versions se rangent dans l'ordre de leur date"
+            )
+        return self
 
 
 class SourceResultats(BaseModel):

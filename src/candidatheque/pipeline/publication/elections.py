@@ -205,7 +205,7 @@ def documents(
     personnes: Mapping[str, Personne] | None = None,
     partis: Mapping[str, Parti] | None = None,
     presentations: tuple[SourceParrainages, list[Parrainage]] | None = None,
-    resultats: tuple[SourceResultats, list[lecture_resultats.Tour]] | None = None,
+    resultats: tuple[SourceResultats, dict[tuple[int, int], lecture_resultats.Tour]] | None = None,
 ) -> Iterator[tuple[str, dict]]:
     """Les documents à publier dans le répertoire d'une élection.
 
@@ -240,7 +240,7 @@ def documents(
             or (personnes or {})[candidat.personne].nom_complet
             for candidat in candidats
         }
-        yield publication_resultats.RESULTATS_FILE, publication_resultats.resultats_proclames(
+        yield publication_resultats.RESULTATS_FILE, publication_resultats.resultats(
             election, source, lus, noms, sources or {}, _source_publiee
         )
 
@@ -311,7 +311,14 @@ def publier(destination: Path | None = None) -> list[Ecriture]:
         entree.election: (entree, lire(entree)) for entree in load_parrainages()
     }
     resultats = {
-        entree.election: (entree, [lecture_resultats.lire(tour) for tour in entree.tours])
+        entree.election: (
+            entree,
+            {
+                (tour.numero, rang): lecture_resultats.lire(version)
+                for tour in entree.tours
+                for rang, version in enumerate(tour.versions)
+            },
+        )
         for entree in load_resultats()
     }
     ecritures: list[Ecriture] = []

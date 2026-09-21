@@ -171,28 +171,29 @@ def verifier() -> list[str]:
             continue
         tours_connus = {tour.numero for tour in election.tours}
         for tour in entree.tours:
-            ou = f"{entree.election}/T{tour.numero}"
             if tour.numero not in tours_connus:
                 problemes.append(
-                    f"{ou} : tour inexistant pour cette élection "
+                    f"{entree.election}/T{tour.numero} : tour inexistant pour cette élection "
                     f"(tours connus : {sorted(tours_connus)})"
                 )
-            if not tour.chemin().is_file():
-                problemes.append(f"{ou} : fichier absent, {tour.fichier}")
-            if tour.origine not in sources:
-                problemes.append(f"{ou} : origine inconnue « {tour.origine} »")
-            sources_citees.add(tour.origine)
-
-            declares = {candidat.personne for candidat in tour.candidats}
-            for inconnue in sorted(declares - personnes):
-                problemes.append(f"{ou} : {inconnue} absent du registre des personnes")
             attendus = participants.get((entree.election, tour.numero), set())
-            for absent in sorted(attendus - declares):
-                problemes.append(f"{ou} : {absent} a participé au tour, sans ligne de voix")
-            for surnumeraire in sorted(declares - attendus - (declares - personnes)):
-                problemes.append(
-                    f"{ou} : {surnumeraire} porte des voix, sans candidature à ce tour"
-                )
+            for version in tour.versions:
+                ou = f"{entree.election}/T{tour.numero}/{version.etape}"
+                if not version.chemin().is_file():
+                    problemes.append(f"{ou} : fichier absent, {version.fichier}")
+                if version.origine not in sources:
+                    problemes.append(f"{ou} : origine inconnue « {version.origine} »")
+                sources_citees.add(version.origine)
+
+                declares = {candidat.personne for candidat in version.candidats}
+                for inconnue in sorted(declares - personnes):
+                    problemes.append(f"{ou} : {inconnue} absent du registre des personnes")
+                for absent in sorted(attendus - declares):
+                    problemes.append(f"{ou} : {absent} a participé au tour, sans ligne de voix")
+                for surnumeraire in sorted(declares - attendus - (declares - personnes)):
+                    problemes.append(
+                        f"{ou} : {surnumeraire} porte des voix, sans candidature à ce tour"
+                    )
 
     for orpheline in sorted(partis - partis_cites):
         problemes.append(f"{orpheline} : parti du registre cité par aucune candidature")

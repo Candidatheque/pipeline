@@ -1,10 +1,14 @@
-"""Publication des résultats proclamés par le Conseil constitutionnel.
+"""Publication des résultats de chaque tour, version après version.
 
-Un document par élection, `resultats-proclames.json`, qui porte ses tours. Le
-nom dit l'autorité : ces chiffres sont ceux que le Conseil proclame, nets des
-suffrages qu'il annule et des erreurs qu'il rectifie. Le ministère de
-l'Intérieur publie les siens, qui ne se recoupent pas avec ceux-ci ; ils
-auront leur propre document le jour où ils seront collectés.
+Un document par élection, `resultats.json`. Chaque tour y empile ses versions
+dans l'ordre où elles ont été publiées, et la dernière fait foi, comme les
+états d'une candidature. Les chiffres du ministère de l'Intérieur, ceux que le
+Conseil constitutionnel proclame et ceux que les tableaux annexés au Journal
+officiel rectifient ne se recoupent pas, et c'est précisément ce qu'on veut
+pouvoir lire : l'écart entre deux versions, et pour celle du Conseil les
+annulations qui l'expliquent.
+
+Seule la version du Conseil est collectée à ce jour.
 
 Rien n'y est calculé. Ni pourcentage, ni abstention, ni total des suffrages
 annulés : tout se redérive des entiers publiés, et une valeur calculée qui ne
@@ -15,15 +19,15 @@ reconstitué : les bulletins blancs n'apparaissent qu'en 2017.
 
 from __future__ import annotations
 
-from collections.abc import Callable, Iterable, Mapping
+from collections.abc import Callable, Mapping
 
 from candidatheque.pipeline.lecture.resultats import Annulation, Tour
 from candidatheque.pipeline.publication.departements import normaliser as normaliser_departement
 from candidatheque.pipeline.seeds import Election, Source
-from candidatheque.pipeline.seeds.resultats import SourceResultats, TourResultats
+from candidatheque.pipeline.seeds.resultats import SourceResultats, VersionResultats
 
 #: Document des résultats, sous le répertoire de l'élection.
-RESULTATS_FILE = "resultats-proclames.json"
+RESULTATS_FILE = "resultats.json"
 
 #: Les décomptes, dans l'ordre où les décisions les donnent.
 DECOMPTES = (
@@ -63,20 +67,23 @@ def _annulation_publiee(annulation: Annulation, annee: int) -> dict:
     return entree
 
 
-def _tour_publie(
-    election: Election,
-    source: TourResultats,
+def _version_publiee(
+    version: VersionResultats,
     lu: Tour,
+    annee: int,
     noms: Mapping[str, str],
     sources: Mapping[str, Source],
     publiee_par: Callable[[Source], dict],
 ) -> dict:
-    """Un tour : sa date, sa décision, ses décomptes, ses voix, ses annulations."""
-    date = next(tour.date for tour in election.tours if tour.numero == source.numero)
+    """Une version : son étape, sa date, ses sources, ses décomptes, ses voix.
+
+    `sources` a la forme qu'il a partout ailleurs dans les données publiées :
+    une liste, chaque source recopiée en clair.
+    """
     entree: dict = {
-        "numero": source.numero,
-        "date": date.isoformat(),
-        "source": publiee_par(sources[source.origine]),
+        "etape": str(version.etape),
+        "date": version.date.isoformat(),
+        "sources": [publiee_par(sources[version.origine])],
     }
     for champ in DECOMPTES:
         valeur = getattr(lu, champ)
@@ -86,30 +93,39 @@ def _tour_publie(
         {"personne": voix.personne, "nom_complet": noms[voix.personne], "voix": voix.voix}
         for voix in lu.voix
     ]
-    entree["annulations"] = [
-        _annulation_publiee(annulation, election.annee) for annulation in lu.annulations
-    ]
+    entree["annulations"] = [_annulation_publiee(annulation, annee) for annulation in lu.annulations]
     return entree
 
 
-def resultats_proclames(
+def resultats(
     election: Election,
     source: SourceResultats,
-    lus: Iterable[Tour],
+    lus: Mapping[tuple[int, int], Tour],
     noms: Mapping[str, str],
     sources: Mapping[str, Source],
     publiee_par: Callable[[Source], dict],
 ) -> dict:
-    """Le document des résultats proclamés d'une élection.
+    """Le document des résultats d'une élection.
 
+    `lus` donne chaque version lue, par numéro de tour et rang de la version.
     `noms` donne le nom de chaque candidat tel que ses candidatures le
     publient : celui porté lors de ce scrutin, qui peut différer du registre.
     """
+    dates = {tour.numero: tour.date for tour in election.tours}
     return {
-        "$schema": "../../schemas/resultats-proclames.schema.json",
+        "$schema": "../../schemas/resultats.schema.json",
         "election": election.id,
         "tours": [
-            _tour_publie(election, tour, lu, noms, sources, publiee_par)
-            for tour, lu in zip(source.tours, lus, strict=True)
+            {
+                "numero": tour.numero,
+                "date": dates[tour.numero].isoformat(),
+                "versions": [
+                    _version_publiee(
+                        version, lus[(tour.numero, rang)], election.annee, noms, sources, publiee_par
+                    )
+                    for rang, version in enumerate(tour.versions)
+                ],
+            }
+            for tour in source.tours
         ],
     }
