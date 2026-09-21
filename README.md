@@ -416,11 +416,12 @@ seed, avec le motif qui l'établit — « maire de DOUMELY-BEGNY », commune des
 Ardennes, donc « OS » vaut « 08 ». C'est ce motif qui se relit en revue, pas le
 code. Deux présentations sur 60 723 en relèvent.
 
-Quatre restent sans département, et volontairement. « 97 » et « OU » figurent en
-1981 sur des présentations sans territoire, qui seul aurait pu trancher. Les
-deux députés de « Saint-Martin/Saint-Barthélemy » relèvent d'un autre cas : là,
-c'est la source qui ne tranche pas, les deux collectivités partageant une
-circonscription législative sans avoir de code commun.
+Trois restent sans département, et volontairement. « OU » figure en 1981 sur une
+présentation dont le Journal officiel n'a même pas fermé la parenthèse —
+« Jean CHABERT, conseiller général (OU ; » — et sans territoire pour trancher.
+Les deux députés de « Saint-Martin/Saint-Barthélemy » relèvent d'un autre cas :
+là, c'est la source qui ne tranche pas, les deux collectivités partageant une
+circonscription législative sans avoir de code INSEE commun.
 
 Un conseiller de Paris est élu à Paris. Le Journal officiel d'avant 1988 ne le
 précise pas, mais ce n'est pas une déduction hasardeuse : c'est la définition du

@@ -287,7 +287,10 @@ FIN_DE_PRESENTATION = re.compile(
     # Le département, dont la parenthèse fermante se lit parfois « 1 » ou « l ».
     # Un code à trois chiffres est ultramarin — 971 à 988 ; partout ailleurs le
     # troisième chiffre est cette parenthèse, et « (891 » vaut « (89) ».
-    r"\(\s*(9[78]\d|\d{2}\s?[AB]?)\s*[)\]}|1lI]?"
+    # Le Journal officiel de 1981 écrit ces codes avec un tiret — « (97-2) » —,
+    # et sans lui la coupure tomberait au milieu, laissant « 97 » pour
+    # département : la Martinique deviendrait un outre-mer sans lequel.
+    r"\(\s*(9[78]\s*-?\s*\d|\d{2}\s?[AB]?)\s*[)\]}|1lI]?"
     # Puis ce que l'impression a laissé à la place du point-virgule : des
     # signes, ou une ou deux bribes de lettres — « (51) j»1 Louis GAYT ».
     r"(?:\s*(?:[^\w\s]+|\b\w{1,2}\b)){0,3}\s*"

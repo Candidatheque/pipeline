@@ -131,6 +131,19 @@ class TestProseDuJournalOfficiel:
         )
         assert [p.nom for p in lus] == ["Jean DUPONT", "Paul MARTIN"]
 
+    def test_un_code_ultramarin_a_tiret_ne_se_coupe_pas_en_deux(self):
+        """« (97-2) » est la Martinique, non le « 97 » d'un outre-mer sans lequel.
+
+        Sans le tiret dans le motif, la coupure tombe au milieu du code dès que
+        ce qui suit ressemble à une nouvelle présentation.
+        """
+        lus, _ = self._lire(
+            "Monsieur Raymond BARRE\n"
+            "Claude LISE, conseiller général (97-2); René SOUMGLAUDE, maire de CENNE (11).\n"
+        )
+        assert [p.nom for p in lus] == ["Claude LISE", "René SOUMGLAUDE"]
+        assert lus[0].departement == "97-2"
+
     def test_une_parenthese_lue_comme_un_chiffre_ferme_quand_meme(self):
         """« (891 » pour « (89) » : le scan confond la parenthèse et le un."""
         lus, _ = self._lire(
