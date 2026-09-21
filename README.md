@@ -466,8 +466,8 @@ Recevoir un parrainage ne fait pas de vous un candidat. Thomas PESQUET et
 sans jamais se présenter. Les écarter publierait un total faux ; leur donner un
 répertoire de candidat affirmerait une candidature qui n'a pas eu lieu. Ils
 sont donc réunis dans `parrainages-sans-candidature.json`, sous l'élection, où
-chacun porte son nom tel que la source l'écrit, et son identifiant de personne
-s'il figure au registre par ailleurs.
+chacun porte son `nom_complet` et son identifiant de personne s'il figure au
+registre par ailleurs.
 
 ### D'où viennent les données
 

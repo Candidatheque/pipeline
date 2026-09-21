@@ -217,10 +217,11 @@ def parrainages_sans_candidature(
 ) -> dict:
     """Le document de ceux qui ont reçu des présentations sans candidature.
 
-    Un nom y est donné tel que la source l'écrit ; `personne` n'apparaît que
-    pour qui figure au registre par ailleurs. François HOLLANDE a reçu des
-    présentations en 2017 et en 2022 sans se porter candidat ni l'une ni
-    l'autre fois : il est au registre, et son identifiant le dit.
+    Le nom est celui du registre quand la personne y figure, et sinon celui de
+    la source remis dans l'ordre ; `personne` n'apparaît que pour qui figure au
+    registre par ailleurs. François HOLLANDE a reçu des présentations en 2017 et
+    en 2022 sans se porter candidat ni l'une ni l'autre fois : il est au
+    registre, et son identifiant le dit.
     """
     return {
         "$schema": "../../schemas/parrainages-sans-candidature.schema.json",
@@ -265,10 +266,13 @@ def documents(
                 ),
             )
             continue
-        entree: dict = {"nom_source": candidat.titre}
+        entree: dict = {
+            "nom_complet": noms[candidat.personne]
+            if candidat.personne
+            else nom_a_l_endroit(candidat.titre)
+        }
         if candidat.personne:
             entree["personne"] = candidat.personne
-            entree["nom_complet"] = noms[candidat.personne]
         entree["parrainages"] = [_presentation_publiee(p, _annee(source)) for p in presentations]
         beneficiaires.append(entree)
 

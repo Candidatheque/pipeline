@@ -400,10 +400,9 @@ class TestParrainages:
             destination / ELECTIONS_DIR / "PR-2022" / "parrainages-sans-candidature.json"
         )
         hollande = next(
-            b for b in publie["beneficiaires"] if b["nom_source"] == "HOLLANDE François"
+            b for b in publie["beneficiaires"] if b["nom_complet"] == "François HOLLANDE"
         )
         assert hollande["personne"] == "PE-0065"
-        assert hollande["nom_complet"] == "François HOLLANDE"
 
     def test_le_nom_de_l_elu_est_publie_d_un_seul_tenant(self, destination):
         """Une seule forme de nom, quelle que soit celle de la source.
@@ -437,7 +436,7 @@ class TestParrainages:
         publie = _charge(
             destination / ELECTIONS_DIR / "PR-2022" / "parrainages-sans-candidature.json"
         )
-        pesquet = next(b for b in publie["beneficiaires"] if b["nom_source"] == "PESQUET Thomas")
+        pesquet = next(b for b in publie["beneficiaires"] if b["nom_complet"] == "Thomas PESQUET")
         assert "personne" not in pesquet
 
     def test_une_election_sans_parrainages_ne_publie_pas_de_repertoire(self, destination):
