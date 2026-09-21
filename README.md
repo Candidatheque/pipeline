@@ -521,8 +521,44 @@ Elles ne se recoupent pas : le
 Conseil annule des suffrages et rectifie des erreurs matérielles avant de
 proclamer. Deux fichiers, un par autorité, auraient présenté comme concurrents
 ce qui est une seule histoire ; empilées, l'écart entre deux versions se lit, et
-les annulations l'expliquent. Seule la version du Conseil, `proclamation`, est
-collectée à ce jour.
+les annulations l'expliquent.
+
+La proclamation couvre toutes les élections depuis 1965. Le ministère de
+l'Intérieur est repris de 2007 à 2022 : ses résultats définitifs pour les
+quatre élections, ses résultats de la soirée électorale pour 2017 et 2022.
+Avant 2007, il ne publie rien en données ouvertes.
+
+### Les résultats du ministère, et leur détail par département
+
+Les résultats définitifs du ministère reprennent à l'unité près les chiffres
+proclamés, sur les huit tours : c'est vérifié. Ils restent une version à part,
+parce qu'ils ont leur propre source et leur propre date, et qu'ils apportent le
+**détail par département** que la décision du Conseil ne donne pas. Les
+provisoires, eux, sont un instantané de la soirée : 18 779 664 voix pour
+Emmanuel Macron le soir du second tour de 2022, 18 768 639 proclamées.
+
+Chaque version du ministère porte donc `departements`, une ligne par
+département avec ses décomptes et les voix de chaque candidat. Le code est
+celui de l'INSEE, comme partout ailleurs : le ministère écrit « ZA » pour la
+Guadeloupe et « 1 » pour l'Ain. Deux lignes ne sont pas des départements, et
+se nomment en vocabulaire fixe dans `hors_departement` : le vote des Français
+établis hors de France, et Saint-Barthélemy avec Saint-Martin, que le ministère
+réunit sur une ligne. Sans elles, la somme ne ferait pas le total national.
+
+Pour les résultats définitifs, cette somme retombe exactement sur le total
+national, ce que les tests vérifient ; elle n'est jamais publiée à sa place.
+Pour les provisoires, elle ne tombe pas juste, et c'est normal : le vote des
+Français de l'étranger y manque parfois.
+
+Le ministère publie en Excel jusqu'en 2017, en texte Latin-1 en 2022.
+`outils/interieur_en_csv.py` en recopie les deux feuilles utiles en CSV, dans
+`raw/resultats/interieur/`, et la pipeline ne lit que ce CSV. Les blancs et les
+nuls y sont comptés ensemble en 2007 et 2012, avant la loi de 2014 qui les
+sépare : `bulletins_blancs_et_nuls` les publie tels quels.
+
+La date d'une version du ministère est celle de la mise en ligne du jeu de
+données, la seule que sa source porte. Pour 2007 et 2012, versés en 2013, elle
+est bien postérieure au scrutin.
 
 Les chiffres du Conseil n'existent nulle part ailleurs sous forme exploitable. L'open data
 du Conseil se limite aux parrainages et à un tableau par département du seul

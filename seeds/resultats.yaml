@@ -22,12 +22,21 @@
 #                               arrêtent les résultats jusqu'en 1995.
 # L'ordre est celui du processus, pas celui des dates : les résultats
 # définitifs du ministère peuvent paraître après la proclamation, qui fait
-# pourtant foi. Seule la proclamation est collectée à ce jour.
+# pourtant foi.
 #
-# `date` est celle de la décision. `fichier` renvoie au texte commité sous
-# `raw/resultats/`, `origine` à la décision dans le registre des sources.
+# Les résultats du ministère sont collectés de 2007 à 2022, avec leur détail
+# par département : `format: "interieur"`, un `fichier` national et un fichier
+# `departements`, tous deux recopiés en CSV sous `raw/resultats/interieur/`.
+# Leur `date` est celle de la mise en ligne du jeu de données sur data.gouv.fr,
+# la seule que la source porte : pour 2007 et 2012, versés en 2013, elle est
+# bien postérieure au scrutin. Avant 2007, le ministère ne publie rien en
+# données ouvertes.
 #
-# `candidats` rapproche le nom qu'écrit la décision de la personne au registre.
+# Pour la proclamation, `date` est celle de la décision, `fichier` renvoie à
+# son texte commité sous `raw/resultats/` et `origine` à la décision dans le
+# registre des sources.
+#
+# `candidats` rapproche le nom qu'écrit la source de la personne au registre.
 # Comme pour les parrainages, le rapprochement est déclaré et jamais deviné :
 # la transcription de 1965 écrit « Jean-Louis TIXIER-VIGNANCOU » sans son R
 # final, celle de 1988 « Ariette LAGUILLER » pour Arlette. Un nom écrit noir sur
@@ -326,6 +335,37 @@ resultats:
     tours:
       - numero: 1
         versions:
+          - etape: "resultats-definitifs"
+            format: "interieur"
+            date: 2013-07-08
+            fichier: "resultats/interieur/2007-t1t2-definitifs-france.csv"
+            departements: "resultats/interieur/2007-t1-definitifs-departements.csv"
+            origine: "data-gouv:election-presidentielle-2007-resultats-572120"
+            candidats:
+              - titre: "BAYROU François"
+                personne: "PE-0045"
+              - titre: "BESANCENOT Olivier"
+                personne: "PE-0052"
+              - titre: "BOVÉ José"
+                personne: "PE-0055"
+              - titre: "BUFFET Marie-George"
+                personne: "PE-0053"
+              - titre: "LAGUILLER Arlette"
+                personne: "PE-0018"
+              - titre: "LE PEN Jean-Marie"
+                personne: "PE-0019"
+              - titre: "NIHOUS Frédéric"
+                personne: "PE-0057"
+              - titre: "ROYAL Ségolène"
+                personne: "PE-0056"
+              - titre: "SARKOZY Nicolas"
+                personne: "PE-0058"
+              - titre: "SCHIVARDI Gérard"
+                personne: "PE-0054"
+              - titre: "VOYNET Dominique"
+                personne: "PE-0039"
+              - titre: "de VILLIERS Philippe"
+                personne: "PE-0036"
           - etape: "proclamation"
             date: 2007-04-25
             fichier: "resultats/2007-139-PDR.txt"
@@ -357,6 +397,17 @@ resultats:
                 personne: "PE-0058"
       - numero: 2
         versions:
+          - etape: "resultats-definitifs"
+            format: "interieur"
+            date: 2013-07-08
+            fichier: "resultats/interieur/2007-t1t2-definitifs-france.csv"
+            departements: "resultats/interieur/2007-t2-definitifs-departements.csv"
+            origine: "data-gouv:election-presidentielle-2007-resultats-572120"
+            candidats:
+              - titre: "ROYAL Ségolène"
+                personne: "PE-0056"
+              - titre: "SARKOZY Nicolas"
+                personne: "PE-0058"
           - etape: "proclamation"
             date: 2007-05-10
             fichier: "resultats/2007-141-PDR.txt"
@@ -371,6 +422,33 @@ resultats:
     tours:
       - numero: 1
         versions:
+          - etape: "resultats-definitifs"
+            format: "interieur"
+            date: 2013-07-08
+            fichier: "resultats/interieur/2012-t1t2-definitifs-france.csv"
+            departements: "resultats/interieur/2012-t1-definitifs-departements.csv"
+            origine: "data-gouv:election-presidentielle-2012-resultats-572124"
+            candidats:
+              - titre: "ARTHAUD Nathalie"
+                personne: "PE-0063"
+              - titre: "BAYROU François"
+                personne: "PE-0045"
+              - titre: "CHEMINADE Jacques"
+                personne: "PE-0037"
+              - titre: "DUPONT-AIGNAN Nicolas"
+                personne: "PE-0064"
+              - titre: "HOLLANDE François"
+                personne: "PE-0065"
+              - titre: "JOLY Eva"
+                personne: "PE-0059"
+              - titre: "LE PEN Marine"
+                personne: "PE-0060"
+              - titre: "MÉLENCHON Jean-Luc"
+                personne: "PE-0061"
+              - titre: "POUTOU Philippe"
+                personne: "PE-0062"
+              - titre: "SARKOZY Nicolas"
+                personne: "PE-0058"
           - etape: "proclamation"
             date: 2012-04-25
             fichier: "resultats/2012-152-PDR.txt"
@@ -398,6 +476,17 @@ resultats:
                 personne: "PE-0065"
       - numero: 2
         versions:
+          - etape: "resultats-definitifs"
+            format: "interieur"
+            date: 2013-07-08
+            fichier: "resultats/interieur/2012-t1t2-definitifs-france.csv"
+            departements: "resultats/interieur/2012-t2-definitifs-departements.csv"
+            origine: "data-gouv:election-presidentielle-2012-resultats-572124"
+            candidats:
+              - titre: "HOLLANDE François"
+                personne: "PE-0065"
+              - titre: "SARKOZY Nicolas"
+                personne: "PE-0058"
           - etape: "proclamation"
             date: 2012-05-10
             fichier: "resultats/2012-154-PDR.txt"
@@ -412,6 +501,64 @@ resultats:
     tours:
       - numero: 1
         versions:
+          - etape: "resultats-provisoires"
+            format: "interieur"
+            date: 2017-04-24
+            fichier: "resultats/interieur/2017-t1-provisoires-france.csv"
+            departements: "resultats/interieur/2017-t1-provisoires-departements.csv"
+            origine: "data-gouv:election-presidentielle-des-23-avril-et-7-mai-2017-resultats-du-1er-tour"
+            candidats:
+              - titre: "ARTHAUD Nathalie"
+                personne: "PE-0063"
+              - titre: "ASSELINEAU François"
+                personne: "PE-0069"
+              - titre: "CHEMINADE Jacques"
+                personne: "PE-0037"
+              - titre: "DUPONT-AIGNAN Nicolas"
+                personne: "PE-0064"
+              - titre: "FILLON François"
+                personne: "PE-0070"
+              - titre: "HAMON Benoît"
+                personne: "PE-0067"
+              - titre: "LASSALLE Jean"
+                personne: "PE-0068"
+              - titre: "LE PEN Marine"
+                personne: "PE-0060"
+              - titre: "MACRON Emmanuel"
+                personne: "PE-0066"
+              - titre: "MÉLENCHON Jean-Luc"
+                personne: "PE-0061"
+              - titre: "POUTOU Philippe"
+                personne: "PE-0062"
+          - etape: "resultats-definitifs"
+            format: "interieur"
+            date: 2017-04-27
+            fichier: "resultats/interieur/2017-t1-definitifs-france.csv"
+            departements: "resultats/interieur/2017-t1-definitifs-departements.csv"
+            origine: "data-gouv:election-presidentielle-des-23-avril-et-7-mai-2017-resultats-definitifs-du-1er-tour-1"
+            candidats:
+              - titre: "ARTHAUD Nathalie"
+                personne: "PE-0063"
+              - titre: "ASSELINEAU François"
+                personne: "PE-0069"
+              - titre: "CHEMINADE Jacques"
+                personne: "PE-0037"
+              - titre: "DUPONT-AIGNAN Nicolas"
+                personne: "PE-0064"
+              - titre: "FILLON François"
+                personne: "PE-0070"
+              - titre: "HAMON Benoît"
+                personne: "PE-0067"
+              - titre: "LASSALLE Jean"
+                personne: "PE-0068"
+              - titre: "LE PEN Marine"
+                personne: "PE-0060"
+              - titre: "MACRON Emmanuel"
+                personne: "PE-0066"
+              - titre: "MÉLENCHON Jean-Luc"
+                personne: "PE-0061"
+              - titre: "POUTOU Philippe"
+                personne: "PE-0062"
           - etape: "proclamation"
             date: 2017-04-26
             fichier: "resultats/2017-169-PDR.txt"
@@ -441,6 +588,28 @@ resultats:
                 personne: "PE-0070"
       - numero: 2
         versions:
+          - etape: "resultats-provisoires"
+            format: "interieur"
+            date: 2017-05-08
+            fichier: "resultats/interieur/2017-t2-provisoires-france.csv"
+            departements: "resultats/interieur/2017-t2-provisoires-departements.csv"
+            origine: "data-gouv:election-presidentielle-des-23-avril-et-7-mai-2017-resultats-du-2eme-tour-1"
+            candidats:
+              - titre: "LE PEN Marine"
+                personne: "PE-0060"
+              - titre: "MACRON Emmanuel"
+                personne: "PE-0066"
+          - etape: "resultats-definitifs"
+            format: "interieur"
+            date: 2017-05-11
+            fichier: "resultats/interieur/2017-t2-definitifs-france.csv"
+            departements: "resultats/interieur/2017-t2-definitifs-departements.csv"
+            origine: "data-gouv:election-presidentielle-des-23-avril-et-7-mai-2017-resultats-definitifs-du-2nd-tour"
+            candidats:
+              - titre: "LE PEN Marine"
+                personne: "PE-0060"
+              - titre: "MACRON Emmanuel"
+                personne: "PE-0066"
           - etape: "proclamation"
             date: 2017-05-10
             fichier: "resultats/2017-171-PDR.txt"
@@ -455,6 +624,68 @@ resultats:
     tours:
       - numero: 1
         versions:
+          - etape: "resultats-provisoires"
+            format: "interieur"
+            date: 2022-04-11
+            fichier: "resultats/interieur/2022-t1-provisoires-france.csv"
+            departements: "resultats/interieur/2022-t1-provisoires-departements.csv"
+            origine: "data-gouv:election-presidentielle-des-10-et-24-avril-2022-resultats-du-1er-tour"
+            candidats:
+              - titre: "ARTHAUD Nathalie"
+                personne: "PE-0063"
+              - titre: "DUPONT-AIGNAN Nicolas"
+                personne: "PE-0064"
+              - titre: "HIDALGO Anne"
+                personne: "PE-0073"
+              - titre: "JADOT Yannick"
+                personne: "PE-0074"
+              - titre: "LASSALLE Jean"
+                personne: "PE-0068"
+              - titre: "LE PEN Marine"
+                personne: "PE-0060"
+              - titre: "MACRON Emmanuel"
+                personne: "PE-0066"
+              - titre: "MÉLENCHON Jean-Luc"
+                personne: "PE-0061"
+              - titre: "POUTOU Philippe"
+                personne: "PE-0062"
+              - titre: "PÉCRESSE Valérie"
+                personne: "PE-0075"
+              - titre: "ROUSSEL Fabien"
+                personne: "PE-0071"
+              - titre: "ZEMMOUR Éric"
+                personne: "PE-0072"
+          - etape: "resultats-definitifs"
+            format: "interieur"
+            date: 2022-04-14
+            fichier: "resultats/interieur/2022-t1-definitifs-france.csv"
+            departements: "resultats/interieur/2022-t1-definitifs-departements.csv"
+            origine: "data-gouv:election-presidentielle-des-10-et-24-avril-2022-resultats-definitifs-du-1er-tour"
+            candidats:
+              - titre: "ARTHAUD Nathalie"
+                personne: "PE-0063"
+              - titre: "DUPONT-AIGNAN Nicolas"
+                personne: "PE-0064"
+              - titre: "HIDALGO Anne"
+                personne: "PE-0073"
+              - titre: "JADOT Yannick"
+                personne: "PE-0074"
+              - titre: "LASSALLE Jean"
+                personne: "PE-0068"
+              - titre: "LE PEN Marine"
+                personne: "PE-0060"
+              - titre: "MACRON Emmanuel"
+                personne: "PE-0066"
+              - titre: "MÉLENCHON Jean-Luc"
+                personne: "PE-0061"
+              - titre: "POUTOU Philippe"
+                personne: "PE-0062"
+              - titre: "PÉCRESSE Valérie"
+                personne: "PE-0075"
+              - titre: "ROUSSEL Fabien"
+                personne: "PE-0071"
+              - titre: "ZEMMOUR Éric"
+                personne: "PE-0072"
           - etape: "proclamation"
             date: 2022-04-13
             fichier: "resultats/2022-195-PDR.txt"
@@ -486,6 +717,28 @@ resultats:
                 personne: "PE-0075"
       - numero: 2
         versions:
+          - etape: "resultats-provisoires"
+            format: "interieur"
+            date: 2022-04-25
+            fichier: "resultats/interieur/2022-t2-provisoires-france.csv"
+            departements: "resultats/interieur/2022-t2-provisoires-departements.csv"
+            origine: "data-gouv:election-presidentielle-des-10-et-24-avril-2022-resultats-du-second-tour"
+            candidats:
+              - titre: "LE PEN Marine"
+                personne: "PE-0060"
+              - titre: "MACRON Emmanuel"
+                personne: "PE-0066"
+          - etape: "resultats-definitifs"
+            format: "interieur"
+            date: 2022-04-28
+            fichier: "resultats/interieur/2022-t2-definitifs-france.csv"
+            departements: "resultats/interieur/2022-t2-definitifs-departements.csv"
+            origine: "data-gouv:election-presidentielle-des-10-et-24-avril-2022-resultats-definitifs-du-2nd-tour"
+            candidats:
+              - titre: "LE PEN Marine"
+                personne: "PE-0060"
+              - titre: "MACRON Emmanuel"
+                personne: "PE-0066"
           - etape: "proclamation"
             date: 2022-04-27
             fichier: "resultats/2022-197-PDR.txt"

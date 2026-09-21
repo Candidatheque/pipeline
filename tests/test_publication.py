@@ -482,11 +482,46 @@ class TestResultats:
         """Un fichier absent dit qu'il n'y a rien, mieux qu'un fichier vide."""
         assert not (destination / ELECTIONS_DIR / "PR-2027" / self.FICHIER).exists()
 
-    def test_chaque_tour_a_la_version_du_conseil(self, destination):
-        """Seule version collectée à ce jour : la proclamation, et elle fait foi."""
+    def test_la_proclamation_ferme_chaque_tour(self, destination):
+        """Elle fait foi : elle est la dernière version, quelle que soit sa date.
+
+        Le ministère publie ses résultats définitifs de 2022 le lendemain de la
+        proclamation ; rangés par date, ils prendraient sa place.
+        """
+        attendues = {
+            "PR-2007": ["resultats-definitifs", "proclamation"],
+            "PR-2012": ["resultats-definitifs", "proclamation"],
+            "PR-2017": ["resultats-provisoires", "resultats-definitifs", "proclamation"],
+            "PR-2022": ["resultats-provisoires", "resultats-definitifs", "proclamation"],
+        }
         for election, document in self._documents(destination).items():
             for tour in document["tours"]:
-                assert [v["etape"] for v in tour["versions"]] == ["proclamation"], election
+                etapes = [v["etape"] for v in tour["versions"]]
+                assert etapes == attendues.get(election, ["proclamation"]), election
+
+    def test_seul_le_conseil_porte_des_annulations(self, destination):
+        """Une liste vide sur une version du ministère ferait croire que rien
+        n'a été annulé ; elle n'y figure donc pas du tout."""
+        for election, _, version in self._versions(destination):
+            assert ("annulations" in version) == (version["etape"] == "proclamation"), election
+
+    def test_le_departement_d_une_ligne_est_un_code_du_registre(self, destination):
+        from candidatheque.pipeline.seeds.departements import load_departements
+
+        connus = {d.code for d in load_departements()}
+        for election, _, version in self._versions(destination):
+            for ligne in version.get("departements", []):
+                if "departement" in ligne:
+                    assert ligne["departement"] in connus, (election, ligne["departement"])
+
+    def test_une_ligne_hors_departement_se_nomme_sans_code(self, destination):
+        """Les Français de l'étranger, et Saint-Barthélemy avec Saint-Martin."""
+        vues = set()
+        for _, _, version in self._versions(destination):
+            for ligne in version.get("departements", []):
+                assert ("departement" in ligne) != ("hors_departement" in ligne), ligne
+                vues.add(ligne.get("hors_departement"))
+        assert vues - {None} == {"francais-etablis-hors-de-france", "saint-barthelemy-et-saint-martin"}
 
     def test_les_sources_ont_la_forme_de_celles_des_candidatures(self, destination):
         """Une liste de sources recopiées en clair, comme partout ailleurs."""
@@ -521,13 +556,15 @@ class TestResultats:
 
         connus = {d.code for d in load_departements()}
         for election, _, version in self._versions(destination):
-            publies = {a["departement"] for a in version["annulations"] if "departement" in a}
+            publies = {
+                a["departement"] for a in version.get("annulations", []) if "departement" in a
+            }
             assert publies <= connus, (election, sorted(publies - connus))
 
     def test_seul_le_bureau_porte_des_numeros(self, destination):
         """Une commune entière annulée n'a pas de numéro de bureau."""
         for _, _, version in self._versions(destination):
-            for annulation in version["annulations"]:
+            for annulation in version.get("annulations", []):
                 if annulation["portee"] == "commune":
                     assert "bureaux" not in annulation, annulation
 

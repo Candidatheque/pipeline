@@ -34,6 +34,7 @@ from enum import StrEnum
 from pathlib import Path
 
 from candidatheque.pipeline.lecture import resultats as lecture_resultats
+from candidatheque.pipeline.lecture import resultats_interieur as lecture_interieur
 from candidatheque.pipeline.lecture.parrainages import Parrainage, lire
 from candidatheque.pipeline.paths import DATA_REPO, SCHEMAS_DIR
 from candidatheque.pipeline.publication import parrainages as publication_parrainages
@@ -52,7 +53,12 @@ from candidatheque.pipeline.seeds import (
     load_sources,
 )
 from candidatheque.pipeline.seeds.parrainages import SourceParrainages, load_parrainages
-from candidatheque.pipeline.seeds.resultats import SourceResultats, load_resultats
+from candidatheque.pipeline.seeds.resultats import (
+    Format,
+    SourceResultats,
+    VersionResultats,
+    load_resultats,
+)
 
 #: Nom du répertoire qui porte une élection, sous la racine du dépôt.
 ELECTIONS_DIR = "elections"
@@ -245,6 +251,13 @@ def documents(
         )
 
 
+def lire_version(version: VersionResultats, numero: int) -> lecture_resultats.Tour:
+    """Une version des résultats d'un tour, lue selon le format de sa source."""
+    if version.format is Format.INTERIEUR:
+        return lecture_interieur.lire(version, numero)
+    return lecture_resultats.lire(version)
+
+
 def _supprimer_orphelins(repertoire: Path, attendus: set[str]) -> list[Ecriture]:
     """Retire d'un répertoire d'élection les documents qui ne sont plus produits.
 
@@ -314,7 +327,7 @@ def publier(destination: Path | None = None) -> list[Ecriture]:
         entree.election: (
             entree,
             {
-                (tour.numero, rang): lecture_resultats.lire(version)
+                (tour.numero, rang): lire_version(version, tour.numero)
                 for tour in entree.tours
                 for rang, version in enumerate(tour.versions)
             },
