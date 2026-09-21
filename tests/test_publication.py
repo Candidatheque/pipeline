@@ -405,6 +405,33 @@ class TestParrainages:
         assert hollande["personne"] == "PE-0065"
         assert hollande["nom_complet"] == "François HOLLANDE"
 
+    def test_le_nom_de_l_elu_est_publie_d_un_seul_tenant(self, destination):
+        """Une seule forme de nom, quelle que soit celle de la source.
+
+        2017 et 2022 séparent le prénom du nom, le Journal officiel ne l'a
+        jamais fait : un consommateur qui lit les huit élections n'a pas à
+        connaître cette histoire.
+        """
+        for motif in ("*/candidats/*/parrainages.json", "*/parrainages-sans-candidature.json"):
+            for chemin in (destination / ELECTIONS_DIR).glob(motif):
+                publie = _charge(chemin)
+                listes = [publie["parrainages"]] if "parrainages" in publie else [
+                    b["parrainages"] for b in publie["beneficiaires"]
+                ]
+                for presentations in listes:
+                    for presentation in presentations:
+                        assert presentation["nom_complet"].strip(), (chemin, presentation)
+                        assert "nom" not in presentation and "prenom" not in presentation
+
+    def test_le_prenom_de_2022_precede_le_nom_de_famille(self, destination):
+        """« NICOLAS », « Thierry » recollés dans l'ordre du registre."""
+        publie = _charge(
+            destination / ELECTIONS_DIR / "PR-2022" / "candidats" / "PE-0072" / "parrainages.json"
+        )
+        noms = {p["nom_complet"] for p in publie["parrainages"]}
+        assert all(nom == " ".join(nom.split()) for nom in noms)
+        assert not any(nom.split()[0].isupper() and not nom.split()[-1].isupper() for nom in noms)
+
     def test_un_non_candidat_absent_du_registre_n_a_pas_d_identifiant(self, destination):
         """Thomas PESQUET n'a jamais été candidat : il n'est pas au registre."""
         publie = _charge(
@@ -426,3 +453,30 @@ class TestParrainages:
         (intrus / "parrainages.json").write_text("{}", encoding="utf-8")
         publier(tmp_path)
         assert not intrus.exists()
+
+
+class TestNomALEndroit:
+    """Les noms que les sources écrivent à l'envers, remis dans l'ordre."""
+
+    @pytest.mark.parametrize(
+        ("source", "attendu"),
+        [
+            ("PESQUET Thomas", "Thomas PESQUET"),
+            ("CAZENEUVE  Bernard", "Bernard CAZENEUVE"),
+            ("MÉNARD Emmanuelle", "Emmanuelle MÉNARD"),
+            ("KOSCIUSKO-MORIZET Nathalie", "Nathalie KOSCIUSKO-MORIZET"),
+            ("MARECHAL Philippe Célestin", "Philippe Célestin MARECHAL"),
+            ("LE GALL Gilbert", "Gilbert LE GALL"),
+            # Déjà dans le bon ordre : on n'y touche pas.
+            ("Christian PÉNIGUEL", "Christian PÉNIGUEL"),
+            # Rien ne distingue le nom du prénom : mieux vaut ne rien couper.
+            ("LARSONNEUR-MOREL", "LARSONNEUR-MOREL"),
+            ("Eva Joly", "Eva Joly"),
+            # La civilité est une qualité, pas une partie du nom.
+            ("M. Jacques CHIRAC", "Jacques CHIRAC"),
+        ],
+    )
+    def test_le_nom_de_famille_passe_derriere_le_prenom(self, source, attendu):
+        from candidatheque.pipeline.publication.parrainages import nom_a_l_endroit
+
+        assert nom_a_l_endroit(source) == attendu
