@@ -15,6 +15,11 @@
 #     « jusqu'au » quand la fiche en donne une, sinon jusqu'à l'élection
 #     suivante ou à la fin de mandat. Les sénateurs de la IVe République
 #     (Conseil de la République) sont notés `senateur` comme ceux de la Ve.
+#   - les mandats de député européen viennent des données ouvertes du
+#     Parlement européen, un par législature. Les sièges à l'Assemblée
+#     commune de la CECA et à l'Assemblée parlementaire européenne, avant la
+#     première élection directe de 1979, n'en sont pas : leurs membres étaient
+#     désignés par les parlements nationaux.
 #   - `fonction` : un code du vocabulaire fixe, défini dans
 #                  `src/candidatheque/pipeline/seeds/fonctions.py`.
 #   - `ressort`  : le territoire du mandat, tel que la source l'écrit — le
@@ -69,6 +74,14 @@ parcours:
         debut: 1977-09-25
         fin: 1986-04-02
         sources: ["senat:lecanuet_jean000442"]
+      - fonction: "depute-europeen"
+        debut: 1979-07-17
+        fin: 1984-07-23
+        sources: ["parlement-europeen:799"]
+      - fonction: "depute-europeen"
+        debut: 1984-07-24
+        fin: 1988-10-09
+        sources: ["parlement-europeen:799"]
       - fonction: "depute"
         ressort: "Seine-Maritime"
         debut: 1986-04-02
@@ -289,6 +302,12 @@ parcours:
         debut: 1968-09-22
         fin: 1975-04-25
         sources: ["senat:duclos_jacques000681"]
+  - personne: "PE-0010"
+    fonctions:
+      - fonction: "depute-europeen"
+        debut: 1999-07-20
+        fin: 2004-07-19
+        sources: ["parlement-europeen:4403"]
   - personne: "PE-0011"
     fonctions:
       - fonction: "senateur"
@@ -365,11 +384,23 @@ parcours:
         debut: 1988-06-13
         fin: 1988-07-23
         sources: ["assemblee-nationale:6024"]
+      - fonction: "depute-europeen"
+        debut: 1994-07-19
+        fin: 1999-07-19
+        sources: ["parlement-europeen:1977"]
       - fonction: "senateur"
         ressort: "Yvelines"
         debut: 1995-09-24
         fin: 1997-11-18
         sources: ["senat:rocard_michel95064m"]
+      - fonction: "depute-europeen"
+        debut: 1999-07-20
+        fin: 2004-07-19
+        sources: ["parlement-europeen:1977"]
+      - fonction: "depute-europeen"
+        debut: 2004-07-20
+        fin: 2009-01-31
+        sources: ["parlement-europeen:1977"]
   - personne: "PE-0014"
     fonctions:
       - fonction: "depute"
@@ -489,6 +520,10 @@ parcours:
         debut: 1988-06-06
         fin: 1989-11-04
         sources: ["assemblee-nationale:3448"]
+      - fonction: "depute-europeen"
+        debut: 1989-07-25
+        fin: 1993-06-09
+        sources: ["parlement-europeen:1030"]
       - fonction: "depute"
         ressort: "Puy-de-Dôme"
         debut: 1993-04-02
@@ -499,6 +534,12 @@ parcours:
         debut: 1997-06-01
         fin: 2002-06-18
         sources: ["assemblee-nationale:3448"]
+  - personne: "PE-0018"
+    fonctions:
+      - fonction: "depute-europeen"
+        debut: 1999-07-20
+        fin: 2004-07-19
+        sources: ["parlement-europeen:4402"]
   - personne: "PE-0019"
     fonctions:
       - fonction: "depute"
@@ -511,11 +552,39 @@ parcours:
         debut: 1958-12-09
         fin: 1962-10-09
         sources: ["assemblee-nationale:7607"]
+      - fonction: "depute-europeen"
+        debut: 1984-07-24
+        fin: 1989-07-24
+        sources: ["parlement-europeen:1023"]
       - fonction: "depute"
         ressort: "Paris"
         debut: 1986-04-02
         fin: 1988-05-14
         sources: ["assemblee-nationale:7607"]
+      - fonction: "depute-europeen"
+        debut: 1989-07-25
+        fin: 1994-07-18
+        sources: ["parlement-europeen:1023"]
+      - fonction: "depute-europeen"
+        debut: 1994-07-19
+        fin: 1999-07-19
+        sources: ["parlement-europeen:1023"]
+      - fonction: "depute-europeen"
+        debut: 1999-07-20
+        fin: 2003-04-10
+        sources: ["parlement-europeen:1023"]
+      - fonction: "depute-europeen"
+        debut: 2004-07-20
+        fin: 2009-07-13
+        sources: ["parlement-europeen:1023"]
+      - fonction: "depute-europeen"
+        debut: 2009-07-14
+        fin: 2014-06-30
+        sources: ["parlement-europeen:1023"]
+      - fonction: "depute-europeen"
+        debut: 2014-07-01
+        fin: 2019-07-01
+        sources: ["parlement-europeen:1023"]
   - personne: "PE-0020"
     fonctions:
       - fonction: "depute"
@@ -590,6 +659,12 @@ parcours:
         debut: 1993-04-02
         fin: 1997-04-21
         sources: ["assemblee-nationale:6176"]
+  - personne: "PE-0024"
+    fonctions:
+      - fonction: "depute-europeen"
+        debut: 1999-07-20
+        fin: 2004-07-19
+        sources: ["parlement-europeen:4360"]
   - personne: "PE-0025"
     fonctions:
       - fonction: "depute"
@@ -646,11 +721,19 @@ parcours:
         debut: 1978-04-03
         fin: 1981-05-22
         sources: ["assemblee-nationale:4970"]
+      - fonction: "depute-europeen"
+        debut: 1979-07-17
+        fin: 1984-07-23
+        sources: ["parlement-europeen:1588"]
       - fonction: "depute"
         ressort: "Val-de-Marne"
         debut: 1981-07-02
         fin: 1986-04-01
         sources: ["assemblee-nationale:4970"]
+      - fonction: "depute-europeen"
+        debut: 1984-07-24
+        fin: 1989-07-24
+        sources: ["parlement-europeen:1588"]
       - fonction: "depute"
         ressort: "Val-de-Marne"
         debut: 1986-04-02
@@ -703,6 +786,10 @@ parcours:
         debut: 1978-04-03
         fin: 1981-05-22
         sources: ["assemblee-nationale:2196"]
+      - fonction: "depute-europeen"
+        debut: 1979-07-17
+        fin: 1980-09-30
+        sources: ["parlement-europeen:888"]
       - fonction: "depute"
         ressort: "La Réunion"
         debut: 1981-07-02
@@ -740,6 +827,10 @@ parcours:
         debut: 1978-04-03
         fin: 1981-05-22
         sources: ["assemblee-nationale:1798"]
+      - fonction: "depute-europeen"
+        debut: 1979-07-17
+        fin: 1980-04-28
+        sources: ["parlement-europeen:916"]
       - fonction: "depute"
         ressort: "Corrèze"
         debut: 1981-07-02
@@ -809,6 +900,12 @@ parcours:
         debut: 1978-03-19
         fin: 1981-05-22
         sources: ["assemblee-nationale:4105"]
+  - personne: "PE-0034"
+    fonctions:
+      - fonction: "depute-europeen"
+        debut: 1989-07-25
+        fin: 1991-12-19
+        sources: ["parlement-europeen:1152"]
   - personne: "PE-0035"
     fonctions:
       - fonction: "depute"
@@ -853,16 +950,32 @@ parcours:
         debut: 1993-04-02
         fin: 1994-10-24
         sources: ["assemblee-nationale:7404"]
+      - fonction: "depute-europeen"
+        debut: 1994-07-19
+        fin: 1997-06-15
+        sources: ["parlement-europeen:2212"]
       - fonction: "depute"
         ressort: "Vendée"
         debut: 1997-06-01
         fin: 2002-06-18
         sources: ["assemblee-nationale:7404"]
+      - fonction: "depute-europeen"
+        debut: 1999-07-20
+        fin: 1999-12-16
+        sources: ["parlement-europeen:2212"]
       - fonction: "depute"
         ressort: "Vendée"
         debut: 2002-06-19
         fin: 2004-07-19
         sources: ["assemblee-nationale:7404"]
+      - fonction: "depute-europeen"
+        debut: 2004-07-20
+        fin: 2009-07-13
+        sources: ["parlement-europeen:2212"]
+      - fonction: "depute-europeen"
+        debut: 2009-07-14
+        fin: 2014-06-30
+        sources: ["parlement-europeen:2212"]
   - personne: "PE-0038"
     fonctions:
       - fonction: "depute"
@@ -870,6 +983,10 @@ parcours:
         debut: 1981-07-02
         fin: 1986-04-01
         sources: ["assemblee-nationale:4052"]
+      - fonction: "depute-europeen"
+        debut: 1984-07-24
+        fin: 1988-05-12
+        sources: ["parlement-europeen:1715"]
       - fonction: "depute"
         ressort: "Paris"
         debut: 1986-04-02
@@ -892,6 +1009,10 @@ parcours:
         sources: ["assemblee-nationale:4052"]
   - personne: "PE-0039"
     fonctions:
+      - fonction: "depute-europeen"
+        debut: 1991-11-13
+        fin: 1991-12-10
+        sources: ["parlement-europeen:1839"]
       - fonction: "depute"
         ressort: "Jura"
         debut: 1997-06-01
@@ -945,6 +1066,10 @@ parcours:
         debut: 1997-06-01
         fin: 2002-06-18
         sources: ["assemblee-nationale:3887"]
+      - fonction: "depute-europeen"
+        debut: 1999-07-20
+        fin: 2000-07-31
+        sources: ["parlement-europeen:4351"]
       - fonction: "senateur"
         ressort: "Val-d'Oise"
         debut: 2004-09-26
@@ -962,6 +1087,20 @@ parcours:
         debut: 1986-04-02
         fin: 1988-05-14
         sources: ["assemblee-nationale:5160"]
+      - fonction: "depute-europeen"
+        debut: 1989-07-25
+        fin: 1994-07-18
+        sources: ["parlement-europeen:1166"]
+      - fonction: "depute-europeen"
+        debut: 1994-07-19
+        fin: 1999-07-19
+        sources: ["parlement-europeen:1166"]
+  - personne: "PE-0043"
+    fonctions:
+      - fonction: "depute-europeen"
+        debut: 2009-07-14
+        fin: 2014-06-30
+        sources: ["parlement-europeen:97076"]
   - personne: "PE-0045"
     fonctions:
       - fonction: "depute"
@@ -984,6 +1123,10 @@ parcours:
         debut: 1997-06-01
         fin: 1999-12-21
         sources: ["assemblee-nationale:516"]
+      - fonction: "depute-europeen"
+        debut: 1999-07-20
+        fin: 2002-06-16
+        sources: ["parlement-europeen:4324"]
       - fonction: "depute"
         ressort: "Pyrénées-Atlantiques"
         debut: 2002-06-19
@@ -1001,6 +1144,10 @@ parcours:
         debut: 1993-04-02
         fin: 1997-04-21
         sources: ["assemblee-nationale:6964"]
+      - fonction: "depute-europeen"
+        debut: 1994-07-19
+        fin: 1999-07-19
+        sources: ["parlement-europeen:2137"]
       - fonction: "depute"
         ressort: "Guyane"
         debut: 1997-06-01
@@ -1016,8 +1163,18 @@ parcours:
         debut: 2007-06-20
         fin: 2012-06-16
         sources: ["assemblee-nationale:6964"]
+  - personne: "PE-0047"
+    fonctions:
+      - fonction: "depute-europeen"
+        debut: 1999-07-20
+        fin: 2004-07-19
+        sources: ["parlement-europeen:4410"]
   - personne: "PE-0048"
     fonctions:
+      - fonction: "depute-europeen"
+        debut: 1994-07-19
+        fin: 1997-08-11
+        sources: ["parlement-europeen:2139"]
       - fonction: "depute"
         ressort: "Gironde"
         debut: 1997-06-01
@@ -1149,6 +1306,10 @@ parcours:
         debut: 1988-06-06
         fin: 1993-04-01
         sources: ["assemblee-nationale:4872"]
+      - fonction: "depute-europeen"
+        debut: 1989-07-25
+        fin: 1989-11-03
+        sources: ["parlement-europeen:1024"]
       - fonction: "depute"
         ressort: "Ille-et-Vilaine"
         debut: 1993-04-02
@@ -1164,6 +1325,10 @@ parcours:
         debut: 1997-06-01
         fin: 2002-06-18
         sources: ["assemblee-nationale:4872"]
+      - fonction: "depute-europeen"
+        debut: 1999-07-20
+        fin: 2002-06-16
+        sources: ["parlement-europeen:1024"]
       - fonction: "depute"
         ressort: "Ille-et-Vilaine"
         debut: 2002-06-19
@@ -1196,6 +1361,16 @@ parcours:
         debut: 2017-06-21
         fin: 2022-06-21
         sources: ["assemblee-nationale:1300"]
+  - personne: "PE-0055"
+    fonctions:
+      - fonction: "depute-europeen"
+        debut: 2009-07-14
+        fin: 2014-06-30
+        sources: ["parlement-europeen:96744"]
+      - fonction: "depute-europeen"
+        debut: 2014-07-01
+        fin: 2019-07-01
+        sources: ["parlement-europeen:96744"]
   - personne: "PE-0056"
     fonctions:
       - fonction: "depute"
@@ -1240,6 +1415,10 @@ parcours:
         debut: 1997-05-25
         fin: 2002-06-07
         sources: ["assemblee-nationale:6289"]
+      - fonction: "depute-europeen"
+        debut: 1999-07-20
+        fin: 1999-09-14
+        sources: ["parlement-europeen:4339"]
       - fonction: "depute"
         ressort: "Hauts-de-Seine"
         debut: 2002-06-19
@@ -1250,8 +1429,30 @@ parcours:
         debut: 2005-03-14
         fin: 2005-07-02
         sources: ["assemblee-nationale:6289"]
+  - personne: "PE-0059"
+    fonctions:
+      - fonction: "depute-europeen"
+        debut: 2009-07-14
+        fin: 2014-06-30
+        sources: ["parlement-europeen:96883"]
+      - fonction: "depute-europeen"
+        debut: 2014-07-01
+        fin: 2019-07-01
+        sources: ["parlement-europeen:96883"]
   - personne: "PE-0060"
     fonctions:
+      - fonction: "depute-europeen"
+        debut: 2004-07-20
+        fin: 2009-07-13
+        sources: ["parlement-europeen:28210"]
+      - fonction: "depute-europeen"
+        debut: 2009-07-14
+        fin: 2014-06-30
+        sources: ["parlement-europeen:28210"]
+      - fonction: "depute-europeen"
+        debut: 2014-07-01
+        fin: 2017-06-18
+        sources: ["parlement-europeen:28210"]
       - fonction: "depute"
         ressort: "Pas-de-Calais"
         debut: 2017-06-21
@@ -1283,6 +1484,14 @@ parcours:
         debut: 2004-09-26
         fin: 2010-01-07
         sources: ["senat:melenchon_jean_luc86039k"]
+      - fonction: "depute-europeen"
+        debut: 2009-07-14
+        fin: 2014-06-30
+        sources: ["parlement-europeen:96742"]
+      - fonction: "depute-europeen"
+        debut: 2014-07-01
+        fin: 2017-06-18
+        sources: ["parlement-europeen:96742"]
       - fonction: "depute"
         ressort: "Bouches-du-Rhône"
         debut: 2017-06-21
@@ -1332,6 +1541,10 @@ parcours:
         debut: 1997-06-01
         fin: 2002-06-18
         sources: ["assemblee-nationale:3853"]
+      - fonction: "depute-europeen"
+        debut: 1999-07-20
+        fin: 1999-12-17
+        sources: ["parlement-europeen:4285"]
       - fonction: "depute"
         ressort: "Corrèze"
         debut: 2002-06-19
@@ -1348,6 +1561,10 @@ parcours:
         sources: ["assemblee-nationale:3853"]
   - personne: "PE-0067"
     fonctions:
+      - fonction: "depute-europeen"
+        debut: 2004-07-20
+        fin: 2009-07-13
+        sources: ["parlement-europeen:28159"]
       - fonction: "depute"
         ressort: "Yvelines"
         debut: 2012-06-20
@@ -1446,6 +1663,18 @@ parcours:
         sources: ["assemblee-nationale:19365"]
   - personne: "PE-0074"
     fonctions:
+      - fonction: "depute-europeen"
+        debut: 2009-07-14
+        fin: 2014-06-30
+        sources: ["parlement-europeen:96740"]
+      - fonction: "depute-europeen"
+        debut: 2014-07-01
+        fin: 2019-07-01
+        sources: ["parlement-europeen:96740"]
+      - fonction: "depute-europeen"
+        debut: 2019-07-02
+        fin: 2023-09-23
+        sources: ["parlement-europeen:96740"]
       - fonction: "senateur"
         ressort: "Paris"
         debut: 2023-09-24
@@ -1472,6 +1701,26 @@ parcours:
         debut: 2012-06-20
         fin: 2016-01-20
         sources: ["assemblee-nationale:10745"]
+  - personne: "PE-0091"
+    fonctions:
+      - fonction: "depute-europeen"
+        debut: 2019-07-02
+        fin: 2024-07-15
+        sources: ["parlement-europeen:197698"]
+  - personne: "PE-0104"
+    fonctions:
+      - fonction: "depute-europeen"
+        debut: 1994-07-19
+        fin: 1999-07-19
+        sources: ["parlement-europeen:2057"]
+      - fonction: "depute-europeen"
+        debut: 1999-07-20
+        fin: 2004-07-19
+        sources: ["parlement-europeen:2057"]
+      - fonction: "depute-europeen"
+        debut: 2004-07-20
+        fin: 2009-07-13
+        sources: ["parlement-europeen:2057"]
   - personne: "PE-0130"
     fonctions:
       - fonction: "depute"
@@ -1484,6 +1733,10 @@ parcours:
         debut: 1988-06-13
         fin: 1993-04-01
         sources: ["assemblee-nationale:96"]
+      - fonction: "depute-europeen"
+        debut: 1989-07-25
+        fin: 1993-03-30
+        sources: ["parlement-europeen:1179"]
       - fonction: "depute"
         ressort: "Pyrénées-Atlantiques"
         debut: 1993-04-02
@@ -1514,6 +1767,10 @@ parcours:
         debut: 2011-03-28
         fin: 2012-06-19
         sources: ["assemblee-nationale:96"]
+      - fonction: "depute-europeen"
+        debut: 2014-07-01
+        fin: 2019-07-01
+        sources: ["parlement-europeen:1179"]
   - personne: "PE-0131"
     fonctions:
       - fonction: "depute"
@@ -1550,6 +1807,22 @@ parcours:
         debut: 1986-04-02
         fin: 1988-05-14
         sources: ["assemblee-nationale:5054"]
+      - fonction: "depute-europeen"
+        debut: 1989-09-05
+        fin: 1994-07-18
+        sources: ["parlement-europeen:966"]
+      - fonction: "depute-europeen"
+        debut: 1994-07-19
+        fin: 1999-07-19
+        sources: ["parlement-europeen:966"]
+      - fonction: "depute-europeen"
+        debut: 1999-07-20
+        fin: 2004-07-19
+        sources: ["parlement-europeen:966"]
+      - fonction: "depute-europeen"
+        debut: 2004-07-20
+        fin: 2009-07-13
+        sources: ["parlement-europeen:966"]
   - personne: "PE-0200"
     fonctions:
       - fonction: "depute"
@@ -1567,6 +1840,12 @@ parcours:
         debut: 2007-06-20
         fin: 2012-06-16
         sources: ["assemblee-nationale:5373"]
+  - personne: "PE-0202"
+    fonctions:
+      - fonction: "depute-europeen"
+        debut: 2014-07-01
+        fin: 2019-07-01
+        sources: ["parlement-europeen:110977"]
   - personne: "PE-0203"
     fonctions:
       - fonction: "depute"
@@ -1598,3 +1877,17 @@ parcours:
         debut: 1981-07-02
         fin: 1986-04-01
         sources: ["assemblee-nationale:3863"]
+      - fonction: "depute-europeen"
+        debut: 1989-07-25
+        fin: 1994-07-18
+        sources: ["parlement-europeen:1213"]
+      - fonction: "depute-europeen"
+        debut: 1994-07-19
+        fin: 1999-07-19
+        sources: ["parlement-europeen:1213"]
+  - personne: "PE-0239"
+    fonctions:
+      - fonction: "depute-europeen"
+        debut: 1989-07-25
+        fin: 1994-07-18
+        sources: ["parlement-europeen:1159"]

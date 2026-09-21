@@ -24,7 +24,7 @@ def test_le_seed_du_depot_est_valide():
     assert len(chirac.fonctions) == 9
     assert {o.fonction for o in chirac.fonctions} == {Fonction.DEPUTE}
     assert chirac.fonctions[-1].fin == dt.date(1995, 5, 16)
-    assert sum(len(p.fonctions) for p in parcours) == 291
+    assert sum(len(p.fonctions) for p in parcours) == 357
 
 
 def test_une_fonction_sans_source_est_rejetee():

@@ -918,3 +918,151 @@ sources:
     url: "https://www.senat.fr/senateur/jadot_yannick21093m.html"
     commentaire: "JADOT Yannick, fiche de sénateur"
     consultee_le: 2026-09-21
+  - id: "parlement-europeen:799"
+    url: "https://data.europarl.europa.eu/person/799"
+    commentaire: "Jean A.F. LECANUET, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:4403"
+    url: "https://data.europarl.europa.eu/person/4403"
+    commentaire: "Alain KRIVINE, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:1977"
+    url: "https://data.europarl.europa.eu/person/1977"
+    commentaire: "Michel ROCARD, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:1030"
+    url: "https://data.europarl.europa.eu/person/1030"
+    commentaire: "Valéry GISCARD D'ESTAING, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:4402"
+    url: "https://data.europarl.europa.eu/person/4402"
+    commentaire: "Arlette LAGUILLER, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:1023"
+    url: "https://data.europarl.europa.eu/person/1023"
+    commentaire: "Jean-Marie LE PEN, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:4360"
+    url: "https://data.europarl.europa.eu/person/4360"
+    commentaire: "Marie-Françoise GARAUD, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:1588"
+    url: "https://data.europarl.europa.eu/person/1588"
+    commentaire: "Georges MARCHAIS, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:888"
+    url: "https://data.europarl.europa.eu/person/888"
+    commentaire: "Michel J.-P. DEBRÉ, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:916"
+    url: "https://data.europarl.europa.eu/person/916"
+    commentaire: "Jacques CHIRAC, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:1152"
+    url: "https://data.europarl.europa.eu/person/1152"
+    commentaire: "Antoine WAECHTER, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:2212"
+    url: "https://data.europarl.europa.eu/person/2212"
+    commentaire: "Philippe DE VILLIERS, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:1715"
+    url: "https://data.europarl.europa.eu/person/1715"
+    commentaire: "Lionel JOSPIN, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:1839"
+    url: "https://data.europarl.europa.eu/person/1839"
+    commentaire: "Dominique VOYNET, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:4351"
+    url: "https://data.europarl.europa.eu/person/4351"
+    commentaire: "Robert HUE, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:1166"
+    url: "https://data.europarl.europa.eu/person/1166"
+    commentaire: "Bruno A.A. MÉGRET, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:97076"
+    url: "https://data.europarl.europa.eu/person/97076"
+    commentaire: "Corinne LEPAGE, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:4324"
+    url: "https://data.europarl.europa.eu/person/4324"
+    commentaire: "François BAYROU, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:2137"
+    url: "https://data.europarl.europa.eu/person/2137"
+    commentaire: "Christiane TAUBIRA-DELANNON, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:4410"
+    url: "https://data.europarl.europa.eu/person/4410"
+    commentaire: "Jean SAINT-JOSSE, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:2139"
+    url: "https://data.europarl.europa.eu/person/2139"
+    commentaire: "Noël MAMÈRE, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:1024"
+    url: "https://data.europarl.europa.eu/person/1024"
+    commentaire: "Alain MADELIN, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:96744"
+    url: "https://data.europarl.europa.eu/person/96744"
+    commentaire: "José BOVÉ, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:4339"
+    url: "https://data.europarl.europa.eu/person/4339"
+    commentaire: "Nicolas SARKOZY, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:96883"
+    url: "https://data.europarl.europa.eu/person/96883"
+    commentaire: "Eva JOLY, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:28210"
+    url: "https://data.europarl.europa.eu/person/28210"
+    commentaire: "Marine LE PEN, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:96742"
+    url: "https://data.europarl.europa.eu/person/96742"
+    commentaire: "Jean-Luc MÉLENCHON, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:4285"
+    url: "https://data.europarl.europa.eu/person/4285"
+    commentaire: "François HOLLANDE, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:28159"
+    url: "https://data.europarl.europa.eu/person/28159"
+    commentaire: "Benoît HAMON, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:96740"
+    url: "https://data.europarl.europa.eu/person/96740"
+    commentaire: "Yannick JADOT, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:197698"
+    url: "https://data.europarl.europa.eu/person/197698"
+    commentaire: "Pierre LARROUTUROU, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:2057"
+    url: "https://data.europarl.europa.eu/person/2057"
+    commentaire: "Carl LANG, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:1179"
+    url: "https://data.europarl.europa.eu/person/1179"
+    commentaire: "Michèle ALLIOT-MARIE, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:966"
+    url: "https://data.europarl.europa.eu/person/966"
+    commentaire: "Jean-Claude MARTINEZ, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:110977"
+    url: "https://data.europarl.europa.eu/person/110977"
+    commentaire: "Florian PHILIPPOT, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:1213"
+    url: "https://data.europarl.europa.eu/person/1213"
+    commentaire: "Jean-François HORY, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
+  - id: "parlement-europeen:1159"
+    url: "https://data.europarl.europa.eu/person/1159"
+    commentaire: "Max SIMEONI, notice de député européen dans les données ouvertes du Parlement européen"
+    consultee_le: 2026-09-21
