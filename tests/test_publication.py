@@ -325,6 +325,18 @@ class TestParrainages:
                 )
             assert publies == len(lire(source)), election
 
+    def test_aucune_presentation_ne_perd_son_mandat(self, destination):
+        """Le vocabulaire couvre les 60 723 présentations, sans exception.
+
+        Le champ est facultatif au schéma, parce qu'une source pourrait un jour
+        ne pas donner la qualité de l'élu. Aucune ne le fait à ce jour, et une
+        graphie inédite qui passerait au travers des règles doit se voir en revue
+        plutôt que de vider silencieusement le champ.
+        """
+        for chemin in (destination / ELECTIONS_DIR).glob("*/candidats/*/parrainages.json"):
+            sans = [p for p in _charge(chemin)["parrainages"] if "mandat" not in p]
+            assert not sans, (chemin, sans[:3])
+
     def test_un_non_candidat_connu_du_registre_porte_son_identifiant(self, destination):
         """François HOLLANDE a reçu des présentations sans être candidat."""
         publie = _charge(

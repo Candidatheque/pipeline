@@ -28,6 +28,7 @@ from __future__ import annotations
 from collections.abc import Iterable, Iterator, Mapping
 
 from candidatheque.pipeline.lecture.parrainages import Parrainage
+from candidatheque.pipeline.publication.mandats import normaliser as normaliser_mandat
 from candidatheque.pipeline.seeds import Source
 from candidatheque.pipeline.seeds.parrainages import SourceParrainages
 
@@ -54,10 +55,11 @@ def _presentation_publiee(parrainage: Parrainage) -> dict:
     entree["nom"] = parrainage.nom
     if parrainage.prenom:
         entree["prenom"] = parrainage.prenom
-    if parrainage.mandat:
-        entree["mandat"] = parrainage.mandat
-    if parrainage.circonscription:
-        entree["circonscription"] = parrainage.circonscription
+    mandat, ressort = normaliser_mandat(parrainage.mandat, parrainage.circonscription)
+    if mandat:
+        entree["mandat"] = mandat
+    if ressort:
+        entree["circonscription"] = ressort
     if parrainage.departement:
         entree["departement"] = parrainage.departement
     if parrainage.publie_le:

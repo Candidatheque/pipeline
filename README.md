@@ -316,6 +316,43 @@ depuis 2017 le Conseil publie par vagues pendant la campagne, et répéter la
 décision sur chacune des 3 635 présentations de Fillon pèserait plus que les
 données. La référence reste résoluble dans le même fichier.
 
+### Le mandat de l'élu
+
+Le champ `mandat` porte un code d'un vocabulaire fixe, et non le libellé de la
+source. Quarante ans de publications écrivent le même mandat de dix façons :
+`maire` sous la plume du Journal officiel, `Maire` sous celle du Conseil
+constitutionnel ; `Conseiller/ère départemental-e` en 2017, puis `Conseiller
+départemental` et `Conseillère départementale` en 2022. Compter les maires sur
+l'ensemble des scrutins demandait de refaire ce tri, et chacun l'aurait refait
+différemment.
+
+Le découpage est celui du jeu de données de 2022 du Conseil constitutionnel, le
+plus récent : ses 29 catégories se retrouvent ici une pour une, les onze codes
+de moins n'étant que ses doublets masculin/féminin. Les codes supplémentaires
+sont des mandats que 2022 ne pouvait pas connaître — `conseiller-general`,
+supprimé en 2015, ou `membre-csfe`, le Conseil supérieur des Français de
+l'étranger d'avant 2004.
+
+Un renommage n'est pas une variante de graphie. Le conseiller général et le
+conseiller départemental sont le même siège sous deux noms, mais la bascule a
+une date : les confondre ferait disparaître une réforme d'un jeu de données
+historique, et qui compte les conseillers généraux en 2022 doit trouver zéro.
+Ils gardent donc deux codes, comme les trois âges de l'Assemblée des Français
+de l'étranger.
+
+Le mandat se lit avec son ressort. Le Journal officiel écrit `conseiller` tout
+court et met `Paris` dans le champ d'à côté ; `membre élu` et `C.S.F.E.`. Les
+354 présentations qui paraissaient tronquées ne l'étaient pas : l'information
+était passée dans l'autre champ. Inversement, 2017 nomme la collectivité dans le
+libellé — `Membre de l'assemblée de Guyane` — là où 2022 range les six assemblées
+d'outre-mer sous une catégorie unique. Le code suit 2022, et la collectivité
+passe dans le ressort : rien de ce que 2017 disait n'est perdu. La Corse reste à
+part, étant métropolitaine, et le congrès de Nouvelle-Calédonie aussi, étant une
+autre institution qu'une assemblée de province.
+
+Les 60 723 présentations portent toutes un code ; un test le vérifie, pour
+qu'une graphie inédite se voie en revue plutôt que de vider le champ en silence.
+
 Recevoir un parrainage ne fait pas de vous un candidat. Thomas PESQUET et
 Édouard PHILIPPE en ont reçu en 2022, François HOLLANDE en 2017 et en 2022,
 sans jamais se présenter. Les écarter publierait un total faux ; leur donner un
@@ -438,12 +475,6 @@ signalées en commentaire dans `seeds/personnes.yaml`.
 
 Rien ne collecte : les candidatures ont été extraites en une fois et sont
 maintenues à la main. Une élection à venir demandera un collecteur.
-
-Le vocabulaire des mandats n'est pas normalisé : la source écrit `maire` avant
-2017, `Maire` ensuite, et 2017 donne `Conseiller/ère départemental-e` là où 2022
-donne `Conseillère départementale`. Normaliser demanderait de décider ce qui est
-la même chose, ce qui n'est pas anodin ; publier tel quel laisse ce choix au
-consommateur.
 
 Le département est publié tel que la source l'écrit : un numéro jusqu'en 2007,
 un nom ensuite. Même raisonnement.

@@ -90,8 +90,35 @@
         },
         "mandat": {
           "type": "string",
-          "description": "Le mandat qui rend l'élu habilité à présenter un candidat.",
-          "examples": ["maire", "conseiller général", "sénateur", "Maire"]
+          "description": "Le mandat qui rend l'élu habilité à présenter un candidat, en vocabulaire fixe. Les sources écrivent le même mandat de plusieurs façons selon l'année — « maire » et « Maire », « Conseiller/ère départemental-e » en 2017, « Conseiller départemental » et « Conseillère départementale » en 2022 — et ces graphies sont ramenées à un code. Le découpage est celui du jeu de données de 2022 du Conseil constitutionnel, dont les 29 catégories se retrouvent ici une pour une. Un mandat que la loi a renommé garde en revanche son code d'époque : le conseiller général est devenu départemental en 2015, et les confondre effacerait la réforme.",
+          "enum": [
+            "conseiller-afe",
+            "conseiller-departemental",
+            "conseiller-general",
+            "conseiller-metropolitain-lyon",
+            "conseiller-paris",
+            "conseiller-regional",
+            "conseiller-territorial",
+            "conseiller-territorial-com",
+            "depute",
+            "maire",
+            "maire-arrondissement",
+            "maire-delegue",
+            "membre-afe",
+            "membre-assemblee-corse",
+            "membre-assemblee-outre-mer",
+            "membre-congres-nouvelle-caledonie",
+            "membre-csfe",
+            "president-communaute",
+            "president-conseil-consulaire",
+            "president-conseil-executif-martinique",
+            "president-epci",
+            "president-gouvernement-nouvelle-caledonie",
+            "president-metropole",
+            "president-polynesie",
+            "representant-parlement-europeen",
+            "senateur"
+          ]
         },
         "circonscription": {
           "type": "string",
