@@ -21,8 +21,8 @@ def _depute(debut="1967-04-03", fin="1967-05-07", **champs):
 def test_le_seed_du_depot_est_valide():
     parcours = load_fonctions()
     chirac = next(p for p in parcours if p.personne == "PE-0030")
-    assert len(chirac.fonctions) == 9
-    assert {o.fonction for o in chirac.fonctions} == {Fonction.DEPUTE}
+    assert len(chirac.fonctions) == 10
+    assert {o.fonction for o in chirac.fonctions} == {Fonction.DEPUTE, Fonction.DEPUTE_EUROPEEN}
     assert chirac.fonctions[-1].fin == dt.date(1995, 5, 16)
     assert sum(len(p.fonctions) for p in parcours) == 357
 

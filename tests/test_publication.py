@@ -241,11 +241,11 @@ def _parcours_de_chirac(destination, election):
 
 def test_le_parcours_s_arrete_au_premier_tour(destination):
     """En 1981, Chirac a été député cinq fois ; les mandats de 1981 à 1995 n'existent pas encore."""
-    publies = _parcours_de_chirac(destination, "PR-1981")
+    publies = [f for f in _parcours_de_chirac(destination, "PR-1981") if f["fonction"] == "depute"]
     assert [f["debut"] for f in publies] == [
         "1967-04-03", "1968-07-11", "1973-04-02", "1976-11-14", "1978-04-03",
     ]
-    assert all(f["fonction"] == "depute" and f["ressort"] == "Corrèze" for f in publies)
+    assert all(f["ressort"] == "Corrèze" for f in publies)
 
 
 def test_une_fonction_en_cours_ne_dit_pas_quand_elle_finira(destination):
