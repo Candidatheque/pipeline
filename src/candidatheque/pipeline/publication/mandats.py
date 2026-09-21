@@ -198,6 +198,23 @@ TERRITOIRE_IMPLICITE = frozenset(
         "president-conseil-executif-martinique",
     }
 )
+#: Les mandats dont le ressort est une collectivité entière, et non une commune
+#: ou un canton. Pour eux, un territoire qui tombe sur le même code que le
+#: département ne fait que le redire : « Guyane » n'ajoute rien à « 973 ».
+#:
+#: La liste est explicite plutôt que déduite, parce que la règle générale
+#: mutilerait les autres : le maire de MAYENNE est maire d'une commune de la
+#: Mayenne, et son territoire nomme la commune, pas le département.
+RESSORT_EST_UNE_COLLECTIVITE = frozenset(
+    {
+        "membre-assemblee-outre-mer",
+        "conseiller-regional",
+        "conseiller-territorial",
+        "conseiller-territorial-com",
+        "senateur",
+    }
+)
+
 #: Les mandats dont le département découle du mandat lui-même. Un conseiller de
 #: Paris est élu à Paris ; le Journal officiel d'avant 1988 ne le précise pas,
 #: mais ce n'est pas une déduction hasardeuse, c'est la définition du mandat.

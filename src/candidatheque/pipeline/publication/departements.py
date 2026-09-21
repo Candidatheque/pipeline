@@ -34,6 +34,17 @@ from candidatheque.pipeline.seeds.departements import load_corrections, load_dep
 #: Parlement européen, que le Journal officiel dit « de nationalité française et
 #: élus en France ». Le mandat les distingue déjà.
 HORS_DEPARTEMENT = frozenset({"97A", "97B", "98", "99"})
+#: Les ressorts qui couvrent deux collectivités, et qu'aucun code unique ne
+#: désigne. Saint-Barthélemy et Saint-Martin, codes 977 et 978, partagent une
+#: circonscription législative, et le Conseil constitutionnel écrit les deux
+#: noms dans le champ du département — « Saint-Martin/Saint-Barthélemy ». Y
+#: choisir un code affirmerait une précision qu'il ne donne pas ; le nom passe
+#: donc au territoire, où il se lit sans ambiguïté.
+RESSORTS_PARTAGES = {
+    "saintmartinsaintbarthelemy": "Saint-Barthélemy et Saint-Martin",
+    "saintbarthelemysaintmartin": "Saint-Barthélemy et Saint-Martin",
+}
+
 #: Les mêmes, écrits en toutes lettres par les jeux de 2017 et 2022, qui ont
 #: abandonné les numéros. 386 présentations, toutes sans département réel.
 HORS_DEPARTEMENT_EN_TOUTES_LETTRES = frozenset(
@@ -77,6 +88,11 @@ def _tables() -> tuple[dict[str, str], dict[str, str], dict[str, tuple[str, int]
             anciens[ancien.code] = (departement.code, ancien.jusqu_en)
     corriges = {_plat(c.brut): c.code for c in load_corrections()}
     return par_nom, par_code, anciens, corriges
+
+
+def ressort_partage(brut: str | None) -> str | None:
+    """Le nom du ressort quand il couvre deux collectivités, sinon None."""
+    return RESSORTS_PARTAGES.get(_plat(brut)) if brut else None
 
 
 def normaliser(brut: str | None, annee: int) -> str | None:

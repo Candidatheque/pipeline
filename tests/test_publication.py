@@ -356,6 +356,44 @@ class TestParrainages:
             ]
             assert not autres, (chemin, autres[:3])
 
+    def test_le_territoire_ne_redit_pas_le_departement(self, destination):
+        """« Guyane » n'ajoute rien à « 973 » quand le ressort est la collectivité.
+
+        Le maire de MAYENNE fait exception, et c'est voulu : son territoire
+        nomme la commune, non le département du même nom.
+        """
+        from candidatheque.pipeline.publication.departements import normaliser
+
+        for chemin in (destination / ELECTIONS_DIR).glob("*/candidats/*/parrainages.json"):
+            publie = _charge(chemin)
+            annee = int(publie["election"].rsplit("-", 1)[1])
+            redites = [
+                p
+                for p in publie["parrainages"]
+                if p.get("mandat") in {"membre-assemblee-outre-mer", "conseiller-regional"}
+                and "territoire" in p
+                and "departement" in p
+                and normaliser(p["territoire"], annee) == p["departement"]
+            ]
+            assert not redites, (chemin, redites[:3])
+
+    def test_un_ressort_a_cheval_sur_deux_collectivites_n_a_pas_de_departement(
+        self, destination
+    ):
+        """Saint-Barthélemy et Saint-Martin partagent une circonscription.
+
+        Leurs codes sont 977 et 978 ; en choisir un affirmerait une précision
+        que le Conseil constitutionnel ne donne pas, lui qui écrit les deux
+        noms. Le nom va au territoire, le département reste vide.
+        """
+        trouves = 0
+        for chemin in (destination / ELECTIONS_DIR).glob("*/candidats/*/parrainages.json"):
+            for p in _charge(chemin)["parrainages"]:
+                if p.get("territoire") == "Saint-Barthélemy et Saint-Martin":
+                    trouves += 1
+                    assert "departement" not in p, p
+        assert trouves == 2
+
     def test_un_non_candidat_connu_du_registre_porte_son_identifiant(self, destination):
         """François HOLLANDE a reçu des présentations sans être candidat."""
         publie = _charge(

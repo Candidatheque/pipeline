@@ -30,7 +30,11 @@ from collections.abc import Iterable, Iterator, Mapping
 
 from candidatheque.pipeline.lecture.parrainages import Parrainage
 from candidatheque.pipeline.publication.departements import normaliser as normaliser_departement
-from candidatheque.pipeline.publication.mandats import DEPARTEMENT_IMPLICITE
+from candidatheque.pipeline.publication.departements import ressort_partage
+from candidatheque.pipeline.publication.mandats import (
+    DEPARTEMENT_IMPLICITE,
+    RESSORT_EST_UNE_COLLECTIVITE,
+)
 from candidatheque.pipeline.publication.mandats import normaliser as normaliser_mandat
 from candidatheque.pipeline.seeds import Source
 from candidatheque.pipeline.seeds.parrainages import SourceParrainages
@@ -95,11 +99,24 @@ def _presentation_publiee(parrainage: Parrainage, annee: int) -> dict:
 
     if qualite.mandat:
         entree["mandat"] = qualite.mandat
-    if territoire and not numero:
+    # Un ressort à cheval sur deux collectivités n'a pas de code : son nom va au
+    # territoire, qui était vide, plutôt que de se perdre.
+    territoire = territoire or ressort_partage(brut)
+    if territoire:
         entree["territoire"] = territoire
     if qualite.circonscription is not None:
         entree["circonscription"] = qualite.circonscription
     departement = normaliser_departement(brut, annee) or DEPARTEMENT_IMPLICITE.get(qualite.mandat)
+    # Un territoire qui tombe sur le même code que le département ne fait que le
+    # redire, là où le ressort est une collectivité entière : « Guyane »
+    # n'ajoute rien à « 973 », et 35 présentations identiques s'en passent déjà.
+    if (
+        departement
+        and qualite.mandat in RESSORT_EST_UNE_COLLECTIVITE
+        and entree.get("territoire")
+        and normaliser_departement(entree["territoire"], annee) == departement
+    ):
+        del entree["territoire"]
     if departement:
         entree["departement"] = departement
     if parrainage.publie_le:

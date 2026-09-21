@@ -366,8 +366,18 @@ communauté, la ville où siège un conseil consulaire. Le type n'y figure jamai
 le mandat le portant déjà : `RABAT`, et non « Conseil supérieur des Français de
 l'étranger de RABAT » ; `CONFOLENTAIS`, et non « communauté de communes du
 CONFOLENTAIS ». Le champ est absent quand le code nomme déjà la collectivité,
-comme `membre-assemblee-corse` — contrairement à `membre-assemblee-outre-mer`,
-où le territoire est la seule mention de la Guyane ou de Wallis-et-Futuna.
+comme `membre-assemblee-corse`. Il l'est aussi quand le département la nomme :
+« Guyane » n'ajoute rien à « 973 », et le territoire ne subsiste, pour une
+assemblée d'outre-mer, que sur la présentation où le département manque. Cette
+règle ne vaut que pour les mandats dont le ressort est une collectivité
+entière : le maire de MAYENNE est maire d'une commune de la Mayenne, et son
+territoire nomme la commune.
+
+Un ressort peut enfin couvrir deux collectivités. Saint-Barthélemy et
+Saint-Martin, codes 977 et 978, partagent une circonscription législative, et le
+Conseil constitutionnel écrit les deux noms dans le champ du département. En
+choisir un affirmerait une précision qu'il ne donne pas : le nom va au
+territoire, et le département reste vide.
 
 Les motifs de redite sont explicites, jamais génériques. Près de 2 800 communes
 s'ouvrent sur `LE`, `LA` ou `VILLE` — `LE THOUR`, `VILLEDOUX` —, et un
